@@ -1,8 +1,7 @@
 import React from 'react'
-import data from '../reactable.json'
 
 const Table = (props) => {
-  const items = data
+  const { filteredItems } = props
   return (
     <div>
       <h1> Table </h1>
@@ -19,8 +18,8 @@ const Table = (props) => {
           </tr>
         </thead>
       <tbody>
-        { items.map(item =>
-          <tr>
+        { filteredItems.map(item =>
+          <tr key={item.id}>
             <td>{ item.id }</td>
             <td>{ item.first_name }</td>
             <td>{ item.last_name }</td>

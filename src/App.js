@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import logo from './logo.svg';
 import './App.css';
-import Table from './components/table';
+import Table from './containers/table';
+import data from './reactable.json'
+import { setItems } from './actions/items_actions'
+
 
 class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(setItems(data))
+  }
+
   render() {
     return (
       <div className="App">
@@ -20,4 +29,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  items: state.items,
+})
+
+export default connect(mapStateToProps)(App)
