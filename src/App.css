@@ -1,24 +1,27 @@
-.App {
-  text-align: center;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: monospace;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+table th {
+  background-color: #e2e2e2;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #999;
+  height: 30px;
+  padding: 0 5px;
+  text-align: left;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 120px;
-  color: white;
+table td {
+  border: 1px solid #ccc;
+  height: 30px;
+  padding: 0 5px;
+  text-align: left;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(180deg); }
+table tr:nth-child(even) td {
+  background-color: #f2f2f2
 }

@@ -4,7 +4,7 @@ const Table = (props) => {
   const { filteredItems } = props
   return (
     <div>
-      <h1> Table </h1>
+      <h1> ReacTable </h1>
       <table>
         <thead>
           <tr>
@@ -17,19 +17,19 @@ const Table = (props) => {
             <th>Active</th>
           </tr>
         </thead>
-      <tbody>
-        { filteredItems.map(item =>
-          <tr key={item.id}>
-            <td>{ item.id }</td>
-            <td>{ item.first_name }</td>
-            <td>{ item.last_name }</td>
-            <td>{ item.email }</td>
-            <td>{ item.gender }</td>
-            <td>{ item.date_of_birth }</td>
-            <td>{ item.active.toString() }</td>
-          </tr>
-        )}
-      </tbody>
+        <tbody>
+          { filteredItems.map(item =>
+            <tr key={item.id}>
+              <td>{ item.id }</td>
+              <td>{ item.first_name }</td>
+              <td>{ item.last_name }</td>
+              <td>{ item.email }</td>
+              <td>{ item.gender }</td>
+              <td>{ item.date_of_birth }</td>
+              <td>{ item.active.toString() }</td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   )
