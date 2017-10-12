@@ -12,6 +12,7 @@ const Table = (props) => {
       <table>
         <thead>
           <tr>
+            <th>Offset</th>
             <th>ID</th>
             <th>First name</th>
             <th>Last name</th>
@@ -24,6 +25,7 @@ const Table = (props) => {
         <tbody>
           { currentItems.map(item =>
             <tr key={item.id}>
+              <td>{ item._index }</td>
               <td>{ item.id }</td>
               <td>{ item.first_name }</td>
               <td>{ item.last_name }</td>
