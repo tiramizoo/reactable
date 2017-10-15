@@ -1,4 +1,4 @@
-import { SET_ITEMS, NEXT_ITEM, PREVIOUS_ITEM } from '../actions/items_actions'
+import { SET_ITEMS, NEXT_ITEM, PREVIOUS_ITEM, CHANGE_OFFSET } from '../actions/items_actions'
 
 function current_items(state = [], action) {
   switch (action.type) {
@@ -16,6 +16,10 @@ function current_items(state = [], action) {
         return action.filtered.slice(0,20)
       }
       return action.filtered.slice(firstIndex - 1, firstIndex + 19)
+    case CHANGE_OFFSET:
+      const offset = parseInt(action.offset)
+      const limit = parseInt(action.limit)
+      return action.filtered.slice(offset, offset + limit)
     default:
       return state
   }
