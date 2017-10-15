@@ -15,13 +15,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
   {
-    nextItem: (filtered, currentItems) => {
+    nextItem: (filtered, currentItems, limit) => {
       const lastItem = last(currentItems)
-      dispatch(nextItem(filtered, lastItem))
+      dispatch(nextItem(filtered, lastItem, limit))
     },
-    prevousItem: (filtered, currentItems) => {
+    prevousItem: (filtered, currentItems, limit) => {
       const firstItem = first(currentItems)
-      dispatch(prevousItem(filtered, firstItem))
+      dispatch(prevousItem(filtered, firstItem, limit))
     },
     changeOffset: (filtered, offset, limit) => {
       dispatch(changeOffset(filtered, offset, limit))

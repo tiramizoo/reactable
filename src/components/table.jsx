@@ -18,8 +18,8 @@ const Table = (props) => {
     <div>
       <h1> ReacTable </h1>
       <div>
-        <button onClick={() => nextItem(filteredItems, currentItems)}> +1 </button>
-        <button onClick={() => prevousItem(filteredItems, currentItems)}> -1 </button>
+        <button onClick={() => nextItem(filteredItems, currentItems, limit)}> +1 </button>
+        <button onClick={() => prevousItem(filteredItems, currentItems, limit)}> -1 </button>
         <h3>{ currentItems.length } / { items.length } </h3>
         <h3>Limit: {limit}</h3>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" min="1" /></span>

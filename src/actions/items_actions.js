@@ -16,19 +16,21 @@ export function setItems(items) {
   }
 }
 
-export function nextItem(filtered, lastItem) {
+export function nextItem(filtered, lastItem, limit) {
   return {
     type: NEXT_ITEM,
     filtered,
     lastItem,
+    limit,
   }
 }
 
-export function prevousItem(filtered, firstItem) {
+export function prevousItem(filtered, firstItem, limit) {
   return {
     type: PREVIOUS_ITEM,
     filtered,
     firstItem,
+    limit,
   }
 }
 
