@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import last from 'lodash/last'
 import first from 'lodash/first'
+
 import TableComponent from '../components/table'
 import { nextItem, previousItem, changeOffset, setLimit, setOffset } from '../actions/items_actions'
 
@@ -19,7 +20,7 @@ const mapDispatchToProps = dispatch => (
       const lastItem = last(currentItems)
       dispatch(nextItem(filtered, lastItem, limit))
     },
-    prevousItem: (filtered, currentItems, limit) => {
+    previousItem: (filtered, currentItems, limit) => {
       const firstItem = first(currentItems)
       dispatch(previousItem(filtered, firstItem, limit))
     },

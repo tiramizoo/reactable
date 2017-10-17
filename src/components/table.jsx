@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Table = (props) => {
   const {
     filteredItems, currentItems, nextItem, previousItem, items, changeOffset,
@@ -17,8 +16,10 @@ const Table = (props) => {
     changeOffset(filteredItems, offset, e.target.value)
   }
 
-  const scrollContent = (proxy, e) => {
-    let newOffset = (proxy.nativeEvent.deltaY > 0) ?
+  const scrollContent = (e) => {
+    e.preventDefault()
+
+    let newOffset = (e.nativeEvent.deltaY > 0) ?
       Math.min(offset + 1, 1000 - limit) :
       Math.max(offset - 1, 0)
 
