@@ -25,7 +25,7 @@ export function nextItem(filtered, lastItem, limit) {
   }
 }
 
-export function prevousItem(filtered, firstItem, limit) {
+export function previousItem(filtered, firstItem, limit) {
   return {
     type: PREVIOUS_ITEM,
     filtered,

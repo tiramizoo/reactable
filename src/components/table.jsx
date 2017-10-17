@@ -1,17 +1,29 @@
 import React from 'react'
 
+
 const Table = (props) => {
   const {
-    filteredItems, currentItems, nextItem, prevousItem, items, changeOffset,
+    filteredItems, currentItems, nextItem, previousItem, items, changeOffset,
     setLimit, limit, setOffset, offset,
   } = props
+
   const updateOffset = (e) => {
     setOffset(e.target.value)
     changeOffset(filteredItems, e.target.value, limit)
   }
+
   const updateLimit = (e) => {
     setLimit(e.target.value)
     changeOffset(filteredItems, offset, e.target.value)
+  }
+
+  const scrollContent = (proxy, e) => {
+    let newOffset = (proxy.nativeEvent.deltaY > 0) ?
+      Math.min(offset + 1, 1000 - limit) :
+      Math.max(offset - 1, 0)
+
+    setOffset(newOffset)
+    changeOffset(filteredItems, offset, limit)
   }
 
   return (
@@ -19,7 +31,7 @@ const Table = (props) => {
       <h1> ReacTable </h1>
       <div>
         <button onClick={() => nextItem(filteredItems, currentItems, limit)}> +1 </button>
-        <button onClick={() => prevousItem(filteredItems, currentItems, limit)}> -1 </button>
+        <button onClick={() => previousItem(filteredItems, currentItems, limit)}> -1 </button>
         <h3>{ currentItems.length } / { items.length } </h3>
         <h3>Limit: {limit}</h3>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" min="1" /></span>
@@ -38,7 +50,7 @@ const Table = (props) => {
             <th>Active</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody onWheel={scrollContent}>
           { currentItems.map(item =>
             <tr key={item.id}>
               <td>{ item._index }</td>
