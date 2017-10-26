@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
-import TableComponent from '../components/table'
-import { setOffset, updateViewport } from '../actions/items_actions'
+import ControlComponent from '../components/control'
+import { setLimit, setOffset, updateViewport } from '../actions/items_actions'
 
 
 const mapStateToProps = state => ({
@@ -13,6 +13,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
   {
+    setLimit: (limit) => {
+      dispatch(setLimit(limit))
+    },
     setOffset: (offset) => {
       dispatch(setOffset(offset))
     },
@@ -22,8 +25,8 @@ const mapDispatchToProps = dispatch => (
   }
 )
 
-const Table = connect(
+const Control = connect(
   mapStateToProps, mapDispatchToProps,
-)(TableComponent)
+)(ControlComponent)
 
-export default Table
+export default Control

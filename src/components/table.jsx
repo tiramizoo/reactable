@@ -2,42 +2,25 @@ import React from 'react'
 
 const Table = (props) => {
   const {
-    filteredItems, currentItems, nextItem, previousItem, items, changeOffset,
-    setLimit, limit, setOffset, offset,
+    items, currentItems,
+    limit, offset, setOffset, updateViewport
   } = props
-
-  const updateOffset = (e) => {
-    setOffset(e.target.value)
-    changeOffset(filteredItems, e.target.value, limit)
-  }
-
-  const updateLimit = (e) => {
-    setLimit(e.target.value)
-    changeOffset(filteredItems, offset, e.target.value)
-  }
 
   const scrollContent = (e) => {
     e.preventDefault()
 
-    let newOffset = (e.nativeEvent.deltaY > 0) ?
-      Math.min(offset + 1, 1000 - limit) :
-      Math.max(offset - 1, 0)
+    if (e.nativeEvent.deltaY !== 0) {
+      let newOffset = (e.nativeEvent.deltaY > 0) ?
+        Math.min(offset + 1, items.length - limit) :
+        Math.max(offset - 1, 0)
 
-    setOffset(newOffset)
-    changeOffset(filteredItems, offset, limit)
+      setOffset(newOffset)
+      updateViewport(items, limit, newOffset)
+    }
   }
 
   return (
     <div>
-      <h1> ReacTable </h1>
-      <div>
-        <button onClick={() => nextItem(filteredItems, currentItems, limit)}> +1 </button>
-        <button onClick={() => previousItem(filteredItems, currentItems, limit)}> -1 </button>
-        <h3>{ currentItems.length } / { items.length } </h3>
-        <h3>Limit: {limit}</h3>
-        <span> Limit: <input onChange={updateLimit} value={limit} type="number" min="1" /></span>
-        <span> Offset: <input onChange={updateOffset} value={offset} type="number" min="0" /></span>
-      </div>
       <table>
         <thead>
           <tr>

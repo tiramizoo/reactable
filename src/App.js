@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import './App.css';
+import Control from './containers/control';
 import Table from './containers/table';
-import data from './reactable.json'
-import { setItems } from './actions/items_actions'
+import ScrollBar from './containers/scroll_bar';
 
+
+import items from './data-1000.json'
+import { setItems, setLimit, setOffset, updateViewport } from './actions/items_actions'
+
+const limit  = 20
+const offset = 0
 
 class App extends Component {
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(setItems(data))
+    dispatch(setLimit(limit))
+    dispatch(setOffset(offset))
+
+    dispatch(setItems(items))
+    dispatch(updateViewport(items, limit, offset))
   }
 
   render() {
     return (
-      <div className="App">
-        <Table />
+      <div className='App'>
+        <Control />
+        <div className='reactable'>
+          <Table />
+          <ScrollBar />
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  items: state.items,
 })
 
 export default connect(mapStateToProps)(App)

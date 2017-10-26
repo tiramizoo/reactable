@@ -1,5 +1,21 @@
-table {
-  width: 800px  ;
+.reactable {
+  position: relative;
+}
+
+.reactable .scroll-bar {
+  width: 10px;
+  position: absolute;
+  right: 0;
+}
+
+.reactable .scroll-bar .scroll-bar-handle {
+  width: 10px;
+  position: absolute;
+  background: #888;
+}
+
+.reactable table {
+  width: 100%;
   border-collapse: collapse;
   font-size: 12px;
   font-family: monospace;
@@ -7,21 +23,15 @@ table {
 
 table th {
   background-color: #e2e2e2;
-  padding: 0 5px;
-  border: 1px solid #ccc;
-  border-bottom: 2px solid #999;
   height: 30px;
   padding: 0 5px;
   text-align: left;
 }
 
 table td {
-  border: 1px solid #ccc;
   height: 30px;
   padding: 0 5px;
   text-align: left;
-  min-width: 100px;
-  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
