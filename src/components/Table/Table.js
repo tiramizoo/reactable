@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 
-import TableComponent from '../components/table'
-import { setOffset, updateViewport } from '../actions/items_actions'
-
+import TableComponent from './Table.jsx'
+import { setOffset, updateViewport } from '../../actions/items_actions'
 
 const mapStateToProps = state => ({
   items: state.items,
@@ -18,7 +17,7 @@ const mapDispatchToProps = dispatch => (
     },
     updateViewport: (items, limit, offset) => {
       dispatch(updateViewport(items, limit, offset))
-    }
+    },
   }
 )
 

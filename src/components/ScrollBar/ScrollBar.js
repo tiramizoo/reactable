@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ScrollBarComponent from '../components/scroll_bar'
+import ScrollBarComponent from './ScrollBar.jsx'
 
 // 30 is row height
 const mapStateToProps = state => ({

@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 
-import ControlComponent from '../components/control'
-import { setLimit, setOffset, updateViewport } from '../actions/items_actions'
-
+import ControlComponent from './Control.jsx'
+import { setLimit, setOffset, updateViewport } from '../../actions/items_actions'
 
 const mapStateToProps = state => ({
   items: state.items,
@@ -21,12 +20,10 @@ const mapDispatchToProps = dispatch => (
     },
     updateViewport: (items, limit, offset) => {
       dispatch(updateViewport(items, limit, offset))
-    }
+    },
   }
 )
 
-const Control = connect(
-  mapStateToProps, mapDispatchToProps,
-)(ControlComponent)
+const Control = connect(mapStateToProps, mapDispatchToProps)(ControlComponent)
 
 export default Control

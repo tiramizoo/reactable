@@ -3,7 +3,7 @@ import React from 'react'
 const Table = (props) => {
   const {
     items, currentItems,
-    limit, offset, setOffset, updateViewport
+    limit, offset, setOffset, updateViewport,
   } = props
 
   const scrollContent = (e) => {
