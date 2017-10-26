@@ -6,7 +6,7 @@ import Table from './components/Table'
 import ScrollBar from './components/ScrollBar'
 
 import items from './data-1000.json'
-import { setItems, setLimit, setOffset, updateViewport } from './actions/items_actions'
+import { setItems, setLimit, setOffset, updateViewport } from './actions/items'
 
 const limit = 20
 const offset = 0

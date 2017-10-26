@@ -1,4 +1,4 @@
-import { SET_ITEMS } from '../actions/items_actions'
+import { SET_ITEMS } from '../actions/items'
 
 function items(state = [], action) {
   switch (action.type) {

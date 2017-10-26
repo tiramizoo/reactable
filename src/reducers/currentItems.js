@@ -1,6 +1,6 @@
-import { UPDATE_VIEWPORT } from '../actions/items_actions'
+import { UPDATE_VIEWPORT } from '../actions/items'
 
-function current_items(state = [], action) {
+function currentItems(state = [], action) {
   switch (action.type) {
     case UPDATE_VIEWPORT:
       return action.items.slice(action.offset, action.offset + action.limit)
@@ -9,4 +9,4 @@ function current_items(state = [], action) {
   }
 }
 
-export default current_items
+export default currentItems

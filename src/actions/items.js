@@ -1,11 +1,7 @@
-export const SET_ITEMS       = 'SET_ITEMS'
-export const SET_OFFSET      = 'SET_OFFSET'
-export const SET_LIMIT       = 'SET_LIMIT'
+export const SET_ITEMS = 'SET_ITEMS'
+export const SET_OFFSET = 'SET_OFFSET'
+export const SET_LIMIT = 'SET_LIMIT'
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
-
-/*
- * action creators
- */
 
 export function setItems(items) {
   return {
@@ -33,6 +29,6 @@ export function updateViewport(items, limit, offset) {
     type: UPDATE_VIEWPORT,
     items,
     limit,
-    offset
+    offset,
   }
 }

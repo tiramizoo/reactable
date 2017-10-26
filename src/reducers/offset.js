@@ -1,4 +1,4 @@
-import { SET_OFFSET } from '../actions/items_actions'
+import { SET_OFFSET } from '../actions/items'
 
 function offset(state = 0, action) {
   switch (action.type) {

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 
 import ControlComponent from './Control.jsx'
-import { setLimit, setOffset, updateViewport } from '../../actions/items_actions'
+import { setLimit, setOffset, updateViewport } from '../../actions/items'
 
 const mapStateToProps = state => ({
   items: state.items,
-  currentItems: state.current_items,
+  currentItems: state.currentItems,
   limit: state.limit,
   offset: state.offset,
 })

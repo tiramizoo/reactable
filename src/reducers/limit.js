@@ -1,4 +1,4 @@
-import { SET_LIMIT } from '../actions/items_actions'
+import { SET_LIMIT } from '../actions/items'
 
 function limit(state = 20, action) {
   switch (action.type) {
