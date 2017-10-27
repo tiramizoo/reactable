@@ -21,8 +21,6 @@ const mapDispatchToProps = dispatch => (
   }
 )
 
-const Table = connect(
-  mapStateToProps, mapDispatchToProps,
-)(TableComponent)
+const Table = connect(mapStateToProps, mapDispatchToProps)(TableComponent)
 
 export default Table

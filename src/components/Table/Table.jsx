@@ -10,7 +10,7 @@ const Table = (props) => {
     e.preventDefault()
 
     if (e.nativeEvent.deltaY !== 0) {
-      let newOffset = (e.nativeEvent.deltaY > 0) ?
+      const newOffset = (e.nativeEvent.deltaY > 0) ?
         Math.min(offset + 1, items.length - limit) :
         Math.max(offset - 1, 0)
 
@@ -35,7 +35,7 @@ const Table = (props) => {
           </tr>
         </thead>
         <tbody onWheel={scrollContent}>
-          { currentItems.map(item =>
+          { currentItems.map(item => (
             <tr key={item.id}>
               <td>{ item._index }</td>
               <td>{ item.id }</td>
@@ -45,8 +45,8 @@ const Table = (props) => {
               <td>{ item.gender }</td>
               <td>{ item.date_of_birth }</td>
               <td>{ item.active.toString() }</td>
-            </tr>
-          )}
+            </tr>))
+          }
         </tbody>
       </table>
     </div>
