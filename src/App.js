@@ -5,7 +5,7 @@ import Control from './components/Control'
 import Table from './components/Table'
 import ScrollBar from './components/ScrollBar'
 
-import items from './data-1000.json'
+import items from './data-100.json'
 import { setItems, setLimit, setOffset, updateViewport } from './actions/items'
 
 const limit = 20
@@ -34,6 +34,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
-
-export default connect(mapStateToProps)(App)
+export default connect(() => ({}))(App)
