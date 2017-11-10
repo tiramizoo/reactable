@@ -3,16 +3,9 @@
 }
 
 .reactable .scroll-bar {
-  width: 10px;
   position: absolute;
-  right: 0;
-  background: rgba(0, 0, 0, .05);
-}
-
-.reactable .scroll-bar .scroll-bar-handle {
-  width: 10px;
-  position: absolute;
-  background: #888;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .reactable table {

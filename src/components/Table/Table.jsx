@@ -3,52 +3,52 @@ import React from 'react'
 const Table = (props) => {
   const {
     items, currentItems,
-    limit, offset, setOffset, updateViewport,
+    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight
   } = props
 
+
   const scrollContent = (e) => {
+    e.stopPropagation()
     e.preventDefault()
 
-    if (e.nativeEvent.deltaY !== 0) {
-      const newOffset = (e.nativeEvent.deltaY > 0) ?
-        Math.min(offset + 1, items.length - limit) :
-        Math.max(offset - 1, 0)
+    const offsetMax = items.length - limit // 100 - 20 = 80
 
-      setOffset(newOffset)
-      updateViewport(items, limit, newOffset)
-    }
+    const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
+
+    const scrollTop = Math.min(scrollableHeight, e.target.scrollTop) // ios only: reject values > 2400
+
+    const newOffset = offsetMax - Math.round((scrollableHeight - Math.max(0, scrollTop)) / 30)
+
+    setOffset(newOffset)
+    updateViewport(items, limit, newOffset)
   }
+
 
   return (
     <div>
-      <table>
+      <table style={{ width: 800}}>
         <thead>
           <tr>
-            <th>Offset</th>
             <th>ID</th>
             <th>First name</th>
             <th>Last name</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>Date of birth</th>
-            <th>Active</th>
           </tr>
         </thead>
-        <tbody onWheel={scrollContent}>
+        <tbody>
           { currentItems.map(item => (
             <tr key={item.id}>
-              <td>{ item._index }</td>
               <td>{ item.id }</td>
               <td>{ item.first_name }</td>
               <td>{ item.last_name }</td>
-              <td>{ item.email }</td>
-              <td>{ item.gender }</td>
-              <td>{ item.date_of_birth }</td>
-              <td>{ item.active.toString() }</td>
             </tr>))
           }
         </tbody>
       </table>
+
+      <div className="scroll-bar" onScroll={scrollContent}  style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30}}>
+        <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight}} />
+      </div>
+
     </div>
   )
 }
