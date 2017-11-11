@@ -4,7 +4,7 @@ import './App.css'
 import Control from './components/Control'
 import Table from './components/Table'
 
-import items from './data-1000.json'
+import json from './data-1000.json'
 import { setItems, setLimit, setOffset, updateViewport } from './actions/items'
 
 const limit = 20
@@ -16,8 +16,8 @@ class App extends Component {
     dispatch(setLimit(limit))
     dispatch(setOffset(offset))
 
-    dispatch(setItems(items))
-    dispatch(updateViewport(items, limit, offset))
+    dispatch(setItems(json.data))
+    dispatch(updateViewport(json.data, limit, offset))
   }
 
   render() {
