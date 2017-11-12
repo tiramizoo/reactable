@@ -6,7 +6,7 @@ function sortByType(state, action) {
     case 'text':
       return sortByText(state, action.column, action.direction)
     case 'date':
-    case 'number':
+    case 'number', 'boolean':
       return sortBy(state, action.column, action.direction)
     default:
       return state
