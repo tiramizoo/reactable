@@ -1,0 +1,12 @@
+GEM
+  specs:
+    ffaker (2.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ffaker
+
+BUNDLED WITH
+   1.13.6
