@@ -25,6 +25,24 @@ export function sortByText(array, key, direction) {
 }
 
 
-export function sortByFloat(array, key, direction) {
-  return {}
+function compareDesc(key) {
+  return (a, b) => {
+    if (a[key] < b[key]) return 1
+    if (a[key] > b[key]) return -1
+    return 0
+  }
+}
+function compareAsc(key) {
+  return (a, b) => {
+    if (a[key] > b[key]) return 1
+    if (a[key] < b[key]) return -1
+    return 0
+  }
+}
+
+export function sortBy(array, key, direction) {
+  if (direction === 'desc') {
+    return array.sort(compareDesc(key))
+  }
+  return array.sort(compareAsc(key))
 }

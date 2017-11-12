@@ -1,10 +1,13 @@
 import { SET_ITEMS, SORT_ITEMS } from '../actions/items'
-import { sortByText } from '../helpers/sorting'
+import { sortByText, sortBy } from '../helpers/sorting'
 
 function sortByType(state, action) {
   switch (action.columnType) {
     case 'text':
       return sortByText(state, action.column, action.direction)
+    case 'date':
+    case 'number':
+      return sortBy(state, action.column, action.direction)
     default:
       return state
   }
