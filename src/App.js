@@ -6,6 +6,7 @@ import Table from './components/Table'
 
 import json from './data-1000.json'
 import { setItems, setLimit, setOffset, updateViewport } from './actions/items'
+import { setSchema } from './actions/schema'
 
 const limit = 20
 const offset = 0
@@ -18,6 +19,7 @@ class App extends Component {
 
     dispatch(setItems(json.data))
     dispatch(updateViewport(json.data, limit, offset))
+    dispatch(setSchema(json.schema))
   }
 
   render() {

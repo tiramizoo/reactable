@@ -2,7 +2,7 @@ import React from 'react'
 
 const Table = (props) => {
   const {
-    items, currentItems, sortItems,
+    items, currentItems, sortItems, schema,
     limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight
   } = props
 
@@ -23,8 +23,8 @@ const Table = (props) => {
     updateViewport(items, limit, newOffset)
   }
 
-  const sort = () => {
-    sortItems('first_name', 'text', 'desc')
+  const sort = (key) => {
+    sortItems(key, schema[key].type, 'desc')
     updateViewport(items, limit, offset)
   }
 
@@ -34,9 +34,9 @@ const Table = (props) => {
       <table style={{ width: 800 }}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th onClick={() => sort()}>First name</th>
-            <th>Last name</th>
+            { Object.keys(schema).map(key =>
+              <th key={key} onClick={() => sort(key)}>{key}</th>,
+            )}
           </tr>
         </thead>
         <tbody>
