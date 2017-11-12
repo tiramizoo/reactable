@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import TableComponent from './Table.jsx'
-import { setOffset, updateViewport } from '../../actions/items'
+import { setOffset, updateViewport, sortItems } from '../../actions/items'
 
 const rowHeight = 30
 const tableWidth = 800
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 
   scrollBarHeight: state.limit * rowHeight,
   scrollBarWidth: tableWidth,
-  scrollBarHandleHeight: state.items.length * rowHeight
+  scrollBarHandleHeight: state.items.length * rowHeight,
 })
 
 const mapDispatchToProps = dispatch => (
@@ -24,6 +24,9 @@ const mapDispatchToProps = dispatch => (
     },
     updateViewport: (items, limit, offset) => {
       dispatch(updateViewport(items, limit, offset))
+    },
+    sortItems: (column, columnType, direction) => {
+      dispatch(sortItems(column, columnType, direction))
     },
   }
 )

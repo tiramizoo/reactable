@@ -2,7 +2,7 @@ import React from 'react'
 
 const Table = (props) => {
   const {
-    items, currentItems,
+    items, currentItems, sortItems,
     limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight
   } = props
 
@@ -23,14 +23,19 @@ const Table = (props) => {
     updateViewport(items, limit, newOffset)
   }
 
+  const sort = () => {
+    sortItems('first_name', 'text', 'desc')
+    updateViewport(items, limit, offset)
+  }
+
 
   return (
     <div>
-      <table style={{ width: 800}}>
+      <table style={{ width: 800 }}>
         <thead>
           <tr>
             <th>ID</th>
-            <th>First name</th>
+            <th onClick={() => sort()}>First name</th>
             <th>Last name</th>
           </tr>
         </thead>
@@ -46,7 +51,7 @@ const Table = (props) => {
       </table>
 
       <div className="scroll-bar" onScroll={scrollContent}  style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30}}>
-        <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight}} />
+        <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
       </div>
 
     </div>
