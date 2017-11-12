@@ -2,7 +2,7 @@ import React from 'react'
 
 const Table = (props) => {
   const {
-    items, currentItems, sortItems, schema,
+    items, currentItems, sortItems, schema, setSortDirection,
     limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight
   } = props
 
@@ -23,8 +23,16 @@ const Table = (props) => {
     updateViewport(items, limit, newOffset)
   }
 
+  const toggleDirection = (key) => {
+    if (!schema[key].direction) return 'asc'
+    if (schema[key].direction === 'desc') return 'asc'
+    return 'desc'
+  }
+
   const sort = (key) => {
-    sortItems(key, schema[key].type, 'desc')
+    const direction = toggleDirection(key)
+    setSortDirection(key, direction)
+    sortItems(key, schema[key].type, direction)
     updateViewport(items, limit, offset)
   }
 
@@ -42,9 +50,9 @@ const Table = (props) => {
         <tbody>
           { currentItems.map(item => (
             <tr key={item.id}>
-              <td>{ item.id }</td>
-              <td>{ item.first_name }</td>
-              <td>{ item.last_name }</td>
+              { Object.keys(schema).map(key =>
+                <td key={key}>{ item[key] }</td>,
+              )}
             </tr>))
           }
         </tbody>
