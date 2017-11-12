@@ -20,6 +20,12 @@ task :generate_dataset, [:size] do |t, args|
       },
       "last_name": {
         "type": "text"
+      },
+      "active": {
+        "type": "boolean"
+      },
+      "date_of_birth": {
+        "type": "date"
       }
     },
     "data": args.size.to_i.times.map do |i|

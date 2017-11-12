@@ -51,7 +51,7 @@ const Table = (props) => {
           { currentItems.map(item => (
             <tr key={item.id}>
               { Object.keys(schema).map(key =>
-                <td key={key}>{ item[key] }</td>,
+                <td key={key}>{ item[key].toString() }</td>,
               )}
             </tr>))
           }
