@@ -42,16 +42,16 @@ const Table = (props) => {
       <table style={{ width: 800 }}>
         <thead>
           <tr>
-            { Object.keys(schema).map(key =>
-              <th key={key} onClick={() => sort(key)}>{key}</th>,
+            { Object.entries(schema).map(([key, keySchema]) =>
+              <th className={keySchema['type']} key={key} onClick={() => sort(key)}>{key}</th>,
             )}
           </tr>
         </thead>
         <tbody>
           { currentItems.map(item => (
             <tr key={item.id}>
-              { Object.keys(schema).map(key =>
-                <td key={key}>{ item[key].toString() }</td>,
+              { Object.entries(schema).map(([key, keySchema]) =>
+                <td className={keySchema['type']} key={key}>{ item[key].toString() }</td>,
               )}
             </tr>))
           }

@@ -13,7 +13,7 @@ task :generate_dataset, [:size] do |t, args|
   data = {
     "schema": {
       "id": {
-        "type": "number"
+        "type": "integer"
       },
       "first_name": {
         "type": "text"
@@ -42,5 +42,5 @@ task :generate_dataset, [:size] do |t, args|
     end
   }
 
-  File.write("./src/data-#{args.size}.json", data.to_json) 
+  File.write("./src/data-#{args.size}.json", data.to_json)
 end

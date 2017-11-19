@@ -30,6 +30,23 @@ table td {
   text-overflow: ellipsis;
 }
 
+table td.integer, table td.date {
+  text-align: right;
+  color: darkblue;
+}
+
+table th.integer {
+  width: 50px
+}
+
+table th.boolean {
+  width: 20px;
+}
+
+table th.date {
+  width: 80px;
+}
+
 table tr:nth-child(even) td {
   background-color: #f2f2f2
 }
