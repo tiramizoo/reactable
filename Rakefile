@@ -14,6 +14,7 @@ task :generate_dataset, [:size] do |t, args|
     "schema": {
       "id": {
         "type": "integer"
+        "width": 50
       },
       "first_name": {
         "type": "text"
@@ -22,7 +23,8 @@ task :generate_dataset, [:size] do |t, args|
         "type": "text"
       },
       "active": {
-        "type": "boolean"
+        "type": "boolean",
+        "width": 60
       },
       "date_of_birth": {
         "type": "date"

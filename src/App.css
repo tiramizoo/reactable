@@ -9,7 +9,8 @@
 }
 
 .reactable table {
-  width: 100%;
+  width: 1024px;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;
   font-family: monospace;
