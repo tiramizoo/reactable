@@ -39,7 +39,10 @@ const Table = (props) => {
 
   return (
     <div>
-      <table style={{ width: 800 }}>
+      <table>
+        { Object.keys(schema).map(key =>
+            <col key={key} width={schema[key]['width']}></col>,
+        )}
         <thead>
           <tr>
             { Object.keys(schema).map(key =>
