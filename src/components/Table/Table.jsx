@@ -3,7 +3,7 @@ import React from 'react'
 const Table = (props) => {
   const {
     items, currentItems, sortItems, schema, setSortDirection,
-    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight
+    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight, tableWidth
   } = props
 
 
@@ -39,14 +39,14 @@ const Table = (props) => {
 
   return (
     <div>
-      <table>
+      <table style={{ width: tableWidth}}>
         { Object.keys(schema).map(key =>
             <col key={key} width={schema[key]['width']}></col>,
         )}
         <thead>
           <tr>
-            { Object.keys(schema).map(key =>
-              <th key={key} onClick={() => sort(key)}>{key}</th>,
+            { Object.entries(schema).map(([key, keySchema]) =>
+              <th className={keySchema['type']} key={key} onClick={() => sort(key)}>{key}</th>,
             )}
           </tr>
         </thead>
@@ -54,7 +54,7 @@ const Table = (props) => {
           { currentItems.map(item => (
             <tr key={item.id}>
               { Object.keys(schema).map(key =>
-                <td key={key}>{ item[key].toString() }</td>,
+                <td className={ schema[key]['type'] } key={key}>{ item[key].toString() }</td>,
               )}
             </tr>))
           }

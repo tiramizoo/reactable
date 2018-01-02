@@ -9,7 +9,6 @@
 }
 
 .reactable table {
-  width: 1024px;
   table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;
@@ -29,6 +28,23 @@ table td {
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+table td.integer, table td.date, table td.datetime {
+  text-align: right;
+  color: darkblue;
+}
+
+table th.integer {
+  width: 50px
+}
+
+table th.boolean {
+  width: 20px;
+}
+
+table th.date {
+  width: 80px;
 }
 
 table tr:nth-child(even) td {
