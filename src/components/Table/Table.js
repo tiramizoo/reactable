@@ -5,7 +5,7 @@ import { setOffset, updateViewport, sortItems } from '../../actions/items'
 import { setSortDirection } from '../../actions/schema'
 
 const rowHeight = 30
-const tableWidth = 1024
+const tableWidth = 1920
 
 const mapStateToProps = state => ({
   items: state.items,
@@ -17,6 +17,7 @@ const mapStateToProps = state => ({
   scrollBarHeight: state.limit * rowHeight,
   scrollBarWidth: tableWidth,
   scrollBarHandleHeight: state.items.length * rowHeight,
+  tableWidth: tableWidth
 })
 
 const mapDispatchToProps = dispatch => (

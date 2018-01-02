@@ -9,7 +9,6 @@
 }
 
 .reactable table {
-  width: 1024px;
   table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;
@@ -31,7 +30,7 @@ table td {
   text-overflow: ellipsis;
 }
 
-table td.integer, table td.date {
+table td.integer, table td.date, table td.datetime {
   text-align: right;
   color: darkblue;
 }

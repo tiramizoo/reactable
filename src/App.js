@@ -4,7 +4,7 @@ import './App.css'
 import Control from './components/Control'
 import Table from './components/Table'
 
-import json from './data-100.json'
+import json from './data-10000.json'
 import { setItems, setLimit, setOffset, updateViewport } from './actions/items'
 import { setSchema } from './actions/schema'
 
