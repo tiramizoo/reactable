@@ -6,6 +6,7 @@ import { setLimit, setOffset, updateViewport } from '../../actions/items'
 const mapStateToProps = state => ({
   items: state.items,
   currentItems: state.currentItems,
+  filteredItems: state.filteredItems,
   limit: state.limit,
   offset: state.offset,
 })

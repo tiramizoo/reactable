@@ -10,14 +10,15 @@ const tableWidth = 1920
 const mapStateToProps = state => ({
   items: state.items,
   currentItems: state.currentItems,
+  filteredItems: state.filteredItems,
   limit: state.limit,
   offset: state.offset,
   schema: state.schema,
 
   scrollBarHeight: state.limit * rowHeight,
   scrollBarWidth: tableWidth,
-  scrollBarHandleHeight: state.items.length * rowHeight,
-  tableWidth: tableWidth
+  scrollBarHandleHeight: state.filteredItems.length * rowHeight,
+  tableWidth,
 })
 
 const mapDispatchToProps = dispatch => (

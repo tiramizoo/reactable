@@ -46,3 +46,17 @@ export function sortBy(array, key, direction) {
   }
   return array.sort(compareAsc(key))
 }
+
+export function sortByType(state, action) {
+  switch (action.columnType) {
+    case 'text':
+      return sortByText(state, action.column, action.direction)
+    case 'integer':
+    case 'float':
+    case 'date':
+    case 'boolean':
+      return sortBy(state, action.column, action.direction)
+    default:
+      return state
+  }
+}

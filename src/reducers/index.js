@@ -5,6 +5,8 @@ import currentItems from './currentItems'
 import limit from './limit'
 import offset from './offset'
 import schema from './schema'
+import search from './search'
+import filteredItems from './filteredItems'
 
 export default combineReducers({
   items,
@@ -12,4 +14,6 @@ export default combineReducers({
   limit,
   offset,
   schema,
+  search,
+  filteredItems,
 })

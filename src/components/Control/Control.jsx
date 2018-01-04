@@ -1,15 +1,16 @@
 import React from 'react'
+import SearchList from '../SearchList'
 
 const Control = (props) => {
   const {
-    items, updateViewport,
+    updateViewport, filteredItems,
     setLimit, limit, setOffset, offset,
   } = props
 
   const updateLimit = (e) => {
     const userInput = parseInt(e.target.value, 10)
     const inputValueMin = 1 // min
-    const inputValueMax = items.length // max
+    const inputValueMax = filteredItems.length // max
 
     const newLimit = (userInput > inputValueMax) ?
       inputValueMax :
@@ -19,21 +20,21 @@ const Control = (props) => {
     setOffset(newOffset)
     setLimit(newLimit)
 
-    updateViewport(items, newLimit, newOffset)
+    updateViewport(filteredItems, newLimit, newOffset)
   }
 
   const updateOffset = (e) => {
     const userInput = parseInt(e.target.value, 10)
 
     const inputValueMin = 0 // min
-    const inputValueMax = items.length - limit // max
+    const inputValueMax = filteredItems.length - limit // max
 
     const newOffset = (userInput > inputValueMax) ?
       inputValueMax :
       Math.max(inputValueMin, userInput)
 
     setOffset(newOffset)
-    updateViewport(items, limit, newOffset)
+    updateViewport(filteredItems, limit, newOffset)
   }
 
   return (
@@ -41,7 +42,10 @@ const Control = (props) => {
       <p>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" /></span>
         <span> Offset: <input onChange={updateOffset} value={offset} type="number" /></span>
-        <span> displaying records from {offset + 1} to {offset + limit} of {items.length} </span>
+        <span> displaying records from {offset + 1} to {offset + limit} of {filteredItems.length} </span>
+      </p>
+      <p>
+        <SearchList />
       </p>
 
     </div>

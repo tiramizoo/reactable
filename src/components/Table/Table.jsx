@@ -2,8 +2,9 @@ import React from 'react'
 
 const Table = (props) => {
   const {
-    items, currentItems, sortItems, schema, setSortDirection,
-    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth, scrollBarHandleHeight, tableWidth
+    currentItems, sortItems, schema, setSortDirection, filteredItems,
+    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth,
+    scrollBarHandleHeight, tableWidth,
   } = props
 
 
@@ -11,7 +12,7 @@ const Table = (props) => {
     e.stopPropagation()
     e.preventDefault()
 
-    const offsetMax = items.length - limit // 100 - 20 = 80
+    const offsetMax = filteredItems.length - limit // 100 - 20 = 80
 
     const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
 
@@ -20,7 +21,7 @@ const Table = (props) => {
     const newOffset = offsetMax - Math.round((scrollableHeight - Math.max(0, scrollTop)) / 30)
 
     setOffset(newOffset)
-    updateViewport(items, limit, newOffset)
+    updateViewport(filteredItems, limit, newOffset)
   }
 
   const toggleDirection = (key) => {
@@ -33,7 +34,7 @@ const Table = (props) => {
     const direction = toggleDirection(key)
     setSortDirection(key, direction)
     sortItems(key, schema[key].type, direction)
-    updateViewport(items, limit, offset)
+    updateViewport(filteredItems, limit, offset)
   }
 
 
