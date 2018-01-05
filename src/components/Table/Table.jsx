@@ -30,6 +30,15 @@ const Table = (props) => {
     return 'desc'
   }
 
+  const columnClassName = (key) => {
+     let classNames = [key]
+     if (schema[key].direction) {
+       classNames.push('sorted')
+       classNames.push(schema[key].direction)
+     }
+     return classNames.join(' ')
+  }
+
   const sort = (key) => {
     const direction = toggleDirection(key)
     setSortDirection(key, direction)
@@ -47,7 +56,7 @@ const Table = (props) => {
         <thead>
           <tr>
             { Object.entries(schema).map(([key, keySchema]) =>
-              <th className={keySchema['type']} key={key} onClick={() => sort(key)}>{key}</th>,
+              <th className={columnClassName(key)} key={key} onClick={() => sort(key)}>{key}</th>,
             )}
           </tr>
         </thead>

@@ -6,6 +6,9 @@ function schema(state = {}, action) {
     case SET_SCHEMA:
       return action.schema
     case SET_SORT_DIRECTION:
+      Object.keys(state).forEach((key) =>
+        delete state[key].direction
+      )
       params = Object.assign({}, state[action.key], { direction: action.direction })
       return Object.assign({}, state, { [action.key]: params })
     default:

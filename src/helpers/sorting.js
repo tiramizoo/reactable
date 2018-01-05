@@ -53,8 +53,10 @@ export function sortByType(state, action) {
       return sortByText(state, action.column, action.direction)
     case 'integer':
     case 'float':
-    case 'date':
     case 'boolean':
+    case 'date':
+    case 'time':
+    case 'datetime':
       return sortBy(state, action.column, action.direction)
     default:
       return state
