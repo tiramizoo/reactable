@@ -24,7 +24,6 @@ task :generate_dataset, [:size] do |t, args|
       },
       "active": {
         "type": "boolean",
-        "width": 60
       },
       "date_of_birth": {
         "type": "date"
@@ -48,8 +47,7 @@ task :generate_dataset, [:size] do |t, args|
         "type": "text"
       },
       "job": {
-        "type": "text",
-        "width": 200
+        "type": "text"
       },
       "created_at": {
         "type": "datetime"
@@ -70,7 +68,7 @@ task :generate_dataset, [:size] do |t, args|
         "phone_number":  FFaker::PhoneNumberDE.phone_number,
         "currency":      FFaker::Currency.code,
         "job":           FFaker::Job.title,
-        "created_at":    (Time.now - rand(1..1_000_000)).iso8601
+        "created_at":    (DateTime.now - rand(1..1_000_000)).iso8601
       }
     end
   }

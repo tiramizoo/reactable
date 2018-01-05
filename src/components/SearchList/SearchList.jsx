@@ -11,6 +11,8 @@ const SearchList = (props) => {
       case 'integer':
       case 'float':
       case 'date':
+      case 'datetime':
+      case 'time':
       case 'boolean':
         return null
       default:
@@ -19,11 +21,18 @@ const SearchList = (props) => {
   }
   return (
     <div>
-      { Object.entries(schema).map(([key, keySchema]) => (
-        <div key={key}>
-          {getSearchInput(keySchema.type, key)}
-        </div>
-      ))}
+      <table style={{ width: 1920 }}>
+        { Object.keys(schema).map(key =>
+            <col key={key} width={schema[key]['width']}></col>,
+        )}
+        <tbody>
+          <tr>
+            { Object.entries(schema).map(([key, keySchema]) =>
+              <td key={key}>{getSearchInput(keySchema.type, key)}</td>,
+            )}
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }

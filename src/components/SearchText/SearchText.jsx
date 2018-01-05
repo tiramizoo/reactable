@@ -21,7 +21,7 @@ const SearchText = (props) => {
     setSearch(column, searchValue)
     setFilteredItems(filteredItems)
     updateViewport(filteredItems, limit, offset)
-  }, 500)
+  })
 
   const handleChange = (e) => {
     searching(e.target.value)
@@ -29,8 +29,9 @@ const SearchText = (props) => {
 
   return (
     <div>
-      <label>{column}</label>
-      <input onChange={handleChange} placeholder={column} id={column} />
+      <label htmlFor={column}>{column}</label>
+      <br />
+      <input onChange={handleChange} type='search' placeholder={column} id={column} />
     </div>
   )
 }
