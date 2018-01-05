@@ -11,10 +11,10 @@ const SearchText = (props) => {
 
   const searching = debounce((value) => {
     const searchValue = value.toLowerCase()
-    const searchQuery = Object.assign({}, search, { [column]: searchValue })
+    const searchQuery = Object.assign({}, search, { [column]: { value: searchValue } })
     const filteredItems = filter(items, (item) => {
       const arrayOfBooleans = Object.entries(searchQuery).map(([k, v]) =>
-        item[k].toLowerCase().includes(v))
+        item[k].toLowerCase().includes(v.value))
       return reduce(arrayOfBooleans, (result, boolean) => result && boolean)
     })
 
