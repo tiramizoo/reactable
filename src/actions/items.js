@@ -2,7 +2,7 @@ export const SET_ITEMS = 'SET_ITEMS'
 export const SET_FILTERED_ITEMS = 'SET_FILTERED_ITEMS'
 export const SET_OFFSET = 'SET_OFFSET'
 export const SET_LIMIT = 'SET_LIMIT'
-export const SET_SEARCH = 'SET_SEARCH'
+export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY'
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
 export const SORT_ITEMS = 'SORT_ITEMS'
 
@@ -34,11 +34,11 @@ export function setOffset(offset) {
   }
 }
 
-export function setSearch(column, value) {
+export function setSearchQuery(column, query) {
   return {
-    type: SET_SEARCH,
+    type: SET_SEARCH_QUERY,
     column,
-    value,
+    query,
   }
 }
 
