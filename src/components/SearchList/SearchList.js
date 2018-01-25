@@ -6,8 +6,6 @@ const mapStateToProps = state => ({
   schema: state.schema,
 })
 
-const mapDispatchToProps = dispatch => ({})
-
-const SearchList = connect(mapStateToProps, mapDispatchToProps)(SearchListComponent)
+const SearchList = connect(mapStateToProps)(SearchListComponent)
 
 export default SearchList

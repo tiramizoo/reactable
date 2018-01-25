@@ -1,5 +1,6 @@
 import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
+import n from 'numeral'
 
 // TEXT
 function searchByText(items, column, searchQuery) {
@@ -56,12 +57,38 @@ function searchByBoolean(items, column, searchQuery) {
   }
 }
 
+// INTEGER
+function searchByInteger(items, column, searchQuery) {
+  if (searchQuery.value) {
+    if (searchQuery.value.from && searchQuery.value.to) {
+      return filter(items, (item) => {
+        const itemValue = n(item[column]).value()
+        return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
+      })
+    }
+    if (searchQuery.value.from) {
+      return filter(items, (item) => {
+        return n(item[column]).value() <= searchQuery.value.to
+      })
+    }
+    if (searchQuery.value.to) {
+      return filter(items, (item) => {
+        return n(item[column]).value() <= searchQuery.value.to
+      })
+    }
+  }
+
+  return items
+}
+
 function searchByType(items, type, column, searchQuery) {
   switch (type) {
     case 'text':
       return searchByText(items, column, searchQuery)
     case 'boolean':
       return searchByBoolean(items, column, searchQuery)
+    case 'integer':
+      return searchByInteger(items, column, searchQuery)
     default:
       return []
   }
