@@ -15,6 +15,7 @@ const SearchList = (props) => {
       case 'integer':
         return <SearchInteger column={column} />
       case 'float':
+        return <SearchInteger column={column} />
       case 'date':
       case 'datetime':
       case 'time':
