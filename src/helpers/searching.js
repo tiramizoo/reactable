@@ -1,6 +1,7 @@
 import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import n from 'numeral'
+import moment from 'moment'
 
 // TEXT
 function searchByText(items, column, searchQuery) {
@@ -81,6 +82,31 @@ function searchByInteger(items, column, searchQuery) {
   return items
 }
 
+
+// DATE
+function searchByDate(items, column, searchQuery) {
+  if (searchQuery.value) {
+    if (searchQuery.value.from && searchQuery.value.to) {
+      return filter(items, (item) => {
+        const itemValue = moment(item[column])
+        return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
+      })
+    }
+    if (searchQuery.value.from) {
+      return filter(items, (item) => {
+        return moment(item[column]) >= searchQuery.value.from
+      })
+    }
+    if (searchQuery.value.to) {
+      return filter(items, (item) => {
+        return moment(item[column]) <= searchQuery.value.to
+      })
+    }
+  }
+
+  return items
+}
+
 function searchByType(items, type, column, searchQuery) {
   switch (type) {
     case 'text':
@@ -89,6 +115,8 @@ function searchByType(items, type, column, searchQuery) {
       return searchByBoolean(items, column, searchQuery)
     case 'integer':
       return searchByInteger(items, column, searchQuery)
+    case 'date':
+      return searchByDate(items, column, searchQuery)
     default:
       return []
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import SearchText from '../SearchText'
 import SearchBoolean from '../SearchBoolean'
 import SearchInteger from '../SearchInteger'
+import SearchDate from '../SearchDate'
 
 const SearchList = (props) => {
   const { schema } = props
@@ -17,6 +18,7 @@ const SearchList = (props) => {
       case 'float':
         return <SearchInteger column={column} />
       case 'date':
+        return <SearchDate column={column} />
       case 'datetime':
       case 'time':
         return null
