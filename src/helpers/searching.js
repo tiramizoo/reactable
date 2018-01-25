@@ -68,7 +68,7 @@ function searchByInteger(items, column, searchQuery) {
     }
     if (searchQuery.value.from) {
       return filter(items, (item) => {
-        return n(item[column]).value() <= searchQuery.value.to
+        return n(item[column]).value() >= searchQuery.value.from
       })
     }
     if (searchQuery.value.to) {
