@@ -1,6 +1,7 @@
 import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 
+// TEXT
 function searchByText(items, column, searchQuery) {
   const params = searchQuery.params || 'all'
   switch (params) {
@@ -28,10 +29,39 @@ function searchByText(items, column, searchQuery) {
   }
 }
 
+// BOOLEAN
+function searchByBoolean(items, column, searchQuery) {
+  const params = searchQuery.params || 'all'
+  switch (params) {
+    case 'all':
+      return items
+    case 'true':
+      return filter(items, (item) => {
+        return item[column] === true
+      })
+    case 'false':
+      return filter(items, (item) => {
+        return item[column] === false
+      })
+    case 'empty':
+      return filter(items, (item) => {
+        return item[column] !== true && item[column] !== false
+      })
+    case 'notEmpty':
+      return filter(items, (item) => {
+        return item[column] === true || item[column] === false
+      })
+    default:
+      return []
+  }
+}
+
 function searchByType(items, type, column, searchQuery) {
   switch (type) {
     case 'text':
       return searchByText(items, column, searchQuery)
+    case 'boolean':
+      return searchByBoolean(items, column, searchQuery)
     default:
       return []
   }
