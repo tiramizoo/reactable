@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty'
 
 import searching from '../../helpers/searching'
 
-const SearchDate = (props) => {
+const SearchDateTime = (props) => {
   const {
     updateViewport, setFilteredItems, setSearchQuery,
     search, column, items, limit, offset, schema,
@@ -25,7 +25,7 @@ const SearchDate = (props) => {
     const { value, name } = e.target
     let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
     if (search[column]) {
-      newValue = Object.assign({}, search[column].value, { [name]: isEmpty(value) ? null : Date.parse(value)  })
+      newValue = Object.assign({}, search[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
     }
 
     const newParams = Object.assign({}, search[column], { value: newValue })
@@ -37,10 +37,10 @@ const SearchDate = (props) => {
     <div>
       <label htmlFor={column}>{column}</label>
       <br />
-      <input onChange={handleNumberChange} name="from" type="date" placeholder="from" id={column} />
-      <input onChange={handleNumberChange} name="to" type="date" placeholder="to" id={column} />
+      <input onChange={handleNumberChange} name="from" type="datetime-local" placeholder="from" id={column} />
+      <input onChange={handleNumberChange} name="to" type="datetime-local" placeholder="to" id={column} />
     </div>
   )
 }
 
-export default SearchDate
+export default SearchDateTime
