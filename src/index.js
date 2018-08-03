@@ -1,16 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import { Provider } from 'react-redux';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import map from 'lodash/map'
+
+import App from './App'
 import reducers from './reducers/index'
 
-let store = createStore(reducers)
+map(document.getElementsByClassName('reactable'), (element) => {
+  let store = createStore(reducers)
+  const dataPath = element.getAttribute('data-path')
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root'));
-registerServiceWorker();
+  return ReactDOM.render(
+    <Provider store={store}>
+      <App dataPath={dataPath} />
+    </Provider>, element
+  )
+})
