@@ -60,8 +60,8 @@ const Table = (props) => {
         <tbody>
           { currentItems.map(item => (
             <tr key={item.id}>
-              { Object.keys(schema).map(key =>
-                <td className={ schema[key]['type'] } key={key}>{ item[key].toString() }</td>,
+              { Object.entries(schema).map(([key, keySchema]) =>
+                <td className={ keySchema['type'] } key={key}>{ item[key] ? item[key].toString() : '' }</td>,
               )}
             </tr>))
           }
