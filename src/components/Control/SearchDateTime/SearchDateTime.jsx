@@ -20,14 +20,14 @@ class SearchDateTime extends Component {
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
-    const { column } = this.props
+    const { column, filter } = this.props
 
     let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
-    if (search[column]) {
-      newValue = Object.assign({}, search[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
+    if (filter[column]) {
+      newValue = Object.assign({}, filter[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
     }
 
-    const newOptions = Object.assign({}, search[column], { value: newValue, column })
+    const newOptions = Object.assign({}, filter[column], { value: newValue, column })
     this.searchByNumber(searchQuery)
   }
 
