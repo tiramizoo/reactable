@@ -2,10 +2,13 @@ import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import n from 'numeral'
 
+import { updateViewport, setSearchQuery, setFilteredItems } from './items'
+
+// Search by
 // TEXT
 function searchByText(items, column, searchQuery) {
-  const params = searchQuery.params || 'all'
-  switch (params) {
+  const options = searchQuery.options || 'all'
+  switch (options) {
     case 'all':
       if (searchQuery.value) {
         return filter(items, (item) => {
@@ -32,8 +35,8 @@ function searchByText(items, column, searchQuery) {
 
 // BOOLEAN
 function searchByBoolean(items, column, searchQuery) {
-  const params = searchQuery.params || 'all'
-  switch (params) {
+  const options = searchQuery.options || 'all'
+  switch (options) {
     case 'all':
       return items
     case 'true':
@@ -122,11 +125,25 @@ function searchByType(items, type, column, searchQuery) {
   }
 }
 
-export default function searching(items, search, schema) {
+export default function searchBy(items, search, schema) {
   let filteredItems = items
   Object.entries(search).map(([column, searchQuery]) => {
     filteredItems = searchByType(filteredItems, schema[column].type, column, searchQuery)
     return filteredItems
   })
   return filteredItems
+}
+
+export const searching = ({ searchQuery, store }) => {
+  const { column, value, options } = searchQuery
+  const currentSearchQuery = store.getState().search
+  const { items, schema, limit, offset } = store.getState()
+
+  const newSearchValue = Object.assign({}, currentSearchQuery[column], { value, options })
+  store.dispatch(setSearchQuery(column, newSearchValue))
+  const newSearchQuery = Object.assign({}, currentSearchQuery, { [column]: newSearchValue })
+
+  const filteredItems = searchBy(items, newSearchQuery, schema)
+  store.dispatch(setFilteredItems(filteredItems))
+  store.dispatch(updateViewport(filteredItems, limit, offset))
 }

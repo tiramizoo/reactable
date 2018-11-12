@@ -1,19 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import map from 'lodash/map'
 
 import App from './App'
 import reducers from './reducers/index'
+import { initSettings } from './actions/settings'
+import { searching } from './actions/search'
 
-map(document.getElementsByClassName('reactable'), (element) => {
-  let store = createStore(reducers)
-  const dataPath = element.getAttribute('data-path')
+class InitApp extends Component {
+  constructor(props) {
+    super(props)
+    this.store = createStore(reducers)
+    this.store.dispatch(initSettings(props))
+  }
 
-  return ReactDOM.render(
-    <Provider store={store}>
-      <App dataPath={dataPath} />
-    </Provider>, element
-  )
-})
+  search(column, value, options) {
+    const searchQuery = { column, value, options }
+    searching({ searchQuery, store: this.store })
+  }
+
+  render() {
+    const documentElementId = document.getElementById(this.store.getState().settings.htmlId)
+    if (documentElementId) {
+      return ReactDOM.render(
+        <Provider store={this.store}>
+          <App />
+        </Provider>, documentElementId)
+    }
+  }
+}
+
+export const init = (config) => {
+  return new InitApp(config)
+}

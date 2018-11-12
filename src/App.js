@@ -13,17 +13,28 @@ const offset = 0
 
 class App extends Component {
   componentDidMount() {
-    const { dispatch, dataPath } = this.props
-    fetch(dataPath)
-      .then(response => response.json())
-      .then(json => {
-        dispatch(setLimit(limit))
-        dispatch(setOffset(offset))
+    this.fetchData()
+  }
 
-        dispatch(setItems(json.data))
-        dispatch(updateViewport(json.data, limit, offset))
-        dispatch(setSchema(json.schema))
-      })
+  componentDidUpdate() {
+    this.fetchData()
+  }
+
+  fetchData() {
+    const {
+      settings, setOffset, setLimit, setItems, updateViewport, setSchema,
+    } = this.props
+    if (!!settings.dataPath) {
+      fetch(settings.dataPath)
+        .then(response => response.json())
+        .then(json => {
+          setLimit(limit)
+          setOffset(offset)
+          setItems(json.data)
+          updateViewport(json.data, limit, offset)
+          setSchema(json.schema)
+        })
+      }
   }
 
   render() {
@@ -37,5 +48,28 @@ class App extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  settings: state.settings,
+})
 
-export default connect(() => ({}))(App)
+const mapDispatchToProps = dispatch => (
+  {
+    setOffset: (offset) => {
+      dispatch(setOffset(offset))
+    },
+    setLimit: (limit) => {
+      dispatch(setLimit(limit))
+    },
+    setItems: (items) => {
+      dispatch(setItems(items))
+    },
+    setSchema: (schema) => {
+      dispatch(setSchema(schema))
+    },
+    updateViewport: (data, limit, offset) => {
+      dispatch(updateViewport(data, limit, offset))
+    },
+  }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchList from '../SearchList'
+import SearchList from './SearchList'
 
 const Control = (props) => {
   const {
@@ -39,14 +39,14 @@ const Control = (props) => {
 
   return (
     <div>
-      <p>
+      <div>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" /></span>
         <span> Offset: <input onChange={updateOffset} value={offset} type="number" /></span>
         <span> displaying records from {offset + 1} to {offset + limit} of {filteredItems.length} </span>
-      </p>
-      <p>
+      </div>
+      <div>
         <SearchList />
-      </p>
+      </div>
 
     </div>
   )

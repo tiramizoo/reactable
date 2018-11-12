@@ -13,11 +13,8 @@ const Table = (props) => {
     e.preventDefault()
 
     const offsetMax = filteredItems.length - limit // 100 - 20 = 80
-
     const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
-
     const scrollTop = Math.min(scrollableHeight, e.target.scrollTop) // ios only: reject values > 2400
-
     const newOffset = offsetMax - Math.round((scrollableHeight - Math.max(0, scrollTop)) / 30)
 
     setOffset(newOffset)
@@ -71,7 +68,7 @@ const Table = (props) => {
         </tbody>
       </table>
 
-      <div className="scroll-bar" onScroll={scrollContent}  style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30}}>
+      <div className="scroll-bar" onScroll={(e) => scrollContent(e)}  style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30}}>
         <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
       </div>
 

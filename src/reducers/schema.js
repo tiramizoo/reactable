@@ -1,7 +1,9 @@
 import { SET_SCHEMA, SET_SORT_DIRECTION } from '../actions/schema'
+import { INIT_SETTINGS } from '../actions/settings'
+
 
 function schema(state = {}, action) {
-  let params = {}
+  let options = {}
   switch (action.type) {
     case SET_SCHEMA:
       return action.schema
@@ -9,8 +11,10 @@ function schema(state = {}, action) {
       Object.keys(state).forEach((key) =>
         delete state[key].direction
       )
-      params = Object.assign({}, state[action.key], { direction: action.direction })
-      return Object.assign({}, state, { [action.key]: params })
+      options = Object.assign({}, state[action.key], { direction: action.direction })
+      return Object.assign({}, state, { [action.key]: options })
+    case INIT_SETTINGS:
+      return {}
     default:
       return state
   }

@@ -6,7 +6,32 @@
     <title>Reactable</title>
   </head>
   <body>
-    <div class="reactable" data-path="./data-10000.json"></div>
+    <select>
+      <option value="">NO DATA</option>
+      <option value="./data-10.json">Data 10</option>
+      <option value="./data-100.json">Data 100</option>
+      <option value="./data-1000.json">Data 1000</option>
+      <option value="./data-10000.json">Data 10000</option>
+    </select>
+
+    <input type="text" onchange="search('first_name', this.value)">
+    <div id="table1"></div>
+    <div id="table2"></div>
+    <div id="table3"></div>
     <script src="../dist/reactable-bundle.js"></script>
+    <script>
+      var o1 = window.Reactable.init({htmlId: "table1", dataPath: "./data-1000.json", offset: 0, limit: 10})
+      o1.render()
+
+      function search(column, value) {
+        o1.search(column, value)
+      }
+
+      var o2 = window.Reactable.init({htmlId: "table2", dataPath: "./data-10.json", offset: 0, limit: 10})
+      o2.render()
+
+      var o3 = window.Reactable.init({htmlId: "table3", dataPath: "./data-100.json", offset: 0, limit: 10})
+      o3.render()
+    </script>
   </body>
 </html>

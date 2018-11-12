@@ -7,6 +7,7 @@ import offset from './offset'
 import schema from './schema'
 import search from './search'
 import filteredItems from './filteredItems'
+import settings from './settings'
 
 export default combineReducers({
   items,
@@ -16,4 +17,5 @@ export default combineReducers({
   schema,
   search,
   filteredItems,
+  settings,
 })
