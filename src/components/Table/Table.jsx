@@ -40,7 +40,8 @@ const Table = (props) => {
     const direction = toggleDirection(key)
     setSortDirection(key, direction)
     sortItems(key, schema[key].type, direction)
-    updateViewport(filteredItems, limit, offset)
+    setOffset(0)
+    updateViewport(filteredItems, limit, 0)
   }
 
 
