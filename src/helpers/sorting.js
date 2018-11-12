@@ -1,7 +1,7 @@
 function compareTextDesc(key) {
   return (a, b) => {
-    const x = a[key].toLowerCase()
-    const y = b[key].toLowerCase()
+    const x = a[key].toString().toLowerCase()
+    const y = b[key].toString().toLowerCase()
     if (x < y) return 1
     if (x > y) return -1
     return 0
@@ -9,8 +9,8 @@ function compareTextDesc(key) {
 }
 function compareTextAsc(key) {
   return (a, b) => {
-    const x = a[key].toLowerCase()
-    const y = b[key].toLowerCase()
+    const x = a[key].toString().toLowerCase()
+    const y = b[key].toString().toLowerCase()
     if (x > y) return 1
     if (x < y) return -1
     return 0
