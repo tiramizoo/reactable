@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     filename: 'reactable-bundle.js',
-    path: path.resolve('../dist/'),
+    path: path.resolve('./dist/'),
     library: 'Reactable',
     libraryTarget: 'umd',
   },
