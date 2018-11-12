@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
 import { searching } from '../../../actions/search'
 
 class SearchText extends Component {
   static contextTypes = {
-    store: React.PropTypes.object
+    store: PropTypes.object
   }
 
   constructor(props, context) {
