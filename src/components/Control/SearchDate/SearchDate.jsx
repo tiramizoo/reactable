@@ -14,21 +14,21 @@ class SearchDate extends Component {
     super(props, context)
   }
 
-  searchByNumber = debounce((searchQuery) => {
-    searching({searchQuery, store: this.context.store})
+  searchByNumber = debounce((query) => {
+    searching({query, store: this.context.store})
   })
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
-    const { column, filter } = this.props
+    const { column, searchQuery } = this.props
 
     let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
-    if (filter[column]) {
-      newValue = Object.assign({}, filter[column].value, { [name]: isEmpty(value) ? null : Date.parse(value)  })
+    if (searchQuery[column]) {
+      newValue = Object.assign({}, searchQuery[column].value, { [name]: isEmpty(value) ? null : Date.parse(value)  })
     }
 
-    const searchQuery = Object.assign({}, filter[column], { value: newValue, column })
-    this.searchByNumber(searchQuery)
+    const newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+    this.searchByNumber(newSearchQuery)
   }
 
   render() {

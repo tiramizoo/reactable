@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SearchBooleanComponent from './SearchBoolean.jsx'
 
 const mapStateToProps = state => ({
-  filter: state.search,
+  searchQuery: state.searchQuery,
 })
 
 const mapDispatchToProps = dispatch => ({})

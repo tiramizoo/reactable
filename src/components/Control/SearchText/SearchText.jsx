@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
+
 import { searching } from '../../../actions/search'
 
 class SearchText extends Component {
@@ -12,22 +13,22 @@ class SearchText extends Component {
     super(props, context)
   }
 
-  searchByText = debounce((searchQuery) => {
-    searching({searchQuery, store: this.context.store})
+  searchByText = debounce((query) => {
+    searching({query, store: this.context.store})
   }, 300)
 
 
   handleTextChange(e) {
-    const { column, filter } = this.props
+    const { column, searchQuery } = this.props
 
-    const searchQuery = Object.assign({}, filter[column], { value: e.target.value, column })
-    this.searchByText(searchQuery)
+    const newSearchQuery = Object.assign({}, searchQuery[column], { value: e.target.value, column })
+    this.searchByText(newSearchQuery)
   }
 
   handleOptionsChange(e) {
-    const { column, filter } = this.props
-    const searchQuery = Object.assign({}, filter[column], { options: e.target.value, column })
-    this.searchByText(searchQuery)
+    const { column, searchQuery } = this.props
+    const newSearchQuery = Object.assign({}, searchQuery[column], { options: e.target.value, column })
+    this.searchByText(newSearchQuery)
   }
 
   render() {

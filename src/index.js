@@ -16,8 +16,8 @@ class InitApp extends Component {
   }
 
   search(column, value, options) {
-    const searchQuery = { column, value, options }
-    searching({ searchQuery, store: this.store })
+    const query = { column, value, options }
+    searching({ query, store: this.store })
   }
 
   render() {

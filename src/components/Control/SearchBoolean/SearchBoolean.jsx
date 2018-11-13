@@ -13,15 +13,15 @@ class SearchBoolean extends Component {
     super(props, context)
   }
 
-  searchByBoolean = debounce((searchQuery) => {
-    searching({searchQuery, store: this.context.store})
+  searchByBoolean = debounce((query) => {
+    searching({query, store: this.context.store})
   })
 
   handleOptionsChange = (e) => {
-    const { column, filter } = this.props
+    const { column, searchQuery } = this.props
 
-    const searchQuery = Object.assign({}, filter[column], { options: e.target.value, column })
-    this.searchByBoolean(searchQuery)
+    const newOptions = Object.assign({}, searchQuery[column], { options: e.target.value, column })
+    this.searchByBoolean(newOptions)
   }
 
   render() {

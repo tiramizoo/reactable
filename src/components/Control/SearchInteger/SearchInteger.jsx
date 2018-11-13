@@ -15,26 +15,26 @@ class SearchInteger extends Component {
     super(props, context)
   }
 
-  searchByNumber = debounce((searchQuery) => {
-    searching({searchQuery, store: this.context.store})
+  searchByNumber = debounce((query) => {
+    searching({query, store: this.context.store})
   }, 300)
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
-    const { column, filter } = this.props
+    const { column, searchQuery } = this.props
 
     let newValue
-    let searchQuery
+    let newSearchQuery
 
-    if (filter[column]) {
-      newValue = Object.assign({}, filter[column].value, { [name]: n(value).value() })
-      searchQuery = Object.assign({}, filter[column], { value: newValue, column })
+    if (searchQuery[column]) {
+      newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() })
+      newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
     } else {
       newValue = { [name]: n(value).value() }
-      searchQuery = { value: newValue, column }
+      newSearchQuery = { value: newValue, column }
     }
 
-    this.searchByNumber(searchQuery)
+    this.searchByNumber(newSearchQuery)
   }
 
   render() {

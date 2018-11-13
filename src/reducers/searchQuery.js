@@ -2,7 +2,7 @@ import { SET_SEARCH_QUERY } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
 // {first_name: {value: 'Jon', options: ''} }
-function search(state = {}, action) {
+function searchQuery(state = {}, action) {
   switch (action.type) {
     case SET_SEARCH_QUERY:
       return Object.assign({}, state, { [action.column]: action.query })
@@ -13,4 +13,4 @@ function search(state = {}, action) {
   }
 }
 
-export default search
+export default searchQuery
