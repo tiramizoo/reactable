@@ -136,7 +136,9 @@ export default function searchBy(items, search, schema) {
 
 export const searching = ({ query, store }) => {
   const { column, value, options } = query
-  const { items, schema, limit, searchQuery } = store.getState()
+  const {
+    items, schema, limit, searchQuery,
+  } = store.getState()
 
   const newSearchValue = Object.assign({}, searchQuery[column], { value, options })
   store.dispatch(setSearchQuery(column, newSearchValue))

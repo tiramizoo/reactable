@@ -28,6 +28,7 @@ class InitApp extends Component {
           <App />
         </Provider>, documentElementId)
     }
+    return null
   }
 }
 
