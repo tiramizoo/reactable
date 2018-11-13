@@ -1,10 +1,9 @@
 const webpack = require('webpack')
 const path = require('path')
-const babel = require('../loaders/babel.js')
 
 module.exports = {
   entry: {
-    'reactable-bundle': ['babel-polyfill', path.resolve(__dirname,'..', 'src', 'index.js')],
+    'reactable-bundle': ['@babel/polyfill', path.resolve(__dirname, '..', 'src', 'index.js')],
   },
   output: {
     filename: 'reactable-bundle.js',
@@ -14,8 +13,29 @@ module.exports = {
   },
   module: {
     rules: [
-      babel,
-      { test: /(\.css)$/, loaders: ['style-loader', 'css-loader?sourceMap'] },
+      {
+        test: /.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env', '@babel/preset-react',
+              ],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader?sourceMap' },
+        ],
+      },
     ],
   },
   resolve: {
