@@ -7,21 +7,15 @@ import Table from './components/Table'
 
 import { setItems, updateViewport } from './actions/items'
 
-const limit = 20
-const offset = 0
-
 class App extends Component {
   componentDidMount() {
-    this.fetchData()
-  }
-
-  componentDidUpdate() {
+    console.log("App", "componentDidMount")
     this.fetchData()
   }
 
   fetchData() {
     const {
-      settings, setItems, updateViewport,
+      settings, setItems, updateViewport, limit, offset
     } = this.props
     if (!!settings.dataPath) {
       fetch(settings.dataPath)
@@ -45,6 +39,8 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => ({
+  offset:   state.offset,
+  limit:    state.limit,
   settings: state.settings,
 })
 

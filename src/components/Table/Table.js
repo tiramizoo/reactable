@@ -5,7 +5,7 @@ import { setOffset, updateViewport, sortItems } from '../../actions/items'
 import { setSortDirection } from '../../actions/schema'
 
 const rowHeight = 30
-const tableWidth = 1920
+const tableWidth = 1200
 
 const mapStateToProps = state => ({
   items: state.items,

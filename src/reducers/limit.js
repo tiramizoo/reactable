@@ -1,7 +1,7 @@
 import { SET_LIMIT } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
-const initLimit = 20
+const initLimit = 10
 
 function limit(state = initLimit, action) {
   switch (action.type) {

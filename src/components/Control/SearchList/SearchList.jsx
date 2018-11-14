@@ -47,7 +47,7 @@ const SearchList = (props) => {
 
   return (
     <div>
-      <table style={{ width: 1920 }}>
+      <table>
         { Object.keys(schema).map(key =>
             columnHeader(key),
         )}
