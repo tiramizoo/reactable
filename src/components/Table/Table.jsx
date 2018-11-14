@@ -44,9 +44,23 @@ const Table = (props) => {
     updateViewport(filteredItems, limit, 0)
   }
 
-  const rowHtml = (row, key, schemaParams) => {
+  const cellHtml = (row, key, schemaParams) => {
     const html = row[key] ? schemaParams['formatter'](row) : ''
     return {__html: html }
+  }
+
+  const columnHeader = (key, schemaParams) => {
+    if (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true) {
+      return null
+    }
+    return <th className={columnClassName(key)} key={key} onClick={() => sort(key)}>{key}</th>
+  }
+
+  const columnBody = (row, key, schemaParams) => {
+    if (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true) {
+      return null
+    }
+    return <td className={ schemaParams['type'] } key={key} dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}></td>
   }
 
   return (
@@ -58,7 +72,7 @@ const Table = (props) => {
         <thead>
           <tr>
             { Object.entries(schema).map(([key, keySchema]) =>
-              <th className={columnClassName(key)} key={key} onClick={() => sort(key)}>{key}</th>,
+              columnHeader(key, keySchema),
             )}
           </tr>
         </thead>
@@ -66,7 +80,7 @@ const Table = (props) => {
           { currentItems.map(item => (
             <tr key={item.id}>
               { Object.entries(schema).map(([key, keySchema]) =>
-                <td className={ keySchema['type'] } key={key} dangerouslySetInnerHTML={rowHtml(item, key, keySchema)}></td>,
+                columnBody(item, key, keySchema)
               )}
             </tr>))
           }

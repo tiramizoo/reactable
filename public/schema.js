@@ -6,8 +6,16 @@ window.schemaUsers = {
       return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
     },
   },
-  last_name: { type: 'text', formatter: function (row) { return row['last_name'] }},
-  active: { type: 'boolean', formatter: function (row) { return row['active'] }},
+  last_name: {
+    type: 'text',
+    formatter: function (row) { return row['last_name'] },
+    hide: true,
+  },
+  active: {
+    type: 'boolean',
+    formatter: function (row) { return row['active'] },
+    filter: false,
+  },
   date_of_birth: { type: 'date', formatter: function (row) { return row['date_of_birth'] }},
   gender: { type: 'text', formatter: function (row) { return row['gender'] }},
   email: { type: 'text', formatter: function (row) { return row['email'] }},

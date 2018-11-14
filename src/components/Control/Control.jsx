@@ -3,7 +3,7 @@ import SearchList from './SearchList'
 
 const Control = (props) => {
   const {
-    updateViewport, filteredItems,
+    updateViewport, filteredItems, controlShow,
     setLimit, limit, setOffset, offset,
   } = props
 
@@ -36,7 +36,9 @@ const Control = (props) => {
     setOffset(newOffset)
     updateViewport(filteredItems, limit, newOffset)
   }
-
+  if (!controlShow) {
+    return null
+  }
   return (
     <div>
       <div>

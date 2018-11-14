@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   filteredItems: state.filteredItems,
   limit: state.limit,
   offset: state.offset,
+  controlShow: state.settings.control,
 })
 
 const mapDispatchToProps = dispatch => (

@@ -28,16 +28,33 @@ const SearchList = (props) => {
         return null
     }
   }
+
+  const columnHeader = (key) => {
+    const schemaParams = schema[key]
+
+    if ((schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)) {
+      return null
+    }
+    return <col key={key} width={schema[key]['width']}></col>
+  }
+
+  const columnBody = (key, schemaParams) => {
+    if ((schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)) {
+      return null
+    }
+    return <td key={key}>{getSearchInput(schemaParams.type, key)}</td>
+  }
+
   return (
     <div>
       <table style={{ width: 1920 }}>
         { Object.keys(schema).map(key =>
-            <col key={key} width={schema[key]['width']}></col>,
+            columnHeader(key),
         )}
         <tbody>
           <tr>
             { Object.entries(schema).map(([key, keySchema]) =>
-              <td key={key}>{getSearchInput(keySchema.type, key)}</td>,
+              columnBody(key, keySchema),
             )}
           </tr>
         </tbody>
