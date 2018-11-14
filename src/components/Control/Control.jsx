@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchList from './SearchList'
+import Schema from './Schema'
 
 const Control = (props) => {
   const {
@@ -47,6 +48,7 @@ const Control = (props) => {
         <span> displaying records from {offset + 1} to {offset + limit} of {filteredItems.length} </span>
       </div>
       <div>
+        <Schema />
         <SearchList />
       </div>
 
