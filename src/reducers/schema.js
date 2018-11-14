@@ -1,4 +1,4 @@
-import { SET_SCHEMA, SET_SORT_DIRECTION } from '../actions/schema'
+import { SET_SCHEMA, SET_SORT_DIRECTION , UPDATE_SCHEMA_OPTIONS} from '../actions/schema'
 import { INIT_SETTINGS } from '../actions/settings'
 
 
@@ -15,6 +15,8 @@ function schema(state = {}, action) {
       return Object.assign({}, state, { [action.key]: options })
     case INIT_SETTINGS:
       return action.settings.schema
+    case UPDATE_SCHEMA_OPTIONS:
+      return Object.assign({}, state, { [action.key]: action.options })
     default:
       return state
   }
