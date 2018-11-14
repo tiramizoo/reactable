@@ -14,7 +14,7 @@ function schema(state = {}, action) {
       options = Object.assign({}, state[action.key], { direction: action.direction })
       return Object.assign({}, state, { [action.key]: options })
     case INIT_SETTINGS:
-      return {}
+      return action.settings.schema
     default:
       return state
   }

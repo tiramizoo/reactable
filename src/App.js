@@ -5,8 +5,7 @@ import './App.css'
 import Control from './components/Control'
 import Table from './components/Table'
 
-import { setItems, setLimit, setOffset, updateViewport } from './actions/items'
-import { setSchema } from './actions/schema'
+import { setItems, updateViewport } from './actions/items'
 
 const limit = 20
 const offset = 0
@@ -22,17 +21,14 @@ class App extends Component {
 
   fetchData() {
     const {
-      settings, setOffset, setLimit, setItems, updateViewport, setSchema,
+      settings, setItems, updateViewport,
     } = this.props
     if (!!settings.dataPath) {
       fetch(settings.dataPath)
         .then(response => response.json())
         .then(json => {
-          setLimit(limit)
-          setOffset(offset)
           setItems(json.data)
           updateViewport(json.data, limit, offset)
-          setSchema(json.schema)
         })
       }
   }
@@ -54,17 +50,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
   {
-    setOffset: (offset) => {
-      dispatch(setOffset(offset))
-    },
-    setLimit: (limit) => {
-      dispatch(setLimit(limit))
-    },
     setItems: (items) => {
       dispatch(setItems(items))
-    },
-    setSchema: (schema) => {
-      dispatch(setSchema(schema))
     },
     updateViewport: (data, limit, offset) => {
       dispatch(updateViewport(data, limit, offset))

@@ -44,6 +44,10 @@ const Table = (props) => {
     updateViewport(filteredItems, limit, 0)
   }
 
+  const rowHtml = (row, key, schemaParams) => {
+    const html = row[key] ? schemaParams['formatter'](row) : ''
+    return {__html: html }
+  }
 
   return (
     <div>
@@ -62,7 +66,7 @@ const Table = (props) => {
           { currentItems.map(item => (
             <tr key={item.id}>
               { Object.entries(schema).map(([key, keySchema]) =>
-                <td className={ keySchema['type'] } key={key}>{ item[key] ? item[key].toString() : '' }</td>,
+                <td className={ keySchema['type'] } key={key} dangerouslySetInnerHTML={rowHtml(item, key, keySchema)}></td>,
               )}
             </tr>))
           }
