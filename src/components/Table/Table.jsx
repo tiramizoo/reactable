@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { defaultFormatter } from '../../helpers/defaultFormaters'
+
 const Table = (props) => {
   const {
     currentItems, sortItems, schema, setSortDirection, filteredItems,
-    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth,
+    limit, setOffset, updateViewport, scrollBarHeight, scrollBarWidth,
     scrollBarHandleHeight, tableWidth,
   } = props
 
@@ -45,45 +47,70 @@ const Table = (props) => {
   }
 
   const cellHtml = (row, key, schemaParams) => {
-    const html = row[key] ? schemaParams['formatter'](row) : ''
-    return {__html: html }
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
+    const html = row[key] !== 'undefined' ? formatter(row) : ''
+    return { __html: html }
+  }
+
+  const hideColumn = (schemaParams) => {
+    return schemaParams.hide !== 'undefined' && schemaParams.hide === true
   }
 
   const columnHeader = (key, schemaParams) => {
-    if (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true) {
+    if (hideColumn(schemaParams)) {
       return null
     }
-    return <th className={columnClassName(key)} key={key} onClick={() => sort(key)}>{key}</th>
+    return (
+      <th className={columnClassName(key)} key={key} onClick={() => sort(key)}>
+        {key}
+      </th>
+    )
   }
 
   const columnBody = (row, key, schemaParams) => {
-    if (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true) {
+    if (hideColumn(schemaParams)) {
       return null
     }
-    return <td className={ schemaParams['type'] } key={key} dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}></td>
+    return (
+      <td
+        className={schemaParams.type}
+        key={key}
+        dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}
+      />
+    )
+  }
+
+  const renderHeader = () => {
+    return (
+      <tr>
+        { Object.entries(schema).map(([key, keySchema]) =>
+          columnHeader(key, keySchema),
+        )}
+      </tr>
+    )
+  }
+
+  const renderRow = (item) => {
+    return (
+      <tr key={item.id}>
+        { Object.entries(schema).map(([key, keySchema]) =>
+          columnBody(item, key, keySchema)
+        )}
+      </tr>
+    )
   }
 
   return (
     <div>
       <table style={{ width: tableWidth}}>
         { Object.keys(schema).map(key =>
-            <col key={key} width={schema[key]['width']}></col>,
+          <col key={key} width={schema[key]['width']}></col>,
         )}
         <thead>
-          <tr>
-            { Object.entries(schema).map(([key, keySchema]) =>
-              columnHeader(key, keySchema),
-            )}
-          </tr>
+          { renderHeader() }
         </thead>
         <tbody>
-          { currentItems.map(item => (
-            <tr key={item.id}>
-              { Object.entries(schema).map(([key, keySchema]) =>
-                columnBody(item, key, keySchema)
-              )}
-            </tr>))
-          }
+          { currentItems.map(item => renderRow(item)) }
         </tbody>
       </table>
 
