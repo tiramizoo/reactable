@@ -30,12 +30,12 @@ const Table = (props) => {
   }
 
   const columnClassName = (key) => {
-     let classNames = [key]
-     if (schema[key].direction) {
-       classNames.push('sorted')
-       classNames.push(schema[key].direction)
-     }
-     return classNames.join(' ')
+    const classNames = [key]
+    if (schema[key].direction) {
+      classNames.push('sorted')
+      classNames.push(schema[key].direction)
+    }
+    return classNames.join(' ')
   }
 
   const sort = (key) => {
@@ -84,8 +84,8 @@ const Table = (props) => {
     return (
       <tr>
         { Object.entries(schema).map(([key, keySchema]) =>
-          columnHeader(key, keySchema),
-        )}
+          columnHeader(key, keySchema))
+        }
       </tr>
     )
   }
@@ -94,18 +94,18 @@ const Table = (props) => {
     return (
       <tr key={item.id}>
         { Object.entries(schema).map(([key, keySchema]) =>
-          columnBody(item, key, keySchema)
-        )}
+          columnBody(item, key, keySchema))
+        }
       </tr>
     )
   }
 
   return (
     <div>
-      <table style={{ width: tableWidth}}>
+      <table style={{ width: tableWidth }}>
         { Object.keys(schema).map(key =>
-          <col key={key} width={schema[key]['width']}></col>,
-        )}
+          <col key={key} width={schema[key].width} />)
+        }
         <thead>
           { renderHeader() }
         </thead>
@@ -114,10 +114,13 @@ const Table = (props) => {
         </tbody>
       </table>
 
-      <div className="scroll-bar" onScroll={(e) => scrollContent(e)}  style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30}}>
+      <div
+        className="scroll-bar"
+        onScroll={e => scrollContent(e)}
+        style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30 }}
+      >
         <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
       </div>
-
     </div>
   )
 }
