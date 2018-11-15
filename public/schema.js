@@ -1,7 +1,6 @@
 window.schemaUsers = {
   id: {
     type: 'integer',
-    width: 70,
     formatter: function (row) { return "ID: " + row['id']}
   },
   first_name: {
@@ -12,7 +11,7 @@ window.schemaUsers = {
   },
   last_name: {
     type: 'text',
-    hide: true,
+    hide: false,
   },
   active: {
     type: 'boolean',

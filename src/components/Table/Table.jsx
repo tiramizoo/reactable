@@ -5,15 +5,11 @@ import { defaultFormatter } from '../../helpers/defaultFormaters'
 const Table = (props) => {
   const {
     currentItems, sortItems, schema, setSortDirection, filteredItems,
-    limit, setOffset, updateViewport, scrollBarHeight, scrollBarWidth,
-    scrollBarHandleHeight, tableWidth,
+    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth,
+    scrollBarHandleHeight, tableWidth, rowHeight, visibleColumnsCount, items
   } = props
 
-
   const scrollContent = (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-
     const offsetMax = filteredItems.length - limit // 100 - 20 = 80
     const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
     const scrollTop = Math.min(scrollableHeight, e.target.scrollTop) // ios only: reject values > 2400
@@ -90,9 +86,20 @@ const Table = (props) => {
     )
   }
 
+
+  const renderFooter = () => {
+    return (
+      <tr>
+        <th colSpan={visibleColumnsCount}>
+          offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, total: {items.length}
+        </th>
+      </tr>
+    )
+  }
+
   const renderRow = (item) => {
     return (
-      <tr key={item.id}>
+      <tr key={item.id} className='record'>
         { Object.entries(schema).map(([key, keySchema]) =>
           columnBody(item, key, keySchema))
         }
@@ -100,10 +107,34 @@ const Table = (props) => {
     )
   }
 
+  const renderMissingRows = () => {
+    if (filteredItems.length < limit) {
+      return Array(limit - filteredItems.length).fill().map( (a, ix) => {
+        return (
+          <tr key={ix}>
+            <td colSpan={visibleColumnsCount}></td>
+          </tr>
+        )
+      })
+    } else {
+      return null
+    }
+  }
+  
+
   return (
-    <div>
+    <div className='table-wrapper' style={{ width: scrollBarWidth + 30, height: scrollBarHeight + rowHeight + rowHeight}} >
+
+      <div
+        className="scroll-bar"
+        onScroll={e => scrollContent(e)}
+        style={{ height: scrollBarHeight, width: 30, top: rowHeight }}
+      >
+        <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
+      </div>
+
       <table style={{ width: tableWidth }}>
-        { Object.keys(schema).map(key =>
+      { Object.keys(schema).map(key =>
           <col key={key} width={schema[key].width} />)
         }
         <thead>
@@ -111,16 +142,12 @@ const Table = (props) => {
         </thead>
         <tbody>
           { currentItems.map(item => renderRow(item)) }
+          { renderMissingRows() }
         </tbody>
+        <tfoot>
+          { renderFooter() }
+        </tfoot>
       </table>
-
-      <div
-        className="scroll-bar"
-        onScroll={e => scrollContent(e)}
-        style={{ height: scrollBarHeight, width: scrollBarWidth, top: 30 }}
-      >
-        <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
-      </div>
     </div>
   )
 }

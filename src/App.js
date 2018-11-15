@@ -9,8 +9,7 @@ import { setItems, updateViewport } from './actions/items'
 
 class App extends Component {
   componentDidMount() {
-    console.log("App", "componentDidMount")
-    this.fetchData()
+    this.fetchData();
   }
 
   fetchData() {
@@ -29,11 +28,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="reactable">
         <Control />
-        <div className="reactable">
-          <Table />
-        </div>
+        <Table />
       </div>
     )
   }

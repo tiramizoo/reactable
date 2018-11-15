@@ -41,11 +41,10 @@ const Control = (props) => {
     return null
   }
   return (
-    <div>
+    <div className='control'>
       <div>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" /></span>
         <span> Offset: <input onChange={updateOffset} value={offset} type="number" /></span>
-        <span> displaying records from {offset + 1} to {offset + limit} of {filteredItems.length} </span>
       </div>
       <div>
         <Schema />
