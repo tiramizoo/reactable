@@ -17,18 +17,17 @@ class SearchText extends Component {
     searching({query, store: this.context.store})
   }, 300)
 
+  newSearchQuery(param) {
+    const { column, searchQuery } = this.props
+    return Object.assign({}, searchQuery[column], { ...param, column })
+  }
 
   handleTextChange(e) {
-    const { column, searchQuery } = this.props
-
-    const newSearchQuery = Object.assign({}, searchQuery[column], { value: e.target.value, column })
-    this.searchByText(newSearchQuery)
+    this.searchByText(this.newSearchQuery({ value: e.target.value }))
   }
 
   handleOptionsChange(e) {
-    const { column, searchQuery } = this.props
-    const newSearchQuery = Object.assign({}, searchQuery[column], { options: e.target.value, column })
-    this.searchByText(newSearchQuery)
+    this.searchByText(this.newSearchQuery({ options: e.target.value }))
   }
 
   render() {
