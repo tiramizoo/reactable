@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import { defaultFormatter } from '../../helpers/defaultFormaters'
 
-const Table = (props) => {
-  const {
-    currentItems, sortItems, schema, setSortDirection, filteredItems,
-    limit, offset, setOffset, updateViewport, scrollBarHeight, scrollBarWidth,
-    scrollBarHandleHeight, tableWidth, rowHeight, visibleColumnsCount, items
-  } = props
-
-  const scrollContent = (e) => {
+class Table extends Component {
+  scrollContent(e) {
+    const {
+      filteredItems, limit, scrollBarHandleHeight, scrollBarHeight,
+      rowHeight, setOffset, updateViewport,
+    } = this.props
     const offsetMax = filteredItems.length - limit // 100 - 20 = 80
     const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
     const scrollTop = Math.min(scrollableHeight, e.target.scrollTop) // ios only: reject values > 2400
@@ -19,13 +17,15 @@ const Table = (props) => {
     updateViewport(filteredItems, limit, newOffset)
   }
 
-  const toggleDirection = (key) => {
+  toggleDirection(key) {
+    const { schema } = this.props
     if (!schema[key].direction) return 'asc'
     if (schema[key].direction === 'desc') return 'asc'
     return 'desc'
   }
 
-  const columnClassName = (key) => {
+  columnClassName(key) {
+    const { schema } = this.props
     const classNames = [key]
     if (schema[key].direction) {
       classNames.push('sorted')
@@ -34,61 +34,72 @@ const Table = (props) => {
     return classNames.join(' ')
   }
 
-  const sort = (key) => {
-    const direction = toggleDirection(key)
+  sort(key) {
+    const {
+      schema, setSortDirection, sortItems, setOffset, updateViewport, filteredItems,
+      limit,
+    } = this.props
+    const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
     sortItems(key, schema[key].type, direction)
     setOffset(0)
     updateViewport(filteredItems, limit, 0)
   }
 
-  const cellHtml = (row, key, schemaParams) => {
+  cellHtml(row, key, schemaParams) {
     const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
     const html = row[key] !== 'undefined' ? formatter(row) : ''
     return { __html: html }
   }
 
-  const hideColumn = (schemaParams) => {
+  hideColumn(schemaParams) {
     return schemaParams.hide !== 'undefined' && schemaParams.hide === true
   }
 
-  const columnHeader = (key, schemaParams) => {
-    if (hideColumn(schemaParams)) {
+  columnHeader(key, schemaParams) {
+    const { rowHeight } = this.props
+    if (this.hideColumn(schemaParams)) {
       return null
     }
     return (
-      <th style={{ height: rowHeight }} className={columnClassName(key)} key={key} onClick={() => sort(key)}>
+      <th style={{ height: rowHeight }} className={this.columnClassName(key)} key={key} onClick={() => this.sort(key)}>
         {key}
       </th>
     )
   }
 
-  const columnBody = (row, key, schemaParams) => {
-    if (hideColumn(schemaParams)) {
+  columnBody(row, key, schemaParams) {
+    const { rowHeight } = this.props
+
+    if (this.hideColumn(schemaParams)) {
       return null
     }
     return (
       <td
         className={schemaParams.type}
         key={key}
-        dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}
+        dangerouslySetInnerHTML={this.cellHtml(row, key, schemaParams)}
         style={{ height: rowHeight }}
       />
     )
   }
 
-  const renderHeader = () => {
+  renderHeader() {
+    const { schema } = this.props
     return (
       <tr>
         { Object.entries(schema).map(([key, keySchema]) =>
-          columnHeader(key, keySchema))
+          this.columnHeader(key, keySchema))
         }
       </tr>
     )
   }
 
 
-  const renderFooter = () => {
+  renderFooter() {
+    const {
+      rowHeight, offset, limit, filteredItems, items, visibleColumnsCount,
+    } = this.props
     return (
       <tr>
         <th colSpan={visibleColumnsCount} style={{ height: rowHeight }}>
@@ -98,56 +109,68 @@ const Table = (props) => {
     )
   }
 
-  const renderRow = (item) => {
+  renderRow(item) {
+    const { schema } = this.props
     return (
-      <tr key={item.id} className='record'>
+      <tr key={item.id} className="record">
         { Object.entries(schema).map(([key, keySchema]) =>
-          columnBody(item, key, keySchema))
+          this.columnBody(item, key, keySchema))
         }
       </tr>
     )
   }
 
-  const renderMissingRows = () => {
+  renderMissingRows() {
+    const {
+      rowHeight, limit, filteredItems, visibleColumnsCount,
+    } = this.props
+
     if (filteredItems.length < limit) {
-      return Array(limit - filteredItems.length).fill().map( (a, ix) => {
+      return Array(limit - filteredItems.length).fill().map((a, ix) => {
         return (
           <tr key={ix}>
-            <td colSpan={visibleColumnsCount} style={{ height: rowHeight }}></td>
+            <td colSpan={visibleColumnsCount} style={{ height: rowHeight }} />
           </tr>
         )
       })
-    } else {
-      return null
     }
+    return null
   }
-  
 
-  return (
-    <div className='table-wrapper' style={{ width: scrollBarWidth + 30, height: scrollBarHeight + rowHeight + rowHeight}} >
 
+  render() {
+    const {
+      scrollBarWidth, scrollBarHeight, rowHeight, scrollBarHandleHeight,
+      tableWidth, currentItems,
+    } = this.props
+    return (
       <div
-        className="scroll-bar"
-        onScroll={e => scrollContent(e)}
-        style={{ height: scrollBarHeight, width: 30, top: rowHeight }}
+        className="table-wrapper"
+        style={{ width: scrollBarWidth + 30, height: scrollBarHeight + rowHeight + rowHeight }}
       >
-        <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
-      </div>
+        <div
+          className="scroll-bar"
+          onScroll={e => this.scrollContent(e)}
+          style={{ height: scrollBarHeight, width: 30, top: rowHeight }}
+        >
+          <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
+        </div>
 
-      <table style={{ width: tableWidth }}>
-        <thead>
-          { renderHeader() }
-        </thead>
-        <tbody>
-          { currentItems.map(item => renderRow(item)) }
-          { renderMissingRows() }
-        </tbody>
-        <tfoot>
-          { renderFooter() }
-        </tfoot>
-      </table>
-    </div>
-  )
+        <table style={{ width: tableWidth }}>
+          <thead>
+            { this.renderHeader() }
+          </thead>
+          <tbody>
+            { currentItems.map(item => this.renderRow(item)) }
+            { this.renderMissingRows() }
+          </tbody>
+          <tfoot>
+            { this.renderFooter() }
+          </tfoot>
+        </table>
+      </div>
+    )
+  }
 }
 
 export default Table
