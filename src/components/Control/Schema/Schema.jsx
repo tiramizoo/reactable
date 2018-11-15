@@ -13,7 +13,7 @@ const Schema = (props) => {
     const schemaParams = schema[key]
     const value = !schemaParams.hide
     return (
-      <li>
+      <li key={key}>
         <input
           type="checkbox"
           onChange={e => handleChange(e, key)}

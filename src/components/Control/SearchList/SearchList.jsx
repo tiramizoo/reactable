@@ -35,7 +35,7 @@ const SearchList = (props) => {
     if ((schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)) {
       return null
     }
-    return <col key={key} width={schema[key]['width']}></col>
+    return <th key={key} width={schema[key]['width']}></th>
   }
 
   const columnBody = (key, schemaParams) => {
@@ -45,12 +45,21 @@ const SearchList = (props) => {
     return <td key={key}>{getSearchInput(schemaParams.type, key)}</td>
   }
 
+  const handleClearAllChange = () => {
+
+  }
+
   return (
     <div>
+      <button onClick={() => handleClearAllChange()}>Clear all</button>
       <table>
-        { Object.keys(schema).map(key =>
-            columnHeader(key),
-        )}
+        <thead>
+          <tr>
+            { Object.keys(schema).map(key =>
+                columnHeader(key),
+            )}
+          </tr>
+        </thead>
         <tbody>
           <tr>
             { Object.entries(schema).map(([key, keySchema]) =>
