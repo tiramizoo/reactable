@@ -135,9 +135,6 @@ const Table = (props) => {
       </div>
 
       <table style={{ width: tableWidth }}>
-      { Object.keys(schema).map(key =>
-          <col key={key} width={schema[key].width} />)
-        }
         <thead>
           { renderHeader() }
         </thead>
