@@ -32,7 +32,6 @@
 
 table th {
   background-color: #f2f2f2;
-  height: 30px;
   padding: 0 5px;
   text-align: left;
 }
@@ -50,7 +49,6 @@ table th.sorted.desc::after {
 }
 
 table td {
-  height: 30px;
   padding: 0 5px;
   overflow: hidden;
   text-overflow: ellipsis;

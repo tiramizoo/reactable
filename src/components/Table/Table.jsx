@@ -13,7 +13,7 @@ const Table = (props) => {
     const offsetMax = filteredItems.length - limit // 100 - 20 = 80
     const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
     const scrollTop = Math.min(scrollableHeight, e.target.scrollTop) // ios only: reject values > 2400
-    const newOffset = offsetMax - Math.round((scrollableHeight - Math.max(0, scrollTop)) / 30)
+    const newOffset = offsetMax - Math.round((scrollableHeight - Math.max(0, scrollTop)) / rowHeight)
 
     setOffset(newOffset)
     updateViewport(filteredItems, limit, newOffset)
@@ -57,7 +57,7 @@ const Table = (props) => {
       return null
     }
     return (
-      <th className={columnClassName(key)} key={key} onClick={() => sort(key)}>
+      <th style={{ height: rowHeight }} className={columnClassName(key)} key={key} onClick={() => sort(key)}>
         {key}
       </th>
     )
@@ -72,6 +72,7 @@ const Table = (props) => {
         className={schemaParams.type}
         key={key}
         dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}
+        style={{ height: rowHeight }}
       />
     )
   }
@@ -90,7 +91,7 @@ const Table = (props) => {
   const renderFooter = () => {
     return (
       <tr>
-        <th colSpan={visibleColumnsCount}>
+        <th colSpan={visibleColumnsCount} style={{ height: rowHeight }}>
           offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, total: {items.length}
         </th>
       </tr>
@@ -112,7 +113,7 @@ const Table = (props) => {
       return Array(limit - filteredItems.length).fill().map( (a, ix) => {
         return (
           <tr key={ix}>
-            <td colSpan={visibleColumnsCount}></td>
+            <td colSpan={visibleColumnsCount} style={{ height: rowHeight }}></td>
           </tr>
         )
       })
