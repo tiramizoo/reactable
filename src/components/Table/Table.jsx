@@ -5,7 +5,7 @@ import { defaultFormatter } from '../../helpers/defaultFormaters'
 const cellHtml = (row, key, schemaParams) => {
   const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
   let html = ''
-  if (row[key] !== 'undefined' || row[key] !== null) {
+  if (row[key] !== 'undefined' && row[key] !== null) {
     html = formatter(row)
   }
   return { __html: html }
