@@ -32,11 +32,13 @@
 
 table th {
   background-color: #f2f2f2;
-  padding: 0 5px;
+  padding: 0 10px 0 5px;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border: 1px solid #e2e2e2;
+  cursor: pointer;
 }
 
 table th.sorted {
@@ -58,7 +60,11 @@ table td {
   white-space: nowrap;
 }
 
-table td.integer, table td.date, table td.datetime {
+table tr.record td {
+  border: 1px solid #e2e2e2;
+}
+
+table td.integer, td.float, table td.date, table td.datetime {
   text-align: right;
   color: darkblue;
 }
