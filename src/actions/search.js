@@ -2,7 +2,9 @@ import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import n from 'numeral'
 
-import { updateViewport, setSearchQuery, setFilteredItems, setOffset } from './items'
+import {
+  updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery
+} from './items'
 
 // Search by
 // TEXT
@@ -148,4 +150,13 @@ export const searching = ({ query, store }) => {
   store.dispatch(setFilteredItems(filteredItems))
   store.dispatch(setOffset(0))
   store.dispatch(updateViewport(filteredItems, limit, 0))
+}
+
+export const clearAllSearchQuery = () => (dispatch, getState) => {
+  const { items, limit } = getState()
+
+  dispatch(clearSearchQuery())
+  dispatch(setFilteredItems(items))
+  dispatch(setOffset(0))
+  dispatch(updateViewport(items, limit, 0))
 }

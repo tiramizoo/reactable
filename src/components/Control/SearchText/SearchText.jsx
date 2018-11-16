@@ -4,6 +4,11 @@ import debounce from 'lodash/debounce'
 
 import { searching } from '../../../actions/search'
 
+const initState = {
+  value: '',
+  options: 'all',
+}
+
 class SearchText extends Component {
   static contextTypes = {
     store: PropTypes.object
@@ -11,6 +16,7 @@ class SearchText extends Component {
 
   constructor(props, context) {
     super(props, context)
+    this.state = initState
   }
 
   searchByText = debounce((query) => {
@@ -23,26 +29,51 @@ class SearchText extends Component {
   }
 
   handleTextChange(e) {
-    this.searchByText(this.newSearchQuery({ value: e.target.value }))
+    const params = { value: e.target.value }
+
+    this.searchByText(this.newSearchQuery(params))
+    this.setState(params)
   }
 
   handleOptionsChange(e) {
-    this.searchByText(this.newSearchQuery({ options: e.target.value }))
+    const params = { options: e.target.value }
+
+    this.searchByText(this.newSearchQuery(params))
+    this.setState(params)
+  }
+
+  handleClearChange() {
+    const { column } = this.props
+
+    this.setState(initState)
+    this.searchByText({ column })
   }
 
   render() {
-    const { column } = this.props
+    const { column, searchQuery } = this.props
+    const { value, options } = this.state
+
     return (
       <div>
         <label htmlFor={column}>{column}</label>
         <br />
-        <input onChange={(e) => this.handleTextChange(e)} type="search" placeholder={column} id={column} />
-        <select onChange={(e) => this.handleOptionsChange(e)}>
+        <input
+          value={value}
+          onChange={(e) => this.handleTextChange(e)}
+          type="search"
+          placeholder={column}
+          id={column}
+        />
+        <select
+          value={options}
+          onChange={(e) => this.handleOptionsChange(e)}
+        >
           <option value="all">All</option>
           <option value="exact">Exact</option>
           <option value="empty">Empty</option>
           <option value="notEmpty">Not Empty</option>
         </select>
+        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

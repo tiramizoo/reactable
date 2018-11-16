@@ -5,6 +5,9 @@ import n from 'numeral'
 
 import { searching } from '../../../actions/search'
 
+const initState = {
+  value: { from: '', to: '' }
+}
 
 class SearchInteger extends Component {
   static contextTypes = {
@@ -13,6 +16,7 @@ class SearchInteger extends Component {
 
   constructor(props, context) {
     super(props, context)
+    this.state = initState
   }
 
   searchByNumber = debounce((query) => {
@@ -27,24 +31,50 @@ class SearchInteger extends Component {
     let newSearchQuery
 
     if (searchQuery[column]) {
-      newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() })
+      newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() || '' })
       newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+      this.setState({ value: newValue })
     } else {
-      newValue = { [name]: n(value).value() }
+      newValue = { [name]: n(value).value() || '' }
       newSearchQuery = { value: newValue, column }
+      this.setState({ value: newValue })
     }
 
     this.searchByNumber(newSearchQuery)
   }
 
+  handleClearChange() {
+    const { column } = this.props
+
+    this.setState(initState)
+    this.searchByNumber({ column })
+  }
+
   render() {
     const { column } = this.props
+    const { from, to } = this.state.value
+
     return (
       <div>
         <label htmlFor={column}>{column}</label>
         <br />
-        <input onChange={(e) => this.handleNumberChange(e)} name="from" type="number" placeholder="from" id={column} />
-        <input onChange={(e) => this.handleNumberChange(e)} name="to" type="number" placeholder="to" id={column} />
+        <input
+          value={from}
+          onChange={(e) => this.handleNumberChange(e)}
+          name="from"
+          type="number"
+          placeholder="from"
+          id={column}
+        />
+        <input
+          value={to}
+          onChange={(e) => this.handleNumberChange(e)}
+          name="to"
+          type="number"
+          placeholder="to"
+          id={column}
+        />
+        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

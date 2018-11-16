@@ -5,6 +5,13 @@ export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
 export const SORT_ITEMS = 'SORT_ITEMS'
 export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY'
 export const SET_FILTERED_ITEMS = 'SET_FILTERED_ITEMS'
+export const CLEAR_ALL = 'CLEAR_ALL'
+
+export function clearSearchQuery() {
+  return {
+    type: CLEAR_ALL,
+  }
+}
 
 export function setSearchQuery(column, query) {
   return {
