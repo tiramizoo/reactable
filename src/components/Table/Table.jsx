@@ -42,10 +42,10 @@ class Table extends Component {
     } = this.props
 
     if (e.deltaY > 0) {
-      const newOffset = Math.min(offset + 1, filteredItems.length)
+      const newOffset = Math.min(offset + 1, Math.max(filteredItems.length - limit, 0))
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
-    } else {
+    } else if (e.deltaY < 0){
       const newOffset = Math.max(offset - 1, 0)
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
@@ -61,7 +61,7 @@ class Table extends Component {
     } = this.props
 
     if (e.key === 'ArrowDown') {
-      const newOffset = Math.min(offset + 1, filteredItems.length)
+      const newOffset = Math.min(offset + 1, Math.max(filteredItems.length - limit, 0))
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     } else if (e.key === 'ArrowUp') {
@@ -142,12 +142,12 @@ class Table extends Component {
 
   renderFooter() {
     const {
-      rowHeight, offset, limit, filteredItems, items, visibleColumnsCount,
+      rowHeight, offset, limit, filteredItems, currentItems, items, visibleColumnsCount,
     } = this.props
     return (
       <tr>
         <th colSpan={visibleColumnsCount} style={{ height: rowHeight }}>
-          offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, total: {items.length}
+          offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, current: {currentItems.length}, total: {items.length}
         </th>
       </tr>
     )
@@ -195,16 +195,10 @@ class Table extends Component {
     return (
       <div
         className="table-wrapper"
-        style={{ width: scrollBarWidth + 30, height: scrollBarHeight + rowHeight + rowHeight }}
+        style={{ width: scrollBarWidth, height: scrollBarHeight + rowHeight + rowHeight }}
       >
-        <div
-          className="scroll-bar"
-          onScroll={e => this.scrollContent(e)}
-          style={{ height: scrollBarHeight, width: 30, top: rowHeight }}
-        >
-          <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
-        </div>
-        <div><button onClick={() => this.handleShowControlToggle()}>o</button></div>
+
+        <div className='control-toggle'><button onClick={() => this.handleShowControlToggle()}>o</button></div>
 
 
         <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)} tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
