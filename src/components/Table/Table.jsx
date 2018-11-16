@@ -16,37 +16,30 @@ const hideColumn = (schemaParams) => {
 }
 
 class Table extends Component {
-  componentDidMount() {
-    console.log('didComponentMount')
-  }
-
-  scrollContent(e) {
-    const {
-      filteredItems, limit, scrollBarHandleHeight, scrollBarHeight,
-      rowHeight, setOffset, updateViewport,
-    } = this.props
-    const offsetMax = filteredItems.length - limit // 100 - 20 = 80
-    const scrollableHeight = scrollBarHandleHeight - scrollBarHeight // 3000 - 600 = 2400
-    const scrollTop = Math.min(scrollableHeight, e.target.scrollTop) // ios only: reject values > 2400
-    const newOffset = offsetMax - Math.round((scrollableHeight - Math.max(0, scrollTop)) / rowHeight)
-
-    setOffset(newOffset)
-    updateViewport(filteredItems, limit, newOffset)
-  }
-
   wtf(e) {
+    e.stopPropagation()
     e.preventDefault()
+
+    e.currentTarget.focus()
 
     const {
       offset, setOffset, filteredItems, limit, updateViewport
     } = this.props
 
-    if (e.deltaY > 0) {
-      const newOffset = Math.min(offset + 1, Math.max(filteredItems.length - limit, 0))
+    const deltaY = e.deltaY
+
+    if (deltaY > 0) {
+
+      const moveBy = (deltaY <= 5) ? 1 : 2;
+
+      const newOffset = Math.min(offset + moveBy, Math.max(filteredItems.length - limit, 0))
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
-    } else if (e.deltaY < 0){
-      const newOffset = Math.max(offset - 1, 0)
+    } else if (deltaY < 0){
+
+      const moveBy = (deltaY >= -5) ? 1 : 2;
+
+      const newOffset = Math.max(offset - moveBy, 0)
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     }
@@ -54,6 +47,7 @@ class Table extends Component {
 
 
   onKeyDown(e) {
+    e.stopPropagation()
     e.preventDefault()
 
     const {
@@ -182,7 +176,8 @@ class Table extends Component {
     return null
   }
 
-  handleShowControlToggle() {
+  handleShowControlToggle(e) {
+    e.preventDefault()
     this.props.toggleControlShow()
   }
 
@@ -195,13 +190,13 @@ class Table extends Component {
     return (
       <div
         className="table-wrapper"
-        style={{ width: scrollBarWidth, height: scrollBarHeight + rowHeight + rowHeight }}
+        style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}
       >
 
-        <div className='control-toggle'><button onClick={() => this.handleShowControlToggle()}>o</button></div>
+        <div className='control-toggle'><button onClick={(e) => this.handleShowControlToggle(e)}>&#10050;</button></div>
 
 
-        <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)} tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
+        <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)}  tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
           <thead>
             { this.renderHeader() }
           </thead>
