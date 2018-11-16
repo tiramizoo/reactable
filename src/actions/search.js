@@ -14,13 +14,13 @@ function searchByText(items, column, searchQuery) {
     case 'all':
       if (searchQuery.value) {
         return filter(items, (item) => {
-          return item[column].toLowerCase().includes(searchQuery.value.toLowerCase())
+          return item[column] && item[column].toLowerCase().includes(searchQuery.value.toLowerCase())
         })
       }
       return items
     case 'exact':
       return filter(items, (item) => {
-        return item[column] === searchQuery.value
+        return item[column] && item[column] === searchQuery.value
       })
     case 'empty':
       return filter(items, (item) => {
