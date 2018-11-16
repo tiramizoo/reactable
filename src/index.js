@@ -7,7 +7,7 @@ import { createStore, applyMiddleware } from 'redux'
 import App from './App'
 import reducers from './reducers/index'
 import { initSettings, updateTableWidth } from './actions/settings'
-import { searching } from './actions/search'
+import { searching, reSearching } from './actions/search'
 import { addItems } from './actions/items'
 
 class InitApp extends Component {
@@ -22,8 +22,11 @@ class InitApp extends Component {
     searching({ query, store: this.store })
   }
 
-  addData(items) {
-    this.store.dispatch(addItems(items))
+  addData(newItems) {
+    const { items } = this.store.getState()
+    const addedItems = [...items, ...newItems]
+    this.store.dispatch(addItems(addedItems))
+    this.store.dispatch(reSearching(addedItems))
   }
 
   updateTableWidth(width) {

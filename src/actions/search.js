@@ -152,6 +152,17 @@ export const searching = ({ query, store }) => {
   store.dispatch(updateViewport(filteredItems, limit, 0))
 }
 
+export const reSearching = items => (dispatch, getState) => {
+  const {
+    schema, limit, searchQuery,
+  } = getState()
+
+  const filteredItems = searchBy(items, searchQuery, schema)
+  dispatch(setFilteredItems(filteredItems))
+  dispatch(setOffset(0))
+  dispatch(updateViewport(filteredItems, limit, 0))
+}
+
 export const clearAllSearchQuery = () => (dispatch, getState) => {
   const { items, limit } = getState()
 
