@@ -16,6 +16,10 @@ const hideColumn = (schemaParams) => {
 }
 
 class Table extends Component {
+  componentDidMount() {
+    console.log('didComponentMount')
+  }
+
   scrollContent(e) {
     const {
       filteredItems, limit, scrollBarHandleHeight, scrollBarHeight,
@@ -28,6 +32,25 @@ class Table extends Component {
 
     setOffset(newOffset)
     updateViewport(filteredItems, limit, newOffset)
+  }
+
+
+  onKeyDown(e) {
+    e.preventDefault()
+
+    const {
+      offset, setOffset, filteredItems, limit, updateViewport
+    } = this.props
+
+    if (e.key === 'ArrowDown') {
+      const newOffset = Math.min(offset + 1, filteredItems.length)
+      setOffset(newOffset)
+      updateViewport(filteredItems, limit, newOffset)
+    } else if (e.key === 'ArrowUp') {
+      const newOffset = Math.max(offset - 1, 0)
+      setOffset(newOffset)
+      updateViewport(filteredItems, limit, newOffset)
+    }
   }
 
   toggleDirection(key) {
@@ -159,11 +182,12 @@ class Table extends Component {
           <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
         </div>
 
-        <table style={{ width: tableWidth }}>
+        <table style={{ width: tableWidth }}
+>
           <thead>
             { this.renderHeader() }
           </thead>
-          <tbody>
+          <tbody tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
             { currentItems.map(item => this.renderRow(item)) }
             { this.renderMissingRows() }
           </tbody>
