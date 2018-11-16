@@ -69,16 +69,8 @@ table td.integer, td.float, table td.date, table td.datetime {
   color: darkblue;
 }
 
-table th.integer {
-  width: 50px
-}
-
-table th.boolean {
-  width: 20px;
-}
-
-table th.date {
-  width: 80px;
+table td.boolean {
+  text-align: center;
 }
 
 table tr.record:nth-child(even) td {
