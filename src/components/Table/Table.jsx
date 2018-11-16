@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import isEmpty from 'lodash/isEmpty'
 
 import { defaultFormatter } from '../../helpers/defaultFormaters'
 
@@ -48,7 +49,7 @@ class Table extends Component {
 
   cellHtml(row, key, schemaParams) {
     const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
-    const html = row[key] !== 'undefined' ? formatter(row) : ''
+    const html = !isEmpty(row[key]) ? formatter(row) : ''
     return { __html: html }
   }
 
