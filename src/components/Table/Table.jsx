@@ -207,14 +207,7 @@ class Table extends Component {
         <div><button onClick={() => this.handleShowControlToggle()}>o</button></div>
 
 
-<<<<<<< HEAD
         <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)} tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
-||||||| merged common ancestors
-        <table style={{ width: tableWidth }}
->
-=======
-        <table style={{ width: tableWidth }}>
->>>>>>> 236dbe75e40ac4abd7d18dcc7725e8fcd3499d74
           <thead>
             { this.renderHeader() }
           </thead>
