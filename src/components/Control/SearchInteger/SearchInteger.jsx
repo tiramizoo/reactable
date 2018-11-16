@@ -27,19 +27,14 @@ class SearchInteger extends Component {
     const { value, name } = e.target
     const { column, searchQuery } = this.props
 
-    let newValue
-    let newSearchQuery
+    let newValue = { [name]: n(value).value() || '' }
+    let newSearchQuery = { value: newValue, column }
 
     if (searchQuery[column]) {
       newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() || '' })
       newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
-      this.setState({ value: newValue })
-    } else {
-      newValue = { [name]: n(value).value() || '' }
-      newSearchQuery = { value: newValue, column }
-      this.setState({ value: newValue })
     }
-
+    this.setState({ value: newValue })
     this.searchByNumber(newSearchQuery)
   }
 

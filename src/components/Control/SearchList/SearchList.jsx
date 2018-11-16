@@ -37,18 +37,22 @@ class SearchList extends Component {
     }
   }
 
+  hideColumn(schemaParams) {
+    return (schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)
+  }
+
   columnHeader(key) {
     const { schema } = this.props
     const schemaParams = schema[key]
 
-    if ((schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)) {
+    if (this.hideColumn(schemaParams)) {
       return null
     }
     return <th key={key} width={schema[key]['width']}></th>
   }
 
   columnBody(key, schemaParams) {
-    if ((schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)) {
+    if (this.hideColumn(schemaParams)) {
       return null
     }
     return <td key={key}>{this.getSearchInput(schemaParams.type, key)}</td>
