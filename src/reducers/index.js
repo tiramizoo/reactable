@@ -8,6 +8,7 @@ import schema from './schema'
 import searchQuery from './searchQuery'
 import filteredItems from './filteredItems'
 import settings from './settings'
+import tableWidth from './tableWidth'
 
 export default combineReducers({
   items,
@@ -18,4 +19,5 @@ export default combineReducers({
   searchQuery,
   filteredItems,
   settings,
+  tableWidth,
 })

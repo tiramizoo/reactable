@@ -9,6 +9,9 @@
     <label for='search_by_first_name'>External Search</label>
     <input type="search" id='search_by_first_name' onInput="search('first_name', this.value)">
 
+    <label for='set_width'>Table width</label>
+    <input type="number" id='set_width' onInput="setWidth(this.value)">
+
     <div id="table1"></div>
     <hr>
     <div id="table2"></div>
@@ -20,7 +23,8 @@
         dataPath: "./data-1000.json",
         schema:   schemaUsers,
         offset:   2,
-        control:  true
+        control:  true,
+        tableWidth: 1000
       });
 
       t1.render();
@@ -28,6 +32,10 @@
       function search(column, value) {
         t1.search(column, value);
         t2.search(column, value);
+      }
+
+      function setWidth(value) {
+        t1.updateTableWidth(value);
       }
 
       var t2 = Reactable.init({

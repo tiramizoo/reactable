@@ -5,7 +5,7 @@ import Schema from './Schema'
 const Control = (props) => {
   const {
     updateViewport, filteredItems, controlShow,
-    setLimit, limit, setOffset, offset,
+    setLimit, limit, setOffset, offset, tableWidth,
   } = props
 
   const updateLimit = (e) => {
@@ -45,6 +45,7 @@ const Control = (props) => {
       <div>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" /></span>
         <span> Offset: <input onChange={updateOffset} value={offset} type="number" /></span>
+        <span> Table width: {tableWidth}</span>
       </div>
       <div>
         <Schema />

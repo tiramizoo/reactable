@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux'
 
 import App from './App'
 import reducers from './reducers/index'
-import { initSettings } from './actions/settings'
+import { initSettings, updateTableWidth } from './actions/settings'
 import { searching } from './actions/search'
 import { addItems } from './actions/items'
 
@@ -26,8 +26,8 @@ class InitApp extends Component {
     this.store.dispatch(addItems(items))
   }
 
-  updateTableWidth(value) {
-
+  updateTableWidth(width) {
+    this.store.dispatch(updateTableWidth(width))
   }
 
   render() {

@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   limit: state.limit,
   offset: state.offset,
   controlShow: state.settings.control,
+  tableWidth: state.tableWidth,
 })
 
 const mapDispatchToProps = dispatch => (
