@@ -148,11 +148,12 @@ class Table extends Component {
 
   renderMissingRows() {
     const {
-      rowHeight, limit, filteredItems, visibleColumnsCount,
+      rowHeight, limit, visibleColumnsCount, currentItems
     } = this.props
 
-    if (filteredItems.length < limit) {
-      return Array(limit - filteredItems.length).fill().map((a, ix) => {
+
+    if (currentItems.length < limit) {
+      return Array(limit - currentItems.length).fill().map((a, ix) => {
         return (
           <tr key={ix}>
             <td colSpan={visibleColumnsCount} style={{ height: rowHeight }} />
