@@ -8,6 +8,7 @@ import App from './App'
 import reducers from './reducers/index'
 import { initSettings } from './actions/settings'
 import { searching } from './actions/search'
+import { addItems } from './actions/items'
 
 class InitApp extends Component {
   constructor(props) {
@@ -19,6 +20,14 @@ class InitApp extends Component {
   search(column, value, options) {
     const query = { column, value, options }
     searching({ query, store: this.store })
+  }
+
+  addData(items) {
+    this.store.dispatch(addItems(items))
+  }
+
+  updateTableWidth(value) {
+
   }
 
   render() {
