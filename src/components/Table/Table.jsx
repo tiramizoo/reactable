@@ -1,7 +1,19 @@
 import React, { Component } from 'react'
-import isEmpty from 'lodash/isEmpty'
 
 import { defaultFormatter } from '../../helpers/defaultFormaters'
+
+const cellHtml = (row, key, schemaParams) => {
+  const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
+  let html = ''
+  if (row[key] !== 'undefined' || row[key] !== null) {
+    html = formatter(row)
+  }
+  return { __html: html }
+}
+
+const hideColumn = (schemaParams) => {
+  return schemaParams.hide !== 'undefined' && schemaParams.hide === true
+}
 
 class Table extends Component {
   scrollContent(e) {
@@ -47,19 +59,9 @@ class Table extends Component {
     updateViewport(filteredItems, limit, 0)
   }
 
-  cellHtml(row, key, schemaParams) {
-    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
-    const html = !isEmpty(row[key]) ? formatter(row) : ''
-    return { __html: html }
-  }
-
-  hideColumn(schemaParams) {
-    return schemaParams.hide !== 'undefined' && schemaParams.hide === true
-  }
-
   columnHeader(key, schemaParams) {
     const { rowHeight } = this.props
-    if (this.hideColumn(schemaParams)) {
+    if (hideColumn(schemaParams)) {
       return null
     }
     return (
@@ -72,14 +74,14 @@ class Table extends Component {
   columnBody(row, key, schemaParams) {
     const { rowHeight } = this.props
 
-    if (this.hideColumn(schemaParams)) {
+    if (hideColumn(schemaParams)) {
       return null
     }
     return (
       <td
         className={schemaParams.type}
         key={key}
-        dangerouslySetInnerHTML={this.cellHtml(row, key, schemaParams)}
+        dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}
         style={{ height: rowHeight }}
       />
     )
