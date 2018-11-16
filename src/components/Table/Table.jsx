@@ -34,6 +34,24 @@ class Table extends Component {
     updateViewport(filteredItems, limit, newOffset)
   }
 
+  wtf(e) {
+    e.preventDefault()
+
+    const {
+      offset, setOffset, filteredItems, limit, updateViewport
+    } = this.props
+
+    if (e.deltaY > 0) {
+      const newOffset = Math.min(offset + 1, filteredItems.length)
+      setOffset(newOffset)
+      updateViewport(filteredItems, limit, newOffset)
+    } else {
+      const newOffset = Math.max(offset - 1, 0)
+      setOffset(newOffset)
+      updateViewport(filteredItems, limit, newOffset)
+    }
+  }
+
 
   onKeyDown(e) {
     e.preventDefault()
@@ -183,12 +201,11 @@ class Table extends Component {
           <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
         </div>
 
-        <table style={{ width: tableWidth }}
->
+        <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)} tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
           <thead>
             { this.renderHeader() }
           </thead>
-          <tbody tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
+          <tbody>
             { currentItems.map(item => this.renderRow(item)) }
             { this.renderMissingRows() }
           </tbody>
