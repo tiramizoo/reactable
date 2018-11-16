@@ -164,6 +164,10 @@ class Table extends Component {
     return null
   }
 
+  handleShowControlToggle() {
+    this.props.toggleControlShow()
+  }
+
 
   render() {
     const {
@@ -182,9 +186,10 @@ class Table extends Component {
         >
           <div className="scroll-bar-handle" style={{ height: scrollBarHandleHeight }} />
         </div>
+        <div><button onClick={() => this.handleShowControlToggle()}>o</button></div>
 
-        <table style={{ width: tableWidth }}
->
+
+        <table style={{ width: tableWidth }}>
           <thead>
             { this.renderHeader() }
           </thead>
