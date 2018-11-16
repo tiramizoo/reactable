@@ -12,6 +12,8 @@
     <label for='set_width'>Table width</label>
     <input type="number" id='set_width' onInput="setWidth(this.value)">
 
+    <button onClick="addData()">ADD DATA</button>
+
     <div id="table1"></div>
     <hr>
     <div id="table2"></div>
@@ -20,12 +22,14 @@
     <script>
       var t1 = Reactable.init({
         htmlId:   "table1",
-        dataPath: "./data-1000.json",
+        // dataPath: "./data-1000.json",
         schema:   schemaUsers,
         offset:   2,
         control:  true,
         tableWidth: 1000
       });
+
+      var data = [{"offset":0,"id":1,"first_name":"Ilda","last_name":"Walsh","email":"stefany.spinka@kulas.co.uk","gender":"female","date_of_birth":"1982-09-03","active":false},{"offset":1,"id":2,"first_name":"Kirstin","last_name":"Stamm","email":"whitney@denesik.ca","gender":"male","date_of_birth":"1993-08-16","active":true},{"offset":2,"id":3,"first_name":"Albert","last_name":"Schamberger","email":"mikaela@conn.us","gender":"male","date_of_birth":"1994-08-08","active":true},{"offset":3,"id":4,"first_name":"Anna","last_name":"Kuhlman","email":"treena@reichert.info","gender":"male","date_of_birth":"2012-12-12","active":false},{"offset":4,"id":5,"first_name":"Avery","last_name":"Conn","email":"jared@corwin.co.uk","gender":"female","date_of_birth":"2016-12-26","active":false},{"offset":5,"id":6,"first_name":"Colby","last_name":"Leannon","email":"berniece@raukoss.ca","gender":"male","date_of_birth":"2002-08-29","active":true},{"offset":6,"id":7,"first_name":"Dean","last_name":"Lehner","email":"isabella.leuschke@jakubowskimclaughlin.info","gender":"female","date_of_birth":"2005-04-19","active":false},{"offset":7,"id":8,"first_name":"Benny","last_name":"Prosacco","email":"maryetta_collins@towne.com","gender":"female","date_of_birth":"2017-09-18","active":true},{"offset":8,"id":9,"first_name":"Adrian","last_name":"Lubowitz","email":"madie.auer@harberlegros.info","gender":"male","date_of_birth":"2017-12-22","active":true},{"offset":9,"id":10,"first_name":"Leona","last_name":"Cremin","email":"lael.howe@damore.ca","gender":"male","date_of_birth":"1994-01-18","active":false},{"offset":10,"id":11,"first_name":"Tonya","last_name":"Brown","email":"pearle.haag@lynch.biz","gender":"male","date_of_birth":"2003-12-28","active":false},{"offset":11,"id":12,"first_name":"Verena","last_name":"Ernser","email":"marin@fritsch.ca","gender":"male","date_of_birth":"1997-01-08","active":false},{"offset":12,"id":13,"first_name":"Huey","last_name":"Romaguera","email":"abe@leannonglover.us","gender":"female","date_of_birth":"2006-04-13","active":false},{"offset":13,"id":14,"first_name":"Harlan","last_name":"Stark","email":"enid@stark.us","gender":"male","date_of_birth":"2008-06-21","active":false},{"offset":14,"id":15,"first_name":"Gus","last_name":"Adams","email":"leigha@schroeder.com","gender":"female","date_of_birth":"1986-06-07","active":true},{"offset":15,"id":16,"first_name":"Wilda","last_name":"Feil","email":"jaleesa@bailey.ca","gender":"female","date_of_birth":"1994-08-14","active":false}]
 
       t1.render();
 
@@ -36,6 +40,10 @@
 
       function setWidth(value) {
         t1.updateTableWidth(value);
+      }
+
+      function addData() {
+        t1.addData(data)
       }
 
       var t2 = Reactable.init({
