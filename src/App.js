@@ -9,7 +9,7 @@ import { setItems, updateViewport } from './actions/items'
 
 class App extends Component {
   componentDidMount() {
-    this.fetchData();
+    this.fetchData()
   }
 
   fetchData() {

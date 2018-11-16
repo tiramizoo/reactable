@@ -25,6 +25,7 @@ class InitApp extends Component {
   addData(newItems) {
     const { items } = this.store.getState()
     const addedItems = [...items, ...newItems]
+
     this.store.dispatch(addItems(addedItems))
     this.store.dispatch(reSearching(addedItems))
   }

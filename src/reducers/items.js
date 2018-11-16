@@ -10,7 +10,7 @@ function items(state = [], action) {
     case SORT_ITEMS:
       return sortByType(state, action)
     case ADD_ITEMS:
-      return [...state, ...action.items]
+      return action.items
     case INIT_SETTINGS:
       return []
     default:
