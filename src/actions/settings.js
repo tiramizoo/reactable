@@ -1,6 +1,7 @@
 export const INIT_SETTINGS = 'INIT_SETTINGS'
 export const UPDATE_TABLE_WIDTH = 'UPDATE_TABLE_WIDTH'
 export const TOGGLE_CONTROL_SHOW = 'TOGGLE_CONTROL_SHOW'
+export const TOGGLE_SCHEMA_CONTROL = 'TOGGLE_SCHEMA_CONTROL'
 
 export function initSettings(settings) {
   return {
@@ -19,5 +20,11 @@ export function updateTableWidth(width) {
 export function toggleControlShow() {
   return {
     type: TOGGLE_CONTROL_SHOW,
+  }
+}
+
+export function toggleSchemaControl() {
+  return {
+    type: TOGGLE_SCHEMA_CONTROL,
   }
 }

@@ -1,7 +1,7 @@
-import { INIT_SETTINGS, TOGGLE_CONTROL_SHOW } from '../actions/settings'
+import { INIT_SETTINGS, TOGGLE_CONTROL_SHOW, TOGGLE_SCHEMA_CONTROL } from '../actions/settings'
 // {htmlId: "table1", dataPath: "./data-100.json", offset: 0, limit: 10}
 
-const initSettings = { controlShow: false }
+const initSettings = { controlShow: false, schemaControlShow: false }
 
 function settings(state = initSettings, action) {
   switch (action.type) {
@@ -9,6 +9,8 @@ function settings(state = initSettings, action) {
       return Object.assign({}, state, action.settings)
     case TOGGLE_CONTROL_SHOW:
       return Object.assign({}, state, { controlShow: !state.controlShow })
+    case TOGGLE_SCHEMA_CONTROL:
+      return Object.assign({}, state, { schemaControlShow: !state.schemaControlShow })
     default:
       return state
   }

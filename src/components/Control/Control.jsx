@@ -1,6 +1,5 @@
 import React from 'react'
 import SearchList from './SearchList'
-import Schema from './Schema'
 
 const Control = (props) => {
   const {
@@ -41,14 +40,13 @@ const Control = (props) => {
     return null
   }
   return (
-    <div className='control'>
+    <div className="control">
       <div>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" /></span>
         <span> Offset: <input onChange={updateOffset} value={offset} type="number" /></span>
         <span> Table width: {tableWidth}</span>
       </div>
       <div>
-        <Schema />
         <SearchList />
       </div>
 

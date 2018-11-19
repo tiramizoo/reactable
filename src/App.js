@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import './App.css'
 import Control from './components/Control'
+import SchemaControl from './components/SchemaControl'
 import Table from './components/Table'
 
 import { setItems, updateViewport } from './actions/items'
@@ -29,6 +30,7 @@ class App extends Component {
   render() {
     return (
       <div className="reactable">
+        <SchemaControl />
         <Control />
         <Table />
       </div>

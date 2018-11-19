@@ -176,24 +176,29 @@ class Table extends Component {
     return null
   }
 
-  handleShowControlToggle(e) {
+  handleToggleControl(e) {
     e.preventDefault()
     this.props.toggleControlShow()
+  }
+
+  handleToggleSchemaControl(e) {
+    e.preventDefault()
+    this.props.toggleSchemaControl()
   }
 
 
   render() {
     const {
-      scrollBarWidth, scrollBarHeight, rowHeight, scrollBarHandleHeight,
+      scrollBarHeight, rowHeight,
       tableWidth, currentItems,
     } = this.props
     return (
       <div
         className="table-wrapper"
-        style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}
-      >
+        style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}>
 
-        <div className='control-toggle'><button onClick={(e) => this.handleShowControlToggle(e)}>&#10050;</button></div>
+        <div className='abc'><button onClick={(e) => this.handleToggleSchemaControl(e)}>&#9872;</button></div>
+        <div className='control-toggle'><button onClick={(e) => this.handleToggleControl(e)}>&#10050;</button></div>
 
 
         <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)}  tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>

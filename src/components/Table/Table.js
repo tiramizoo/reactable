@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import TableComponent from './Table.jsx'
 import { setOffset, updateViewport, sortItems } from '../../actions/items'
 import { setSortDirection } from '../../actions/schema'
-import { toggleControlShow } from '../../actions/settings'
+import { toggleControlShow, toggleSchemaControl } from '../../actions/settings'
 
 const rowHeight = 30
 
@@ -40,6 +40,7 @@ const mapDispatchToProps = dispatch => (
       dispatch(setSortDirection(key, direction))
     },
     toggleControlShow: () => dispatch(toggleControlShow()),
+    toggleSchemaControl: () => dispatch(toggleSchemaControl()),
   }
 )
 

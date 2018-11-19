@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Schema = (props) => {
+const SchemaControl = (props) => {
   const handleChange = (e, key) => {
     const { schema, updateSchemaOptions } = props
     const { checked } = e.target
@@ -24,6 +24,10 @@ const Schema = (props) => {
     )
   }
 
+  if (!props.schemaControlShow) {
+    return null
+  }
+
   return (
     <div>
       <ul>
@@ -34,4 +38,4 @@ const Schema = (props) => {
   )
 }
 
-export default Schema
+export default SchemaControl
