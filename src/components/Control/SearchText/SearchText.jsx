@@ -56,12 +56,12 @@ class SearchText extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <br />
         <input
           value={value}
           onChange={(e) => this.handleTextChange(e)}
-          type="search"
+          type="text"
           placeholder={column}
+          autoComplete="off"
           id={column}
         />
         <select

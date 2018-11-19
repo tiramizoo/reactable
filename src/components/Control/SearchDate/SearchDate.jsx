@@ -50,13 +50,13 @@ class SearchDate extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <br />
         <input
           value={from}
           onChange={(e) => this.handleNumberChange(e)}
           name="from"
           type="date"
           placeholder="from"
+          autoComplete="off"
           id={column}
         />
         <input
@@ -65,6 +65,7 @@ class SearchDate extends Component {
           name="to"
           type="date"
           placeholder="to"
+          autoComplete="off"
           id={column}
         />
         <button onClick={() => this.handleClearChange()}>Clear</button>

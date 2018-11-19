@@ -52,13 +52,13 @@ class SearchInteger extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <br />
         <input
           value={from}
           onChange={(e) => this.handleNumberChange(e)}
           name="from"
           type="number"
           placeholder="from"
+          autoComplete="off"
           id={column}
         />
         <input
@@ -67,6 +67,7 @@ class SearchInteger extends Component {
           name="to"
           type="number"
           placeholder="to"
+          autoComplete="off"
           id={column}
         />
         <button onClick={() => this.handleClearChange()}>Clear</button>

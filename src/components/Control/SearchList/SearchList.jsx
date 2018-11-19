@@ -41,21 +41,11 @@ class SearchList extends Component {
     return (schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)
   }
 
-  columnHeader(key) {
-    const { schema } = this.props
-    const schemaParams = schema[key]
-
+  columnFilter(key, schemaParams) {
     if (this.hideColumn(schemaParams)) {
       return null
     }
-    return <th key={key} width={schema[key]['width']}></th>
-  }
-
-  columnBody(key, schemaParams) {
-    if (this.hideColumn(schemaParams)) {
-      return null
-    }
-    return <td key={key}>{this.getSearchInput(schemaParams.type, key)}</td>
+    return <div key={key}>{this.getSearchInput(schemaParams.type, key)}</div>
   }
 
   handleClearAllChange() {
@@ -71,22 +61,9 @@ class SearchList extends Component {
     return (
       <div>
         <button onClick={() => this.handleClearAllChange()}>Clear all</button>
-        <table>
-          <thead>
-            <tr>
-              { Object.keys(schema).map(key =>
-                  this.columnHeader(key),
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              { Object.entries(schema).map(([key, keySchema]) =>
-                this.columnBody(key, keySchema),
-              )}
-            </tr>
-          </tbody>
-        </table>
+          { Object.entries(schema).map(([key, keySchema]) =>
+          this.columnFilter(key, keySchema)
+          )}
       </div>
     )
   }

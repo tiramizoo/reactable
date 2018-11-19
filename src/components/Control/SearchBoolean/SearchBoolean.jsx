@@ -30,7 +30,6 @@ class SearchBoolean extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <br />
         <select onChange={(e) => this.handleOptionsChange(e)}>
           <option value="all">All</option>
           <option value="true">True</option>

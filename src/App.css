@@ -1,7 +1,20 @@
 .reactable .control {
-  background: #e2e2e2;
-  margin-bottom: 10px;
-  padding: 10px;
+  font-family: monospace;
+}
+
+.reactable .control label {
+  font-weight: bold;
+  display: inline-block;
+  width: 150px;
+}
+
+.reactable .control input[type=text], .reactable .control input[type=number], .reactable .control input[type=date] {
+  height: 20px;
+  border-radius: none;
+}
+
+.reactable .control input[type=number] {
+  width: 60px;
 }
 
 .reactable .control-toggle {
@@ -48,6 +61,7 @@
   outline-style: solid;
   outline-width: thin;
   outline-color: #e2e2e2;
+  background-color: #fff;
 }
 
 .reactable table th {
@@ -58,6 +72,7 @@
   border-bottom-width: 2px;
   text-align: left;
   overflow: hidden;
+  user-select: none;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;

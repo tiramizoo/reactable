@@ -16,6 +16,11 @@ const hideColumn = (schemaParams) => {
 }
 
 class Table extends Component {
+  constructor(props) {
+    super(props);
+    this.tableRef = React.createRef();
+  }
+
   wtf(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -141,7 +146,10 @@ class Table extends Component {
     return (
       <tr>
         <th colSpan={visibleColumnsCount} style={{ height: rowHeight }}>
-          offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, current: {currentItems.length}, total: {items.length}
+          <span>
+            offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, current: {currentItems.length}, total: {items.length}
+          </span>
+          <button onClick={(e) => this.requestFullScreen()}>fullscreen</button>
         </th>
       </tr>
     )
@@ -158,6 +166,8 @@ class Table extends Component {
     )
   }
 
+
+  // keeps table height stable by adding fake rows
   renderMissingRows() {
     const {
       rowHeight, limit, visibleColumnsCount, currentItems
@@ -186,6 +196,19 @@ class Table extends Component {
     this.props.toggleSchemaControl()
   }
 
+  requestFullScreen() {
+    const element = this.tableRef.current;
+    if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
+      if (element.requestFullscreen) {
+        return element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        return element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullScreen) {
+        return element.webkitRequestFullScreen();
+      }
+    }
+  };
+
 
   render() {
     const {
@@ -201,7 +224,7 @@ class Table extends Component {
         <div className='control-toggle'><button onClick={(e) => this.handleToggleControl(e)}>&#10050;</button></div>
 
 
-        <table style={{ width: tableWidth }} onWheel={e => this.wtf(e)}  tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
+        <table ref={this.tableRef} style={{ width: tableWidth }} onWheel={e => this.wtf(e)}  tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
           <thead>
             { this.renderHeader() }
           </thead>
