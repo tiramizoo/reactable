@@ -55,7 +55,7 @@ task :generate_dataset, [:size] do |t, args|
     },
     "data": args.size.to_i.times.map do |i|
       {
-        "offset":        i,
+        "_key":          i,
         "id":            i + 1,
         "first_name":    FFaker::Name.first_name,
         "last_name":     FFaker::Name.last_name,

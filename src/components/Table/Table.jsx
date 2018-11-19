@@ -150,7 +150,7 @@ class Table extends Component {
   renderRow(item) {
     const { schema } = this.props
     return (
-      <tr key={item.id} className="record">
+      <tr key={item._key} className="record">
         { Object.entries(schema).map(([key, keySchema]) =>
           this.columnBody(item, key, keySchema))
         }
