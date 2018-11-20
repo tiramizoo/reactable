@@ -8,7 +8,7 @@ import App from './App'
 import reducers from './reducers/index'
 import { initSettings, updateTableWidth } from './actions/settings'
 import { searching, reSearching } from './actions/search'
-import { addItems } from './actions/items'
+import { setItems } from './actions/items'
 
 class InitApp extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class InitApp extends Component {
     const { items } = this.store.getState()
     const addedItems = [...items, ...newItems]
 
-    this.store.dispatch(addItems(addedItems))
+    this.store.dispatch(setItems(addedItems))
     this.store.dispatch(reSearching(addedItems))
   }
 

@@ -1,5 +1,4 @@
 export const SET_ITEMS = 'SET_ITEMS'
-export const ADD_ITEMS = 'ADD_ITEMS'
 export const SET_OFFSET = 'SET_OFFSET'
 export const SET_LIMIT = 'SET_LIMIT'
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
@@ -32,13 +31,6 @@ export function setFilteredItems(items) {
 export function setItems(items) {
   return {
     type: SET_ITEMS,
-    items,
-  }
-}
-
-export function addItems(items) {
-  return {
-    type: ADD_ITEMS,
     items,
   }
 }

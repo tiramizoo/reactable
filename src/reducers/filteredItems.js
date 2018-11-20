@@ -3,7 +3,6 @@ import { INIT_SETTINGS } from '../actions/settings'
 
 import { sortByType } from '../helpers/sorting'
 
-
 function filteredItems(state = [], action) {
   switch (action.type) {
     case SET_ITEMS:
