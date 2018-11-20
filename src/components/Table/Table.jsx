@@ -192,7 +192,7 @@ class Table extends Component {
 
   handleToggleControl(e) {
     e.preventDefault()
-    this.props.toggleControlShow()
+    this.props.toggleSearchControl()
   }
 
   handleToggleSchemaControl(e) {
