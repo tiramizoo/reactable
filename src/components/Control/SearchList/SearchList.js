@@ -5,6 +5,7 @@ import { clearAllSearchQuery } from '../../../actions/search'
 
 const mapStateToProps = state => ({
   schema: state.schema,
+  filteredSchema: state.filteredSchema,
 })
 
 const mapDispatchToProps = {

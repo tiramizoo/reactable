@@ -71,30 +71,30 @@ class Table extends Component {
   }
 
   toggleDirection(key) {
-    const { schema } = this.props
-    if (!schema[key].direction) return 'asc'
-    if (schema[key].direction === 'desc') return 'asc'
+    const { filteredSchema } = this.props
+    if (!filteredSchema[key].direction) return 'asc'
+    if (filteredSchema[key].direction === 'desc') return 'asc'
     return 'desc'
   }
 
   columnClassName(key) {
-    const { schema } = this.props
+    const { filteredSchema } = this.props
     const classNames = [key]
-    if (schema[key].direction) {
+    if (filteredSchema[key].direction) {
       classNames.push('sorted')
-      classNames.push(schema[key].direction)
+      classNames.push(filteredSchema[key].direction)
     }
     return classNames.join(' ')
   }
 
   sort(key) {
     const {
-      schema, setSortDirection, sortItems, setOffset, updateViewport, filteredItems,
+      filteredSchema, setSortDirection, sortItems, setOffset, updateViewport, filteredItems,
       limit,
     } = this.props
     const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
-    sortItems(key, schema[key].type, direction)
+    sortItems(key, filteredSchema[key].type, direction)
     setOffset(0)
     updateViewport(filteredItems, limit, 0)
   }
@@ -128,10 +128,10 @@ class Table extends Component {
   }
 
   renderHeader() {
-    const { schema } = this.props
+    const { filteredSchema } = this.props
     return (
       <tr>
-        { Object.entries(schema).map(([key, keySchema]) =>
+        { Object.entries(filteredSchema).map(([key, keySchema]) =>
           this.columnHeader(key, keySchema))
         }
       </tr>
@@ -147,19 +147,23 @@ class Table extends Component {
       <tr>
         <th colSpan={visibleColumnsCount} style={{ height: rowHeight }}>
           <span>
-            offset: {offset},  limit: {limit}, filtered: {filteredItems.length}, current: {currentItems.length}, total: {items.length}
+            offset: {offset},
+            limit: {limit},
+            filtered: {filteredItems.length},
+            current: {currentItems.length},
+            total: {items.length}
           </span>
-          <button onClick={(e) => this.requestFullScreen()}>fullscreen</button>
+          <button onClick={() => this.requestFullScreen()}>fullscreen</button>
         </th>
       </tr>
     )
   }
 
   renderRow(item) {
-    const { schema } = this.props
+    const { filteredSchema } = this.props
     return (
       <tr key={item._key} className="record">
-        { Object.entries(schema).map(([key, keySchema]) =>
+        { Object.entries(filteredSchema).map(([key, keySchema]) =>
           this.columnBody(item, key, keySchema))
         }
       </tr>
@@ -170,7 +174,7 @@ class Table extends Component {
   // keeps table height stable by adding fake rows
   renderMissingRows() {
     const {
-      rowHeight, limit, visibleColumnsCount, currentItems
+      rowHeight, limit, visibleColumnsCount, currentItems,
     } = this.props
 
 
@@ -197,17 +201,17 @@ class Table extends Component {
   }
 
   requestFullScreen() {
-    const element = this.tableRef.current;
+    const element = this.tableRef.current
     if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
       if (element.requestFullscreen) {
-        return element.requestFullscreen();
+        return element.requestFullscreen()
       } else if (element.mozRequestFullScreen) {
-        return element.mozRequestFullScreen();
+        return element.mozRequestFullScreen()
       } else if (element.webkitRequestFullScreen) {
-        return element.webkitRequestFullScreen();
+        return element.webkitRequestFullScreen()
       }
     }
-  };
+  }
 
 
   render() {

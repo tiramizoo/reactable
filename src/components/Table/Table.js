@@ -14,15 +14,14 @@ const mapStateToProps = state => ({
   limit: state.limit,
   offset: state.offset,
   schema: state.schema,
+  filteredSchema: state.filteredSchema,
 
   scrollBarHeight: state.limit * rowHeight,
   scrollBarWidth: state.tableWidth,
   scrollBarHandleHeight: state.filteredItems.length * rowHeight,
-  visibleColumnsCount: Object.entries(state.schema).filter(([key, keySchema]) => {
-    return !keySchema['hide']
-  }).length,
+  visibleColumnsCount: state.filteredSchema.length,
   tableWidth: state.tableWidth,
-  rowHeight
+  rowHeight,
 })
 
 const mapDispatchToProps = dispatch => (

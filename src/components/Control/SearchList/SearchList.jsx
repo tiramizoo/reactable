@@ -38,7 +38,7 @@ class SearchList extends Component {
   }
 
   hideColumn(schemaParams) {
-    return (schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false) || (schemaParams['hide'] != 'undefined' && schemaParams['hide'] == true)
+    return (schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false)
   }
 
   columnFilter(key, schemaParams) {
@@ -56,12 +56,12 @@ class SearchList extends Component {
   }
 
   render() {
-    const { schema } = this.props
+    const { filteredSchema } = this.props
 
     return (
       <div>
         <button onClick={() => this.handleClearAllChange()}>Clear all</button>
-          { Object.entries(schema).map(([key, keySchema]) =>
+          { Object.entries(filteredSchema).map(([key, keySchema]) =>
           this.columnFilter(key, keySchema)
           )}
       </div>

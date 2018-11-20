@@ -2,16 +2,19 @@ import React from 'react'
 
 const SchemaControl = (props) => {
   const handleChange = (e, key) => {
-    const { schema, updateSchemaOptions } = props
+    const { addToFilteredSchema, removeFromFilteredSchema } = props
     const { checked } = e.target
-    const newOptions = Object.assign({}, schema[key], { hide: !checked })
-    updateSchemaOptions(key, newOptions)
+
+    if (checked) {
+      addToFilteredSchema(key)
+    } else {
+      removeFromFilteredSchema(key)
+    }
   }
 
   const renderElement = (key) => {
-    const { schema } = props
-    const schemaParams = schema[key]
-    const value = !schemaParams.hide
+    const { filteredSchema } = props
+    const value = filteredSchema[key]
     return (
       <li key={key}>
         <input
