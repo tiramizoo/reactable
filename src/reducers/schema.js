@@ -1,12 +1,10 @@
-import { SET_SCHEMA, SET_SORT_DIRECTION , UPDATE_SCHEMA_OPTIONS} from '../actions/schema'
+import { SET_SORT_DIRECTION , UPDATE_SCHEMA_OPTIONS} from '../actions/schema'
 import { INIT_SETTINGS } from '../actions/settings'
 
 
 function schema(state = {}, action) {
   let options = {}
   switch (action.type) {
-    case SET_SCHEMA:
-      return action.schema
     case SET_SORT_DIRECTION:
       Object.keys(state).forEach((key) =>
         delete state[key].direction

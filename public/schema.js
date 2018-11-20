@@ -1,7 +1,7 @@
 window.schemaUsers = {
   id: {
     type: 'integer',
-    formatter: function (row) { return "ID: " + row['id']}
+    formatter: function (row) { return "ID: " + row['id']},
   },
   first_name: {
     type: 'text',
