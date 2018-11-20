@@ -17,8 +17,8 @@ const hideColumn = (schemaParams) => {
 
 class Table extends Component {
   constructor(props) {
-    super(props);
-    this.tableRef = React.createRef();
+    super(props)
+    this.tableRef = React.createRef()
   }
 
   wtf(e) {

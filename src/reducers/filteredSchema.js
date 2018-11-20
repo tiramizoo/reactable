@@ -1,19 +1,15 @@
 import forEach from 'lodash/forEach'
 import assign from 'lodash/assign'
-import omit from 'lodash/omit'
 
 import { SET_SORT_DIRECTION, UPDATE_FILTERED_SCHEMA } from '../actions/schema'
 import { INIT_SETTINGS } from '../actions/settings'
-
 
 function filteredSchema(state = {}, action) {
   let options = {}
   let newFilteredSchema = {}
   switch (action.type) {
     case SET_SORT_DIRECTION:
-      Object.keys(state).forEach((key) =>
-        delete state[key].direction
-      )
+      forEach(state, (values, key) => { delete state[key].direction })
       options = Object.assign({}, state[action.key], { direction: action.direction })
       return Object.assign({}, state, { [action.key]: options })
     case INIT_SETTINGS:
@@ -23,7 +19,6 @@ function filteredSchema(state = {}, action) {
         }
         return { [key]: value }
       })
-
       return newFilteredSchema
     case UPDATE_FILTERED_SCHEMA:
       return action.schema

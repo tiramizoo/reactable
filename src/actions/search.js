@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import n from 'numeral'
 
 import {
-  updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery
+  updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery,
 } from './items'
 
 // Search by
