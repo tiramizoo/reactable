@@ -1,5 +1,5 @@
-import _ from 'lodash'
+import orderBy from 'lodash/orderBy'
 
 export function sortByType(state, action) {
-  return _.orderBy(state, [action.column], [action.direction]);
+  return orderBy(state, [action.column], [action.direction]);
 }
