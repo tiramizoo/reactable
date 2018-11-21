@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 function compareTextDesc(key) {
   return (a, b) => {
     if (!a[key] || !b[key]) {
@@ -24,10 +26,7 @@ function compareTextAsc(key) {
 }
 
 export function sortByText(array, key, direction) {
-  if (direction === 'desc') {
-    return array.sort(compareTextDesc(key))
-  }
-  return array.sort(compareTextAsc(key))
+  return _.orderBy(array, [key], [direction]);
 }
 
 

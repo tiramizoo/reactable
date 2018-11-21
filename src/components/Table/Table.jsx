@@ -11,9 +11,6 @@ const cellHtml = (row, key, schemaParams) => {
   return { __html: html }
 }
 
-const hideColumn = (schemaParams) => {
-  return schemaParams.hide !== 'undefined' && schemaParams.hide === true
-}
 
 class Table extends Component {
   constructor(props) {
@@ -101,9 +98,6 @@ class Table extends Component {
 
   columnHeader(key, schemaParams) {
     const { rowHeight } = this.props
-    if (hideColumn(schemaParams)) {
-      return null
-    }
     return (
       <th style={{ height: rowHeight }} className={this.columnClassName(key)} key={key} onClick={() => this.sort(key)}>
         {key}
@@ -114,9 +108,6 @@ class Table extends Component {
   columnBody(row, key, schemaParams) {
     const { rowHeight } = this.props
 
-    if (hideColumn(schemaParams)) {
-      return null
-    }
     return (
       <td
         className={schemaParams.type}
@@ -141,7 +132,7 @@ class Table extends Component {
 
   renderFooter() {
     const {
-      rowHeight, offset, limit,filteredSchema, filteredItems, currentItems, items, 
+      rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items, 
     } = this.props
 
     return (

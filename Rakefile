@@ -4,6 +4,8 @@ require 'bundler/setup'
 require "ffaker"
 require 'json'
 
+
+
 desc "generate_dataset"
 task :generate_dataset, [:size] do |t, args|
   args.with_defaults(size: 1000)
@@ -57,9 +59,9 @@ task :generate_dataset, [:size] do |t, args|
       {
         "_key":          i,
         "id":            i + 1,
-        "first_name":    FFaker::Name.first_name,
-        "last_name":     FFaker::Name.last_name,
-        "email":         FFaker::Internet.email,
+        "first_name":    fake_first_name,
+        "last_name":     fake_last_name,
+        "email":         fake_email,
         "website":       FFaker::Internet.domain_name,
         "ip":            FFaker::Internet.ip_v4_address,
         "gender":        FFaker::Gender.random,
@@ -73,5 +75,29 @@ task :generate_dataset, [:size] do |t, args|
     end
   }
 
-  File.write("./src/data-#{args.size}.json", data.to_json)
+  File.write("./public/data-#{args.size}.json", data.to_json)
+end
+
+
+def fake_first_name
+  FFaker::Name.first_name
+end
+
+def fake_last_name
+  FFaker::Name.last_name
+end
+
+def fake_email
+  a = 0.upto(9).to_a.shuffle
+
+  i = a.first
+
+  case i
+  when 0
+    ''
+  when 1
+    nil
+  else
+    FFaker::Internet.email
+  end
 end
