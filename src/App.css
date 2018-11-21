@@ -112,6 +112,11 @@
   color: darkblue;
 }
 
+.reactable table td.null::after {
+  content: 'NULL';
+  color: gray;
+}
+
 .reactable table td.boolean {
   text-align: center;
 }

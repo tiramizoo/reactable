@@ -1,30 +1,5 @@
 import _ from 'lodash'
 
-function compareTextDesc(key) {
-  return (a, b) => {
-    if (!a[key] || !b[key]) {
-      return 1
-    }
-    const x = a[key].toString().toLowerCase()
-    const y = b[key].toString().toLowerCase()
-    if (x < y) return 1
-    if (x > y) return -1
-    return 0
-  }
-}
-function compareTextAsc(key) {
-  return (a, b) => {
-    if (!a[key] || !b[key]) {
-      return -1
-    }
-    const x = a[key].toString().toLowerCase()
-    const y = b[key].toString().toLowerCase()
-    if (x > y) return 1
-    if (x < y) return -1
-    return 0
-  }
-}
-
 export function sortByText(array, key, direction) {
   return _.orderBy(array, [key], [direction]);
 }

@@ -107,10 +107,17 @@ class Table extends Component {
 
   columnBody(row, key, schemaParams) {
     const { rowHeight } = this.props
+    const value = row[key];
+    let classNames = [schemaParams.type]
+
+
+    if (value === null) {
+      classNames.push('null')
+    }
 
     return (
       <td
-        className={schemaParams.type}
+        className={classNames.join(' ')}
         key={key}
         dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}
         style={{ height: rowHeight }}
