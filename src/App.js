@@ -7,6 +7,7 @@ import SchemaControl from './components/SchemaControl'
 import Table from './components/Table'
 
 import { setItems, updateViewport } from './actions/items'
+import { addMetaDataToItems } from './helpers/utilities'
 
 class App extends Component {
   componentDidMount() {
@@ -21,8 +22,9 @@ class App extends Component {
       fetch(settings.dataPath)
         .then(response => response.json())
         .then(json => {
-          setItems(json.data)
-          updateViewport(json.data, limit, offset)
+          const data = addMetaDataToItems(json.data)
+          setItems(data)
+          updateViewport(data, limit, offset)
         })
       }
   }

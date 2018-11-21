@@ -9,6 +9,7 @@ import reducers from './reducers/index'
 import { initSettings, updateTableWidth } from './actions/settings'
 import { searching, reSearching } from './actions/search'
 import { setItems } from './actions/items'
+import { addMetaDataToItems } from './helpers/utilities'
 
 class InitApp extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class InitApp extends Component {
 
   addData(newItems) {
     const { items } = this.store.getState()
-    const addedItems = [...items, ...newItems]
+    const addedItems = addMetaDataToItems([...items, ...newItems])
 
     this.store.dispatch(setItems(addedItems))
     this.store.dispatch(reSearching(addedItems))

@@ -13,51 +13,8 @@ task :generate_dataset, [:size] do |t, args|
   puts args.size
 
   data = {
-    "schema": {
-      "id": {
-        "type": "integer",
-        "width": 50
-      },
-      "first_name": {
-        "type": "text"
-      },
-      "last_name": {
-        "type": "text"
-      },
-      "active": {
-        "type": "boolean",
-      },
-      "date_of_birth": {
-        "type": "date"
-      },
-      "gender": {
-        "type": "text"
-      },
-      "email": {
-        "type": "text"
-      },
-      "website": {
-        "type": "text"
-      },
-      "ip": {
-        "type": "text"
-      },
-      "phone_number": {
-        "type": "text"
-      },
-      "currency": {
-        "type": "text"
-      },
-      "job": {
-        "type": "text"
-      },
-      "created_at": {
-        "type": "datetime"
-      }
-    },
     "data": args.size.to_i.times.map do |i|
       {
-        "_key":          i,
         "id":            i + 1,
         "first_name":    fake_first_name,
         "last_name":     fake_last_name,

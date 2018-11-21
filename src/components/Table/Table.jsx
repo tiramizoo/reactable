@@ -139,7 +139,7 @@ class Table extends Component {
 
   renderFooter() {
     const {
-      rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items, 
+      rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items,
     } = this.props
 
     return (
@@ -215,8 +215,7 @@ class Table extends Component {
 
   render() {
     const {
-      scrollBarHeight, rowHeight,
-      tableWidth, currentItems,
+      scrollBarHeight, rowHeight, tableWidth, currentItems,
     } = this.props
     return (
       <div

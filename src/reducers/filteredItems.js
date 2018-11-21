@@ -1,7 +1,7 @@
 import { SET_ITEMS, SET_FILTERED_ITEMS, SORT_ITEMS } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
-import { sortByType } from '../helpers/sorting'
+import { sortByType } from '../helpers/utilities'
 
 function filteredItems(state = [], action) {
   switch (action.type) {
