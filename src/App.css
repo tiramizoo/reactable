@@ -112,8 +112,14 @@
   color: darkblue;
 }
 
+.reactable table td.text:empty::after {
+  content: 'EMPTY';
+  color: gray;
+}
+
+
 .reactable table td.null::after {
-  content: 'NULL';
+  content: 'NULL' !important;
   color: gray;
 }
 

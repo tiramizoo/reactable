@@ -64,9 +64,9 @@ task :generate_dataset, [:size] do |t, args|
         "email":         fake_email,
         "website":       FFaker::Internet.domain_name,
         "ip":            FFaker::Internet.ip_v4_address,
-        "gender":        FFaker::Gender.random,
-        "date_of_birth": rand(Date.civil(1980, 1, 1)..Date.civil(2017, 12, 31)),
-        "active":        [false, true].sample,
+        "gender":        fake_gender,
+        "date_of_birth": fake_date,
+        "active":        [false, true, nil].sample,
         "phone_number":  FFaker::PhoneNumberDE.phone_number,
         "currency":      FFaker::Currency.code,
         "job":           FFaker::Job.title,
@@ -76,6 +76,14 @@ task :generate_dataset, [:size] do |t, args|
   }
 
   File.write("./public/data-#{args.size}.json", data.to_json)
+end
+
+def fake_date
+  a = 0.upto(5).to_a.shuffle
+
+  i = a.first
+
+  i == 0 ? nil : rand(Date.civil(1980, 1, 1)..Date.civil(2017, 12, 31))
 end
 
 
@@ -100,4 +108,12 @@ def fake_email
   else
     FFaker::Internet.email
   end
+end
+
+def fake_gender
+  a = 0.upto(9).to_a.shuffle
+
+  i = a.first
+
+  i == 0 ? nil : FFaker::Gender.random
 end
