@@ -19,7 +19,6 @@ const mapStateToProps = state => ({
   scrollBarHeight: state.limit * rowHeight,
   scrollBarWidth: state.tableWidth,
   scrollBarHandleHeight: state.filteredItems.length * rowHeight,
-  visibleColumnsCount: state.filteredSchema.length,
   tableWidth: state.tableWidth,
   rowHeight,
 })

@@ -141,11 +141,12 @@ class Table extends Component {
 
   renderFooter() {
     const {
-      rowHeight, offset, limit, filteredItems, currentItems, items, visibleColumnsCount,
+      rowHeight, offset, limit,filteredSchema, filteredItems, currentItems, items, 
     } = this.props
+
     return (
       <tr>
-        <th colSpan={visibleColumnsCount} style={{ height: rowHeight }}>
+        <th colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }}>
           <span>
             offset: {offset},
             limit: {limit},
@@ -174,7 +175,7 @@ class Table extends Component {
   // keeps table height stable by adding fake rows
   renderMissingRows() {
     const {
-      rowHeight, limit, visibleColumnsCount, currentItems,
+      rowHeight, limit, currentItems, filteredSchema
     } = this.props
 
 
@@ -182,7 +183,7 @@ class Table extends Component {
       return Array(limit - currentItems.length).fill().map((a, ix) => {
         return (
           <tr key={ix}>
-            <td colSpan={visibleColumnsCount} style={{ height: rowHeight }} />
+            <td colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }} />
           </tr>
         )
       })
