@@ -2,9 +2,7 @@ import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import n from 'numeral'
 
-import {
-  updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery,
-} from './items'
+import { updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery } from './items'
 
 // Search by
 // TEXT
@@ -19,9 +17,7 @@ function searchByText(items, column, searchQuery) {
       }
       return items
     case 'exact':
-      return filter(items, (item) => {
-        return item[column] && item[column] === searchQuery.value
-      })
+      return filter(items, item => item[column] && item[column] === searchQuery.value)
     case 'empty':
       return filter(items, (item) => {
         return isEmpty(item[column])
