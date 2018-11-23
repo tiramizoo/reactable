@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import TableComponent from './Table.jsx'
-import { setOffset, updateViewport, sortItems, setItems } from '../../actions/items'
+import { setOffset, updateViewport, setItems } from '../../actions/items'
 import { setSortDirection } from '../../actions/schema'
 import { toggleSearchControl, toggleSchemaControl } from '../../actions/settings'
 
@@ -33,9 +33,6 @@ const mapDispatchToProps = dispatch => (
     },
     updateViewport: (items, limit, offset) => {
       dispatch(updateViewport(items, limit, offset))
-    },
-    sortItems: (column, columnType, direction) => {
-      dispatch(sortItems(column, columnType, direction))
     },
     setSortDirection: (key, direction) => {
       dispatch(setSortDirection(key, direction))

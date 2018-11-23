@@ -2,7 +2,6 @@ export const SET_ITEMS = 'SET_ITEMS'
 export const SET_OFFSET = 'SET_OFFSET'
 export const SET_LIMIT = 'SET_LIMIT'
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
-export const SORT_ITEMS = 'SORT_ITEMS'
 export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY'
 export const SET_FILTERED_ITEMS = 'SET_FILTERED_ITEMS'
 export const CLEAR_ALL = 'CLEAR_ALL'
@@ -55,14 +54,5 @@ export function updateViewport(items, limit, offset) {
     items,
     limit,
     offset,
-  }
-}
-
-export function sortItems(column, columnType, direction) {
-  return {
-    type: SORT_ITEMS,
-    column,
-    direction,
-    columnType,
   }
 }

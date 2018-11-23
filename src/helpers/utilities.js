@@ -1,6 +1,5 @@
 import orderBy from 'lodash/orderBy'
 import uniqueId from 'lodash/uniqueId'
-import assign from 'lodash/assign'
 import map from 'lodash/map'
 import forEach from 'lodash/forEach'
 
@@ -19,11 +18,11 @@ export function sortBy(items, filteredSchema) {
 }
 
 export function addMetaDataToItems(items) {
-  return map(items, i => assign({}, i, { _key: uniqueId() }))
+  return map(items, i => Object.assign({}, i, { _key: uniqueId() }))
 }
 
 export function setSortDiractionToSchema(schema, key, direction) {
   forEach(schema, (_, k) => { delete schema[k].direction })
-  const options = assign({}, schema[key], { direction })
-  return assign({}, schema, { [key]: options })
+  const options = Object.assign({}, schema[key], { direction })
+  return Object.assign({}, schema, { [key]: options })
 }

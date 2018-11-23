@@ -87,13 +87,12 @@ class Table extends Component {
 
   sort(key) {
     const {
-      filteredSchema, setSortDirection, sortItems, setOffset, updateViewport, filteredItems,
+      filteredSchema, setSortDirection, setOffset, updateViewport, filteredItems,
       limit, setItems,
     } = this.props
     const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
 
-    // sortItems(key, filteredSchema[key].type, direction)
     const sortedItems = sortBy(filteredItems, setSortDiractionToSchema(filteredSchema, key, direction))
     setOffset(0)
     setItems(sortedItems)

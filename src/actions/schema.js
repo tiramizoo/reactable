@@ -1,6 +1,5 @@
 import omit from 'lodash/omit'
 import forEach from 'lodash/forEach'
-import assign from 'lodash/assign'
 
 export const SET_SORT_DIRECTION = 'SET_SORT_DIRECTION'
 export const UPDATE_FILTERED_SCHEMA = 'UPDATE_FILTERED_SCHEMA'
@@ -27,7 +26,7 @@ export const addToFilteredSchema = key => (dispatch, getState) => {
 
   forEach(schema, (value, k) => {
     if (newSchema[k]) {
-      assign(newSchemaOrdered, { [k]: value })
+      Object.assign({}, newSchemaOrdered, { [k]: value })
     }
   })
   dispatch(updateFilteredSchema(newSchemaOrdered))
