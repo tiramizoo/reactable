@@ -40,8 +40,8 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => ({
-  offset:   state.offset,
-  limit:    state.limit,
+  offset: state.offset,
+  limit: state.limit,
   settings: state.settings,
 })
 
