@@ -19,42 +19,12 @@ class Table extends Component {
     this.tableRef = React.createRef()
   }
 
-  wtf(e) {
-    e.stopPropagation()
-    e.preventDefault()
-
-    e.currentTarget.focus()
-
-    const {
-      offset, setOffset, filteredItems, limit, updateViewport
-    } = this.props
-
-    const deltaY = e.deltaY
-
-    if (deltaY > 0) {
-
-      const moveBy = (deltaY <= 5) ? 1 : 2;
-
-      const newOffset = Math.min(offset + moveBy, Math.max(filteredItems.length - limit, 0))
-      setOffset(newOffset)
-      updateViewport(filteredItems, limit, newOffset)
-    } else if (deltaY < 0){
-
-      const moveBy = (deltaY >= -5) ? 1 : 2;
-
-      const newOffset = Math.max(offset - moveBy, 0)
-      setOffset(newOffset)
-      updateViewport(filteredItems, limit, newOffset)
-    }
-  }
-
-
   onKeyDown(e) {
     e.stopPropagation()
     e.preventDefault()
 
     const {
-      offset, setOffset, filteredItems, limit, updateViewport
+      offset, setOffset, filteredItems, limit, updateViewport,
     } = this.props
 
     if (e.key === 'ArrowDown') {
@@ -63,6 +33,33 @@ class Table extends Component {
       updateViewport(filteredItems, limit, newOffset)
     } else if (e.key === 'ArrowUp') {
       const newOffset = Math.max(offset - 1, 0)
+      setOffset(newOffset)
+      updateViewport(filteredItems, limit, newOffset)
+    }
+  }
+
+  wtf(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    e.currentTarget.focus()
+
+    const {
+      offset, setOffset, filteredItems, limit, updateViewport,
+    } = this.props
+
+    const { deltaY } = e
+
+    if (deltaY > 0) {
+      const moveBy = (deltaY <= 5) ? 1 : 2
+
+      const newOffset = Math.min(offset + moveBy, Math.max(filteredItems.length - limit, 0))
+      setOffset(newOffset)
+      updateViewport(filteredItems, limit, newOffset)
+    } else if (deltaY < 0) {
+      const moveBy = (deltaY >= -5) ? 1 : 2
+
+      const newOffset = Math.max(offset - moveBy, 0)
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     }
@@ -99,10 +96,15 @@ class Table extends Component {
     updateViewport(sortedItems, limit, 0)
   }
 
-  columnHeader(key, schemaParams) {
+  columnHeader(key) {
     const { rowHeight } = this.props
     return (
-      <th style={{ height: rowHeight }} className={this.columnClassName(key)} key={key} onClick={() => this.sort(key)}>
+      <th
+        style={{ height: rowHeight }}
+        className={this.columnClassName(key)}
+        key={key}
+        onClick={() => this.sort(key)}
+      >
         {key}
       </th>
     )
@@ -110,9 +112,8 @@ class Table extends Component {
 
   columnBody(row, key, schemaParams) {
     const { rowHeight } = this.props
-    const value = row[key];
-    let classNames = [schemaParams.type]
-
+    const value = row[key]
+    const classNames = [schemaParams.type]
 
     if (value === null) {
       classNames.push('null')
@@ -127,18 +128,39 @@ class Table extends Component {
       />
     )
   }
+  requestFullScreen() {
+    const element = this.tableRef.current
+    if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
+      if (element.requestFullscreen) {
+        return element.requestFullscreen()
+      } else if (element.mozRequestFullScreen) {
+        return element.mozRequestFullScreen()
+      } else if (element.webkitRequestFullScreen) {
+        return element.webkitRequestFullScreen()
+      }
+    }
+  }
+
+  handleToggleControl(e) {
+    e.preventDefault()
+    this.props.toggleSearchControl()
+  }
+
+  handleToggleSchemaControl(e) {
+    e.preventDefault()
+    this.props.toggleSchemaControl()
+  }
 
   renderHeader() {
     const { filteredSchema } = this.props
     return (
       <tr>
-        { Object.entries(filteredSchema).map(([key, keySchema]) =>
-          this.columnHeader(key, keySchema))
+        { Object.entries(filteredSchema).map(([key, _]) =>
+          this.columnHeader(key))
         }
       </tr>
     )
   }
-
 
   renderFooter() {
     const {
@@ -172,11 +194,10 @@ class Table extends Component {
     )
   }
 
-
   // keeps table height stable by adding fake rows
   renderMissingRows() {
     const {
-      rowHeight, limit, currentItems, filteredSchema
+      rowHeight, limit, currentItems, filteredSchema,
     } = this.props
 
 
@@ -192,30 +213,6 @@ class Table extends Component {
     return null
   }
 
-  handleToggleControl(e) {
-    e.preventDefault()
-    this.props.toggleSearchControl()
-  }
-
-  handleToggleSchemaControl(e) {
-    e.preventDefault()
-    this.props.toggleSchemaControl()
-  }
-
-  requestFullScreen() {
-    const element = this.tableRef.current
-    if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
-      if (element.requestFullscreen) {
-        return element.requestFullscreen()
-      } else if (element.mozRequestFullScreen) {
-        return element.mozRequestFullScreen()
-      } else if (element.webkitRequestFullScreen) {
-        return element.webkitRequestFullScreen()
-      }
-    }
-  }
-
-
   render() {
     const {
       scrollBarHeight, rowHeight, tableWidth, currentItems,
@@ -223,13 +220,19 @@ class Table extends Component {
     return (
       <div
         className="table-wrapper"
-        style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}>
+        style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}
+      >
 
         <div className='abc'><button onClick={(e) => this.handleToggleSchemaControl(e)}>&#9872;</button></div>
         <div className='control-toggle'><button onClick={(e) => this.handleToggleControl(e)}>&#10050;</button></div>
 
-
-        <table ref={this.tableRef} style={{ width: tableWidth }} onWheel={e => this.wtf(e)}  tabIndex="0" onKeyDown={e => this.onKeyDown(e)}>
+        <table
+          ref={this.tableRef}
+          style={{ width: tableWidth }}
+          onWheel={e => this.wtf(e)}
+          tabIndex="0"
+          onKeyDown={e => this.onKeyDown(e)}
+        >
           <thead>
             { this.renderHeader() }
           </thead>

@@ -1,7 +1,6 @@
 import { UPDATE_VIEWPORT } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
-
 function currentItems(state = [], action) {
   switch (action.type) {
     case UPDATE_VIEWPORT:
