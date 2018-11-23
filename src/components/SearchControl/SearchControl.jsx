@@ -1,7 +1,7 @@
 import React from 'react'
 import SearchList from './SearchList'
 
-const Control = (props) => {
+const SearchControl = (props) => {
   const {
     updateViewport, filteredItems, controlShow,
     setLimit, limit, setOffset, offset, tableWidth,
@@ -54,4 +54,4 @@ const Control = (props) => {
   )
 }
 
-export default Control
+export default SearchControl

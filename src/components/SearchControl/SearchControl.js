@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import ControlComponent from './Control.jsx'
+import SearchControlComponent from './SearchControl.jsx'
 import { setLimit, setOffset, updateViewport } from '../../actions/items'
 
 const mapStateToProps = state => ({
@@ -27,6 +27,6 @@ const mapDispatchToProps = dispatch => (
   }
 )
 
-const Control = connect(mapStateToProps, mapDispatchToProps)(ControlComponent)
+const SearchControl = connect(mapStateToProps, mapDispatchToProps)(SearchControlComponent)
 
-export default Control
+export default SearchControl

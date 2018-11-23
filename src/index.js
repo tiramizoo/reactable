@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 
 import './index.css'
-import Control from './components/Control'
+import SearchControl from './components/SearchControl'
 import SchemaControl from './components/SchemaControl'
 import Table from './components/Table'
 import reducers from './reducers/index'
@@ -61,7 +61,7 @@ class InitApp extends Component {
         <Provider store={this.store}>
           <div className="reactable">
             <SchemaControl />
-            <Control />
+            <SearchControl />
             <Table />
           </div>
         </Provider>, documentElementId)
