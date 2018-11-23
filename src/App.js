@@ -7,7 +7,7 @@ import SchemaControl from './components/SchemaControl'
 import Table from './components/Table'
 
 import { setItems, updateViewport } from './actions/items'
-import { addMetaDataToItems } from './helpers/utilities'
+import { addMetaDataToItems, sortBy } from './helpers/utilities'
 
 class App extends Component {
   componentDidMount() {
@@ -16,13 +16,13 @@ class App extends Component {
 
   fetchData() {
     const {
-      settings, setItems, updateViewport, limit, offset
+      settings, setItems, updateViewport, limit, offset, filteredSchema
     } = this.props
     if (!!settings.dataPath) {
       fetch(settings.dataPath)
         .then(response => response.json())
         .then(json => {
-          const data = addMetaDataToItems(json.data)
+          const data = sortBy(addMetaDataToItems(json.data), filteredSchema)
           setItems(data)
           updateViewport(data, limit, offset)
         })

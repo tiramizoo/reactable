@@ -154,10 +154,10 @@ export const searching = ({ query, store }) => {
 
 export const reSearching = items => (dispatch, getState) => {
   const {
-    schema, limit, searchQuery,
+    filteredSchema, limit, searchQuery,
   } = getState()
 
-  const filteredItems = searchBy(items, searchQuery, schema)
+  const filteredItems = searchBy(items, searchQuery, filteredSchema)
   dispatch(setFilteredItems(filteredItems))
   dispatch(setOffset(0))
   dispatch(updateViewport(filteredItems, limit, 0))

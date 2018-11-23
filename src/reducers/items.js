@@ -1,14 +1,10 @@
-import { SET_ITEMS, SORT_ITEMS } from '../actions/items'
+import { SET_ITEMS } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
-
-import { sortByType } from '../helpers/utilities'
 
 function items(state = [], action) {
   switch (action.type) {
     case SET_ITEMS:
       return action.items
-    case SORT_ITEMS:
-      return sortByType(state, action)
     case INIT_SETTINGS:
       return []
     default:

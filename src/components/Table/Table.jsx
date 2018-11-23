@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import { defaultFormatter } from '../../helpers/defaultFormaters'
+import { sortBy, setSortDiractionToSchema } from '../../helpers/utilities'
 
 const cellHtml = (row, key, schemaParams) => {
   const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
@@ -87,13 +88,16 @@ class Table extends Component {
   sort(key) {
     const {
       filteredSchema, setSortDirection, sortItems, setOffset, updateViewport, filteredItems,
-      limit,
+      limit, setItems,
     } = this.props
     const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
-    sortItems(key, filteredSchema[key].type, direction)
+
+    // sortItems(key, filteredSchema[key].type, direction)
+    const sortedItems = sortBy(filteredItems, setSortDiractionToSchema(filteredSchema, key, direction))
     setOffset(0)
-    updateViewport(filteredItems, limit, 0)
+    setItems(sortedItems)
+    updateViewport(sortedItems, limit, 0)
   }
 
   columnHeader(key, schemaParams) {
