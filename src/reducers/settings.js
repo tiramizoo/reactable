@@ -17,7 +17,7 @@ import { INIT_SETTINGS, TOGGLE_SEARCH_CONTROL, TOGGLE_SCHEMA_CONTROL } from '../
 //   },
 // }
 
-const initSettings = { controlShow: false, schemaControlShow: false }
+const initSettings = { controlShow: false, schemaControlShow: false, strategySearch: 'and' }
 
 function settings(state = initSettings, action) {
   switch (action.type) {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { map } from 'lodash/map'
 
 import { defaultFormatter } from '../../helpers/defaultFormaters'
 import { sortBy, setSortDiractionToSchema } from '../../helpers/utilities'

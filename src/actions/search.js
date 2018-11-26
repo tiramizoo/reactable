@@ -1,5 +1,8 @@
 import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
+import uniqBy from 'lodash/uniqBy'
+import concat from 'lodash/concat'
+import omit from 'lodash/omit'
 import n from 'numeral'
 
 import { updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery } from './items'
@@ -123,26 +126,49 @@ function searchByType(items, type, column, searchQuery) {
   }
 }
 
-export default function searchBy(items, search, schema) {
-  let filteredItems = items
-  Object.entries(search).map(([column, searchQuery]) => {
-    filteredItems = searchByType(filteredItems, schema[column].type, column, searchQuery)
-    return filteredItems
-  })
+export default function searchBy(items, search, schema, strategySearch) {
+  let filteredItems = []
+
+  console.log('search: ', search)
+  if (isEmpty(search)) {
+    filteredItems = items
+  }
+  if (strategySearch === 'or') {
+    Object.entries(search).map(([column, searchQuery]) => {
+      const newFilteredItems = searchByType(items, schema[column].type, column, searchQuery)
+      filteredItems = concat(filteredItems, newFilteredItems)
+      filteredItems = uniqBy(filteredItems, '_key')
+      return filteredItems
+    })
+  } else {
+    filteredItems = items
+    Object.entries(search).map(([column, searchQuery]) => {
+      filteredItems = searchByType(filteredItems, schema[column].type, column, searchQuery)
+      return filteredItems
+    })
+  }
+
   return filteredItems
 }
 
 export const searching = ({ query, store }) => {
   const { column, value, options } = query
   const {
-    items, schema, limit, searchQuery,
+    items, schema, limit, searchQuery, settings,
   } = store.getState()
+  const { strategySearch } = settings
 
-  const newSearchValue = Object.assign({}, searchQuery[column], { value, options })
+  let newSearchValue = {}
+  let newSearchQuery = {}
+  if (value !== undefined) {
+    newSearchValue = Object.assign({}, searchQuery[column], { value, options })
+    newSearchQuery = Object.assign({}, searchQuery, { [column]: newSearchValue })
+  } else {
+    newSearchQuery = Object.assign({}, {}, omit(searchQuery, column))
+  }
   store.dispatch(setSearchQuery(column, newSearchValue))
-  const newSearchQuery = Object.assign({}, searchQuery, { [column]: newSearchValue })
 
-  const filteredItems = searchBy(items, newSearchQuery, schema)
+  const filteredItems = searchBy(items, newSearchQuery, schema, strategySearch)
   store.dispatch(setFilteredItems(filteredItems))
   store.dispatch(setOffset(0))
   store.dispatch(updateViewport(filteredItems, limit, 0))
@@ -150,10 +176,11 @@ export const searching = ({ query, store }) => {
 
 export const reSearching = items => (dispatch, getState) => {
   const {
-    filteredSchema, limit, searchQuery,
+    filteredSchema, limit, searchQuery, settings,
   } = getState()
+  const { strategySearch } = settings
 
-  const filteredItems = searchBy(items, searchQuery, filteredSchema)
+  const filteredItems = searchBy(items, searchQuery, filteredSchema, strategySearch)
   dispatch(setFilteredItems(filteredItems))
   dispatch(setOffset(0))
   dispatch(updateViewport(filteredItems, limit, 0))
