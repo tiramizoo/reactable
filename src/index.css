@@ -57,11 +57,14 @@
   table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;
-  font-family: monospace;
+  font-family: inherit;
   outline-style: solid;
   outline-width: thin;
   outline-color: #e2e2e2;
   background-color: #fff;
+}
+
+.reactable table tbody {
 }
 
 .reactable table th {
@@ -77,11 +80,26 @@
   white-space: nowrap;
   cursor: pointer;
   box-sizing: border-box;
+  vertical-align: middle;
 }
 
 .reactable table th.sorted {
   background-color: #e6e6e6;
 }
+
+.reactable td button, .reactable th button  {
+  background-color: buttonface;
+  cursor: default;
+  color: buttontext;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px 7px 2px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  text-align: center;
+}
+
 
 .reactable table th.sorted.asc::after {
   content: '⇡';
@@ -99,6 +117,7 @@
   border-width: 1px;
   border-color: #fff;
   box-sizing: border-box;
+  vertical-align: middle;
 }
 
 .reactable table:focus, .reactable table:hover { outline-color: gray }
