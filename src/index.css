@@ -78,9 +78,12 @@
   user-select: none;
   text-overflow: ellipsis;
   white-space: nowrap;
-  cursor: pointer;
   box-sizing: border-box;
   vertical-align: middle;
+}
+
+.reactable table th.sortable {
+  cursor: pointer;
 }
 
 .reactable table th.sorted {
