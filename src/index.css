@@ -134,3 +134,7 @@
 .reactable table tr.record:nth-child(odd) td {
   background-color: #fff
 }
+
+.reactable button:disabled {
+  opacity: 0.5
+}

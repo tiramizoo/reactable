@@ -19,10 +19,12 @@
     <div id="table2"></div>
     <script src="../dist/reactable-bundle.js"></script>
     <script src='./schema.js'></script>
+    <script src='./actions.js'></script>
     <script>
       var t1 = Reactable.init({
         htmlId:   "table1",
         schema:   schemaUsers,
+        actions:  actionsUser,
         offset:   2,
         controlShow: false,
         tableWidth: 1000

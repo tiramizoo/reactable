@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
   offset: state.offset,
   schema: state.schema,
   filteredSchema: state.filteredSchema,
+  actions: state.settings.actions,
 
   scrollBarHeight: state.limit * rowHeight,
   scrollBarWidth: state.tableWidth,

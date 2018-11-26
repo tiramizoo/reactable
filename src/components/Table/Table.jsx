@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { map } from 'lodash/map'
 
 import { defaultFormatter } from '../../helpers/defaultFormaters'
 import { sortBy, setSortDiractionToSchema } from '../../helpers/utilities'
@@ -152,19 +153,20 @@ class Table extends Component {
   }
 
   renderHeader() {
-    const { filteredSchema } = this.props
+    const { filteredSchema, actions } = this.props
     return (
       <tr>
         { Object.entries(filteredSchema).map(([key, _]) =>
           this.columnHeader(key))
         }
+        { actions && <th /> }
       </tr>
     )
   }
 
   renderFooter() {
     const {
-      rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items,
+      rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items, actions,
     } = this.props
 
     return (
@@ -179,7 +181,30 @@ class Table extends Component {
           </span>
           <button onClick={() => this.requestFullScreen()}>fullscreen</button>
         </th>
+        { actions && <th /> }
       </tr>
+    )
+  }
+
+  renderActions(row) {
+    const { actions } = this.props
+    if (!actions) return null
+
+    return (
+      <td>
+        { Object.entries(actions).map(([key, value]) => {
+          return (
+            <button
+              onClick={(e) => value.onClick(row, e)}
+              className={value.className}
+              key={key}
+              disabled={value.disabled && value.disabled(row)}
+            >
+              {value.label || key}
+            </button>
+          )
+        })}
+      </td>
     )
   }
 
@@ -190,6 +215,7 @@ class Table extends Component {
         { Object.entries(filteredSchema).map(([key, keySchema]) =>
           this.columnBody(item, key, keySchema))
         }
+        { this.renderActions(item) }
       </tr>
     )
   }
