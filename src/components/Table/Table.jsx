@@ -75,7 +75,7 @@ class Table extends Component {
 
   columnClassName(key) {
     const { filteredSchema } = this.props
-    const classNames = [key]
+    const classNames = [key, 'sortable']
     if (filteredSchema[key].direction) {
       classNames.push('sorted')
       classNames.push(filteredSchema[key].direction)
