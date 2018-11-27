@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
 import isEmpty from 'lodash/isEmpty'
+import omit from 'lodash/omit'
+import isNumber from 'lodash/isNumber'
 
 import { searching } from '../../../actions/search'
 
@@ -32,7 +34,10 @@ class SearchDate extends Component {
     if (searchQuery[column]) {
       newValue = Object.assign({}, searchQuery[column].value, { [name]: isEmpty(value) ? null : Date.parse(value)  })
     }
-    const newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+    let newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+    if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
+      newSearchQuery =  Object.assign({}, {column}, omit(searchQuery, column))
+    }
     this.searchByNumber(newSearchQuery)
   }
 

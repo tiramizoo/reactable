@@ -1,6 +1,8 @@
 import React, { Component} from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
+import isEmpty from 'lodash/isEmpty'
+import omit from 'lodash/omit'
 
 import { searching } from '../../../actions/search'
 
@@ -19,9 +21,13 @@ class SearchBoolean extends Component {
 
   handleOptionsChange = (e) => {
     const { column, searchQuery } = this.props
+    const { value } = e.target
 
-    const newOptions = Object.assign({}, searchQuery[column], { options: e.target.value, column })
-    this.searchByBoolean(newOptions)
+    let newSearchQuery = Object.assign({}, searchQuery[column], { options: e.target.value, column })
+    if (isEmpty(value) || value === 'all') {
+      newSearchQuery = Object.assign({}, {column}, omit(searchQuery, column))
+    }
+    this.searchByBoolean(newSearchQuery)
   }
 
   render() {

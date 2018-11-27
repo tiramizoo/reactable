@@ -15,7 +15,7 @@ window.schemaUsers = {
   },
   active: {
     type: 'boolean',
-    filter: false,
+    filter: true,
   },
   date_of_birth: {
     type: 'date',

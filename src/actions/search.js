@@ -129,7 +129,6 @@ function searchByType(items, type, column, searchQuery) {
 export default function searchBy(items, search, schema, strategySearch) {
   let filteredItems = []
 
-  console.log('search: ', search)
   if (isEmpty(search)) {
     filteredItems = items
   }
@@ -160,7 +159,7 @@ export const searching = ({ query, store }) => {
 
   let newSearchValue = {}
   let newSearchQuery = {}
-  if (value !== undefined) {
+  if (value !== undefined || options !== undefined) {
     newSearchValue = Object.assign({}, searchQuery[column], { value, options })
     newSearchQuery = Object.assign({}, searchQuery, { [column]: newSearchValue })
   } else {

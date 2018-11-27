@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
+import isEmpty from 'lodash/isEmpty'
+import omit from 'lodash/omit'
 
 import { searching } from '../../../actions/search'
 
@@ -25,6 +27,9 @@ class SearchText extends Component {
 
   newSearchQuery(param) {
     const { column, searchQuery } = this.props
+    if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options)) {
+      return Object.assign({}, {column}, omit(searchQuery, column))
+    }
     return Object.assign({}, searchQuery[column], { ...param, column })
   }
 

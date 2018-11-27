@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
+import isNumber from 'lodash/isNumber'
+import omit from 'lodash/omit'
 import n from 'numeral'
 
 import { searching } from '../../../actions/search'
@@ -33,6 +35,9 @@ class SearchInteger extends Component {
     if (searchQuery[column]) {
       newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() || '' })
       newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+    }
+    if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
+      newSearchQuery =  Object.assign({}, {column}, omit(searchQuery, column))
     }
     this.setState({ value: newValue })
     this.searchByNumber(newSearchQuery)
