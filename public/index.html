@@ -18,8 +18,12 @@
     <button onClick="addData()">ADD DATA</button>
 
     <div id="table1"></div>
+    <br /><br />
     <hr>
+    <label for='multisearch'>Search by first name, last name and gender</label>
+    <input type="search" id='multisearch' onInput="multisearch(['first_name', 'last_name', 'gender'], this.value)">
     <div id="table2"></div>
+    <hr>
     <script src="../dist/reactable-bundle.js"></script>
     <script src='./schema.js'></script>
     <script src='./actions.js'></script>
@@ -60,6 +64,10 @@
       });
 
       t2.render();
+
+      function multisearch(columns, value) {
+        t2.multisearch(columns, value)
+      }
 
     </script>
   </body>

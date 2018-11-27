@@ -152,20 +152,26 @@ export default function searchBy(items, search, schema, strategySearch) {
 
 export const searching = ({ query, store }) => {
   const { column, value, options } = query
+  let { columns } = query
+  if (!columns) {
+    columns = [column]
+  }
   const {
     items, schema, limit, searchQuery, settings,
   } = store.getState()
   const { strategySearch } = settings
 
   let newSearchValue = {}
-  let newSearchQuery = {}
-  if (value !== undefined || options !== undefined) {
-    newSearchValue = Object.assign({}, searchQuery[column], { value, options })
-    newSearchQuery = Object.assign({}, searchQuery, { [column]: newSearchValue })
-  } else {
-    newSearchQuery = Object.assign({}, {}, omit(searchQuery, column))
-  }
-  store.dispatch(setSearchQuery(column, newSearchValue))
+  let newSearchQuery = searchQuery
+  columns.forEach((c) => {
+    if (value !== undefined || options !== undefined) {
+      newSearchValue = Object.assign({}, newSearchQuery[c], { value, options })
+      newSearchQuery = Object.assign({}, newSearchQuery, { [c]: newSearchValue })
+    } else {
+      newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, c))
+    }
+    store.dispatch(setSearchQuery(c, newSearchValue))
+  })
 
   const filteredItems = searchBy(items, newSearchQuery, schema, strategySearch)
   store.dispatch(setFilteredItems(filteredItems))

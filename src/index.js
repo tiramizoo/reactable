@@ -27,6 +27,11 @@ class InitApp extends Component {
     searching({ query, store: this.store })
   }
 
+  multisearch(columns, value, options) {
+    const query = { columns, value, options }
+    searching({ query, store: this.store })
+  }
+
   addData(newItems) {
     const { items, filteredSchema } = this.store.getState()
     const addedItems = sortBy(addMetaDataToItems([...items, ...newItems]), filteredSchema)
