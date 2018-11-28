@@ -18,7 +18,12 @@ class SearchText extends Component {
 
   constructor(props, context) {
     super(props, context)
-    this.state = initState
+    const { column, searchQuery } = props
+    if (searchQuery[column]) {
+      this.state = searchQuery[column]
+    } else {
+      this.state = initState
+    }
   }
 
   searchByText = debounce((query) => {

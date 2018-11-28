@@ -6,6 +6,10 @@ import omit from 'lodash/omit'
 
 import { searching } from '../../../actions/search'
 
+const initState = {
+  value: 'all'
+}
+
 class SearchBoolean extends Component {
   static contextTypes = {
     store: PropTypes.object
@@ -13,6 +17,13 @@ class SearchBoolean extends Component {
 
   constructor(props, context) {
     super(props, context)
+
+    const { column, searchQuery } = props
+    if (searchQuery[column]) {
+      this.state = searchQuery[column]
+    } else {
+      this.state = initState
+    }
   }
 
   searchByBoolean = debounce((query) => {
@@ -27,16 +38,18 @@ class SearchBoolean extends Component {
     if (isEmpty(value) || value === 'all') {
       newSearchQuery = Object.assign({}, {column}, omit(searchQuery, column))
     }
+    this.setState({ value })
     this.searchByBoolean(newSearchQuery)
   }
 
   render() {
     const { column } = this.props
+    const { value } = this.state
 
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <select onChange={(e) => this.handleValueChange(e)}>
+        <select value={value} onChange={(e) => this.handleValueChange(e)}>
           <option value="all">All</option>
           <option value="true">True</option>
           <option value="false">False</option>
