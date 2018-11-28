@@ -33,9 +33,9 @@ class SearchText extends Component {
   newSearchQuery(param) {
     const { column, searchQuery } = this.props
     if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options)) {
-      return Object.assign({}, {column}, omit(searchQuery, column))
+      return {[column]: {}}
     }
-    return Object.assign({}, searchQuery[column], { ...param, column })
+    return {[column]: Object.assign({}, searchQuery[column], { ...param })}
   }
 
   handleTextChange(e) {

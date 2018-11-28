@@ -38,14 +38,13 @@ class InitApp extends Component {
     }
   }, 150)
 
-  search(column, value, options) {
-    const query = { column, value, options }
+  search(query) {
     searching({ query, store: this.store })
   }
 
   multisearch(columns, value, options) {
-    const query = { columns, value, options }
-    searching({ query, store: this.store })
+    // const query = { columns, value, options }
+    // searching({ query, store: this.store })
   }
 
   addData(newItems) {

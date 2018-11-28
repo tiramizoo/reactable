@@ -34,9 +34,9 @@ class SearchBoolean extends Component {
     const { column, searchQuery } = this.props
     const { value } = e.target
 
-    let newSearchQuery = Object.assign({}, searchQuery[column], { value: value, column })
+    let newSearchQuery = {[column]: Object.assign({}, searchQuery[column], { value: value, column })}
     if (isEmpty(value) || value === 'all') {
-      newSearchQuery = Object.assign({}, {column}, omit(searchQuery, column))
+      newSearchQuery =  {[column]: {}}
     }
     this.setState({ value })
     this.searchByBoolean(newSearchQuery)

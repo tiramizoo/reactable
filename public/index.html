@@ -42,8 +42,8 @@
       t1.render();
 
       function search(column, value) {
-        t1.search(column, value);
-        t2.search(column, value);
+        t1.search({[column]: {value: value}});
+        t2.search({[column]: {value: value}});
       }
 
       function setWidth(value) {
@@ -58,7 +58,7 @@
         htmlId:   "table2",
         dataPath: "./data-100.json",
         schema: schemaUsers,
-        strategySearch: 'or',
+        strategySearch: 'and',
         limit: 15,
         control: false,
         afterRender: function () { defaultSearch() },
@@ -72,8 +72,7 @@
       }
 
       function defaultSearch() {
-        // t2.search('gender', 'male', 'equal');
-        // t2.search('active', 'true');
+        // t2.search({gender: {value: 'male', options: 'equal'}, active: { value: 'true'}});
       }
 
       function multisearch(columns, value) {

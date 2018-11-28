@@ -41,9 +41,9 @@ class SearchDateTime extends Component {
       newValue = Object.assign({}, searchQuery[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
     }
     this.setState({ value: newValue })
-    let newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+    let newSearchQuery = {[column]: Object.assign({}, searchQuery[column], { value: newValue })}
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
-      newSearchQuery =  Object.assign({}, {column}, omit(searchQuery, column))
+      newSearchQuery =  {[column]: {}}
     }
     this.searchByNumber(newSearchQuery)
   }

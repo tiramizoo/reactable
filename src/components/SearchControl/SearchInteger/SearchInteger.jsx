@@ -36,14 +36,14 @@ class SearchInteger extends Component {
     const { column, searchQuery } = this.props
 
     let newValue = { [name]: n(value).value() || '' }
-    let newSearchQuery = { value: newValue, column }
+    let newSearchQuery = {[column]: { value: newValue }}
 
     if (searchQuery[column]) {
       newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() || '' })
-      newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+      newSearchQuery = {[column]: { value: newValue }}
     }
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
-      newSearchQuery =  Object.assign({}, {column}, omit(searchQuery, column))
+      newSearchQuery =  {[column]: {}}
     }
     this.setState({ value: newValue })
     this.searchByNumber(newSearchQuery)

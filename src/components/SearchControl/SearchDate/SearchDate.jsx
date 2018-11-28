@@ -40,9 +40,9 @@ class SearchDate extends Component {
     if (searchQuery[column]) {
       newValue = Object.assign({}, searchQuery[column].value, { [name]: isEmpty(value) ? null : Date.parse(value)  })
     }
-    let newSearchQuery = Object.assign({}, searchQuery[column], { value: newValue, column })
+    let newSearchQuery = {[column]: Object.assign({}, searchQuery[column], { value: newValue })}
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
-      newSearchQuery =  Object.assign({}, {column}, omit(searchQuery, column))
+      newSearchQuery =  {[column]: {}}
     }
     this.searchByNumber(newSearchQuery)
   }

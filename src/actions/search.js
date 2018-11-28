@@ -69,6 +69,7 @@ function searchByBoolean(items, column, searchQuery) {
 
 // INTEGER
 function searchByInteger(items, column, searchQuery) {
+  console.log('A: ', column, searchQuery)
   if (searchQuery.value) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
@@ -138,6 +139,7 @@ export default function searchBy(items, search, schema, strategySearch) {
   if (isEmpty(search)) {
     filteredItems = items
   }
+  console.log('searchBy: ', search)
   if (strategySearch === 'or') {
     Object.entries(search).map(([column, searchQuery]) => {
       const newFilteredItems = searchByType(items, schema[column].type, column, searchQuery)
@@ -157,11 +159,11 @@ export default function searchBy(items, search, schema, strategySearch) {
 }
 
 export const searching = ({ query, store }) => {
-  const { column, value, options } = query
-  let { columns } = query
-  if (!columns) {
-    columns = [column]
-  }
+  // const { column, value, options } = query
+  // let { columns } = query
+  // if (!columns) {
+  //   columns = [column]
+  // }
   const {
     items, schema, limit, searchQuery, settings,
   } = store.getState()
@@ -169,15 +171,26 @@ export const searching = ({ query, store }) => {
 
   let newSearchValue = {}
   let newSearchQuery = searchQuery
-  columns.forEach((c) => {
+
+  Object.entries(query).map(([column, searchQuery]) => {
+    const { value, options } = searchQuery
     if (value !== undefined || options !== undefined) {
-      newSearchValue = Object.assign({}, newSearchQuery[c], { value, options })
-      newSearchQuery = Object.assign({}, newSearchQuery, { [c]: newSearchValue })
+      newSearchValue = Object.assign({}, newSearchQuery[column], { value, options })
+      newSearchQuery = Object.assign({}, newSearchQuery, { [column]: newSearchValue })
     } else {
-      newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, c))
+      newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, column))
     }
-    store.dispatch(setSearchQuery(c, newSearchValue))
+    store.dispatch(setSearchQuery(column, newSearchValue))
   })
+  // columns.forEach((c) => {
+  //   if (value !== undefined || options !== undefined) {
+  //     newSearchValue = Object.assign({}, newSearchQuery[c], { value, options })
+  //     newSearchQuery = Object.assign({}, newSearchQuery, { [c]: newSearchValue })
+  //   } else {
+  //     newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, c))
+  //   }
+  //   store.dispatch(setSearchQuery(c, newSearchValue))
+  // })
 
   const filteredItems = searchBy(items, newSearchQuery, schema, strategySearch)
   store.dispatch(setFilteredItems(filteredItems))
