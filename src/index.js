@@ -22,7 +22,15 @@ class InitApp extends Component {
     this.store = createStore(reducers, applyMiddleware(thunkMiddleware))
     this.store.dispatch(initSettings(props))
     this.fetchData()
+    this.store.subscribe(() => this.handleStateChange())
   }
+
+  handleStateChange() {
+    if (this.store.getState().lastAction.type === 'SET_FILTERED_ITEMS' && this.props.itemsChange) {
+      this.props.itemsChange(this.getFilteredData())
+    }
+  }
+
 
   afterRender = debounce(() => {
     if (this.props.afterRender) {

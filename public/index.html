@@ -61,10 +61,15 @@
         strategySearch: 'or',
         limit: 15,
         control: false,
-        afterRender: function () { defaultSearch() }
+        afterRender: function () { defaultSearch() },
+        itemsChange: function (items) { itemsChange(items) },
       });
 
       t2.render();
+
+      function itemsChange(items) {
+        console.log("Filtered Items callback: ", items)
+      }
 
       function defaultSearch() {
         // t2.search('gender', 'male', 'equal');
