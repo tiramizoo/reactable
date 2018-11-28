@@ -79,7 +79,10 @@ class SearchText extends Component {
           onChange={(e) => this.handleOptionsChange(e)}
         >
           <option value="all">All</option>
-          <option value="exact">Exact</option>
+          <option value="equal">Equal</option>
+          <option value="notEqual">Not Equal</option>
+          <option value="match">Match</option>
+          <option value="notMatch">Not Match</option>
           <option value="empty">Empty</option>
           <option value="notEmpty">Not Empty</option>
         </select>

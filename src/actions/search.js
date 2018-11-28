@@ -19,8 +19,14 @@ function searchByText(items, column, searchQuery) {
         })
       }
       return items
-    case 'exact':
+    case 'equal':
       return filter(items, item => item[column] && item[column] === searchQuery.value)
+    case 'notEqual':
+      return filter(items, item => item[column] && item[column] !== searchQuery.value)
+    case 'match':
+      return filter(items, item => item[column] && item[column].match(searchQuery.value))
+    case 'notMatch':
+      return filter(items, item => item[column] && !item[column].match(searchQuery.value))
     case 'empty':
       return filter(items, (item) => {
         return isEmpty(item[column])
