@@ -22,13 +22,14 @@ export function updateFilteredSchema(schema) {
 export const addToFilteredSchema = key => (dispatch, getState) => {
   const { schema, filteredSchema } = getState()
   const newSchema = Object.assign({}, filteredSchema, { [key]: schema[key] })
-  const newSchemaOrdered = {}
+  let newSchemaOrdered = {}
 
   forEach(schema, (value, k) => {
     if (newSchema[k]) {
-      Object.assign({}, newSchemaOrdered, { [k]: value })
+      newSchemaOrdered = Object.assign({}, newSchemaOrdered, { [k]: newSchema[k] })
     }
   })
+
   dispatch(updateFilteredSchema(newSchemaOrdered))
 }
 
