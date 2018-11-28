@@ -48,6 +48,10 @@ class InitApp extends Component {
     this.store.dispatch(reSearching(addedItems))
   }
 
+  getFilteredData() {
+    return this.store.getState().filteredItems
+  }
+
   updateTableWidth(width) {
     this.store.dispatch(updateTableWidth(width))
   }
