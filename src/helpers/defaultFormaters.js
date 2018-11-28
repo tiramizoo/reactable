@@ -1,7 +1,7 @@
 export const defaultFormatter = (type, key) => {
   switch (type) {
     case 'text':
-      return row => row[key].toString()
+      return row => `<span title='${row[key].toString()}'>${row[key].toString()}</span>`
     case 'boolean':
       return (row) => {
         if (row[key]) {

@@ -5,6 +5,7 @@ window.schemaUsers = {
   },
   first_name: {
     type: 'text',
+    label: 'First Name',
     formatter: function (row) {
       return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
     },
@@ -19,6 +20,7 @@ window.schemaUsers = {
   },
   date_of_birth: {
     type: 'date',
+    label: 'Date of Birth'
   },
   gender: { type: 'text' },
   email: { type: 'text' },

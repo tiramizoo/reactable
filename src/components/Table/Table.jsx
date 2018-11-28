@@ -82,6 +82,11 @@ class Table extends Component {
     return classNames.join(' ')
   }
 
+  columnHeaderName(key) {
+    const { filteredSchema } = this.props
+    return filteredSchema[key].label || key
+  }
+
   sort(key) {
     const {
       filteredSchema, setSortDirection, setOffset, updateViewport, filteredItems,
@@ -105,7 +110,7 @@ class Table extends Component {
         key={key}
         onClick={() => this.sort(key)}
       >
-        {key}
+        {this.columnHeaderName(key)}
       </th>
     )
   }
