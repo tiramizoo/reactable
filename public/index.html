@@ -60,10 +60,15 @@
         schema: schemaUsers,
         strategySearch: 'or',
         limit: 15,
-        control: false
+        control: false,
+        afterRender: function () { defaultSearch() }
       });
 
       t2.render();
+
+      function defaultSearch() {
+        t2.search('gender', 'male', 'exact');
+      }
 
       function multisearch(columns, value) {
         t2.multisearch(columns, value)

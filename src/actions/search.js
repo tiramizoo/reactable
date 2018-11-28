@@ -36,7 +36,7 @@ function searchByText(items, column, searchQuery) {
 
 // BOOLEAN
 function searchByBoolean(items, column, searchQuery) {
-  const options = searchQuery.options || 'all'
+  const options = searchQuery.value || 'all'
   switch (options) {
     case 'all':
       return items

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
+import debounce from 'lodash/debounce'
+
 
 import './index.css'
 import SearchControl from './components/SearchControl'
@@ -21,6 +23,12 @@ class InitApp extends Component {
     this.store.dispatch(initSettings(props))
     this.fetchData()
   }
+
+  afterRender = debounce(() => {
+    if (this.props.afterRender) {
+      this.props.afterRender()
+    }
+  }, 150)
 
   search(column, value, options) {
     const query = { column, value, options }
@@ -69,12 +77,10 @@ class InitApp extends Component {
             <SearchControl />
             <Table />
           </div>
-        </Provider>, documentElementId)
+        </Provider>, documentElementId, this.afterRender())
     }
     return null
   }
 }
 
-export const init = config => {
-  return new InitApp(config)
-}
+export const init = config => { return new InitApp(config) }

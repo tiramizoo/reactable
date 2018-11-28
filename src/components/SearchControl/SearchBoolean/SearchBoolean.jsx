@@ -19,11 +19,11 @@ class SearchBoolean extends Component {
     searching({query, store: this.context.store})
   })
 
-  handleOptionsChange = (e) => {
+  handleValueChange = (e) => {
     const { column, searchQuery } = this.props
     const { value } = e.target
 
-    let newSearchQuery = Object.assign({}, searchQuery[column], { options: e.target.value, column })
+    let newSearchQuery = Object.assign({}, searchQuery[column], { value: value, column })
     if (isEmpty(value) || value === 'all') {
       newSearchQuery = Object.assign({}, {column}, omit(searchQuery, column))
     }
@@ -36,7 +36,7 @@ class SearchBoolean extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <select onChange={(e) => this.handleOptionsChange(e)}>
+        <select onChange={(e) => this.handleValueChange(e)}>
           <option value="all">All</option>
           <option value="true">True</option>
           <option value="false">False</option>
