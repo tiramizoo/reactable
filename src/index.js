@@ -12,7 +12,7 @@ import SchemaControl from './components/SchemaControl'
 import Table from './components/Table'
 import reducers from './reducers/index'
 import { initSettings, updateTableWidth } from './actions/settings'
-import { searching, reSearching } from './actions/search'
+import { searching, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport } from './actions/items'
 import { addMetaDataToItems, sortBy } from './helpers/utilities'
 
@@ -38,13 +38,12 @@ class InitApp extends Component {
     }
   }, 150)
 
-  search(query) {
+  searchAND(query) {
     searching({ query, store: this.store })
   }
 
-  multisearch(columns, value, options) {
-    // const query = { columns, value, options }
-    // searching({ query, store: this.store })
+  searchOR(query) {
+    searchingOr({ query, store: this.store })
   }
 
   addData(newItems) {

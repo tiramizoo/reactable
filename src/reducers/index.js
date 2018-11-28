@@ -11,6 +11,7 @@ import filteredItems from './filteredItems'
 import settings from './settings'
 import tableWidth from './tableWidth'
 import lastAction from './lastAction'
+import searchQueryOr from './searchQueryOr'
 
 export default combineReducers({
   items,
@@ -24,4 +25,5 @@ export default combineReducers({
   tableWidth,
   filteredSchema,
   lastAction,
+  searchQueryOr,
 })

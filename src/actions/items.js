@@ -3,6 +3,7 @@ export const SET_OFFSET = 'SET_OFFSET'
 export const SET_LIMIT = 'SET_LIMIT'
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
 export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY'
+export const SET_SEARCH_QUERY_OR = 'SET_SEARCH_QUERY_OR'
 export const SET_FILTERED_ITEMS = 'SET_FILTERED_ITEMS'
 export const CLEAR_ALL = 'CLEAR_ALL'
 
@@ -15,6 +16,14 @@ export function clearSearchQuery() {
 export function setSearchQuery(column, query) {
   return {
     type: SET_SEARCH_QUERY,
+    column,
+    query,
+  }
+}
+
+export function setSearchQueryOr(column, query) {
+  return {
+    type: SET_SEARCH_QUERY_OR,
     column,
     query,
   }

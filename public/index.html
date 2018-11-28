@@ -20,8 +20,8 @@
     <div id="table1"></div>
     <br /><br />
     <hr>
-    <label for='multisearch'>Search by first name, last name and gender</label>
-    <input type="search" id='multisearch' onInput="multisearch(['first_name', 'last_name', 'gender'], this.value)">
+    <label for='multisearch'>Search by first name or last name</label>
+    <input type="search" id='multisearch' onInput="multisearch(['first_name', 'last_name'], this.value)">
     <div id="table2"></div>
     <hr>
     <script src="../dist/reactable-bundle.js"></script>
@@ -42,8 +42,8 @@
       t1.render();
 
       function search(column, value) {
-        t1.search({[column]: {value: value}});
-        t2.search({[column]: {value: value}});
+        t1.searchAND({[column]: {value: value}});
+        t2.searchAND({[column]: {value: value}});
       }
 
       function setWidth(value) {
@@ -72,11 +72,13 @@
       }
 
       function defaultSearch() {
-        // t2.search({gender: {value: 'male', options: 'equal'}, active: { value: 'true'}});
+        t2.searchAND({gender: {value: 'male', options: 'equal'}, active: { value: 'true'}});
       }
 
       function multisearch(columns, value) {
-        t2.multisearch(columns, value)
+        var query = {}
+        columns.forEach((c) => query[c] = { value: value} )
+        t2.searchOR(query)
       }
 
     </script>
