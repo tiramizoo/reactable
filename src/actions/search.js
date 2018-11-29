@@ -240,7 +240,6 @@ export const reSearching = items => (dispatch, getState) => {
 export const clearAllSearchQuery = () => (dispatch, getState) => {
   const { items, limit } = getState()
 
-  console.log('I: ', items.lenght)
   dispatch(clearSearchQuery())
   dispatch(setFilteredItems(items))
   dispatch(setOffset(0))
