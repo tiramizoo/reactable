@@ -201,14 +201,17 @@ export const searchingBy = ({ query, store, type }) => {
   let newSearchQuery = []
 
   if (type === 'or') {
+    // OR
     newSearchQuery = mergeSearchQuery(query, searchQueryOr)
     filteredItems = searchBy(items, searchQueryAnd, newSearchQuery, schema, strategySearch)
+    store.dispatch(setSearchQueryOr(newSearchQuery))
   } else {
+    // AND
     newSearchQuery = mergeSearchQuery(query, searchQueryAnd)
     filteredItems = searchBy(items, newSearchQuery, searchQueryOr, schema, strategySearch)
+    store.dispatch(setSearchQueryAnd(newSearchQuery))
   }
 
-  store.dispatch(setSearchQueryAnd(newSearchQuery))
   store.dispatch(setFilteredItems(filteredItems))
   store.dispatch(setOffset(0))
   store.dispatch(updateViewport(filteredItems, limit, 0))
