@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 
-import { searching } from '../../../actions/search'
+import { searchingAnd } from '../../../actions/search'
 
 const initState = {
   value: '',
@@ -27,7 +27,7 @@ class SearchText extends Component {
   }
 
   searchByText = debounce((query) => {
-    searching({query, store: this.context.store})
+    searchingAnd({query, store: this.context.store})
   }, 300)
 
   newSearchQuery(param) {

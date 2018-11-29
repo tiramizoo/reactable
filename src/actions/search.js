@@ -176,7 +176,7 @@ export const searchBy = (items, searchAnd, searchOr, schema, strategySearch) => 
   return searchByOr(filteredItemsAnd, schema, searchOr)
 }
 
-export const getNewSearchQuery = (newQuery, currentQuery) => {
+export const mergeSearchQuery = (newQuery, currentQuery) => {
   let newSearchQuery = currentQuery
 
   Object.entries(newQuery).forEach(([column, _searchQuery]) => {
@@ -192,13 +192,21 @@ export const getNewSearchQuery = (newQuery, currentQuery) => {
   return newSearchQuery
 }
 
-export const searching = ({ query, store }) => {
+export const searchingBy = ({ query, store, type }) => {
   const {
-    items, schema, limit, searchQueryAnd, settings, searchOr,
+    items, schema, limit, searchQueryAnd, searchQueryOr, settings,
   } = store.getState()
   const { strategySearch } = settings
-  const newSearchQuery = getNewSearchQuery(query, searchQueryAnd)
-  const filteredItems = searchBy(items, newSearchQuery, searchOr, schema, strategySearch)
+  let filteredItems = []
+  let newSearchQuery = []
+
+  if (type === 'or') {
+    newSearchQuery = mergeSearchQuery(query, searchQueryOr)
+    filteredItems = searchBy(items, searchQueryAnd, newSearchQuery, schema, strategySearch)
+  } else {
+    newSearchQuery = mergeSearchQuery(query, searchQueryAnd)
+    filteredItems = searchBy(items, newSearchQuery, searchQueryOr, schema, strategySearch)
+  }
 
   store.dispatch(setSearchQueryAnd(newSearchQuery))
   store.dispatch(setFilteredItems(filteredItems))
@@ -206,18 +214,12 @@ export const searching = ({ query, store }) => {
   store.dispatch(updateViewport(filteredItems, limit, 0))
 }
 
-export const searchingOr = ({ query, store }) => {
-  const {
-    items, schema, limit, searchQueryOr, settings, searchQueryAnd,
-  } = store.getState()
-  const { strategySearch } = settings
-  const newSearchQuery = getNewSearchQuery(query, searchQueryOr)
-  const filteredItems = searchBy(items, searchQueryAnd, newSearchQuery, schema, strategySearch)
+export const searchingAnd = ({ query, store }) => {
+  searchingBy({ query, store, type: 'and' })
+}
 
-  store.dispatch(setSearchQueryOr(newSearchQuery))
-  store.dispatch(setFilteredItems(filteredItems))
-  store.dispatch(setOffset(0))
-  store.dispatch(updateViewport(filteredItems, limit, 0))
+export const searchingOr = ({ query, store }) => {
+  searchingBy({ query, store, type: 'or' })
 }
 
 export const reSearching = items => (dispatch, getState) => {
@@ -225,8 +227,8 @@ export const reSearching = items => (dispatch, getState) => {
     filteredSchema, limit, searchQueryAnd, searchQueryOr, settings,
   } = getState()
   const { strategySearch } = settings
-
   const filteredItems = searchBy(items, searchQueryAnd, searchQueryOr, filteredSchema, strategySearch)
+
   dispatch(setFilteredItems(filteredItems))
   dispatch(setOffset(0))
   dispatch(updateViewport(filteredItems, limit, 0))

@@ -5,7 +5,7 @@ import isNumber from 'lodash/isNumber'
 import omit from 'lodash/omit'
 import n from 'numeral'
 
-import { searching } from '../../../actions/search'
+import { searchingAnd } from '../../../actions/search'
 
 const initState = {
   value: { from: '', to: '' }
@@ -28,7 +28,7 @@ class SearchInteger extends Component {
   }
 
   searchByNumber = debounce((query) => {
-    searching({query, store: this.context.store})
+    searchingAnd({query, store: this.context.store})
   }, 300)
 
   handleNumberChange = (e) => {

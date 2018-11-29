@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 import isNumber from 'lodash/isNumber'
 
-import { searching } from '../../../actions/search'
+import { searchingAnd } from '../../../actions/search'
 
 const initState = {
   value: { from: '', to: '' }
@@ -28,7 +28,7 @@ class SearchDateTime extends Component {
   }
 
   searchByNumber = debounce((query) => {
-    searching({query, store: this.context.store})
+    searchingAnd({query, store: this.context.store})
   })
 
   handleNumberChange = (e) => {
