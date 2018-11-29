@@ -143,8 +143,8 @@ export const searchByOr = (items, schema, searchQuery) => {
     filteredItems = concat(filteredItems, newFilteredItems)
     return filteredItems
   })
-  filteredItems = uniqBy(filteredItems, '_key')
-  return filteredItems
+
+  return uniqBy(filteredItems, '_key')
 }
 
 export const searchByAnd = (items, schema, searchQuery) => {
@@ -161,25 +161,35 @@ export const searchByAnd = (items, schema, searchQuery) => {
 }
 
 export const searchBy = (items, searchAnd, searchOr, schema, strategySearch) => {
-  let filteredItems = []
-
   if (isEmpty(searchAnd) && isEmpty(searchOr)) {
-    filteredItems = items
-    return filteredItems
+    return items
   }
-  // console.log('searchAnd: ', searchAnd)
-  // console.log('searchOr: ', searchOr)
+
   if (strategySearch === 'or') {
     const filteredItemsAnd = searchByAnd(items, schema, searchAnd)
     const filteredItemsOr = searchByOr(items, schema, searchOr)
-    filteredItems = concat(filteredItemsAnd, filteredItemsOr)
-    filteredItems = uniqBy(filteredItems, '_key')
-  } else {
-    const filteredItemsAnd = searchByAnd(items, schema, searchAnd)
-    filteredItems = searchByOr(filteredItemsAnd, schema, searchOr)
-  }
 
-  return filteredItems
+    return uniqBy(concat(filteredItemsAnd, filteredItemsOr), '_key')
+  }
+  const filteredItemsAnd = searchByAnd(items, schema, searchAnd)
+
+  return searchByOr(filteredItemsAnd, schema, searchOr)
+}
+
+export const getNewSearchQuery = (newQuery, currentQuery) => {
+  let newSearchQuery = currentQuery
+
+  Object.entries(newQuery).forEach(([column, _searchQuery]) => {
+    const { value, options } = _searchQuery
+    if (value !== undefined || options !== undefined) {
+      const newSearchValue = Object.assign({}, newSearchQuery[column], { value, options })
+      newSearchQuery = Object.assign({}, newSearchQuery, { [column]: newSearchValue })
+    } else {
+      newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, column))
+    }
+  })
+
+  return newSearchQuery
 }
 
 export const searching = ({ query, store }) => {
@@ -187,21 +197,9 @@ export const searching = ({ query, store }) => {
     items, schema, limit, searchQueryAnd, settings, searchOr,
   } = store.getState()
   const { strategySearch } = settings
-
-  let newSearchValue = {}
-  let newSearchQuery = searchQueryAnd
-
-  Object.entries(query).map(([column, _searchQuery]) => {
-    const { value, options } = _searchQuery
-    if (value !== undefined || options !== undefined) {
-      newSearchValue = Object.assign({}, newSearchQuery[column], { value, options })
-      newSearchQuery = Object.assign({}, newSearchQuery, { [column]: newSearchValue })
-    } else {
-      newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, column))
-    }
-  })
-
+  const newSearchQuery = getNewSearchQuery(query, searchQueryAnd)
   const filteredItems = searchBy(items, newSearchQuery, searchOr, schema, strategySearch)
+
   store.dispatch(setSearchQueryAnd(newSearchQuery))
   store.dispatch(setFilteredItems(filteredItems))
   store.dispatch(setOffset(0))
@@ -213,21 +211,9 @@ export const searchingOr = ({ query, store }) => {
     items, schema, limit, searchQueryOr, settings, searchQueryAnd,
   } = store.getState()
   const { strategySearch } = settings
-
-  let newSearchValue = {}
-  let newSearchQuery = searchQueryOr
-
-  Object.entries(query).map(([column, _searchQuery]) => {
-    const { value, options } = _searchQuery
-    if (value !== undefined || options !== undefined) {
-      newSearchValue = Object.assign({}, newSearchQuery[column], { value, options })
-      newSearchQuery = Object.assign({}, newSearchQuery, { [column]: newSearchValue })
-    } else {
-      newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, column))
-    }
-  })
-
+  const newSearchQuery = getNewSearchQuery(query, searchQueryOr)
   const filteredItems = searchBy(items, searchQueryAnd, newSearchQuery, schema, strategySearch)
+
   store.dispatch(setSearchQueryOr(newSearchQuery))
   store.dispatch(setFilteredItems(filteredItems))
   store.dispatch(setOffset(0))
