@@ -1,29 +1,14 @@
 export const defaultFormatter = (type, key) => {
   switch (type) {
-    case 'text':
-      return row => `<span title='${row[key].toString()}'>${row[key].toString()}</span>`
     case 'boolean':
-      return (row) => {
-        if (row[key]) {
-          return '&#10003;'
+      return (value, row) => {
+        if (value === true) {
+          return '●'
+        } else if (value === false) {
+          return '○'
         }
-        return '&#10007;'
       }
-    case 'integer':
-      return row => row[key].toString()
-    case 'float':
-      return row => row[key].toString()
-    case 'date':
-      return row => row[key].toString()
-    case 'datetime':
-      return row => row[key].toString()
-    case 'time':
-      return null
     default:
-      return null
+      return (value, row) => value
   }
-}
-
-export const abc = () => {
-  return null
 }

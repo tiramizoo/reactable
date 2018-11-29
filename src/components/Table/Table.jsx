@@ -5,11 +5,8 @@ import { sortBy, setSortDiractionToSchema } from '../../helpers/utilities'
 
 const cellHtml = (row, key, schemaParams) => {
   const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
-  let html = ''
-  if (row[key] !== 'undefined' && row[key] !== null) {
-    html = formatter(row)
-  }
-  return { __html: html }
+  const value = row[key];
+  return { __html: formatter(value, row) }
 }
 
 

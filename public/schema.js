@@ -1,12 +1,12 @@
 window.schemaUsers = {
   id: {
     type: 'integer',
-    formatter: function (row) { return "ID: " + row['id']},
+    formatter: function (value, row) { return "ID: " + row['id']},
   },
   first_name: {
     type: 'text',
     label: 'First Name',
-    formatter: function (row) {
+    formatter: function (value, row) {
       return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
     },
   },
