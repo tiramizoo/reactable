@@ -19,9 +19,9 @@ class SearchInteger extends Component {
   constructor(props, context) {
     super(props, context)
 
-    const { column, searchQuery } = props
-    if (searchQuery[column]) {
-      this.state = searchQuery[column]
+    const { column, searchQueryAnd } = props
+    if (searchQueryAnd[column]) {
+      this.state = searchQueryAnd[column]
     } else {
       this.state = initState
     }
@@ -33,13 +33,13 @@ class SearchInteger extends Component {
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
-    const { column, searchQuery } = this.props
+    const { column, searchQueryAnd } = this.props
 
     let newValue = { [name]: n(value).value() || '' }
     let newSearchQuery = {[column]: { value: newValue }}
 
     if (searchQuery[column]) {
-      newValue = Object.assign({}, searchQuery[column].value, { [name]: n(value).value() || '' })
+      newValue = Object.assign({}, searchQueryAnd[column].value, { [name]: n(value).value() || '' })
       newSearchQuery = {[column]: { value: newValue }}
     }
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {

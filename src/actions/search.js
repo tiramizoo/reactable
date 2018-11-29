@@ -5,7 +5,7 @@ import concat from 'lodash/concat'
 import omit from 'lodash/omit'
 import n from 'numeral'
 
-import { updateViewport, setSearchQuery, setFilteredItems, setOffset, clearSearchQuery, setSearchQueryOr } from './items'
+import { updateViewport, setSearchQueryAnd, setFilteredItems, setOffset, clearSearchQuery, setSearchQueryOr } from './items'
 
 // Search by
 // TEXT
@@ -196,12 +196,12 @@ export const searchBy = (items, searchAnd, searchOr, schema, strategySearch) => 
 
 export const searching = ({ query, store }) => {
   const {
-    items, schema, limit, searchQuery, settings, searchOr,
+    items, schema, limit, searchQueryAnd, settings, searchOr,
   } = store.getState()
   const { strategySearch } = settings
 
   let newSearchValue = {}
-  let newSearchQuery = searchQuery
+  let newSearchQuery = searchQueryAnd
 
   Object.entries(query).map(([column, _searchQuery]) => {
     const { value, options } = _searchQuery
@@ -211,7 +211,7 @@ export const searching = ({ query, store }) => {
     } else {
       newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, column))
     }
-    store.dispatch(setSearchQuery(column, newSearchValue))
+    store.dispatch(setSearchQueryAnd(column, newSearchValue))
   })
 
   const filteredItems = searchBy(items, newSearchQuery, searchOr, schema, strategySearch)
@@ -222,7 +222,7 @@ export const searching = ({ query, store }) => {
 
 export const searchingOr = ({ query, store }) => {
   const {
-    items, schema, limit, searchQueryOr, settings, searchQuery,
+    items, schema, limit, searchQueryOr, settings, searchQueryAnd,
   } = store.getState()
   const { strategySearch } = settings
 
@@ -240,7 +240,7 @@ export const searchingOr = ({ query, store }) => {
     store.dispatch(setSearchQueryOr(column, newSearchValue))
   })
 
-  const filteredItems = searchBy(items, searchQuery, newSearchQuery, schema, strategySearch)
+  const filteredItems = searchBy(items, searchQueryAnd, newSearchQuery, schema, strategySearch)
   store.dispatch(setFilteredItems(filteredItems))
   store.dispatch(setOffset(0))
   store.dispatch(updateViewport(filteredItems, limit, 0))
@@ -261,6 +261,7 @@ export const reSearching = items => (dispatch, getState) => {
 export const clearAllSearchQuery = () => (dispatch, getState) => {
   const { items, limit } = getState()
 
+  console.log('I: ', items.lenght)
   dispatch(clearSearchQuery())
   dispatch(setFilteredItems(items))
   dispatch(setOffset(0))

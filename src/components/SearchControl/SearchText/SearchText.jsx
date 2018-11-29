@@ -18,9 +18,9 @@ class SearchText extends Component {
 
   constructor(props, context) {
     super(props, context)
-    const { column, searchQuery } = props
-    if (searchQuery[column]) {
-      this.state = searchQuery[column]
+    const { column, searchQueryAnd } = props
+    if (searchQueryAnd[column]) {
+      this.state = searchQueryAnd[column]
     } else {
       this.state = initState
     }
@@ -31,11 +31,11 @@ class SearchText extends Component {
   }, 300)
 
   newSearchQuery(param) {
-    const { column, searchQuery } = this.props
+    const { column, searchQueryAnd } = this.props
     if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options)) {
       return {[column]: {}}
     }
-    return {[column]: Object.assign({}, searchQuery[column], { ...param })}
+    return {[column]: Object.assign({}, searchQueryAnd[column], { ...param })}
   }
 
   handleTextChange(e) {
@@ -60,7 +60,7 @@ class SearchText extends Component {
   }
 
   render() {
-    const { column, searchQuery } = this.props
+    const { column } = this.props
     const { value, options } = this.state
 
     return (

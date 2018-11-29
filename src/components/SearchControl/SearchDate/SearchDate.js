@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SearchDateComponent from './SearchDate.jsx'
 
 const mapStateToProps = state => ({
-  searchQuery: state.searchQuery,
+  searchQueryAnd: state.searchQueryAnd,
 })
 
 const mapDispatchToProps = dispatch => ({})

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SearchTextComponent from './SearchText.jsx'
 
 const mapStateToProps = state => ({
-  searchQuery: state.searchQuery,
+  searchQueryAnd: state.searchQueryAnd,
 })
 
 const mapDispatchToProps = dispatch => ({})

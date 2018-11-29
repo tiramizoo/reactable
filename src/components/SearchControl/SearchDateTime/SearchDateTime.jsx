@@ -19,9 +19,9 @@ class SearchDateTime extends Component {
   constructor(props, context) {
     super(props, context)
 
-    const { column, searchQuery } = props
-    if (searchQuery[column]) {
-      this.state = searchQuery[column]
+    const { column, searchQueryAnd } = props
+    if (searchQueryAnd[column]) {
+      this.state = searchQueryAnd[column]
     } else {
       this.state = initState
     }
@@ -33,15 +33,15 @@ class SearchDateTime extends Component {
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
-    const { column, searchQuery } = this.props
+    const { column, searchQueryAnd } = this.props
     this.setState({ value: {[name]: value }})
 
     let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
-    if (searchQuery[column]) {
-      newValue = Object.assign({}, searchQuery[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
+    if (searchQueryAnd[column]) {
+      newValue = Object.assign({}, searchQueryAnd[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
     }
     this.setState({ value: newValue })
-    let newSearchQuery = {[column]: Object.assign({}, searchQuery[column], { value: newValue })}
+    let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
       newSearchQuery =  {[column]: {}}
     }

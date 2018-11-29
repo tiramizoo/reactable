@@ -1,13 +1,13 @@
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 
-import { SET_SEARCH_QUERY, CLEAR_ALL } from '../actions/items'
+import { SET_SEARCH_QUERY_AND, CLEAR_ALL } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
 // {first_name: {value: 'Jon', options: ''} }
-function searchQuery(state = {}, action) {
+function searchQueryAnd(state = {}, action) {
   switch (action.type) {
-    case SET_SEARCH_QUERY:
+    case SET_SEARCH_QUERY_AND:
       if (isEmpty(action.query)) {
         return Object.assign({}, {}, omit(state, action.column))
       }
@@ -20,4 +20,4 @@ function searchQuery(state = {}, action) {
   }
 }
 
-export default searchQuery
+export default searchQueryAnd

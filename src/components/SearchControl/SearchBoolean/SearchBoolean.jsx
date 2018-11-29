@@ -18,9 +18,9 @@ class SearchBoolean extends Component {
   constructor(props, context) {
     super(props, context)
 
-    const { column, searchQuery } = props
-    if (searchQuery[column]) {
-      this.state = searchQuery[column]
+    const { column, searchQueryAnd } = props
+    if (searchQueryAnd[column]) {
+      this.state = searchQueryAnd[column]
     } else {
       this.state = initState
     }
@@ -31,10 +31,10 @@ class SearchBoolean extends Component {
   })
 
   handleValueChange = (e) => {
-    const { column, searchQuery } = this.props
+    const { column, searchQueryAnd } = this.props
     const { value } = e.target
 
-    let newSearchQuery = {[column]: Object.assign({}, searchQuery[column], { value: value, column })}
+    let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: value, column })}
     if (isEmpty(value) || value === 'all') {
       newSearchQuery =  {[column]: {}}
     }

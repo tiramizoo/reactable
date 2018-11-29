@@ -6,7 +6,7 @@ import limit from './limit'
 import offset from './offset'
 import schema from './schema'
 import filteredSchema from './filteredSchema'
-import searchQuery from './searchQuery'
+import searchQueryAnd from './searchQueryAnd'
 import filteredItems from './filteredItems'
 import settings from './settings'
 import tableWidth from './tableWidth'
@@ -19,7 +19,7 @@ export default combineReducers({
   limit,
   offset,
   schema,
-  searchQuery,
+  searchQueryAnd,
   filteredItems,
   settings,
   tableWidth,
