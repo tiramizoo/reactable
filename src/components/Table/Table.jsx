@@ -17,8 +17,6 @@ class Table extends Component {
   }
 
   onKeyDown(e) {
-    e.stopPropagation()
-
     const {
       offset, setOffset, filteredItems, limit, updateViewport,
     } = this.props
@@ -29,6 +27,8 @@ class Table extends Component {
     const maxOffset = Math.max(filteredItems.length - limit, 0)
 
     if (e.key === 'ArrowDown') {
+      e.preventDefault()
+
       // scroll down
       if (e.metaKey) {
         newOffset = maxOffset;
@@ -36,22 +36,16 @@ class Table extends Component {
         newOffset = Math.min(offset + moveBy, maxOffset)
       }
 
-      if (newOffset != maxOffset) {
-        e.preventDefault()
-      }
-
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+
       // scroll up
       if (e.metaKey) {
         newOffset = minOffset
       } else {
         newOffset = Math.max(offset - moveBy, minOffset);
-      }
-
-      if (newOffset != minOffset) {
-        e.preventDefault()
       }
 
       setOffset(newOffset)
@@ -60,9 +54,6 @@ class Table extends Component {
   }
 
   onWheel(e) {
-    // e.stopPropagation()
-    // e.preventDefault()
-
     e.currentTarget.focus()
 
     const {
@@ -287,16 +278,12 @@ class Table extends Component {
         <div className='abc'><button onClick={(e) => this.handleToggleSchemaControl(e)}>&#9872;</button></div>
         <div className='control-toggle'><button onClick={(e) => this.handleToggleControl(e)}>&#10050;</button></div>
 
-        <table
-          ref={this.tableRef}
-          style={{ width: tableWidth }}
-          tabIndex="0"
-          onKeyDown={e => this.onKeyDown(e)}
-        >
+        <table style={{ width: tableWidth }} ref={this.tableRef}>
           <thead>
             { this.renderHeader() }
           </thead>
-          <tbody onWheel={e => this.onWheel(e)}>
+          <tbody tabIndex="0" onWheel={e => this.onWheel(e)} onKeyDown={e => this.onKeyDown(e)}
+>
             { currentItems.map(item => this.renderRow(item)) }
             { this.renderMissingRows() }
           </tbody>
