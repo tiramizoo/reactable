@@ -18,26 +18,50 @@ class Table extends Component {
 
   onKeyDown(e) {
     e.stopPropagation()
-    e.preventDefault()
 
     const {
       offset, setOffset, filteredItems, limit, updateViewport,
     } = this.props
 
+    var newOffset;
+    const moveBy    = 1;
+    const minOffset = 0;
+    const maxOffset = Math.max(filteredItems.length - limit, 0)
+
     if (e.key === 'ArrowDown') {
-      const newOffset = Math.min(offset + 1, Math.max(filteredItems.length - limit, 0))
+      // scroll down
+      if (e.metaKey) {
+        newOffset = maxOffset;
+      } else {
+        newOffset = Math.min(offset + moveBy, maxOffset)
+      }
+
+      if (newOffset != maxOffset) {
+        e.preventDefault()
+      }
+
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     } else if (e.key === 'ArrowUp') {
-      const newOffset = Math.max(offset - 1, 0)
+      // scroll up
+      if (e.metaKey) {
+        newOffset = minOffset
+      } else {
+        newOffset = Math.max(offset - moveBy, minOffset);
+      }
+
+      if (newOffset != minOffset) {
+        e.preventDefault()
+      }
+
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     }
   }
 
-  wtf(e) {
-    e.stopPropagation()
-    e.preventDefault()
+  onWheel(e) {
+    // e.stopPropagation()
+    // e.preventDefault()
 
     e.currentTarget.focus()
 
@@ -48,16 +72,26 @@ class Table extends Component {
     const { deltaY } = e
 
     if (deltaY > 0) {
+      // scroll down
       const moveBy = (deltaY <= 5) ? 1 : 2
-
-      const newOffset = Math.min(offset + moveBy, Math.max(filteredItems.length - limit, 0))
+      const maxOffset = Math.max(filteredItems.length - limit, 0)
+      const newOffset = Math.min(offset + moveBy, maxOffset)
+      if (newOffset != maxOffset) {
+        e.preventDefault()
+      }
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     } else if (deltaY < 0) {
+      // scroll up
       const moveBy = (deltaY >= -5) ? 1 : 2
+      const minOffset = 0;
 
-      const newOffset = Math.max(offset - moveBy, 0)
+      const newOffset = Math.max(offset - moveBy, minOffset)
       setOffset(newOffset)
+
+      if (newOffset != minOffset) {
+        e.preventDefault()
+      }
       updateViewport(filteredItems, limit, newOffset)
     }
   }
@@ -256,14 +290,13 @@ class Table extends Component {
         <table
           ref={this.tableRef}
           style={{ width: tableWidth }}
-          onWheel={e => this.wtf(e)}
           tabIndex="0"
           onKeyDown={e => this.onKeyDown(e)}
         >
           <thead>
             { this.renderHeader() }
           </thead>
-          <tbody>
+          <tbody onWheel={e => this.onWheel(e)}>
             { currentItems.map(item => this.renderRow(item)) }
             { this.renderMissingRows() }
           </tbody>
