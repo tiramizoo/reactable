@@ -13,18 +13,16 @@ export function clearSearchQuery() {
   }
 }
 
-export function setSearchQueryAnd(column, query) {
+export function setSearchQueryAnd(query) {
   return {
     type: SET_SEARCH_QUERY_AND,
-    column,
     query,
   }
 }
 
-export function setSearchQueryOr(column, query) {
+export function setSearchQueryOr(query) {
   return {
     type: SET_SEARCH_QUERY_OR,
-    column,
     query,
   }
 }

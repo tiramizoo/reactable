@@ -26,7 +26,7 @@ class InitApp extends Component {
   }
 
   handleStateChange() {
-    if (this.store.getState().lastAction.type === 'SET_FILTERED_ITEMS' && this.props.itemsChange) {
+    if (this.store.getState().lastAction === 'SET_FILTERED_ITEMS' && this.props.itemsChange) {
       this.props.itemsChange(this.getFilteredData())
     }
   }
