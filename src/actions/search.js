@@ -71,18 +71,18 @@ function searchByNumber(items, column, searchQuery) {
   if (searchQuery.value) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
-        const itemValue = Number(item[column])
+        const itemValue = item[column]
         return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
       })
     }
     if (searchQuery.value.from) {
       return filter(items, (item) => {
-        return Number(item[column]) >= searchQuery.value.from
+        return item[column] >= searchQuery.value.from
       })
     }
     if (searchQuery.value.to) {
       return filter(items, (item) => {
-        return Number(item[column]) <= searchQuery.value.to
+        return item[column] <= searchQuery.value.to
       })
     }
   }
