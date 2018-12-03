@@ -3,7 +3,6 @@ import isEmpty from 'lodash/isEmpty'
 import uniqBy from 'lodash/uniqBy'
 import concat from 'lodash/concat'
 import omit from 'lodash/omit'
-import n from 'numeral'
 
 import { updateViewport, setSearchQueryAnd, setFilteredItems, setOffset, clearSearchQuery, setSearchQueryOr } from './items'
 
@@ -47,44 +46,32 @@ function searchByBoolean(items, column, searchQuery) {
     case 'all':
       return items
     case 'true':
-      return filter(items, (item) => {
-        return item[column] === true
-      })
+      return filter(items, item => item[column] === true)
     case 'false':
-      return filter(items, (item) => {
-        return item[column] === false
-      })
+      return filter(items, item => item[column] === false)
     case 'empty':
-      return filter(items, (item) => {
-        return item[column] !== true && item[column] !== false
-      })
+      return filter(items, item => item[column] !== true && item[column] !== false)
     case 'notEmpty':
-      return filter(items, (item) => {
-        return item[column] === true || item[column] === false
-      })
+      return filter(items, item => item[column] === true || item[column] === false)
     default:
       return []
   }
 }
 
-// INTEGER
-function searchByInteger(items, column, searchQuery) {
+// NUMBER
+function searchByNumber(items, column, searchQuery) {
   if (searchQuery.value) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
-        const itemValue = n(item[column]).value()
+        const itemValue = item[column]
         return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
       })
     }
     if (searchQuery.value.from) {
-      return filter(items, (item) => {
-        return n(item[column]).value() >= searchQuery.value.from
-      })
+      return filter(items, item => item[column] >= searchQuery.value.from)
     }
     if (searchQuery.value.to) {
-      return filter(items, (item) => {
-        return n(item[column]).value() <= searchQuery.value.to
-      })
+      return filter(items, item => item[column] <= searchQuery.value.to)
     }
   }
 
@@ -102,14 +89,10 @@ function searchByDate(items, column, searchQuery) {
       })
     }
     if (searchQuery.value.from) {
-      return filter(items, (item) => {
-        return item[column] >= searchQuery.value.from
-      })
+      return filter(items, item => item[column] >= searchQuery.value.from)
     }
     if (searchQuery.value.to) {
-      return filter(items, (item) => {
-        return item[column] <= searchQuery.value.to
-      })
+      return filter(items, item => item[column] <= searchQuery.value.to)
     }
   }
 
@@ -146,8 +129,8 @@ function searchByType(items, type, column, searchQuery) {
       return searchByText(items, column, searchQuery)
     case 'boolean':
       return searchByBoolean(items, column, searchQuery)
-    case 'integer':
-      return searchByInteger(items, column, searchQuery)
+    case 'number':
+      return searchByNumber(items, column, searchQuery)
     case 'date':
       return searchByDate(items, column, searchQuery)
     case 'datetime':

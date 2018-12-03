@@ -1,6 +1,6 @@
 window.schemaUsers = {
   id: {
-    type: 'integer',
+    type: 'number',
     formatter: function (value, row) { return "ID: " + row['id']},
   },
   first_name: {
