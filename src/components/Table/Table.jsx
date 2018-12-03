@@ -3,16 +3,23 @@ import React, { Component } from 'react'
 import { defaultFormatter } from '../../helpers/defaultFormaters'
 import { sortBy, setSortDiractionToSchema } from '../../helpers/utilities'
 
-const cellHtml = (row, key, schemaParams) => {
-  const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
-  const value = row[key];
-  return { __html: formatter(value, row) }
-}
-
+let cache = {}
 
 class Table extends Component {
   constructor(props) {
     super(props)
+  }
+
+  cellHtml = (row, key, schemaParams) => {
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
+    const value = row[key]
+    const uberKey = `${row._key}/${key}`
+
+    if (cache[uberKey] === undefined) {
+      cache[uberKey] = formatter(value, row) || ''
+    }
+
+    return { __html: cache[uberKey] }
   }
 
   onKeyDown(e) {
@@ -149,7 +156,7 @@ class Table extends Component {
       <td
         className={classNames.join(' ')}
         key={key}
-        dangerouslySetInnerHTML={cellHtml(row, key, schemaParams)}
+        dangerouslySetInnerHTML={this.cellHtml(row, key, schemaParams)}
         style={{ height: rowHeight }}
       />
     )
