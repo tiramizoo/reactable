@@ -38,7 +38,7 @@ class SearchInteger extends Component {
     let newValue = { [name]: n(value).value() || '' }
     let newSearchQuery = {[column]: { value: newValue }}
 
-    if (searchQuery[column]) {
+    if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, { [name]: n(value).value() || '' })
       newSearchQuery = {[column]: { value: newValue }}
     }
