@@ -33,15 +33,16 @@ class SearchDate extends Component {
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
+    console.log('v: ', value)
     const { column, searchQueryAnd } = this.props
     this.setState({ value: {[name]: value }})
 
-    let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
+    let newValue = { [name]: value }
     if (searchQueryAnd[column]) {
-      newValue = Object.assign({}, searchQueryAnd[column].value, { [name]: isEmpty(value) ? null : Date.parse(value)  })
+      newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
     }
     let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
-    if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
+    if (!isEmpty(newValue.from) && !isEmpty(newValue.to)) {
       newSearchQuery =  {[column]: {}}
     }
     this.searchByNumber(newSearchQuery)
