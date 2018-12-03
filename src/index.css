@@ -1,4 +1,12 @@
+.reactable {
+  background: black;
+  position: relative;
+}
+
 .reactable .control {
+  position: absolute;
+  top: 0;
+  background-color: red;
   font-family: monospace;
 }
 
@@ -15,24 +23,6 @@
 
 .reactable .control input[type=number] {
   width: 60px;
-}
-
-.reactable .control-toggle {
-  position: absolute;
-  bottom:  0;
-  right: 0;
-  height: 30px;
-  width: 30px;
-}
-
-.reactable .control-toggle button {
-  font-size: 20px;
-  border-style: none !important;
-  background-color: transparent;
-}
-
-.reactable .control-toggle button {
-  border: 1px solid gray;
 }
 
 .reactable .table-wrapper {

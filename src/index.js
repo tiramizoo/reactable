@@ -83,9 +83,9 @@ class InitApp extends Component {
       return ReactDOM.render(
         <Provider store={this.store}>
           <div className="reactable">
+            <Table />
             <SchemaControl />
             <SearchControl />
-            <Table />
           </div>
         </Provider>, documentElementId, this.afterRender())
     }

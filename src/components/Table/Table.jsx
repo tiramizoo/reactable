@@ -205,7 +205,9 @@ class Table extends Component {
             current: {currentItems.length},
             total: {items.length}
           </span>
-          <button onClick={() => this.requestFullScreen()}>fullscreen</button>
+          <button onClick={(e) => this.requestFullScreen()}>fullscreen</button>
+          <button onClick={(e) => this.handleToggleSchemaControl(e)}>schema</button>
+          <button onClick={(e) => this.handleToggleControl(e)}>filters</button>
         </th>
         { actions && <th /> }
       </tr>
@@ -274,10 +276,6 @@ class Table extends Component {
         className="table-wrapper"
         style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}
       >
-
-        <div className='abc'><button onClick={(e) => this.handleToggleSchemaControl(e)}>&#9872;</button></div>
-        <div className='control-toggle'><button onClick={(e) => this.handleToggleControl(e)}>&#10050;</button></div>
-
         <table style={{ width: tableWidth }} ref={this.tableRef}>
           <thead>
             { this.renderHeader() }
