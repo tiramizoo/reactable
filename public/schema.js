@@ -24,4 +24,5 @@ window.schemaUsers = {
   },
   gender: { type: 'text' },
   email: { type: 'text' },
+  created_at: { type: 'datetime'},
 }
