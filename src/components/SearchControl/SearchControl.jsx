@@ -40,11 +40,10 @@ const SearchControl = (props) => {
     return null
   }
   return (
-    <div className="control">
+    <div className="control" style={{width: tableWidth}}>
       <div>
         <span> Limit: <input onChange={updateLimit} value={limit} type="number" /></span>
         <span> Offset: <input onChange={updateOffset} value={offset} type="number" /></span>
-        <span> Table width: {tableWidth}</span>
       </div>
       <div>
         <SearchList />

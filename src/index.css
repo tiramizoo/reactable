@@ -1,13 +1,29 @@
 .reactable {
-  background: black;
   position: relative;
 }
 
 .reactable .control {
   position: absolute;
   top: 0;
-  background-color: red;
-  font-family: monospace;
+  padding: 20px;
+  font-family: inherit;
+  background-color: #fff;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 5px #000;
+}
+
+.reactable .schema {
+  box-sizing: border-box;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  font-family: inherit;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px #000;
+}
+
+.reactable .schema ul {
+  list-style: none;
 }
 
 .reactable .control label {

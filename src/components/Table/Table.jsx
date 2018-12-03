@@ -13,7 +13,6 @@ const cellHtml = (row, key, schemaParams) => {
 class Table extends Component {
   constructor(props) {
     super(props)
-    this.tableRef = React.createRef()
   }
 
   onKeyDown(e) {
@@ -155,18 +154,6 @@ class Table extends Component {
       />
     )
   }
-  requestFullScreen() {
-    const element = this.tableRef.current
-    if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
-      if (element.requestFullscreen) {
-        return element.requestFullscreen()
-      } else if (element.mozRequestFullScreen) {
-        return element.mozRequestFullScreen()
-      } else if (element.webkitRequestFullScreen) {
-        return element.webkitRequestFullScreen()
-      }
-    }
-  }
 
   handleToggleControl(e) {
     e.preventDefault()
@@ -205,7 +192,6 @@ class Table extends Component {
             current: {currentItems.length},
             total: {items.length}
           </span>
-          <button onClick={(e) => this.requestFullScreen()}>fullscreen</button>
           <button onClick={(e) => this.handleToggleSchemaControl(e)}>schema</button>
           <button onClick={(e) => this.handleToggleControl(e)}>filters</button>
         </th>
@@ -276,7 +262,7 @@ class Table extends Component {
         className="table-wrapper"
         style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}
       >
-        <table style={{ width: tableWidth }} ref={this.tableRef}>
+        <table style={{ width: tableWidth }}>
           <thead>
             { this.renderHeader() }
           </thead>
