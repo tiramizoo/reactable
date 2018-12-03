@@ -60,7 +60,15 @@
         schema: schemaUsers,
         strategySearch: 'and',
         limit: 15,
-        control: false,
+        controls: {
+          csv: {
+            onClick: function (e) { console.log('Download CSV', e)},
+            className: '',
+            key: 'csv',
+            disabled: false,
+            label: 'CSV',
+          }
+        },
         afterRender: function () { defaultSearch() },
         itemsChange: function (items) { itemsChange(items) },
       });

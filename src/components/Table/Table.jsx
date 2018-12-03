@@ -177,6 +177,49 @@ class Table extends Component {
     )
   }
 
+  defaultControls() {
+    return {
+      schema: {
+        onClick: e => this.handleToggleSchemaControl(e),
+        className: '',
+        key: 'schema',
+        disabled: false,
+        label: 'Schema',
+      },
+      search: {
+        onClick: e => this.handleToggleControl(e),
+        className: '',
+        key: 'search',
+        disabled: false,
+        label: 'Filters',
+      },
+    }
+  }
+
+  renderFooterControls() {
+    const { controls } = this.props
+    const mergedControls = Object.assign({}, this.defaultControls(), controls)
+
+    return (
+      Object.entries(mergedControls).map(([key, value]) => {
+        if (!value) {
+          return null
+        }
+
+        return (
+          <button
+            onClick={e => value.onClick(e)}
+            className={value.className}
+            key={key}
+            disabled={value.disabled}
+          >
+            {value.label || key}
+          </button>
+        )
+      })
+    )
+  }
+
   renderFooter() {
     const {
       rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items, actions,
@@ -192,8 +235,7 @@ class Table extends Component {
             current: {currentItems.length},
             total: {items.length}
           </span>
-          <button onClick={(e) => this.handleToggleSchemaControl(e)}>schema</button>
-          <button onClick={(e) => this.handleToggleControl(e)}>filters</button>
+          { this.renderFooterControls() }
         </th>
         { actions && <th /> }
       </tr>
@@ -209,7 +251,7 @@ class Table extends Component {
         { Object.entries(actions).map(([key, value]) => {
           return (
             <button
-              onClick={(e) => value.onClick(row, e)}
+              onClick={e => value.onClick(row, e)}
               className={value.className}
               key={key}
               disabled={value.disabled && value.disabled(row)}
