@@ -39,7 +39,7 @@ class SearchInteger extends Component {
     let newSearchQuery = {[column]: { value: newValue }}
 
     if (searchQueryAnd[column]) {
-      newValue = Object.assign({}, searchQueryAnd[column].value, { [name]: n(value).value() || '' })
+      newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
       newSearchQuery = {[column]: { value: newValue }}
     }
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
@@ -70,7 +70,7 @@ class SearchInteger extends Component {
           type="number"
           placeholder="from"
           autoComplete="off"
-          id={column}
+          id={`from-${column}`}
         />
         <input
           value={to}
@@ -79,7 +79,7 @@ class SearchInteger extends Component {
           type="number"
           placeholder="to"
           autoComplete="off"
-          id={column}
+          id={`to-${column}`}
         />
         <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
