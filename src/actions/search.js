@@ -46,21 +46,13 @@ function searchByBoolean(items, column, searchQuery) {
     case 'all':
       return items
     case 'true':
-      return filter(items, (item) => {
-        return item[column] === true
-      })
+      return filter(items, item => item[column] === true)
     case 'false':
-      return filter(items, (item) => {
-        return item[column] === false
-      })
+      return filter(items, item => item[column] === false)
     case 'empty':
-      return filter(items, (item) => {
-        return item[column] !== true && item[column] !== false
-      })
+      return filter(items, item => item[column] !== true && item[column] !== false)
     case 'notEmpty':
-      return filter(items, (item) => {
-        return item[column] === true || item[column] === false
-      })
+      return filter(items, item => item[column] === true || item[column] === false)
     default:
       return []
   }
@@ -76,14 +68,10 @@ function searchByNumber(items, column, searchQuery) {
       })
     }
     if (searchQuery.value.from) {
-      return filter(items, (item) => {
-        return item[column] >= searchQuery.value.from
-      })
+      return filter(items, item => item[column] >= searchQuery.value.from)
     }
     if (searchQuery.value.to) {
-      return filter(items, (item) => {
-        return item[column] <= searchQuery.value.to
-      })
+      return filter(items, item => item[column] <= searchQuery.value.to)
     }
   }
 
@@ -101,14 +89,10 @@ function searchByDate(items, column, searchQuery) {
       })
     }
     if (searchQuery.value.from) {
-      return filter(items, (item) => {
-        return item[column] >= searchQuery.value.from
-      })
+      return filter(items, item => item[column] >= searchQuery.value.from)
     }
     if (searchQuery.value.to) {
-      return filter(items, (item) => {
-        return item[column] <= searchQuery.value.to
-      })
+      return filter(items, item => item[column] <= searchQuery.value.to)
     }
   }
 
