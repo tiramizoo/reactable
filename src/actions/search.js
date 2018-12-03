@@ -3,7 +3,6 @@ import isEmpty from 'lodash/isEmpty'
 import uniqBy from 'lodash/uniqBy'
 import concat from 'lodash/concat'
 import omit from 'lodash/omit'
-import n from 'numeral'
 
 import { updateViewport, setSearchQueryAnd, setFilteredItems, setOffset, clearSearchQuery, setSearchQueryOr } from './items'
 
@@ -72,18 +71,18 @@ function searchByNumber(items, column, searchQuery) {
   if (searchQuery.value) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
-        const itemValue = n(item[column]).value()
+        const itemValue = Number(item[column])
         return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
       })
     }
     if (searchQuery.value.from) {
       return filter(items, (item) => {
-        return n(item[column]).value() >= searchQuery.value.from
+        return Number(item[column]) >= searchQuery.value.from
       })
     }
     if (searchQuery.value.to) {
       return filter(items, (item) => {
-        return n(item[column]).value() <= searchQuery.value.to
+        return Number(item[column]) <= searchQuery.value.to
       })
     }
   }

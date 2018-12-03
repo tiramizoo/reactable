@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
 import isNumber from 'lodash/isNumber'
 import omit from 'lodash/omit'
-import n from 'numeral'
 
 import { searchingAnd } from '../../../actions/search'
 
@@ -36,9 +35,9 @@ class SearchNumber extends Component {
     const { value, name } = e.target
     const { column, searchQueryAnd } = this.props
 
-    let newValue = { [name]: n(value).value() || '' }
+    let newValue = { [name]: Number(value) || '' }
     let newSearchQuery = {[column]: { value: newValue }}
-    this.setState({[name]: n(value).value() || '' })
+    this.setState({[name]: Number(value) || '' })
 
     if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
