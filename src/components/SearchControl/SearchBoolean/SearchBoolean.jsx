@@ -42,6 +42,13 @@ class SearchBoolean extends Component {
     this.searchByBoolean(newSearchQuery)
   }
 
+  handleClearChange() {
+    const { column } = this.props
+
+    this.setState(initState)
+    this.searchByBoolean({[column]: {}})
+  }
+
   render() {
     const { column } = this.props
     const { value } = this.state
@@ -56,6 +63,7 @@ class SearchBoolean extends Component {
           <option value="empty">Empty</option>
           <option value="notEmpty">Not Empty</option>
         </select>
+        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }
