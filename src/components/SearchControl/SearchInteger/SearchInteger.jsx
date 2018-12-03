@@ -8,7 +8,8 @@ import n from 'numeral'
 import { searchingAnd } from '../../../actions/search'
 
 const initState = {
-  value: { from: '', to: '' }
+  from: '',
+  to: ''
 }
 
 class SearchInteger extends Component {
@@ -21,7 +22,7 @@ class SearchInteger extends Component {
 
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column]
+      this.state = searchQueryAnd[column].value
     } else {
       this.state = initState
     }
@@ -37,6 +38,7 @@ class SearchInteger extends Component {
 
     let newValue = { [name]: n(value).value() || '' }
     let newSearchQuery = {[column]: { value: newValue }}
+    this.setState({[name]: n(value).value() || '' })
 
     if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
@@ -45,20 +47,20 @@ class SearchInteger extends Component {
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
       newSearchQuery =  {[column]: {}}
     }
-    this.setState({ value: newValue })
+
     this.searchByNumber(newSearchQuery)
   }
 
   handleClearChange() {
     const { column } = this.props
 
-    this.setState(initState)
     this.searchByNumber({[column]: {}})
+    this.setState(initState)
   }
 
   render() {
     const { column } = this.props
-    const { from, to } = this.state.value
+    const { from, to } = this.state
 
     return (
       <div>

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const SchemaControl = (props) => {
-
   const handleChange = (e, key) => {
     const { addToFilteredSchema, removeFromFilteredSchema } = props
     const { checked } = e.target
@@ -34,7 +33,7 @@ const SchemaControl = (props) => {
   }
 
   return (
-    <div className='schema' style={{width: props.tableWidth}}>
+    <div className="schema" style={{ width: props.tableWidth }}>
       <h2>Schema</h2>
       <ul>
         { Object.keys(props.schema).map(key =>
