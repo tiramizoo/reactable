@@ -4,9 +4,9 @@ import SchemaControlComponent from './SchemaControl.jsx'
 import { addToFilteredSchema, removeFromFilteredSchema } from '../../actions/schema'
 
 const mapStateToProps = state => ({
-  schema:            state.schema,
-  filteredSchema:    state.filteredSchema,
-  tableWidth:        state.tableWidth,
+  schema: state.schema,
+  filteredSchema: state.filteredSchema,
+  tableWidth: state.tableDimensions.width,
   schemaControlShow: state.settings.schemaControlShow,
 })
 
