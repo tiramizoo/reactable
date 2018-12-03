@@ -5,11 +5,11 @@ import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 import debounce from 'lodash/debounce'
 
-
-import './index.css'
 import SearchControl from './components/SearchControl'
 import SchemaControl from './components/SchemaControl'
-import Table from './components/Table'
+import ScrollBar     from './components/ScrollBar'
+import Table         from './components/Table'
+
 import reducers from './reducers/index'
 import { initSettings, updateTableWidth } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
@@ -84,6 +84,7 @@ class InitApp extends Component {
         <Provider store={this.store}>
           <div className="reactable">
             <Table />
+            <ScrollBar />
             <SchemaControl />
             <SearchControl />
           </div>
