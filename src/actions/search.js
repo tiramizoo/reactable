@@ -67,8 +67,8 @@ function searchByBoolean(items, column, searchQuery) {
   }
 }
 
-// INTEGER
-function searchByInteger(items, column, searchQuery) {
+// NUMBER
+function searchByNumber(items, column, searchQuery) {
   if (searchQuery.value) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
@@ -146,8 +146,8 @@ function searchByType(items, type, column, searchQuery) {
       return searchByText(items, column, searchQuery)
     case 'boolean':
       return searchByBoolean(items, column, searchQuery)
-    case 'integer':
-      return searchByInteger(items, column, searchQuery)
+    case 'number':
+      return searchByNumber(items, column, searchQuery)
     case 'date':
       return searchByDate(items, column, searchQuery)
     case 'datetime':

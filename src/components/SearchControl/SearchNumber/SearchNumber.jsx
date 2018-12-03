@@ -12,7 +12,7 @@ const initState = {
   to: ''
 }
 
-class SearchInteger extends Component {
+class SearchNumber extends Component {
   static contextTypes = {
     store: PropTypes.object
   }
@@ -89,4 +89,4 @@ class SearchInteger extends Component {
   }
 }
 
-export default SearchInteger
+export default SearchNumber

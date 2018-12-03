@@ -77,7 +77,7 @@
   border: 1px solid #e2e2e2;
 }
 
-.reactable table td.integer, .reactable td.float, .reactable table td.date, .reactable table td.datetime {
+.reactable table td.number, .reactable table td.date, .reactable table td.datetime {
   text-align: right;
   color: darkblue;
 }

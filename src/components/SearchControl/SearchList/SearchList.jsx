@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import SearchText from '../SearchText'
 import SearchBoolean from '../SearchBoolean'
-import SearchInteger from '../SearchInteger'
+import SearchNumber from '../SearchNumber'
 import SearchDate from '../SearchDate'
 import SearchDateTime from '../SearchDateTime'
 import { clearAllSearchQuery } from '../../../actions/search'
@@ -22,10 +22,8 @@ class SearchList extends Component {
         return <SearchText column={column} key={clearAll} />
       case 'boolean':
         return <SearchBoolean column={column} key={clearAll} />
-      case 'integer':
-        return <SearchInteger column={column} key={clearAll} />
-      case 'float':
-        return <SearchInteger column={column} key={clearAll} />
+      case 'number':
+        return <SearchNumber column={column} key={clearAll} />
       case 'date':
         return <SearchDate column={column} key={clearAll} />
       case 'datetime':
