@@ -4,6 +4,7 @@ import ScrollBarComponent from './ScrollBar.jsx'
 import { setLimit, setOffset, updateViewport } from '../../actions/items'
 
 const mapStateToProps = state => ({
+  tableWidth: state.table.width
 })
 
 const mapDispatchToProps = dispatch => ({})
