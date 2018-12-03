@@ -304,13 +304,10 @@ class Table extends Component {
 
   render() {
     const {
-      scrollBarHeight, rowHeight, tableWidth, currentItems,
+      tableWidth, currentItems,
     } = this.props
     return (
-      <div
-        className="table-wrapper"
-        style={{ width: tableWidth, height: scrollBarHeight + rowHeight + rowHeight }}
-      >
+      <div>
         <table style={{ width: tableWidth }}>
           <thead>
             { this.renderHeader() }
