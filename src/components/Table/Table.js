@@ -5,8 +5,6 @@ import { setOffset, updateViewport, setItems } from '../../actions/items'
 import { setSortDirection } from '../../actions/schema'
 import { toggleSearchControl, toggleSchemaControl } from '../../actions/settings'
 
-const rowHeight = 30
-
 const mapStateToProps = state => ({
   items: state.items,
   currentItems: state.currentItems,
@@ -17,11 +15,11 @@ const mapStateToProps = state => ({
   filteredSchema: state.filteredSchema,
   actions: state.settings.actions,
 
-  scrollBarHeight: state.limit * rowHeight,
-  scrollBarWidth: state.tableDimensions.width,
-  scrollBarHandleHeight: state.filteredItems.length * rowHeight,
-  tableWidth: state.tableDimensions.width,
-  rowHeight,
+  scrollBarHeight: state.limit * state.table.rows,
+  scrollBarWidth: state.table.width,
+  scrollBarHandleHeight: state.filteredItems.length * state.table.rows,
+  tableWidth: state.table.width,
+  rowHeight: state.table.rows,
 })
 
 const mapDispatchToProps = dispatch => (

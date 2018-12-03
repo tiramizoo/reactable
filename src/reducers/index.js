@@ -9,7 +9,7 @@ import filteredSchema from './filteredSchema'
 import searchQueryAnd from './searchQueryAnd'
 import filteredItems from './filteredItems'
 import settings from './settings'
-import tableDimensions from './tableDimensions'
+import table from './table'
 import lastAction from './lastAction'
 import searchQueryOr from './searchQueryOr'
 
@@ -22,7 +22,7 @@ export default combineReducers({
   searchQueryAnd,
   filteredItems,
   settings,
-  tableDimensions,
+  table,
   filteredSchema,
   lastAction,
   searchQueryOr,

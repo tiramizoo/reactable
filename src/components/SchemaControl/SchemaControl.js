@@ -6,7 +6,7 @@ import { addToFilteredSchema, removeFromFilteredSchema } from '../../actions/sch
 const mapStateToProps = state => ({
   schema: state.schema,
   filteredSchema: state.filteredSchema,
-  tableWidth: state.tableDimensions.width,
+  tableWidth: state.table.width,
   schemaControlShow: state.settings.schemaControlShow,
 })
 
