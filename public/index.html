@@ -28,14 +28,22 @@
     <script src='./schema.js'></script>
     <script src='./actions.js'></script>
     <script>
+      function parseData(data){
+        return data.map(function(row){
+          if (row.created_at) {
+            row.created_at = new Date(Date.parse(row.created_at));
+          }
+          return row
+        })
+      };
+
       function fetchData(url, table) {
-        fetch(url)
-          .then(function(response) {
+        fetch(url).then(function(response) {
             return response.json()
-          })
-          .then(function(json) {
-            table.addData(json.data);
-            return json.data
+          }).then(function(json) {
+            var parsedData = parseData(json.data);
+            console.log(parsedData)
+            table.addData(parsedData);
           })
       }
 
@@ -48,7 +56,7 @@
         tableWidth: 1000
       });
 
-      var data = [{"id":1,"first_name":"Roni","last_name":"Leuschke","email":"naida@lakinpouros.ca","website":"goodwin.us","ip":"144.237.150.188","gender":"female","date_of_birth":null,"active":null,"phone_number":"0455 9535141","currency":"ZWL","job":"Chief Research Director","created_at":"1188-01-12T12:23:36+01:00"},{"id":2,"first_name":"Cherie","last_name":"Marquardt","email":"hazel@boehm.us","website":"wyman.info","ip":"234.95.180.157","gender":"male","date_of_birth":"2015-07-23","active":false,"phone_number":"0939 7744855","currency":"TND","job":"International Data Executive","created_at":"0846-12-02T12:23:36+01:00"},{"id":3,"first_name":"Melia","last_name":"Harber","email":"johnsie@roberts.us","website":"johns.name","ip":"126.144.31.175","gender":"male","date_of_birth":"1997-07-14","active":true,"phone_number":"06908 8735973","currency":"MVR","job":"Investor Security Planner","created_at":"0634-02-18T12:23:36+01:00"},{"id":4,"first_name":"Jamal","last_name":"Greenfelder","email":"yukiko_stoltenberg@lesch.us","website":"medhurst.us","ip":"37.66.8.248","gender":"female","date_of_birth":"2013-05-15","active":false,"phone_number":"095 4827060","currency":"JPY","job":"Senior Infrastructure Assistant","created_at":"1327-06-30T12:23:36+01:00"},{"id":5,"first_name":"Florence","last_name":"Parisian","email":"genny@schuppetoy.name","website":"wilkinson.com","ip":"245.82.201.191","gender":"male","date_of_birth":null,"active":false,"phone_number":"024 9658571","currency":"CAD","job":"Internal Security Administrator","created_at":"1892-05-12T12:23:36+01:00"},{"id":6,"first_name":"Ilana","last_name":"Jerde","email":"regena_goodwin@damore.name","website":"langworthryan.info","ip":"97.16.254.67","gender":"female","date_of_birth":"2001-03-26","active":null,"phone_number":"052 7083980","currency":"IQD","job":"Investor Assurance Designer","created_at":"0745-04-11T12:23:36+01:00"},{"id":7,"first_name":"Versie","last_name":"King","email":"rosalva@prohaskavolkman.co.uk","website":"crist.ca","ip":"227.170.16.149","gender":"female","date_of_birth":"2000-03-08","active":false,"phone_number":"07520 2272230","currency":"SHP","job":"Dynamic Research Designer","created_at":"1166-04-03T12:23:36+01:00"},{"id":8,"first_name":"Johnette","last_name":"Strosin","email":"","website":"maggiojacobson.biz","ip":"99.217.63.80","gender":"male","date_of_birth":"1997-07-21","active":false,"phone_number":"0280 4465049","currency":"HTG","job":"National Mobility Agent","created_at":"0013-05-14T12:23:36+01:00"},{"id":9,"first_name":"Remedios","last_name":"Lockman","email":"darrel.schoen@padberg.ca","website":"dooley.info","ip":"12.166.247.205","gender":"female","date_of_birth":"1980-01-07","active":false,"phone_number":"07902 8045356","currency":"DZD","job":"Forward Quality Producer","created_at":"0875-04-10T12:23:36+01:00"},{"id":10,"first_name":"Ladawn","last_name":"Ruecker","email":"mi.leuschke@wolf.us","website":"fisher.info","ip":"181.127.57.179","gender":"male","date_of_birth":"2006-10-30","active":null,"phone_number":"08498 9258648","currency":"BND","job":"International Usability Technician","created_at":"-0629-12-13T12:23:36+01:00"}]
+      var data = [{"id":1,"first_name":"Chloe","last_name":"Sipes","email":"jaymie@strosin.co.uk","website":"kerluke.us","ip":"110.245.36.218","gender":"male","date_of_birth":"2006-02-20","active":null,"phone_number":"024 4227373","currency":"MYR","job":"Lead Functionality Designer","created_at":"2018-06-12T18:41:59+01:00"},{"id":2,"first_name":"Harrison","last_name":"Oga","email":"","website":"wymanswaniawski.info","ip":"87.102.95.85","gender":"female","date_of_birth":"2003-10-04","active":false,"phone_number":"088 2523262","currency":"PEN","job":"Chief Brand Designer","created_at":"2017-05-05T18:41:59+01:00"},{"id":3,"first_name":"Isaiah","last_name":"Murray","email":"luther@barton.co.uk","website":"metz.name","ip":"119.176.65.196","gender":"male","date_of_birth":null,"active":null,"phone_number":"0766 2664369","currency":"AWG","job":"Direct Accounts Technician","created_at":"2016-06-22T18:41:59+01:00"},{"id":4,"first_name":"Claudette","last_name":"Block","email":"joella_douglas@greenfelder.info","website":"wyman.biz","ip":"67.43.110.188","gender":"male","date_of_birth":"1993-07-19","active":true,"phone_number":"026 7843692","currency":"GNF","job":"National Implementation Coordinator","created_at":"2016-11-18T18:41:59+01:00"},{"id":5,"first_name":"Patti","last_name":"McKenzie","email":"mark_zieme@bahringer.info","website":"simonishauck.info","ip":"145.240.14.72","gender":"male","date_of_birth":"1981-05-08","active":null,"phone_number":"0205 7335084","currency":"XTS","job":"Human Configuration Agent","created_at":"2017-09-07T18:41:59+01:00"},{"id":6,"first_name":"Joe","last_name":"Konopelski","email":null,"website":"pagac.com","ip":"189.105.54.172","gender":"female","date_of_birth":"2008-09-27","active":null,"phone_number":"0648 5044510","currency":"HKD","job":"Internal Quality Architect","created_at":"2017-06-10T18:41:59+01:00"},{"id":7,"first_name":"Hedwig","last_name":"Rath","email":"zoraida@mcglynnkirlin.ca","website":"runolfsdottirnikolaus.us","ip":"167.190.154.16","gender":"female","date_of_birth":"1986-10-06","active":true,"phone_number":"026 5486687","currency":"GTQ","job":"Corporate Accounts Specialist","created_at":"2018-04-15T18:41:59+01:00"},{"id":8,"first_name":"Tracy","last_name":"Marks","email":"kum@conn.com","website":"runolfssonhaag.biz","ip":"92.137.34.234","gender":"female","date_of_birth":"1986-08-07","active":true,"phone_number":"05867 0223862","currency":"PEN","job":"International Interactions Liason","created_at":"2016-08-27T18:41:59+01:00"},{"id":9,"first_name":"Adrian","last_name":"Murray","email":"astrid@heaney.biz","website":"breitenberg.us","ip":"189.195.234.77","gender":"female","date_of_birth":"1987-12-07","active":null,"phone_number":"03201 8917033","currency":"KRW","job":"Investor Intranet Orchestrator","created_at":"2017-10-16T18:41:59+01:00"},{"id":10,"first_name":"Renda","last_name":"Jewess","email":"leanora.kuphal@ziemann.com","website":"oconner.co.uk","ip":"96.2.48.185","gender":"female","date_of_birth":"2016-03-31","active":null,"phone_number":"0669 4021347","currency":"XPT","job":"Product Directives Strategist","created_at":"2017-12-03T18:41:59+01:00"}]
 
       t1.render();
 
@@ -62,7 +70,7 @@
       }
 
       function addData() {
-        t1.addData(data)
+        t1.addData(parseData(data));
       }
 
       var t2 = Reactable.init({

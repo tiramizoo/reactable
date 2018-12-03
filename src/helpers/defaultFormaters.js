@@ -8,6 +8,10 @@ export const defaultFormatter = (type, key) => {
           return '○'
         }
       }
+    case 'datetime':
+     return (value, row) => {
+       return value.toString()
+     }
     default:
       return (value, row) => value
   }

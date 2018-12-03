@@ -1,6 +1,4 @@
 .reactable .scroll-bar {
   position: absolute;
   background: green;
-  width: 200px;
-  height: 200px;
 }
