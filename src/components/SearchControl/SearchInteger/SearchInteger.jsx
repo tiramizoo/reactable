@@ -53,7 +53,7 @@ class SearchInteger extends Component {
     const { column } = this.props
 
     this.setState(initState)
-    this.searchByNumber({ column })
+    this.searchByNumber({[column]: {}})
   }
 
   render() {
