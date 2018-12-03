@@ -28,6 +28,17 @@
     <script src='./schema.js'></script>
     <script src='./actions.js'></script>
     <script>
+      function fetchData(url, table) {
+        fetch(url)
+          .then(function(response) {
+            return response.json()
+          })
+          .then(function(json) {
+            table.addData(json.data);
+            return json.data
+          })
+      }
+
       var t1 = Reactable.init({
         htmlId:   "table1",
         schema:   schemaUsers,
@@ -56,7 +67,6 @@
 
       var t2 = Reactable.init({
         htmlId:   "table2",
-        dataPath: "./data-100.json",
         schema: schemaUsers,
         strategySearch: 'and',
         limit: 15,
@@ -73,6 +83,7 @@
         itemsChange: function (items) { itemsChange(items) },
       });
 
+      fetchData("./data-100.json", t2)
       t2.render();
 
       function itemsChange(items) {

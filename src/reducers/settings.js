@@ -1,5 +1,5 @@
 import { INIT_SETTINGS, TOGGLE_SEARCH_CONTROL, TOGGLE_SCHEMA_CONTROL } from '../actions/settings'
-// {htmlId: "table1", dataPath: "./data-100.json", offset: 0, limit: 10}, controlShow: false, tableWidth: 1000,
+// {htmlId: "table1", offset: 0, limit: 10}, controlShow: false, tableWidth: 1000,
 // schema: {
 //   first_name: {
 //   type: 'text',

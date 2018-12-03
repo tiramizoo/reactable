@@ -21,7 +21,6 @@ class InitApp extends Component {
     super(props)
     this.store = createStore(reducers, applyMiddleware(thunkMiddleware))
     this.store.dispatch(initSettings(props))
-    this.fetchData()
     this.store.subscribe(() => this.handleStateChange())
   }
 
@@ -60,21 +59,6 @@ class InitApp extends Component {
 
   updateTableWidth(width) {
     this.store.dispatch(updateTableWidth(width))
-  }
-
-  fetchData() {
-    const { dataPath } = this.props
-    const { filteredSchema, limit, offset } = this.store.getState()
-    if (dataPath) {
-      fetch(dataPath)
-        .then(response => response.json())
-        .then((json) => {
-          const data = sortBy(addMetaDataToItems(json.data), filteredSchema)
-
-          this.store.dispatch(setItems(data))
-          this.store.dispatch(updateViewport(data, limit, offset))
-        })
-    }
   }
 
   render() {
