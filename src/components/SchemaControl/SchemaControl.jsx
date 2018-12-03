@@ -14,7 +14,7 @@ const SchemaControl = (props) => {
 
   const renderElement = (key) => {
     const { filteredSchema } = props
-    const value = filteredSchema[key]
+    const value = !!filteredSchema[key]
     return (
       <li key={key}>
         <input
