@@ -56,7 +56,7 @@ class SearchText extends Component {
     const { column } = this.props
 
     this.setState(initState)
-    this.searchByNumber({[column]: {}})
+    this.searchByText({[column]: {}})
   }
 
   render() {
