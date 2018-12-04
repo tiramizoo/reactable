@@ -11,10 +11,6 @@
   <body>
     <label for='search_by_first_name'>External Search</label>
     <input type="search" id='search_by_first_name' onInput="search('first_name', this.value)">
-
-    <label for='set_width'>Table width</label>
-    <input type="number" id='set_width' onInput="setWidth(this.value)">
-
     <button onClick="addData()">ADD DATA</button>
 
     <div id="table1"></div>
@@ -43,21 +39,17 @@
         schema:   schemaUsers,
         actions:  actionsUser,
         offset:   2,
-        controlShow: false,
-        tableWidth: 1000
+        controlShow: false
       });
 
       var data = [{"id":1,"first_name":"Chloe","last_name":"Sipes","email":"jaymie@strosin.co.uk","website":"kerluke.us","ip":"110.245.36.218","gender":"male","date_of_birth":"2006-02-20","active":null,"phone_number":"024 4227373","currency":"MYR","job":"Lead Functionality Designer","created_at":"2018-06-12T18:41:59+01:00"},{"id":2,"first_name":"Harrison","last_name":"Oga","email":"","website":"wymanswaniawski.info","ip":"87.102.95.85","gender":"female","date_of_birth":"2003-10-04","active":false,"phone_number":"088 2523262","currency":"PEN","job":"Chief Brand Designer","created_at":"2017-05-05T18:41:59+01:00"},{"id":3,"first_name":"Isaiah","last_name":"Murray","email":"luther@barton.co.uk","website":"metz.name","ip":"119.176.65.196","gender":"male","date_of_birth":null,"active":null,"phone_number":"0766 2664369","currency":"AWG","job":"Direct Accounts Technician","created_at":"2016-06-22T18:41:59+01:00"},{"id":4,"first_name":"Claudette","last_name":"Block","email":"joella_douglas@greenfelder.info","website":"wyman.biz","ip":"67.43.110.188","gender":"male","date_of_birth":"1993-07-19","active":true,"phone_number":"026 7843692","currency":"GNF","job":"National Implementation Coordinator","created_at":"2016-11-18T18:41:59+01:00"},{"id":5,"first_name":"Patti","last_name":"McKenzie","email":"mark_zieme@bahringer.info","website":"simonishauck.info","ip":"145.240.14.72","gender":"male","date_of_birth":"1981-05-08","active":null,"phone_number":"0205 7335084","currency":"XTS","job":"Human Configuration Agent","created_at":"2017-09-07T18:41:59+01:00"},{"id":6,"first_name":"Joe","last_name":"Konopelski","email":null,"website":"pagac.com","ip":"189.105.54.172","gender":"female","date_of_birth":"2008-09-27","active":null,"phone_number":"0648 5044510","currency":"HKD","job":"Internal Quality Architect","created_at":"2017-06-10T18:41:59+01:00"},{"id":7,"first_name":"Hedwig","last_name":"Rath","email":"zoraida@mcglynnkirlin.ca","website":"runolfsdottirnikolaus.us","ip":"167.190.154.16","gender":"female","date_of_birth":"1986-10-06","active":true,"phone_number":"026 5486687","currency":"GTQ","job":"Corporate Accounts Specialist","created_at":"2018-04-15T18:41:59+01:00"},{"id":8,"first_name":"Tracy","last_name":"Marks","email":"kum@conn.com","website":"runolfssonhaag.biz","ip":"92.137.34.234","gender":"female","date_of_birth":"1986-08-07","active":true,"phone_number":"05867 0223862","currency":"PEN","job":"International Interactions Liason","created_at":"2016-08-27T18:41:59+01:00"},{"id":9,"first_name":"Adrian","last_name":"Murray","email":"astrid@heaney.biz","website":"breitenberg.us","ip":"189.195.234.77","gender":"female","date_of_birth":"1987-12-07","active":null,"phone_number":"03201 8917033","currency":"KRW","job":"Investor Intranet Orchestrator","created_at":"2017-10-16T18:41:59+01:00"},{"id":10,"first_name":"Renda","last_name":"Jewess","email":"leanora.kuphal@ziemann.com","website":"oconner.co.uk","ip":"96.2.48.185","gender":"female","date_of_birth":"2016-03-31","active":null,"phone_number":"0669 4021347","currency":"XPT","job":"Product Directives Strategist","created_at":"2017-12-03T18:41:59+01:00"}]
 
       t1.render();
+      t1.updateTableWidth(window.width)
 
       function search(column, value) {
         t1.searchAND({[column]: {value: value}});
         t2.searchAND({[column]: {value: value}});
-      }
-
-      function setWidth(value) {
-        t1.updateTableWidth(value);
       }
 
       function addData() {
@@ -84,6 +76,7 @@
 
       fetchData("./data-100.json", t2)
       t2.render();
+      t2.updateTableWidth(600)
 
       function itemsChange(items) {
         console.log("Filtered Items callback: ", items)
