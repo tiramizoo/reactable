@@ -312,8 +312,7 @@ class Table extends Component {
           <thead>
             { this.renderHeader() }
           </thead>
-          <tbody tabIndex="0" onWheel={e => this.onWheel(e)} onKeyDown={e => this.onKeyDown(e)}
->
+          <tbody tabIndex="0" onWheel={e => this.onWheel(e)} onKeyDown={e => this.onKeyDown(e)}>
             { currentItems.map(item => this.renderRow(item)) }
             { this.renderMissingRows() }
           </tbody>

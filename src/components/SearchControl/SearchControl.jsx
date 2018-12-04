@@ -11,7 +11,7 @@ const SearchControl = (props) => {
     return null
   }
   return (
-    <div className="control" style={{width: tableWidth}}>
+    <div className="control" style={{ width: tableWidth }}>
       <div>
         <SearchList />
       </div>

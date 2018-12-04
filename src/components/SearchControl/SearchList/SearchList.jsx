@@ -5,7 +5,6 @@ import SearchBoolean from '../SearchBoolean'
 import SearchNumber from '../SearchNumber'
 import SearchDate from '../SearchDate'
 import SearchDateTime from '../SearchDateTime'
-import { clearAllSearchQuery } from '../../../actions/search'
 
 class SearchList extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class SearchList extends Component {
   }
 
   hideColumn(schemaParams) {
-    return (schemaParams['filter'] != 'undefined' && schemaParams['filter'] == false)
+    return (schemaParams['filter'] !== 'undefined' && schemaParams['filter'] === false)
   }
 
   columnFilter(key, schemaParams) {
@@ -59,9 +58,9 @@ class SearchList extends Component {
     return (
       <div>
         <button onClick={() => this.handleClearAllChange()}>Clear all</button>
-          { Object.entries(filteredSchema).map(([key, keySchema]) =>
+        { Object.entries(filteredSchema).map(([key, keySchema]) => {
           this.columnFilter(key, keySchema)
-          )}
+        })}
       </div>
     )
   }
