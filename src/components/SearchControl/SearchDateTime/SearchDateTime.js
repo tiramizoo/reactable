@@ -6,7 +6,7 @@ const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
 })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = () => ({})
 
 const SearchDateTime = connect(mapStateToProps, mapDispatchToProps)(SearchDateTimeComponent)
 export default SearchDateTime

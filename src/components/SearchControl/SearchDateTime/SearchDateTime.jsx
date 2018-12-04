@@ -30,18 +30,18 @@ class SearchDateTime extends Component {
 
   searchByNumber = debounce((query) => {
     searchingAnd({query, store: this.context.store})
-  })
+  }, 300)
 
   handleNumberChange = (e) => {
     const { value, name } = e.target
     const { column, searchQueryAnd } = this.props
-    this.setState({[name]: value })
 
     let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
+    this.setState(newValue)
+
     if (searchQueryAnd[column]) {
-      newValue = Object.assign({}, searchQueryAnd[column].value, { [name]: isEmpty(value) ? null : Date.parse(value) })
+      newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
     }
-    this.setState({ value: newValue })
     let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
     if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
       newSearchQuery =  {[column]: {}}

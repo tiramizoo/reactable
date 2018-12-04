@@ -34,10 +34,10 @@ class SearchNumber extends Component {
   handleNumberChange = (e) => {
     const { value, name } = e.target
     const { column, searchQueryAnd } = this.props
-
     let newValue = { [name]: Number(value) || '' }
     let newSearchQuery = {[column]: { value: newValue }}
-    this.setState({[name]: Number(value) || '' })
+
+    this.setState(newValue)
 
     if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)

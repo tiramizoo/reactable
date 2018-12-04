@@ -6,7 +6,7 @@ const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
 })
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = () => ({})
 
 const SearchNumber = connect(mapStateToProps, mapDispatchToProps)(SearchNumberComponent)
 export default SearchNumber

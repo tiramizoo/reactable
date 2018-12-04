@@ -28,17 +28,17 @@ class SearchBoolean extends Component {
 
   searchByBoolean = debounce((query) => {
     searchingAnd({query, store: this.context.store})
-  })
+  }, 300)
 
   handleValueChange = (e) => {
     const { column, searchQueryAnd } = this.props
     const { value } = e.target
 
-    let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: value, column })}
+    this.setState({ value })
+    let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value })}
     if (isEmpty(value) || value === 'all') {
       newSearchQuery =  {[column]: {}}
     }
-    this.setState({ value })
     this.searchByBoolean(newSearchQuery)
   }
 
