@@ -1,4 +1,11 @@
 .reactable .scroll-bar {
   position: absolute;
-  background: green;
+  width: 20px;
+  right: 0;
+}
+
+.reactable .scroll-bar .scroll-bar-handle {
+  position: absolute;
+  background-color: red;
+  width: 20px;
 }

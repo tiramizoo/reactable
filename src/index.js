@@ -64,11 +64,12 @@ class InitApp extends Component {
   }
 
   render() {
-    const documentElementId = document.getElementById(this.store.getState().settings.htmlId)
+    const state = this.store.getState()
+    const documentElementId = document.getElementById(state.settings.htmlId)
     if (documentElementId) {
       return ReactDOM.render(
         <Provider store={this.store}>
-          <div className="reactable">
+          <div className="reactable" style={{width: state.table.width}}>
             <Table />
             <ScrollBar />
             <SchemaControl />

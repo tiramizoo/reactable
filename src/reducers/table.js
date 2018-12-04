@@ -1,9 +1,9 @@
 import { INIT_SETTINGS, UPDATE_TABLE_WIDTH, UPDATE_ROW_HEIGHT, UPDATE_ROWS_NUMBER } from '../actions/settings'
 
 const initState = {
-  width: 1000,
-  rows: 30,
-  rowHeight: 50,
+  width:     1000,
+  rows:      30,
+  rowHeight: 30,
 }
 
 function table(state = initState, action) {
