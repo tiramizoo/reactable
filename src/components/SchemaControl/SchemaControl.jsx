@@ -1,6 +1,8 @@
 import React from 'react'
 
 const SchemaControl = (props) => {
+  const { schemaControlShow, tableWidth, schema } = props
+
   const handleChange = (e, key) => {
     const { addToFilteredSchema, removeFromFilteredSchema } = props
     const { checked } = e.target
@@ -17,27 +19,28 @@ const SchemaControl = (props) => {
     const value = !!filteredSchema[key]
     return (
       <li key={key}>
-        <input
-          id={key}
-          type="checkbox"
-          onChange={e => handleChange(e, key)}
-          checked={value}
-        />
-        <label htmlFor={key}>{key}</label>
+        <label htmlFor={key}>
+          <input
+            id={key}
+            type="checkbox"
+            onChange={e => handleChange(e, key)}
+            checked={value}
+          />
+          {key}
+        </label>
       </li>
     )
   }
 
-  if (!props.schemaControlShow) {
+  if (!schemaControlShow) {
     return null
   }
 
   return (
-    <div className="schema" style={{ width: props.tableWidth }}>
+    <div className="schema" style={{ width: tableWidth }}>
       <h2>Schema</h2>
       <ul>
-        { Object.keys(props.schema).map(key =>
-          renderElement(key)) }
+        { Object.keys(schema).map(key => renderElement(key)) }
       </ul>
     </div>
   )
