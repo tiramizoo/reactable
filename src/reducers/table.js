@@ -1,8 +1,8 @@
 import { INIT_SETTINGS, UPDATE_TABLE_WIDTH, UPDATE_ROW_HEIGHT, UPDATE_ROWS_NUMBER } from '../actions/settings'
 
 const initState = {
-  width:     1000,
-  rows:      30,
+  width: 1000,
+  rows: 30,
   rowHeight: 30,
 }
 
