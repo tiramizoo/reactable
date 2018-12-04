@@ -61,6 +61,7 @@ export const defaultFormatter = (type, key) => {
       }
     case 'datetime':
       return (value) => {
+        if (!value) return null
         const month = addZeroToNumber(value.getMonth() + 1)
         const day = addZeroToNumber(value.getDate())
         const hour = addZeroToNumber(value.getHours())

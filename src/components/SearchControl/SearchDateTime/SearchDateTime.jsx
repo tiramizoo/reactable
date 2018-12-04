@@ -8,7 +8,8 @@ import isNumber from 'lodash/isNumber'
 import { searchingAnd } from '../../../actions/search'
 
 const initState = {
-  value: { from: '', to: '' }
+  from: '',
+  to: ''
 }
 
 class SearchDateTime extends Component {
@@ -34,7 +35,7 @@ class SearchDateTime extends Component {
   handleNumberChange = (e) => {
     const { value, name } = e.target
     const { column, searchQueryAnd } = this.props
-    this.setState({ value: {[name]: value }})
+    this.setState({[name]: value })
 
     let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
     if (searchQueryAnd[column]) {
@@ -57,7 +58,7 @@ class SearchDateTime extends Component {
 
   render() {
     const { column } = this.props
-    const { from, to } = this.state.value
+    const { from, to } = this.state
 
     return (
       <div>
