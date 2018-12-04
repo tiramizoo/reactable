@@ -20,9 +20,9 @@ window.schemaUsers = {
   },
   date_of_birth: {
     type: 'date',
-    label: 'Date of Birth'
+    label: 'Date of Birth',
   },
   gender: { type: 'text' },
   email: { type: 'text' },
-  created_at: { type: 'datetime'},
+  created_at: { type: 'datetime' },
 }

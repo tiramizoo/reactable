@@ -14,7 +14,7 @@ import reducers from './reducers/index'
 import { initSettings, updateTableWidth } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport } from './actions/items'
-import { addMetaDataToItems, sortBy } from './helpers/utilities'
+import { addMetaDataToItems, addParsedDateTime, sortBy } from './helpers/utilities'
 
 class InitApp extends Component {
   constructor(props) {
@@ -46,8 +46,10 @@ class InitApp extends Component {
   }
 
   addData(newItems) {
-    const { items, filteredSchema } = this.store.getState()
-    const addedItems = sortBy(addMetaDataToItems([...items, ...newItems]), filteredSchema)
+    const { items, filteredSchema, schema } = this.store.getState()
+    let allItems = addMetaDataToItems([...items, ...newItems])
+    allItems = addParsedDateTime(allItems, schema)
+    const addedItems = sortBy(allItems, filteredSchema)
 
     this.store.dispatch(setItems(addedItems))
     this.store.dispatch(reSearching(addedItems))

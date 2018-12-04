@@ -28,22 +28,13 @@
     <script src='./schema.js'></script>
     <script src='./actions.js'></script>
     <script>
-      function parseData(data){
-        return data.map(function(row){
-          if (row.created_at) {
-            row.created_at = new Date(Date.parse(row.created_at));
-          }
-          return row
-        })
-      };
-
       function fetchData(url, table) {
-        fetch(url).then(function(response) {
+        fetch(url)
+          .then(function(response) {
             return response.json()
-          }).then(function(json) {
-            var parsedData = parseData(json.data);
-            console.log(parsedData)
-            table.addData(parsedData);
+          })
+          .then(function(json) {
+            table.addData(json.data);
           })
       }
 
@@ -70,7 +61,7 @@
       }
 
       function addData() {
-        t1.addData(parseData(data));
+        t1.addData(data);
       }
 
       var t2 = Reactable.init({
