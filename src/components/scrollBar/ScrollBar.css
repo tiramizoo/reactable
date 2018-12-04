@@ -2,7 +2,7 @@
   position: absolute;
   width: 6px;
   right: 0;
-  /* background-color: rgba(0, 0, 0, 0.2); */
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .reactable .scroll-bar .scroll-bar-handle {
