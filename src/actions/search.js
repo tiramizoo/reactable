@@ -6,8 +6,6 @@ import omit from 'lodash/omit'
 
 import { updateViewport, setSearchQueryAnd, setFilteredItems, setOffset, clearSearchQuery, setSearchQueryOr } from './items'
 
-// Search by
-// TEXT
 function searchByText(items, column, searchQuery) {
   const options = searchQuery.options || 'all'
   switch (options) {
@@ -27,19 +25,14 @@ function searchByText(items, column, searchQuery) {
     case 'notMatch':
       return filter(items, item => item[column] && !item[column].match(searchQuery.value))
     case 'empty':
-      return filter(items, (item) => {
-        return isEmpty(item[column])
-      })
+      return filter(items, item => isEmpty(item[column]))
     case 'notEmpty':
-      return filter(items, (item) => {
-        return !isEmpty(item[column])
-      })
+      return filter(items, item => !isEmpty(item[column]))
     default:
       return []
   }
 }
 
-// BOOLEAN
 function searchByBoolean(items, column, searchQuery) {
   const options = searchQuery.value || 'all'
   switch (options) {
@@ -58,8 +51,7 @@ function searchByBoolean(items, column, searchQuery) {
   }
 }
 
-// NUMBER
-function searchByNumber(items, column, searchQuery) {
+function searchByRange(items, column, searchQuery) {
   if (searchQuery.value) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
@@ -74,52 +66,6 @@ function searchByNumber(items, column, searchQuery) {
       return filter(items, item => item[column] <= searchQuery.value.to)
     }
   }
-
-  return items
-}
-
-
-// DATE
-function searchByDate(items, column, searchQuery) {
-  if (searchQuery.value) {
-    if (searchQuery.value.from && searchQuery.value.to) {
-      return filter(items, (item) => {
-        const itemValue = item[column]
-        return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
-      })
-    }
-    if (searchQuery.value.from) {
-      return filter(items, item => item[column] >= searchQuery.value.from)
-    }
-    if (searchQuery.value.to) {
-      return filter(items, item => item[column] <= searchQuery.value.to)
-    }
-  }
-
-  return items
-}
-
-// DATETIME
-function searchByDateTime(items, column, searchQuery) {
-  if (searchQuery.value) {
-    if (searchQuery.value.from && searchQuery.value.to) {
-      return filter(items, (item) => {
-        const itemValue = item[column]
-        return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
-      })
-    }
-    if (searchQuery.value.from) {
-      return filter(items, (item) => {
-        return item[column] >= searchQuery.value.from
-      })
-    }
-    if (searchQuery.value.to) {
-      return filter(items, (item) => {
-        return item[column] <= searchQuery.value.to
-      })
-    }
-  }
-
   return items
 }
 
@@ -130,11 +76,9 @@ function searchByType(items, type, column, searchQuery) {
     case 'boolean':
       return searchByBoolean(items, column, searchQuery)
     case 'number':
-      return searchByNumber(items, column, searchQuery)
     case 'date':
-      return searchByDate(items, column, searchQuery)
     case 'datetime':
-      return searchByDateTime(items, column, searchQuery)
+      return searchByRange(items, column, searchQuery)
     default:
       return []
   }
