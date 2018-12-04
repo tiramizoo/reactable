@@ -30,7 +30,8 @@ export function addParsedDateTime(items, schema) {
   }))
   return map(items, (item) => {
     const newItem = map(dataTimeKeys, (key) => {
-      return { [key]: new Date(Date.parse(item[key])) }
+      const value = item[key];
+      return { [key]: (value != null) ? new Date(Date.parse(value)) : value }
     })
     return Object.assign({}, item, ...newItem)
   })
@@ -61,11 +62,13 @@ export const defaultFormatter = (type, key) => {
       }
     case 'datetime':
       return (value) => {
-        const month = addZeroToNumber(value.getMonth() + 1)
-        const day = addZeroToNumber(value.getDate())
-        const hour = addZeroToNumber(value.getHours())
-        const minutes = addZeroToNumber(value.getMinutes())
-        return `${value.getFullYear()}-${month}-${day} ${hour}:${minutes}`
+        if (value) {
+          const month = addZeroToNumber(value.getMonth() + 1)
+          const day = addZeroToNumber(value.getDate())
+          const hour = addZeroToNumber(value.getHours())
+          const minutes = addZeroToNumber(value.getMinutes())
+          return `${value.getFullYear()}-${month}-${day} ${hour}:${minutes}`
+        }
       }
     default:
       return value => value

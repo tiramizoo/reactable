@@ -5,7 +5,6 @@ import { setLimit, setOffset, updateViewport } from '../../actions/items'
 
 const calculateScrollBarHandleTopOffset = (state) => {
   if (state.offset && state.filteredItems.length) {
-    console.log((state.offset / state.filteredItems.length) * (state.table.rowHeight * state.limit))
     return (state.offset / state.filteredItems.length) * (state.table.rowHeight * state.limit)
   } else {
     return 0
