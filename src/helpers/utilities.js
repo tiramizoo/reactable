@@ -41,3 +41,33 @@ export function setSortDiractionToSchema(schema, key, direction) {
   const options = Object.assign({}, schema[key], { direction })
   return Object.assign({}, schema, { [key]: options })
 }
+
+export const addZeroToNumber = (value) => {
+  if (value < 10) {
+    return `0${value}`
+  }
+  return value.toString()
+}
+
+export const defaultFormatter = (type, key) => {
+  switch (type) {
+    case 'boolean':
+      return (value) => {
+        if (value === true) {
+          return '●'
+        } else if (value === false) {
+          return '○'
+        }
+      }
+    case 'datetime':
+      return (value) => {
+        const month = addZeroToNumber(value.getMonth() + 1)
+        const day = addZeroToNumber(value.getDate())
+        const hour = addZeroToNumber(value.getHours())
+        const minutes = addZeroToNumber(value.getMinutes())
+        return `${value.getFullYear()}-${month}-${day} ${hour}:${minutes}`
+      }
+    default:
+      return value => value
+  }
+}

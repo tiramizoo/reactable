@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import { defaultFormatter } from '../../helpers/defaultFormaters'
-import { sortBy, setSortDiractionToSchema } from '../../helpers/utilities'
+import { sortBy, setSortDiractionToSchema, defaultFormatter } from '../../helpers/utilities'
 
 let cache = {}
 
