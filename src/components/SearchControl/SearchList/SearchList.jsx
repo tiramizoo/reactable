@@ -58,9 +58,9 @@ class SearchList extends Component {
     return (
       <div>
         <button onClick={() => this.handleClearAllChange()}>Clear all</button>
-        { Object.entries(filteredSchema).map(([key, keySchema]) => {
+        { Object.entries(filteredSchema).map(([key, keySchema]) =>
           this.columnFilter(key, keySchema)
-        })}
+        )}
       </div>
     )
   }
