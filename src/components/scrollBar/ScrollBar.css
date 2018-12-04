@@ -1,13 +1,14 @@
 .reactable .scroll-bar {
   position: absolute;
-  width: 20px;
+  width: 6px;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  /* background-color: rgba(0, 0, 0, 0.2); */
 }
 
 .reactable .scroll-bar .scroll-bar-handle {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.4);
-  width: 20px;
+  width: 6px;
   min-height: 10px;
+  border-radius: 5px;
 }
