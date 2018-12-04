@@ -26,9 +26,9 @@ class Table extends Component {
       offset, setOffset, filteredItems, limit, updateViewport,
     } = this.props
 
-    var newOffset;
-    const moveBy    = 1;
-    const minOffset = 0;
+    let newOffset
+    const moveBy = 1
+    const minOffset = 0
     const maxOffset = Math.max(filteredItems.length - limit, 0)
 
     if (e.key === 'ArrowDown') {
@@ -50,7 +50,7 @@ class Table extends Component {
       if (e.metaKey) {
         newOffset = minOffset
       } else {
-        newOffset = Math.max(offset - moveBy, minOffset);
+        newOffset = Math.max(offset - moveBy, minOffset)
       }
 
       setOffset(newOffset)

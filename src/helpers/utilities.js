@@ -27,10 +27,11 @@ export function addParsedDateTime(items, schema) {
     if (params.type === 'datetime') {
       return key
     }
+    return null
   }))
   return map(items, (item) => {
     const newItem = map(dataTimeKeys, (key) => {
-      const value = item[key];
+      const value = item[key]
       return { [key]: (value != null) ? new Date(Date.parse(value)) : value }
     })
     return Object.assign({}, item, ...newItem)
@@ -59,6 +60,7 @@ export const defaultFormatter = (type, key) => {
         } else if (value === false) {
           return '○'
         }
+        return null
       }
     case 'datetime':
       return (value) => {
@@ -69,6 +71,7 @@ export const defaultFormatter = (type, key) => {
           const minutes = addZeroToNumber(value.getMinutes())
           return `${value.getFullYear()}-${month}-${day} ${hour}:${minutes}`
         }
+        return null
       }
     default:
       return value => value

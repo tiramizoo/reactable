@@ -26,7 +26,6 @@ class InitApp extends Component {
     }
   }
 
-
   afterRender = debounce(() => {
     if (this.props.afterRender) {
       this.props.afterRender()
