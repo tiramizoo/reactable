@@ -4,16 +4,19 @@ import uniqBy from 'lodash/uniqBy'
 import concat from 'lodash/concat'
 import omit from 'lodash/omit'
 
-import { updateViewport, setSearchQueryAnd, setFilteredItems, setOffset, clearSearchQuery, setSearchQueryOr } from './items'
+import {
+  updateViewport, setSearchQueryAnd, setFilteredItems, setOffset, clearSearchQuery,
+  setSearchQueryOr,
+} from './items'
 
 function searchByText(items, column, searchQuery) {
   const options = searchQuery.options || 'all'
   switch (options) {
     case 'all':
       if (searchQuery.value) {
-        return filter(items, (item) => {
-          return item[column] && item[column].toLowerCase().includes(searchQuery.value.toLowerCase())
-        })
+        return filter(items, item => (
+          item[column] && item[column].toLowerCase().includes(searchQuery.value.toLowerCase())
+        ))
       }
       return items
     case 'equal':
