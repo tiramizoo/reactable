@@ -25,23 +25,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => (
   {
-    setOffset: (offset) => {
-      dispatch(setOffset(offset))
-    },
-    setItems: (items) => {
-      dispatch(setItems(items))
-    },
-    updateViewport: (items, limit, offset) => {
-      dispatch(updateViewport(items, limit, offset))
-    },
-    setSortDirection: (key, direction) => {
-      dispatch(setSortDirection(key, direction))
-    },
+    setOffset: offset => dispatch(setOffset(offset)),
+    setItems: items => dispatch(setItems(items)),
+    updateViewport: (items, limit, offset) => dispatch(updateViewport(items, limit, offset)),
+    setSortDirection: (key, direction) => dispatch(setSortDirection(key, direction)),
     toggleSearchControl: () => dispatch(toggleSearchControl()),
     toggleSchemaControl: () => dispatch(toggleSchemaControl()),
   }
 )
 
 const Table = connect(mapStateToProps, mapDispatchToProps)(TableComponent)
-
 export default Table

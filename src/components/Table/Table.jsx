@@ -2,25 +2,9 @@ import React, { Component } from 'react'
 
 import { sortBy, setSortDiractionToSchema, defaultFormatter } from '../../helpers/utilities'
 
-let cache = {}
+const cache = {}
 
 class Table extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  cellHtml = (row, key, schemaParams) => {
-    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
-    const value = row[key]
-    const uberKey = `${row._key}/${key}`
-
-    if (cache[uberKey] === undefined) {
-      cache[uberKey] = formatter(value, row) || ''
-    }
-
-    return { __html: cache[uberKey] }
-  }
-
   onKeyDown(e) {
     const {
       offset, setOffset, filteredItems, limit, updateViewport,
@@ -36,7 +20,7 @@ class Table extends Component {
 
       // scroll down
       if (e.metaKey) {
-        newOffset = maxOffset;
+        newOffset = maxOffset
       } else {
         newOffset = Math.min(offset + moveBy, maxOffset)
       }
@@ -90,6 +74,17 @@ class Table extends Component {
       }
       updateViewport(filteredItems, limit, newOffset)
     }
+  }
+
+  cellHtml(row, key, schemaParams) {
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
+    const cacheKey = `${row._key}/${key}`
+
+    if (cache[cacheKey] === undefined) {
+      cache[cacheKey] = formatter(row[key], row) || ''
+    }
+
+    return { __html: cache[cacheKey] }
   }
 
   toggleDirection(key) {
@@ -163,24 +158,14 @@ class Table extends Component {
 
   handleToggleControl(e) {
     e.preventDefault()
-    this.props.toggleSearchControl()
+    const { toggleSearchControl } = this.props
+    toggleSearchControl()
   }
 
   handleToggleSchemaControl(e) {
     e.preventDefault()
-    this.props.toggleSchemaControl()
-  }
-
-  renderHeader() {
-    const { filteredSchema, actions } = this.props
-    return (
-      <tr>
-        { Object.entries(filteredSchema).map(([key, _]) =>
-          this.columnHeader(key))
-        }
-        { actions && <th /> }
-      </tr>
-    )
+    const { toggleSchemaControl } = this.props
+    toggleSchemaControl()
   }
 
   defaultControls() {
@@ -202,6 +187,16 @@ class Table extends Component {
     }
   }
 
+  renderHeader() {
+    const { filteredSchema, actions } = this.props
+    return (
+      <tr>
+        { Object.entries(filteredSchema).map(([key, _]) => this.columnHeader(key))}
+        { actions && <th /> }
+      </tr>
+    )
+  }
+
   renderFooterControls() {
     const { controls } = this.props
     const mergedControls = Object.assign({}, this.defaultControls(), controls)
@@ -218,6 +213,7 @@ class Table extends Component {
             className={value.className}
             key={key}
             disabled={value.disabled}
+            type="button"
           >
             {value.label || key}
           </button>
@@ -261,6 +257,7 @@ class Table extends Component {
               className={value.className}
               key={key}
               disabled={value.disabled && value.disabled(row)}
+              type="button"
             >
               {value.label || key}
             </button>
