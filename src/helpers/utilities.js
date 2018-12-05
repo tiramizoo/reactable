@@ -57,7 +57,8 @@ export const defaultFormatter = (type, key) => {
       return (value) => {
         if (value === true) {
           return '●'
-        } else if (value === false) {
+        }
+        if (value === false) {
           return '○'
         }
         return null

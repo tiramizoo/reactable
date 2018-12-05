@@ -56,7 +56,7 @@ class Table extends Component {
       const moveBy = (deltaY <= 5) ? 1 : 2
       const maxOffset = Math.max(filteredItems.length - limit, 0)
       const newOffset = Math.min(offset + moveBy, maxOffset)
-      if (newOffset != maxOffset) {
+      if (newOffset !== maxOffset) {
         e.preventDefault()
       }
       setOffset(newOffset)
@@ -64,27 +64,16 @@ class Table extends Component {
     } else if (deltaY < 0) {
       // scroll up
       const moveBy = (deltaY >= -5) ? 1 : 2
-      const minOffset = 0;
+      const minOffset = 0
 
       const newOffset = Math.max(offset - moveBy, minOffset)
       setOffset(newOffset)
 
-      if (newOffset != minOffset) {
+      if (newOffset !== minOffset) {
         e.preventDefault()
       }
       updateViewport(filteredItems, limit, newOffset)
     }
-  }
-
-  cellHtml(row, key, schemaParams) {
-    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
-    const cacheKey = `${row._key}/${key}`
-
-    if (cache[cacheKey] === undefined) {
-      cache[cacheKey] = formatter(row[key], row) || ''
-    }
-
-    return { __html: cache[cacheKey] }
   }
 
   toggleDirection(key) {
@@ -146,11 +135,20 @@ class Table extends Component {
       classNames.push('null')
     }
 
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
+    const cacheKey = `${row._key}/${key}`
+
+    if (cache[cacheKey] === undefined) {
+      cache[cacheKey] = formatter(row[key], row) || ''
+    }
+
+    const cellHtml = { __html: cache[cacheKey] }
+
     return (
       <td
         className={classNames.join(' ')}
         key={key}
-        dangerouslySetInnerHTML={this.cellHtml(row, key, schemaParams)}
+        dangerouslySetInnerHTML={cellHtml}
         style={{ height: rowHeight }}
       />
     )
@@ -250,19 +248,17 @@ class Table extends Component {
 
     return (
       <td>
-        { Object.entries(actions).map(([key, value]) => {
-          return (
-            <button
-              onClick={e => value.onClick(row, e)}
-              className={value.className}
-              key={key}
-              disabled={value.disabled && value.disabled(row)}
-              type="button"
-            >
-              {value.label || key}
-            </button>
-          )
-        })}
+        { Object.entries(actions).map(([key, value]) => (
+          <button
+            onClick={e => value.onClick(row, e)}
+            className={value.className}
+            key={key}
+            disabled={value.disabled && value.disabled(row)}
+            type="button"
+          >
+            {value.label || key}
+          </button>
+        ))}
       </td>
     )
   }
@@ -271,9 +267,8 @@ class Table extends Component {
     const { filteredSchema } = this.props
     return (
       <tr key={item._key} className="record">
-        { Object.entries(filteredSchema).map(([key, keySchema]) =>
-          this.columnBody(item, key, keySchema))
-        }
+        { Object.entries(filteredSchema).map(([key, keySchema]) => (
+          this.columnBody(item, key, keySchema)))}
         { this.renderActions(item) }
       </tr>
     )
@@ -287,13 +282,11 @@ class Table extends Component {
 
 
     if (currentItems.length < limit) {
-      return Array(limit - currentItems.length).fill().map((a, ix) => {
-        return (
-          <tr key={ix}>
-            <td colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }} />
-          </tr>
-        )
-      })
+      return Array(limit - currentItems.length).fill().map((a, ix) => (
+        <tr key={ix}>
+          <td colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }} />
+        </tr>
+      ))
     }
     return null
   }
@@ -308,7 +301,11 @@ class Table extends Component {
           <thead>
             { this.renderHeader() }
           </thead>
-          <tbody tabIndex="0" onWheel={e => this.onWheel(e)} onKeyDown={e => this.onKeyDown(e)}>
+          <tbody
+            tabIndex="0"
+            onWheel={e => this.onWheel(e)}
+            onKeyDown={e => this.onKeyDown(e)}
+          >
             { currentItems.map(item => this.renderRow(item)) }
             { this.renderMissingRows() }
           </tbody>
