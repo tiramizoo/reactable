@@ -1,5 +1,6 @@
 import {
-  addZeroToNumber, searchByBoolean, searchByText, searchByRange,
+  addZeroToNumber, searchByBoolean, searchByText, searchByRange, mergeSearchQuery,
+  searchByType,
 } from './utilities'
 
 test('addZeroToNumber', () => {
@@ -125,3 +126,36 @@ test('searchByRange()', () => {
   searchQuery = { value: { to: '2001-10-20' } }
   expect(searchByRange(items, column, searchQuery).length).toBe(5)
 })
+
+test('mergeSearchQuery()', () => {
+  let newQuery = { id: { value: 1 } }
+  let currentQuery = { active: { value: 'true' } }
+  expect(mergeSearchQuery(newQuery, currentQuery)).toEqual({ id: { value: 1 }, active: { value: 'true' } })
+
+  newQuery = { id: { value: 1 } }
+  currentQuery = {}
+  expect(mergeSearchQuery(newQuery, currentQuery)).toEqual({ id: { value: 1 } })
+
+  newQuery = { id: {} }
+  currentQuery = { id: { value: 1 }, active: { value: 'true' } }
+  expect(mergeSearchQuery(newQuery, currentQuery)).toEqual({ active: { value: 'true' } })
+
+  newQuery = { active: { value: 'true', options: 'all' } }
+  currentQuery = { id: { value: 1 } }
+  expect(mergeSearchQuery(newQuery, currentQuery)).toEqual({ id: { value: 1 }, active: { value: 'true', options: 'all' } })
+
+  newQuery = { active: { options: 'all' } }
+  currentQuery = { active: { value: 'true' } }
+  expect(mergeSearchQuery(newQuery, currentQuery)).toEqual({ active: { options: 'all' } })
+
+  newQuery = { active: { value: 'true' } }
+  currentQuery = { active: { options: 'all' } }
+  expect(mergeSearchQuery(newQuery, currentQuery)).toEqual({ active: { value: 'true' } })
+})
+
+// test('searchByType()', () => {
+//   const type = 'boolean'
+//   const column = ''
+//   const searchQuery = ''
+//   expect(searchByType(items, type, column, searchQuery)).toEqual('')
+// })
