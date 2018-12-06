@@ -1,4 +1,6 @@
-import { addZeroToNumber, searchByBoolean } from './utilities'
+import {
+  addZeroToNumber, searchByBoolean, searchByText, searchByRange,
+} from './utilities'
 
 test('addZeroToNumber', () => {
   expect(addZeroToNumber(1)).toBe('01')
@@ -57,7 +59,7 @@ const items = [
   },
 ]
 
-test('searchByBoolean', () => {
+test('searchByBoolean()', () => {
   const column = 'active'
   let searchQuery = { value: 'true' }
   expect(searchByBoolean(items, column, searchQuery).length).toBe(3)
@@ -73,4 +75,53 @@ test('searchByBoolean', () => {
 
   searchQuery = { value: 'notEmpty' }
   expect(searchByBoolean(items, column, searchQuery).length).toBe(4)
+})
+
+test('searchByText()', () => {
+  const column = 'first_name'
+  let searchQuery = { value: 'a', options: 'all' }
+  expect(searchByText(items, column, searchQuery).length).toBe(3)
+
+  searchQuery = { value: 'Luka', options: 'equal' }
+  expect(searchByText(items, column, searchQuery).length).toBe(1)
+
+  searchQuery = { value: 'Luka', options: 'notEqual' }
+  expect(searchByText(items, column, searchQuery).length).toBe(5)
+
+  searchQuery = { value: '^[a-zA-Z]{4,6}$', options: 'match' }
+  expect(searchByText(items, column, searchQuery).length).toBe(4)
+
+  searchQuery = { value: '^[a-zA-Z]{4,6}$', options: 'notMatch' }
+  expect(searchByText(items, column, searchQuery).length).toBe(1)
+
+  searchQuery = { options: 'empty' }
+  expect(searchByText(items, column, searchQuery).length).toBe(1)
+
+  searchQuery = { options: 'notEmpty' }
+  expect(searchByText(items, column, searchQuery).length).toBe(5)
+})
+
+test('searchByRange()', () => {
+  let column = 'id'
+  let searchQuery = { value: { from: 3, to: 4 } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(2)
+
+  searchQuery = { value: { from: 3, to: 6 } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(4)
+
+  searchQuery = { value: { to: 3 } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(3)
+
+  searchQuery = { value: { from: 3 } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(4)
+
+  column = 'date_of_birth'
+  searchQuery = { value: { from: '2000-01-01', to: '2006-12-20' } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(2)
+
+  searchQuery = { value: { from: '1999-02-15' } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(3)
+
+  searchQuery = { value: { to: '2001-10-20' } }
+  expect(searchByRange(items, column, searchQuery).length).toBe(5)
 })

@@ -99,7 +99,7 @@ export function searchByText(items, column, searchQuery) {
     case 'equal':
       return filter(items, item => item[column] && item[column] === searchQuery.value)
     case 'notEqual':
-      return filter(items, item => item[column] && item[column] !== searchQuery.value)
+      return filter(items, item => item[column] !== searchQuery.value)
     case 'match':
       return filter(items, item => item[column] && item[column].match(searchQuery.value))
     case 'notMatch':
