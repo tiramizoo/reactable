@@ -96,7 +96,7 @@
   border: 1px solid #e2e2e2;
 }
 
-.reactable table td.number, .reactable table td.date, .reactable table td.datetime {
+.reactable table td.number, .reactable table td.date, .reactable table td.datetime, .reactable table td.time {
   text-align: right;
   color: darkblue;
 }
