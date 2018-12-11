@@ -58,6 +58,14 @@ export const addZeroToNumber = (value) => {
 
 export const defaultFormatter = (type, key) => {
   switch (type) {
+    case 'number':
+      return (value) => {
+        if (value === null) {
+          return null
+        } else {
+          return value.toString()
+        }
+      }
     case 'boolean':
       return (value) => {
         if (value === true) {
