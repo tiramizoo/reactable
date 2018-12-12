@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { sortBy, setSortDiractionToSchema, defaultFormatter } from '../../helpers/utilities'
+import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
 
 const cache = {}
 
@@ -106,7 +106,7 @@ class Table extends Component {
     const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
 
-    const sortedItems = sortBy(filteredItems, setSortDiractionToSchema(filteredSchema, key, direction))
+    const sortedItems = sortBy(filteredItems, setSortDirectionToSchema(filteredSchema, key, direction))
     setOffset(0)
     setItems(sortedItems)
     updateViewport(sortedItems, limit, 0)

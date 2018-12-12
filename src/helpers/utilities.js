@@ -1,12 +1,10 @@
 import orderBy from 'lodash/orderBy'
-import uniqueId from 'lodash/uniqueId'
 import map from 'lodash/map'
 import forEach from 'lodash/forEach'
 import compact from 'lodash/compact'
 import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import uniqBy from 'lodash/uniqBy'
-import concat from 'lodash/concat'
 import omit from 'lodash/omit'
 
 export function sortByType(items, action) {
@@ -23,37 +21,10 @@ export function sortBy(items, filteredSchema) {
   return sortedItems
 }
 
-export function setSortDiractionToSchema(schema, key, direction) {
+export function setSortDirectionToSchema(schema, key, direction) {
   forEach(schema, (_, k) => { delete schema[k].direction })
   const options = Object.assign({}, schema[key], { direction })
   return Object.assign({}, schema, { [key]: options })
-}
-
-export function addMetaDataToItems(items) {
-  return map(items, i => Object.assign({}, i, { _key: uniqueId() }))
-}
-
-export function addParsedDateTime(items, schema) {
-  const dataTimeKeys = compact(Object.entries(schema).map(([key, params]) => {
-    if (params.type === 'datetime') {
-      return key
-    }
-    return null
-  }))
-  return map(items, (item) => {
-    const newItem = map(dataTimeKeys, (key) => {
-      const value = item[key]
-      return { [key]: (value != null) ? new Date(Date.parse(value)) : value }
-    })
-    return Object.assign({}, item, ...newItem)
-  })
-}
-
-export const addZeroToNumber = (value) => {
-  if (value < 10) {
-    return `0${value}`
-  }
-  return value.toString()
 }
 
 export const defaultFormatter = (type, key) => {
@@ -79,11 +50,15 @@ export const defaultFormatter = (type, key) => {
     case 'datetime':
       return (value) => {
         if (value) {
-          const month = addZeroToNumber(value.getMonth() + 1)
-          const day = addZeroToNumber(value.getDate())
-          const hour = addZeroToNumber(value.getHours())
-          const minutes = addZeroToNumber(value.getMinutes())
-          return `${value.getFullYear()}-${month}-${day} ${hour}:${minutes}`
+          return value.toFormat('yyyy-MM-dd hh:mm:ss')
+        }
+        return null
+      }
+
+    case 'duration':
+      return (value) => {
+        if (value) {
+          return value.toFormat('hh:mm:ss')
         }
         return null
       }
@@ -180,7 +155,7 @@ export const searchByOr = (items, schema, searchQuery) => {
   let filteredItems = []
   Object.entries(searchQuery).map(([column, searchQueryValue]) => {
     const newFilteredItems = searchByType(items, schema[column].type, column, searchQueryValue)
-    filteredItems = concat(filteredItems, newFilteredItems)
+    filteredItems = filteredItems.concat(newFilteredItems)
     return filteredItems
   })
 
@@ -209,7 +184,7 @@ export const searchBy = (items, searchQueryAnd, searchQueryOr, schema, strategyS
     const filteredItemsAnd = searchByAnd(items, schema, searchQueryAnd)
     const filteredItemsOr = searchByOr(items, schema, searchQueryOr)
 
-    return uniqBy(concat(filteredItemsAnd, filteredItemsOr), '_key')
+    return uniqBy(filteredItemsAnd.concat(filteredItemsOr), '_key')
   }
   const filteredItemsAnd = searchByAnd(items, schema, searchQueryAnd)
 

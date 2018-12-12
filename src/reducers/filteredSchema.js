@@ -1,7 +1,7 @@
 import forEach from 'lodash/forEach'
 import assign from 'lodash/assign'
 
-import { setSortDiractionToSchema } from '../helpers/utilities'
+import { setSortDirectionToSchema } from '../helpers/utilities'
 
 import { SET_SORT_DIRECTION, UPDATE_FILTERED_SCHEMA } from '../actions/schema'
 import { INIT_SETTINGS } from '../actions/settings'
@@ -10,7 +10,7 @@ function filteredSchema(state = {}, action) {
   let newFilteredSchema = {}
   switch (action.type) {
     case SET_SORT_DIRECTION:
-      return setSortDiractionToSchema(state, action.key, action.direction)
+      return setSortDirectionToSchema(state, action.key, action.direction)
     case INIT_SETTINGS:
       forEach(action.settings.schema, (value, key) => {
         if (!value.hide) {

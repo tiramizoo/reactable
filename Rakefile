@@ -27,6 +27,7 @@ task :generate_dataset, [:size] do |t, args|
         "phone_number":  FFaker::PhoneNumberDE.phone_number,
         "currency":      FFaker::Currency.code,
         "job":           FFaker::Job.title,
+        "duration":      ['PT2H3M56S', 'P2DT22H4M50S', nil].sample,
         "created_at":    (DateTime.now - rand(1..1_000)).iso8601
       }
     end
