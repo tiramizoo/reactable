@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
 
   actions:        state.settings.actions,
   controls:       state.settings.controls,
+  progressMax:    state.settings.progressMax,
 
   tableWidth:     state.table.width,
   rowHeight:      state.table.rowHeight,

@@ -223,6 +223,7 @@ class Table extends Component {
   renderFooter() {
     const {
       rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items, actions,
+      progressMax,
     } = this.props
 
     return (
@@ -236,6 +237,7 @@ class Table extends Component {
             total: {items.length}
           </span>
           { this.renderFooterControls() }
+          <progress id="progress-bar" name="progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
         </th>
         { actions && <th /> }
       </tr>

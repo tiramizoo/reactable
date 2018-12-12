@@ -10,7 +10,7 @@ import { DateTime, Duration } from 'luxon'
 
 import Reactable from './components/Reactable'
 import reducers from './reducers/index'
-import { initSettings, updateTableWidth } from './actions/settings'
+import { initSettings, updateTableWidth, setProgressMax } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport } from './actions/items'
 import { sortBy } from './helpers/utilities'
@@ -51,7 +51,7 @@ class InitApp extends Component {
   }
 
 
-  addData(newItems) {
+  addData(newItems, progressMax) {
     const { items, filteredSchema, schema, settings } = this.store.getState()
 
     // optimisation needed: dateTimeAttributes, durationAttributes can be calculated once on init
@@ -82,6 +82,7 @@ class InitApp extends Component {
 
     this.store.dispatch(setItems(itemsAfterAddition))
     this.store.dispatch(reSearching(itemsAfterAddition))
+    if (progressMax) this.store.dispatch(setProgressMax(progressMax))
   }
 
   getFilteredData() {

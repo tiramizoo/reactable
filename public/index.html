@@ -28,7 +28,7 @@
             return response.json()
           })
           .then(function(json) {
-            table.addData(json.data);
+            table.addData(json.data, 200);
           })
       }
 

@@ -1,4 +1,6 @@
-import { INIT_SETTINGS, TOGGLE_SEARCH_CONTROL, TOGGLE_SCHEMA_CONTROL } from '../actions/settings'
+import {
+  INIT_SETTINGS, TOGGLE_SEARCH_CONTROL, TOGGLE_SCHEMA_CONTROL, SET_PROGRESS_MAX,
+} from '../actions/settings'
 // {htmlId: "table1", offset: 0, limit: 10}, controlShow: false, tableWidth: 1000,
 // schema: {
 //   first_name: {
@@ -26,6 +28,7 @@ const initSettings = {
   schemaControlShow: false,
   strategySearch: 'and',
   controls: {},
+  progressMax: 0,
 }
 
 function settings(state = initSettings, action) {
@@ -36,6 +39,8 @@ function settings(state = initSettings, action) {
       return Object.assign({}, state, { controlShow: !state.controlShow })
     case TOGGLE_SCHEMA_CONTROL:
       return Object.assign({}, state, { schemaControlShow: !state.schemaControlShow })
+    case SET_PROGRESS_MAX:
+      return Object.assign({}, state, { progressMax: action.progressMax })
     default:
       return state
   }
