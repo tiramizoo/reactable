@@ -9,7 +9,7 @@
     </style>
   </head>
   <body>
-    <button onClick="addData()">ADD DATA</button>
+    <button onClick="addData(this)">ADD DATA</button>
 
     <div id="table1"></div>
     <br /><br />
@@ -28,7 +28,7 @@
             return response.json()
           })
           .then(function(json) {
-            table.addData(json.data, 200);
+            table.addData(json.data, 100);
           })
       }
 
@@ -46,8 +46,11 @@
       t1.updateTableWidth(document.getElementById('table1').clientWidth)
 
 
-      function addData() {
-        t1.addData(data);
+      function addData(el) {
+        t1.addData(data, 100);
+        if (t1.getFilteredData().length == 100) {
+          el.disabled = true;
+        }
       }
 
       var t2 = Reactable.init({
