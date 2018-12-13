@@ -4,6 +4,9 @@ import debounce from 'lodash/debounce'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 import isNumber from 'lodash/isNumber'
+import Flatpickr from 'react-flatpickr'
+import { DateTime } from 'luxon'
+import 'flatpickr/dist/flatpickr.css'
 
 import { searchingAnd } from '../../../actions/search'
 
@@ -32,18 +35,17 @@ class SearchDateTime extends Component {
     searchingAnd({query, store: this.context.store})
   }, 300)
 
-  handleNumberChange = (e) => {
-    const { value, name } = e.target
+  handleNumberChange = (e, value, name) => {
     const { column, searchQueryAnd } = this.props
 
-    let newValue = { [name]: isEmpty(value) ? null : Date.parse(value) }
-    this.setState(newValue)
+    let newValue = { [name]: isEmpty(value) ? null : DateTime.fromFormat(value, 'yyyy-MM-dd hh:mm:ss') }
+    this.setState({ [name]: isEmpty(value) ? null : value })
 
     if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
     }
     let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
-    if (!isNumber(newValue.from) && !isNumber(newValue.to)) {
+    if (!newValue.from && !newValue.to) {
       newSearchQuery =  {[column]: {}}
     }
     this.searchByNumber(newSearchQuery)
@@ -63,22 +65,20 @@ class SearchDateTime extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <input
+        <Flatpickr
           value={from}
-          onChange={(e) => this.handleNumberChange(e)}
+          onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+          options={{maxDate: to, enableTime: true, time_24hr: true, enableSeconds: true}}
           name="from"
-          type="datetime-local"
           placeholder="from"
-          autoComplete="off"
-          id={column} />
-        <input
+        />
+        <Flatpickr
           value={to}
-          onChange={(e) => this.handleNumberChange(e)}
+          onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+          options={{minDate: from, enableTime: true, time_24hr: true, enableSeconds: true}}
           name="to"
-          type="datetime-local"
           placeholder="to"
-          autoComplete="off"
-          id={column} />
+        />
         <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )

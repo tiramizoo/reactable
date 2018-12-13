@@ -1,7 +1,5 @@
 import orderBy from 'lodash/orderBy'
-import map from 'lodash/map'
 import forEach from 'lodash/forEach'
-import compact from 'lodash/compact'
 import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import uniqBy from 'lodash/uniqBy'
