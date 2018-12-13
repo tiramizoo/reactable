@@ -4,6 +4,9 @@ import debounce from 'lodash/debounce'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 import isNumber from 'lodash/isNumber'
+import 'flatpickr/dist/flatpickr.css'
+
+import Flatpickr from 'react-flatpickr'
 
 import { searchingAnd } from '../../../actions/search'
 
@@ -32,8 +35,7 @@ class SearchDate extends Component {
     searchingAnd({query, store: this.context.store})
   }, 300)
 
-  handleNumberChange = (e) => {
-    const { value, name } = e.target
+  handleNumberChange = (e, value, name) => {
     const { column, searchQueryAnd } = this.props
     let newValue = { [name]: value }
     this.setState(newValue)
@@ -42,7 +44,7 @@ class SearchDate extends Component {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
     }
     let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
-    if (!isEmpty(newValue.from) && !isEmpty(newValue.to)) {
+    if (isEmpty(newValue.from) && isEmpty(newValue.to)) {
       newSearchQuery =  {[column]: {}}
     }
     this.searchByNumber(newSearchQuery)
@@ -62,23 +64,19 @@ class SearchDate extends Component {
     return (
       <div>
         <label htmlFor={column}>{column}</label>
-        <input
+        <Flatpickr
           value={from}
-          onChange={(e) => this.handleNumberChange(e)}
+          onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+          options={{maxDate: to}}
           name="from"
-          type="date"
           placeholder="from"
-          autoComplete="off"
-          id={column}
         />
-        <input
+        <Flatpickr
           value={to}
-          onChange={(e) => this.handleNumberChange(e)}
+          onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+          options={{minDate: from}}
           name="to"
-          type="date"
           placeholder="to"
-          autoComplete="off"
-          id={column}
         />
         <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>

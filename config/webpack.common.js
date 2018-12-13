@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(bower_components)/,
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader?sourceMap' },
