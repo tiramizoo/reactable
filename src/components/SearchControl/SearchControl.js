@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 
 import SearchControlComponent from './SearchControl.jsx'
 import { clearAllSearchQuery } from '../../actions/search'
+import { toggleSearchControl } from '../../actions/settings'
 
 const mapStateToProps = state => ({
   controlShow: state.settings.controlShow,
@@ -10,7 +11,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  clearAllSearchQuery,
+  clearAllSearchQuery, toggleSearchControl,
 }
 
 const SearchControl = connect(mapStateToProps, mapDispatchToProps)(SearchControlComponent)

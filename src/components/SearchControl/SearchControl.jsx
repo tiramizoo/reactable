@@ -49,6 +49,12 @@ class SearchControl extends Component {
     clearAllSearchQuery()
   }
 
+  handleToggleControl(e) {
+    e.preventDefault()
+    const { toggleSearchControl } = this.props
+    toggleSearchControl()
+  }
+
   render() {
     const { filteredSchema, controlShow, tableWidth } = this.props
 
@@ -64,6 +70,12 @@ class SearchControl extends Component {
             onClick={() => this.handleClearAllChange()}
           >
             Clear all
+          </button>
+          <button
+            type="button"
+            onClick={(e) => this.handleToggleControl(e)}
+          >
+            x
           </button>
           { Object.entries(filteredSchema).map(([key, keySchema]) => {
             return this.columnFilter(key, keySchema)

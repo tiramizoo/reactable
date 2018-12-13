@@ -14,6 +14,12 @@ const SchemaControl = (props) => {
     }
   }
 
+  const handleToggleSchemaControl = (e) => {
+    e.preventDefault()
+    const { toggleSchemaControl } = props
+    toggleSchemaControl()
+  }
+
   const renderElement = (key) => {
     const { filteredSchema } = props
     const value = !!filteredSchema[key]
@@ -39,6 +45,12 @@ const SchemaControl = (props) => {
   return (
     <div className="schema" style={{ width: tableWidth }}>
       <h2>Schema</h2>
+      <button
+        type="button"
+        onClick={(e) => handleToggleSchemaControl(e)}
+      >
+        x
+      </button>
       <ul>
         { Object.keys(schema).map(key => renderElement(key)) }
       </ul>
