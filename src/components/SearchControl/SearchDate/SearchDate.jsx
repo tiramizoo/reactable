@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
-import isNumber from 'lodash/isNumber'
 import 'flatpickr/dist/flatpickr.css'
 
 import Flatpickr from 'react-flatpickr'

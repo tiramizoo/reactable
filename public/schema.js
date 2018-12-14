@@ -13,6 +13,9 @@ window.schemaUsers = {
   duration: {
     type: 'duration'
   },
+  time: {
+    type: 'text'
+  },
   active: {
     type: 'boolean',
     filter: true,

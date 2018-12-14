@@ -5,7 +5,6 @@ require "ffaker"
 require 'json'
 
 
-
 desc "generate_dataset"
 task :generate_dataset, [:size] do |t, args|
   args.with_defaults(size: 1000)
@@ -28,6 +27,7 @@ task :generate_dataset, [:size] do |t, args|
         "currency":      FFaker::Currency.code,
         "job":           FFaker::Job.title,
         "duration":      ['PT2H3M56S', 'P2DT22H4M50S', nil].sample,
+        "time":          [fake_time, fake_time, nil].sample,
         "created_at":    (DateTime.now - rand(1..1_000)).iso8601
       }
     end
@@ -44,6 +44,14 @@ def fake_date
   i == 0 ? nil : rand(Date.civil(1980, 1, 1)..Date.civil(2017, 12, 31))
 end
 
+def fake_time
+  h = 0.upto(23).to_a.shuffle.first
+  m = 0.upto(59).to_a.shuffle.first
+  h = h < 10 ? "0#{h}" : h.to_s
+  m = m < 10 ? "0#{m}" : m.to_s
+
+  "#{h}:#{m}"
+end
 
 def fake_first_name
   FFaker::Name.first_name
