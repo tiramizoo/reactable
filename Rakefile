@@ -47,10 +47,12 @@ end
 def fake_time
   h = 0.upto(23).to_a.shuffle.first
   m = 0.upto(59).to_a.shuffle.first
+  s = 0.upto(59).to_a.shuffle.first
   h = h < 10 ? "0#{h}" : h.to_s
   m = m < 10 ? "0#{m}" : m.to_s
+  s = s < 10 ? "0#{s}" : s.to_s
 
-  "#{h}:#{m}"
+  "#{h}:#{m}:#{s}"
 end
 
 def fake_first_name

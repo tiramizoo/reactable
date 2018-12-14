@@ -35,6 +35,14 @@ export const defaultFormatter = (type, key) => {
           return value.toString()
         }
       }
+    case 'time':
+      return (value) => {
+        if (value === null) {
+          return null
+        } else {
+          return value.toString()
+        }
+      }
     case 'boolean':
       return (value) => {
         if (value === true) {
@@ -139,6 +147,8 @@ export function searchByType(items, type, column, searchQuery) {
     case 'number':
     case 'date':
     case 'datetime':
+    case 'duration':
+    case 'time':
       return searchByRange(items, column, searchQuery)
     default:
       return []
