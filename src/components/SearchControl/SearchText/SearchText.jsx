@@ -64,7 +64,7 @@ class SearchText extends Component {
     const { value, options } = this.state
 
     return (
-      <div>
+      <div className='filter'>
         <label htmlFor={column}>{column}</label>
         <input
           value={value}

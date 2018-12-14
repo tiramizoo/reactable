@@ -4,13 +4,17 @@ const SchemaControl = (props) => {
   const { schemaControlShow, tableWidth, schema } = props
 
   const handleChange = (e, key) => {
-    const { addToFilteredSchema, removeFromFilteredSchema } = props
+    const { addToFilteredSchema, removeFromFilteredSchema, filteredSchema } = props
     const { checked } = e.target
 
     if (checked) {
       addToFilteredSchema(key)
     } else {
-      removeFromFilteredSchema(key)
+      if (Object.keys(filteredSchema).length > 1) {
+        removeFromFilteredSchema(key)
+      } else {
+        alert("At least 1 column must be visible")
+      }
     }
   }
 
@@ -26,7 +30,7 @@ const SchemaControl = (props) => {
     return (
       <li key={key}>
         <label htmlFor={key}>
-          {key}
+          {schema[key].label || key}
         </label>
         <input
           id={key}
@@ -43,7 +47,7 @@ const SchemaControl = (props) => {
   }
 
   return (
-    <div className='schema'>
+    <div className='schema box'>
       <div className='header'>
         <h2>Schema</h2>
         <button className='close' onClick={(e) => handleToggleSchemaControl(e)}></button>

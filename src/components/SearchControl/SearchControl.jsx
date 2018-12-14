@@ -66,20 +66,18 @@ class SearchControl extends Component {
     }
 
     return (
-      <div className="control" style={{ width: tableWidth }}>
-        <div>
-          <button
-            type="button"
-            onClick={() => this.handleClearAllChange()}
-          >
+      <div className="control box">
+        <div className='header'>
+          <h2>Search</h2>
+          <button className='close'
+            onClick={(e) => this.handleToggleControl(e)}
+          ></button>
+        </div>
+        <div className='body'>
+          <button onClick={() => this.handleClearAllChange()}>
             Clear all
           </button>
-          <button
-            type="button"
-            onClick={(e) => this.handleToggleControl(e)}
-          >
-            x
-          </button>
+
           { Object.entries(filteredSchema).map(([key, keySchema]) => {
             return this.columnFilter(key, keySchema)
           })}

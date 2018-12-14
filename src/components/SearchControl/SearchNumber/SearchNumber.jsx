@@ -62,7 +62,7 @@ class SearchNumber extends Component {
     const { from, to } = this.state
 
     return (
-      <div>
+      <div className='filter'>
         <label htmlFor={column}>{column}</label>
         <input
           value={from}

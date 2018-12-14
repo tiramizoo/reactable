@@ -54,7 +54,7 @@ class SearchBoolean extends Component {
     const { value } = this.state
 
     return (
-      <div>
+      <div className='filter'>
         <label htmlFor={column}>{column}</label>
         <select value={value} onChange={(e) => this.handleValueChange(e)}>
           <option value="all">All</option>
