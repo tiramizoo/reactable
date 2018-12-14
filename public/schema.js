@@ -11,10 +11,10 @@ window.schemaUsers = {
     },
   },
   duration: {
-    type: 'duration'
+    type: 'duration',
   },
   time: {
-    type: 'text'
+    type: 'time',
   },
   active: {
     type: 'boolean',

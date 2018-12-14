@@ -3,18 +3,19 @@ import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
 import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
-import 'flatpickr/dist/flatpickr.css'
-
+import isNumber from 'lodash/isNumber'
 import Flatpickr from 'react-flatpickr'
+import { DateTime } from 'luxon'
+import 'flatpickr/dist/flatpickr.css'
 
 import { searchingAnd } from '../../../actions/search'
 
 const initState = {
-   from: '',
-   to: '',
+  from: '',
+  to: '',
 }
 
-class SearchDate extends Component {
+class SearchTime extends Component {
   static contextTypes = {
     store: PropTypes.object
   }
@@ -36,14 +37,15 @@ class SearchDate extends Component {
 
   handleNumberChange = (e, value, name) => {
     const { column, searchQueryAnd } = this.props
-    let newValue = { [name]: value }
+
+    let newValue = { [name]: isEmpty(value) ? null : value }
     this.setState(newValue)
 
     if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
     }
     let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
-    if (isEmpty(newValue.from) && isEmpty(newValue.to)) {
+    if (!newValue.from && !newValue.to) {
       newSearchQuery =  {[column]: {}}
     }
     this.searchByNumber(newSearchQuery)
@@ -66,14 +68,26 @@ class SearchDate extends Component {
         <Flatpickr
           value={from}
           onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
-          options={{maxDate: to}}
+          options={{
+            maxTime: to,
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            enableSeconds: true,
+          }}
           name="from"
           placeholder="from"
         />
         <Flatpickr
           value={to}
           onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
-          options={{minDate: from}}
+          options={{
+            minTime: from,
+            enableTime: true,
+            noCalendar: true,
+            time_24hr: true,
+            enableSeconds: true,
+          }}
           name="to"
           placeholder="to"
         />
@@ -83,4 +97,4 @@ class SearchDate extends Component {
   }
 }
 
-export default SearchDate
+export default SearchTime

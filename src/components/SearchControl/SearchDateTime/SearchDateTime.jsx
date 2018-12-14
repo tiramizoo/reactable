@@ -25,7 +25,7 @@ class SearchDateTime extends Component {
 
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column]
+      this.state = searchQueryAnd[column].value
     } else {
       this.state = initState
     }

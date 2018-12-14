@@ -5,6 +5,7 @@ import SearchBoolean from './SearchBoolean'
 import SearchNumber from './SearchNumber'
 import SearchDate from './SearchDate'
 import SearchDateTime from './SearchDateTime'
+import SearchTime from './SearchTime'
 
 class SearchControl extends Component {
   constructor(props) {
@@ -28,6 +29,8 @@ class SearchControl extends Component {
       case 'datetime':
         return <SearchDateTime column={column} key={clearAll} />
       case 'time':
+        return <SearchTime column={column} key={clearAll} />
+      case 'duration':
         return null
       default:
         return null
