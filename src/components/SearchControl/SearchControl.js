@@ -7,7 +7,7 @@ import { toggleSearchControl } from '../../actions/settings'
 const mapStateToProps = state => ({
   controlShow: state.settings.controlShow,
   tableWidth: state.table.width,
-  filteredSchema: state.filteredSchema,
+  schema: state.schema
 })
 
 const mapDispatchToProps = {

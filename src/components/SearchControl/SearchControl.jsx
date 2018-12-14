@@ -15,6 +15,7 @@ class SearchControl extends Component {
     }
   }
 
+
   getSearchInput(type, column) {
     const { clearAll } = this.state
     switch (type) {
@@ -41,7 +42,10 @@ class SearchControl extends Component {
     if (schemaParams.filter !== undefined && schemaParams.filter === false) {
       return null
     }
-    return <div key={key}>{this.getSearchInput(schemaParams.type, key)}</div>
+    return <div key={key}>
+      <div className='attribute'>{schemaParams.label || key}</div>
+      {this.getSearchInput(schemaParams.type, key)}
+    </div>
   }
 
   handleClearAllChange() {
@@ -59,7 +63,7 @@ class SearchControl extends Component {
   }
 
   render() {
-    const { filteredSchema, controlShow, tableWidth } = this.props
+    const { controlShow, tableWidth, schema } = this.props
 
     if (!controlShow) {
       return null
@@ -78,7 +82,7 @@ class SearchControl extends Component {
             Clear all
           </button>
 
-          { Object.entries(filteredSchema).map(([key, keySchema]) => {
+          { Object.entries(schema).map(([key, keySchema]) => {
             return this.columnFilter(key, keySchema)
           })}
         </div>
