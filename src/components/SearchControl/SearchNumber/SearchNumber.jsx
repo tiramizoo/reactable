@@ -58,11 +58,16 @@ class SearchNumber extends Component {
   }
 
   render() {
-    const { column } = this.props
+    const { column, schema } = this.props
     const { from, to } = this.state
 
     return (
-      <div className='filter'>
+      <div className='SearchNumber'>
+        <div className='attribute'>
+          {schema.label || column}
+          <button className='clear' onClick={() => this.handleClearChange()}></button>
+        </div>
+
         <label htmlFor={column}>{column}</label>
         <input
           value={from}
@@ -82,7 +87,6 @@ class SearchNumber extends Component {
           autoComplete="off"
           id={`to-${column}`}
         />
-        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

@@ -57,12 +57,17 @@ class SearchDate extends Component {
   }
 
   render() {
-    const { column } = this.props
+    const { column, schema } = this.props
     const { from, to } = this.state
 
     return (
-      <div className='filter'>
-        <label htmlFor={column}>{column}</label>
+      <div className='SearchDate'>
+        <div className='attribute'>
+          {schema.label || column}
+          <button className='clear' onClick={() => this.handleClearChange()}></button>
+        </div>
+
+        <label htmlFor={column}>from</label>
         <Flatpickr
           value={from}
           onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
@@ -70,6 +75,8 @@ class SearchDate extends Component {
           name="from"
           placeholder="from"
         />
+
+        <label htmlFor={column}>to</label>
         <Flatpickr
           value={to}
           onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
@@ -77,7 +84,6 @@ class SearchDate extends Component {
           name="to"
           placeholder="to"
         />
-        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

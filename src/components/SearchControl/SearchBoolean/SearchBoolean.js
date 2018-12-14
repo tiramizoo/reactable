@@ -4,6 +4,7 @@ import SearchBooleanComponent from './SearchBoolean.jsx'
 
 const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
+  schema: state.schema
 })
 
 const mapDispatchToProps = () => ({})

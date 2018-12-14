@@ -59,11 +59,16 @@ class SearchDateTime extends Component {
   }
 
   render() {
-    const { column } = this.props
+    const { column, schema } = this.props
     const { from, to } = this.state
 
     return (
-      <div className='filter'>
+      <div className='SearchDateTime'>
+        <div className='attribute'>
+          {schema.label || column}
+          <button className='clear' onClick={() => this.handleClearChange()}></button>
+        </div>
+
         <label htmlFor={column}>{column}</label>
         <Flatpickr
           value={from}
@@ -79,7 +84,6 @@ class SearchDateTime extends Component {
           name="to"
           placeholder="to"
         />
-        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

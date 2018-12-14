@@ -42,10 +42,11 @@ class SearchControl extends Component {
     if (schemaParams.filter !== undefined && schemaParams.filter === false) {
       return null
     }
-    return <div key={key}>
-      <div className='attribute'>{schemaParams.label || key}</div>
-      {this.getSearchInput(schemaParams.type, key)}
-    </div>
+    return (
+      <div className='filter' key={key}>
+        {this.getSearchInput(schemaParams.type, key)}
+      </div>
+    )
   }
 
   handleClearAllChange() {
@@ -72,15 +73,17 @@ class SearchControl extends Component {
     return (
       <div className="control box">
         <div className='header'>
-          <h2>Search</h2>
+          <h2>
+            Search
+            <button className='clear-all' onClick={() => this.handleClearAllChange()}>clear-all</button>
+
+          </h2>
+
           <button className='close'
             onClick={(e) => this.handleToggleControl(e)}
           ></button>
         </div>
         <div className='body'>
-          <button onClick={() => this.handleClearAllChange()}>
-            Clear all
-          </button>
 
           { Object.entries(schema).map(([key, keySchema]) => {
             return this.columnFilter(key, keySchema)

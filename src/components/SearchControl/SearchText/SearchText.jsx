@@ -60,12 +60,15 @@ class SearchText extends Component {
   }
 
   render() {
-    const { column } = this.props
+    const { column, schema } = this.props
     const { value, options } = this.state
 
     return (
-      <div className='filter'>
-        <label htmlFor={column}>{column}</label>
+      <div className='SearchText'>
+        <div className='attribute'>
+          {schema.label || column}
+          <button className='clear' onClick={() => this.handleClearChange()}></button>
+        </div>
         <input
           value={value}
           onChange={(e) => this.handleTextChange(e)}
@@ -86,7 +89,6 @@ class SearchText extends Component {
           <option value="empty">Empty</option>
           <option value="notEmpty">Not Empty</option>
         </select>
-        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

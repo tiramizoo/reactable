@@ -50,11 +50,16 @@ class SearchBoolean extends Component {
   }
 
   render() {
-    const { column } = this.props
+    const { column, schema } = this.props
     const { value } = this.state
 
     return (
-      <div className='filter'>
+      <div className='SearchBoolean'>
+        <div className='attribute'>
+          {schema.label || column}
+          <button className='clear' onClick={() => this.handleClearChange()}></button>
+        </div>
+
         <label htmlFor={column}>{column}</label>
         <select value={value} onChange={(e) => this.handleValueChange(e)}>
           <option value="all">All</option>
@@ -63,7 +68,6 @@ class SearchBoolean extends Component {
           <option value="empty">Empty</option>
           <option value="notEmpty">Not Empty</option>
         </select>
-        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }
