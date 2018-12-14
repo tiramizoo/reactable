@@ -26,14 +26,14 @@ const SchemaControl = (props) => {
     return (
       <li key={key}>
         <label htmlFor={key}>
-          <input
-            id={key}
-            type="checkbox"
-            onChange={e => handleChange(e, key)}
-            checked={value}
-          />
           {key}
         </label>
+        <input
+          id={key}
+          type="checkbox"
+          onChange={e => handleChange(e, key)}
+          checked={value}
+        />
       </li>
     )
   }
@@ -43,17 +43,16 @@ const SchemaControl = (props) => {
   }
 
   return (
-    <div className="schema" style={{ width: tableWidth }}>
-      <h2>Schema</h2>
-      <button
-        type="button"
-        onClick={(e) => handleToggleSchemaControl(e)}
-      >
-        x
-      </button>
-      <ul>
-        { Object.keys(schema).map(key => renderElement(key)) }
-      </ul>
+    <div className='schema'>
+      <div className='header'>
+        <h2>Schema</h2>
+        <button className='close' onClick={(e) => handleToggleSchemaControl(e)}></button>
+      </div>
+      <div className='body'>
+        <ul>
+          { Object.keys(schema).map(key => renderElement(key)) }
+        </ul>
+      </div>
     </div>
   )
 }
