@@ -10,6 +10,9 @@ window.schemaUsers = {
       return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
     },
   },
+  last_name: {
+    type: 'text'
+  },
   duration: {
     type: 'duration',
   },
@@ -24,7 +27,10 @@ window.schemaUsers = {
     type: 'date',
     label: 'Date of Birth',
   },
-
+  ip: { type: 'text' },
+  website: { type: 'text' },
+  phone_number: { type: 'text' },
+  job: { type: 'text' },
   gender: { type: 'text' },
   email: { type: 'text' },
   created_at: { type: 'datetime' },

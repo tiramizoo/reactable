@@ -6,6 +6,8 @@ import { createStore, applyMiddleware } from 'redux'
 import uniqueId from 'lodash/uniqueId'
 import pickBy from 'lodash/pickBy'
 import debounce from 'lodash/debounce'
+import omit from 'lodash/omit'
+import pick from 'lodash/pick'
 import { DateTime, Duration } from 'luxon'
 
 import Reactable from './components/Reactable'
@@ -52,14 +54,14 @@ class InitApp extends Component {
 
 
   addData(newItems, progressMax) {
-    const { items, filteredSchema, schema, settings } = this.store.getState()
+    const { items, schema, schema, settings } = this.store.getState()
 
     // optimisation needed: dateTimeAttributes, durationAttributes can be calculated once on init
     const dateTimeAttributes = Object.keys(this.filterSchemaByType(schema, 'datetime'))
     const durationAttributes = Object.keys(this.filterSchemaByType(schema, 'duration'))
 
     let addedItems = newItems.map((i) => {
-      const item = Object.assign({}, i, { _key: uniqueId() })
+      const item = Object.assign({}, pick(i, Object.keys(schema)), { _key: uniqueId() })
 
       dateTimeAttributes.forEach((attrName) => {
         const valueBeforeParse = item[attrName]
@@ -78,7 +80,7 @@ class InitApp extends Component {
       return item
     })
 
-    const itemsAfterAddition = sortBy(items.concat(addedItems), filteredSchema)
+    const itemsAfterAddition = sortBy(items.concat(addedItems), schema)
 
     this.store.dispatch(setItems(itemsAfterAddition))
     this.store.dispatch(reSearching(itemsAfterAddition))
@@ -86,7 +88,9 @@ class InitApp extends Component {
   }
 
   getFilteredData() {
-    return this.store.getState().filteredItems
+    return this.store.getState().filteredItems.map((item) => {
+      return omit(item, '_key')
+    })
   }
 
   updateTableWidth(width) {
