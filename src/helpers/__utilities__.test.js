@@ -1,6 +1,5 @@
 import {
-  addZeroToNumber, searchByBoolean, searchByText, searchByRange, mergeSearchQuery,
-  searchByType,
+  searchByBoolean, searchByText, searchByRange, mergeSearchQuery,
 } from './utilities'
 
 test('addZeroToNumber', () => {
