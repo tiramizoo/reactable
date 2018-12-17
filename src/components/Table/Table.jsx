@@ -1,10 +1,29 @@
 import React, { Component } from 'react'
-
+import ReactDOM from 'react-dom'
 import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
 
 const cache = {}
 
 class Table extends Component {
+  // componentDidUpdate(prevProps, prevState){
+  //   const {
+  //     tableWidth
+  //   } = this.props
+  //
+  //   const table = ReactDOM.findDOMNode(this)
+  //
+  //   table.style = null // required to calculate render table width
+  //
+  //   if (table.clientWidth > tableWidth) {
+  //     // do nothing
+  //     table.classList.add('extendable')
+  //     table.style.width = `${tableWidth}px`
+  //   } else {
+  //     table.classList.remove('extendable')
+  //     table.style.width = `${tableWidth}px`
+  //   }
+  // }
+
   onKeyDown(e) {
     const {
       offset, setOffset, filteredItems, limit, updateViewport,
@@ -299,7 +318,6 @@ class Table extends Component {
       tableWidth, currentItems,
     } = this.props
     return (
-      <div>
         <table style={{ width: tableWidth }}>
           <thead>
             { this.renderHeader() }
@@ -316,7 +334,6 @@ class Table extends Component {
             { this.renderFooter() }
           </tfoot>
         </table>
-      </div>
     )
   }
 }

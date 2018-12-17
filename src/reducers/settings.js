@@ -1,27 +1,6 @@
 import {
   INIT_SETTINGS, TOGGLE_SEARCH_CONTROL, TOGGLE_SCHEMA_CONTROL, SET_PROGRESS_MAX,
 } from '../actions/settings'
-// {htmlId: "table1", offset: 0, limit: 10}, controlShow: false, tableWidth: 1000,
-// schema: {
-//   first_name: {
-//   type: 'text',
-//   formatter: function (row) {
-//     return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
-//   },
-//   },
-//   last_name: {
-//     type: 'text',
-//     hide: false,
-//   },
-//   active: {
-//     type: 'boolean',
-//     filter: false,
-//   },
-//   controls: {
-//     search: false,
-//     schema: false,
-//   },
-// }
 
 const initSettings = {
   controlShow: false,

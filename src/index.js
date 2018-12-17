@@ -99,14 +99,10 @@ class InitApp extends Component {
 
   render() {
     const state = this.store.getState()
-    const documentElementId = document.getElementById(state.settings.htmlId)
-    if (documentElementId) {
-      return ReactDOM.render(
-        <Provider store={this.store}>
-          <Reactable />
-        </Provider>, documentElementId, this.afterRender())
-    }
-    return null
+    return ReactDOM.render(
+      <Provider store={this.store}>
+        <Reactable />
+      </Provider>, state.settings.container, this.afterRender())
   }
 }
 
