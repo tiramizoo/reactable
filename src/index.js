@@ -54,7 +54,7 @@ class InitApp extends Component {
 
 
   addData(newItems, progressMax) {
-    const { items, schema, schema, settings } = this.store.getState()
+    const { items, schema, settings } = this.store.getState()
 
     // optimisation needed: dateTimeAttributes, durationAttributes can be calculated once on init
     const dateTimeAttributes = Object.keys(this.filterSchemaByType(schema, 'datetime'))
