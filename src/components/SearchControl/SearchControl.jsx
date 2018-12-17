@@ -15,7 +15,6 @@ class SearchControl extends Component {
     }
   }
 
-
   getSearchInput(type, column) {
     const { clearAll } = this.state
     switch (type) {

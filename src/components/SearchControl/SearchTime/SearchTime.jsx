@@ -73,6 +73,7 @@ class SearchTime extends Component {
         <Flatpickr
           value={from}
           onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+          onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
           options={{
             maxTime: to,
             enableTime: true,
@@ -86,6 +87,7 @@ class SearchTime extends Component {
         <Flatpickr
           value={to}
           onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+          onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
           options={{
             minTime: from,
             enableTime: true,
