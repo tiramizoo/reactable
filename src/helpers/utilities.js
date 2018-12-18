@@ -56,7 +56,7 @@ export const defaultFormatter = (type, key) => {
     case 'datetime':
       return (value) => {
         if (value) {
-          return value.toFormat('yyyy-MM-dd hh:mm:ss')
+          return value.toFormat('yyyy-MM-dd HH:mm:ss')
         }
         return null
       }
