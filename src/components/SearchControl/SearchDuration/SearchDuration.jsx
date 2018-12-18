@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
-import omit from 'lodash/omit'
-import isNumber from 'lodash/isNumber'
+import isEmpty from 'lodash/isEmpty'
 import { Duration } from 'luxon'
 
 import { searchingAnd } from '../../../actions/search'
@@ -46,9 +45,6 @@ class SearchDuration extends Component {
     searchingAnd({query, store: this.context.store})
   }, 300)
 
-  isEmpty = (obj) => {
-    return !obj.years && !obj.months && !obj.days && !obj.hours && !obj.minutes && !obj.seconds
-  }
 
   durationParams = (obj) => {
     let newParams = {}
@@ -70,19 +66,21 @@ class SearchDuration extends Component {
     if (range === 'from') {
       from = Object.assign({}, from, { [name]: Number(value) || '' })
       this.setState({ from: from })
-      if (this.isEmpty(from)) {
+      const fromParams = this.durationParams(from)
+      if (isEmpty(fromParams)) {
         newValue = { from: null }
       } else {
-        newValue = { from: Duration.fromObject(this.durationParams(from)) }
+        newValue = { from: Duration.fromObject(fromParams) }
       }
     }
     if (range === 'to') {
       to = Object.assign({}, to, { [name]: Number(value) || '' })
       this.setState({ to: to })
-      if (this.isEmpty(to)) {
+      const toParams = this.durationParams(to)
+      if (isEmpty(toParams)) {
         newValue = { to: null }
       } else {
-        newValue = { to: Duration.fromObject(this.durationParams(to)) }
+        newValue = { to: Duration.fromObject(toParams) }
       }
     }
 
