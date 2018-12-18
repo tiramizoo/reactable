@@ -125,14 +125,14 @@ export function searchByRange(items, column, searchQuery) {
     if (searchQuery.value.from && searchQuery.value.to) {
       return filter(items, (item) => {
         const itemValue = item[column]
-        return itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
+        return itemValue && itemValue >= searchQuery.value.from && itemValue <= searchQuery.value.to
       })
     }
     if (searchQuery.value.from) {
-      return filter(items, item => item[column] >= searchQuery.value.from)
+      return filter(items, item => item[column] && item[column] >= searchQuery.value.from)
     }
     if (searchQuery.value.to) {
-      return filter(items, item => item[column] <= searchQuery.value.to)
+      return filter(items, item => item[column] && item[column] <= searchQuery.value.to)
     }
   }
   return items
