@@ -50,6 +50,17 @@ class SearchDuration extends Component {
     return !obj.years && !obj.months && !obj.days && !obj.hours && !obj.minutes && !obj.seconds
   }
 
+  durationParams = (obj) => {
+    let newParams = {}
+    Object.entries(obj).forEach(([key, value]) => {
+      if (value) {
+        newParams[key] = value
+      }
+    })
+
+    return newParams
+  }
+
   handleNumberChange = (e, range) => {
     const { value, name } = e.target
     const { column, searchQueryAnd } = this.props
@@ -60,18 +71,18 @@ class SearchDuration extends Component {
       from = Object.assign({}, from, { [name]: Number(value) || '' })
       this.setState({ from: from })
       if (this.isEmpty(from)) {
-        newValue = { from: {}}
+        newValue = { from: null }
       } else {
-        newValue = { from: Duration.fromObject(from) }
+        newValue = { from: Duration.fromObject(this.durationParams(from)) }
       }
     }
     if (range === 'to') {
       to = Object.assign({}, to, { [name]: Number(value) || '' })
       this.setState({ to: to })
       if (this.isEmpty(to)) {
-        newValue = { to: {}}
+        newValue = { to: null }
       } else {
-        newValue = { to: Duration.fromObject(to) }
+        newValue = { to: Duration.fromObject(this.durationParams(to)) }
       }
     }
 
@@ -82,19 +93,10 @@ class SearchDuration extends Component {
       newSearchQuery = {[column]: { value: newValue }}
     }
 
-    console.log('A: ', newValue.from, newValue.to.valueOf())
-    // // console.log('BB: ', Duration.isDuration(newValue.from))
-    // console.log('CC: ', Duration.isDuration(newValue.to))
-    // console.log('C: ', !newValue.from, !newValue.to)
-
     if (!newValue.from && !newValue.to) {
       newSearchQuery =  {[column]: {}}
     }
 
-    console.log('A: ', newValue)
-    console.log('B: ', newSearchQuery)
-    console.log('C: ', from)
-    console.log('D: ', to)
     this.searchByNumber(newSearchQuery)
   }
 
