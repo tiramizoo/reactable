@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import debounce from 'lodash/debounce'
-import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 import isNumber from 'lodash/isNumber'
 import { Duration } from 'luxon'
@@ -47,6 +46,10 @@ class SearchDuration extends Component {
     searchingAnd({query, store: this.context.store})
   }, 300)
 
+  isEmpty = (obj) => {
+    return !obj.years && !obj.months && !obj.days && !obj.hours && !obj.minutes && !obj.seconds
+  }
+
   handleNumberChange = (e, range) => {
     const { value, name } = e.target
     const { column, searchQueryAnd } = this.props
@@ -55,13 +58,22 @@ class SearchDuration extends Component {
     let newValue = {}
     if (range === 'from') {
       from = Object.assign({}, from, { [name]: Number(value) || '' })
-      newValue = { from: Duration.fromObject(from) }
+      this.setState({ from: from })
+      if (this.isEmpty(from)) {
+        newValue = { from: {}}
+      } else {
+        newValue = { from: Duration.fromObject(from) }
+      }
     }
     if (range === 'to') {
       to = Object.assign({}, to, { [name]: Number(value) || '' })
-      newValue = { to: Duration.fromObject(to) }
+      this.setState({ to: to })
+      if (this.isEmpty(to)) {
+        newValue = { to: {}}
+      } else {
+        newValue = { to: Duration.fromObject(to) }
+      }
     }
-    this.setState({ [range]: { [name]: Number(value) || '' } })
 
     let newSearchQuery = {[column]: { value: newValue }}
 
@@ -69,6 +81,11 @@ class SearchDuration extends Component {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
       newSearchQuery = {[column]: { value: newValue }}
     }
+
+    console.log('A: ', newValue.from, newValue.to.valueOf())
+    // // console.log('BB: ', Duration.isDuration(newValue.from))
+    // console.log('CC: ', Duration.isDuration(newValue.to))
+    // console.log('C: ', !newValue.from, !newValue.to)
 
     if (!newValue.from && !newValue.to) {
       newSearchQuery =  {[column]: {}}

@@ -132,7 +132,15 @@ export function searchByRange(items, column, searchQuery) {
       return filter(items, item => item[column] && item[column] >= searchQuery.value.from)
     }
     if (searchQuery.value.to) {
-      return filter(items, item => item[column] && item[column] <= searchQuery.value.to)
+      console.log('QQQQQQ: ', column, searchQuery.value.to)
+      return filter(items, item => {
+        if (item[column]) {
+          console.log('...: ', item[column].valueOf() <= searchQuery.value.to.valueOf())
+          console.log('...?: ', item[column] <= searchQuery.value.to)
+          console.log('...X: ', searchQuery.value.to.valueOf())
+        }
+        return item[column]&& item[column] <= searchQuery.value.to
+      })
     }
   }
   return items
