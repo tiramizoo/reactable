@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 import isNumber from 'lodash/isNumber'
 import Flatpickr from 'react-flatpickr'
-import { DateTime } from 'luxon'
+import { Duration } from 'luxon'
 import 'flatpickr/dist/flatpickr.css'
 
 import { searchingAnd } from '../../../actions/search'
@@ -25,7 +25,15 @@ class SearchTime extends Component {
 
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column].value
+      const newInit = initState
+      const searchValue = searchQueryAnd[column].value
+      if (searchValue && searchValue.from) {
+        newInit.from = searchValue.from.toFormat('hh:mm:ss')
+      }
+      if (searchValue && searchValue.to) {
+        newInit.to = searchValue.to.toFormat('hh:mm:ss')
+      }
+      this.state = newInit
     } else {
       this.state = initState
     }
@@ -40,6 +48,11 @@ class SearchTime extends Component {
 
     let newValue = { [name]: isEmpty(value) ? null : value }
     this.setState(newValue)
+
+    if (!isEmpty(value)) {
+      const [h, m, s] = value.split(':')
+      newValue = { [name]: Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) }) }
+    }
 
     if (searchQueryAnd[column]) {
       newValue = Object.assign({}, searchQueryAnd[column].value, newValue)

@@ -40,7 +40,7 @@ export const defaultFormatter = (type, key) => {
         if (value === null) {
           return null
         } else {
-          return value.toString()
+          return value.toFormat('hh:mm:ss')
         }
       }
     case 'boolean':

@@ -59,6 +59,7 @@ class InitApp extends Component {
     // optimisation needed: dateTimeAttributes, durationAttributes can be calculated once on init
     const dateTimeAttributes = Object.keys(this.filterSchemaByType(schema, 'datetime'))
     const durationAttributes = Object.keys(this.filterSchemaByType(schema, 'duration'))
+    const timeAttributes = Object.keys(this.filterSchemaByType(schema, 'time'))
 
     let addedItems = newItems.map((i) => {
       const item = Object.assign({}, pick(i, Object.keys(schema)), { _key: uniqueId() })
@@ -74,6 +75,14 @@ class InitApp extends Component {
         const valueBeforeParse = item[attrName]
         if (valueBeforeParse !== null) {
           item[attrName] = Duration.fromISO(item[attrName])
+        }
+      })
+
+      timeAttributes.forEach((attrName) => {
+        const valueBeforeParse = item[attrName]
+        if (valueBeforeParse !== null) {
+          const [h, m, s] = item[attrName].split(':')
+          item[attrName] = Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) })
         }
       })
 
