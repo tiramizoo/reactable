@@ -25,7 +25,15 @@ class SearchDateTime extends Component {
 
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column].value
+      const newInit = initState
+      const searchValue = searchQueryAnd[column].value
+      if (searchValue && searchValue.from) {
+        newInit.from = searchValue.from.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      if (searchValue && searchValue.to) {
+        newInit.to = searchValue.to.toFormat('yyyy-MM-dd HH:mm:ss')
+      }
+      this.state = newInit
     } else {
       this.state = initState
     }

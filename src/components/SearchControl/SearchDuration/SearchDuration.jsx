@@ -35,7 +35,15 @@ class SearchDuration extends Component {
 
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column].value
+      const newInit = initState
+      const searchValue = searchQueryAnd[column].value
+      if (searchValue && searchValue.from) {
+        newInit.from = searchValue.from.toObject()
+      }
+      if (searchValue && searchValue.to) {
+        newInit.to = searchValue.to.toObject()
+      }
+      this.state = newInit
     } else {
       this.state = initState
     }
