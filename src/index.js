@@ -18,23 +18,23 @@ import { setItems, updateViewport } from './actions/items'
 import { sortBy } from './helpers/utilities'
 
 
-class InitApp extends Component {
-  constructor(props) {
-    super(props)
+class InitApp {
+  constructor(config) {
+    this.config = config
     this.store = createStore(reducers, applyMiddleware(thunkMiddleware))
-    this.store.dispatch(initSettings(props))
+    this.store.dispatch(initSettings(config))
     this.store.subscribe(() => this.handleStateChange())
   }
 
   handleStateChange() {
-    if (this.store.getState().lastAction === 'SET_FILTERED_ITEMS' && this.props.itemsChange) {
-      this.props.itemsChange(this.getFilteredData())
+    if (this.store.getState().lastAction === 'SET_FILTERED_ITEMS' && this.config.itemsChange) {
+      this.config.itemsChange(this.getFilteredData())
     }
   }
 
   afterRender = debounce(() => {
-    if (this.props.afterRender) {
-      this.props.afterRender()
+    if (this.config.afterRender) {
+      this.config.afterRender()
     }
   }, 150)
 
