@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
 
 const cache = {}
@@ -120,7 +119,7 @@ class Table extends Component {
   sort(key) {
     const {
       filteredSchema, setSortDirection, setOffset, updateViewport, filteredItems,
-      limit, setFilteredItems, items, setItems,
+      limit, setFilteredItems, items, setSortItems,
     } = this.props
     const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
@@ -128,7 +127,7 @@ class Table extends Component {
     const sortedItems = sortBy(filteredItems, schema)
     setOffset(0)
     setFilteredItems(sortedItems)
-    setItems(sortBy(items, schema))
+    setSortItems(sortBy(items, schema))
     updateViewport(sortedItems, limit, 0)
   }
 

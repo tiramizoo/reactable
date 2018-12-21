@@ -1,4 +1,5 @@
 export const SET_ITEMS = 'SET_ITEMS'
+export const SET_SORT_ITEMS = 'SET_SORT_ITEMS'
 export const SET_OFFSET = 'SET_OFFSET'
 export const SET_LIMIT = 'SET_LIMIT'
 export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
@@ -40,6 +41,13 @@ export function setItems(items) {
     items,
   }
 }
+export function setSortItems(items) {
+  return {
+    type: SET_SORT_ITEMS,
+    items,
+  }
+}
+
 
 export function setLimit(limit) {
   return {
