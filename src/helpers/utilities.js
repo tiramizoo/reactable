@@ -4,6 +4,8 @@ import filter from 'lodash/filter'
 import isEmpty from 'lodash/isEmpty'
 import uniqBy from 'lodash/uniqBy'
 import omit from 'lodash/omit'
+import pickBy from 'lodash/pickBy'
+import { DateTime, Duration } from 'luxon'
 
 export function sortByType(items, action) {
   return orderBy(items, [action.column], [action.direction])
@@ -213,4 +215,55 @@ export const mergeSearchQuery = (newQuery, currentQuery) => {
   })
 
   return newSearchQuery
+}
+
+export const filterSchemaByType = (schema, type) => {
+  return pickBy(schema, (value, key) => {
+    return value['type'] == type
+  })
+}
+
+export const queryDataType = (query, schema) => {
+  const dateTimeAttributes = Object.keys(filterSchemaByType(schema, 'datetime'))
+  const durationAttributes = Object.keys(filterSchemaByType(schema, 'duration'))
+  const timeAttributes = Object.keys(filterSchemaByType(schema, 'time'))
+  const newQuery = {}
+
+  Object.entries(query).map(([key, params]) => {
+    newQuery[key] = params
+    const { value } = params
+    if (dateTimeAttributes.includes(key)) {
+      if (value.from) {
+        newQuery[key]['value']['from'] = DateTime.fromISO(value.from)
+      }
+
+      if (value.to) {
+        newQuery[key]['value']['to']= DateTime.fromISO(value.to)
+      }
+    }
+
+    if (durationAttributes.includes(key)) {
+      if (value.from) {
+        newQuery[key]['value']['from'] = Duration.fromISO(value.from)
+      }
+
+      if (value.to) {
+        newQuery[key]['value']['to'] = Duration.fromISO(value.to)
+      }
+    }
+
+    if (timeAttributes.includes(key)) {
+      if (value.from) {
+        const [h, m, s] = value.from.split(':')
+        newQuery[key]['value']['from'] = Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) })
+      }
+
+      if (value.to) {
+        const [h, m, s] = value.to.split(':')
+        newQuery[key]['value']['to'] = Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) })
+      }
+    }
+  })
+
+  return newQuery
 }

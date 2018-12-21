@@ -15,7 +15,7 @@ import reducers from './reducers/index'
 import { initSettings, updateTableWidth, setProgressMax } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport } from './actions/items'
-import { sortBy } from './helpers/utilities'
+import { sortBy, queryDataType, filterSchemaByType } from './helpers/utilities'
 
 
 class InitApp {
@@ -39,27 +39,24 @@ class InitApp {
   }, 150)
 
   searchAND(query) {
-    searchingAnd({ query, store: this.store })
+    const { schema } = this.store.getState()
+    const newQuery = queryDataType(query, schema)
+    searchingAnd({ query: newQuery, store: this.store })
   }
 
   searchOR(query) {
-    searchingOr({ query, store: this.store })
+    const { schema } = this.store.getState()
+    const newQuery = queryDataType(query, schema)
+    searchingOr({ query: newQuery, store: this.store })
   }
-
-  filterSchemaByType(schema, type) {
-    return pickBy(schema, (value, key) => {
-      return value['type'] == type
-    })
-  }
-
 
   addData(newItems, progressMax) {
     const { items, schema } = this.store.getState()
 
     // optimisation needed: dateTimeAttributes, durationAttributes can be calculated once on init
-    const dateTimeAttributes = Object.keys(this.filterSchemaByType(schema, 'datetime'))
-    const durationAttributes = Object.keys(this.filterSchemaByType(schema, 'duration'))
-    const timeAttributes = Object.keys(this.filterSchemaByType(schema, 'time'))
+    const dateTimeAttributes = Object.keys(filterSchemaByType(schema, 'datetime'))
+    const durationAttributes = Object.keys(filterSchemaByType(schema, 'duration'))
+    const timeAttributes = Object.keys(filterSchemaByType(schema, 'time'))
 
     let addedItems = newItems.map((i) => {
       const item = Object.assign({}, pick(i, Object.keys(schema)), { _key: uniqueId() })

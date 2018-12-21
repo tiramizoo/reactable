@@ -16,6 +16,9 @@
     <hr>
     <label for='multisearch'>Search by first name or email</label>
     <input type="search" id='multisearch' onInput="multisearch(['first_name', 'email'], this.value)">
+    <button onClick="timeSearch({from: '10:00:00', to: '15:30:00'})">Time 10-15:30</button>
+    <button onClick="timeSearch({to: '10:00:00'})">to 10</button>
+    <button onClick="timeSearch({from: '15:30:00'})">from 15:30</button>
     <div id="table2"></div>
     <hr>
     <script src="../dist/reactable-bundle.js"></script>
@@ -86,6 +89,10 @@
         var query = {}
         columns.forEach((c) => query[c] = { value: value} )
         t2.searchOR(query)
+      }
+
+      function timeSearch(query) {
+        t2.searchAND({time: { value: query}})
       }
 
     </script>
