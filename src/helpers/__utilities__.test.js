@@ -2,11 +2,6 @@ import {
   searchByBoolean, searchByText, searchByRange, mergeSearchQuery,
 } from './utilities'
 
-test('addZeroToNumber', () => {
-  expect(addZeroToNumber(1)).toBe('01')
-  expect(addZeroToNumber(10)).toBe('10')
-})
-
 // Search
 const items = [
   {
