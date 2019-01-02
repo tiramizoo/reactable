@@ -232,6 +232,11 @@ export const queryDataType = (query, schema) => {
   Object.entries(query).map(([key, params]) => {
     newQuery[key] = params
     const { value } = params
+
+    if (isEmpty(value)) {
+      newQuery[key] = {}
+    }
+
     if (dateTimeAttributes.includes(key)) {
       if (value.from) {
         newQuery[key]['value']['from'] = DateTime.fromISO(value.from)
