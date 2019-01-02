@@ -75,7 +75,6 @@ class SearchText extends Component {
           type="text"
           placeholder={column}
           autoComplete="off"
-          id={column}
         />
         <select
           value={options}

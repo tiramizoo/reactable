@@ -114,12 +114,15 @@ class SearchDuration extends Component {
   }
 
   render() {
-    const { column } = this.props
+    const { column, schema } = this.props
     const { from, to } = this.state
 
     return (
-      <div>
-        <label htmlFor={column}>{column}</label>
+      <div className='SearchDuration'>
+        <div className='attribute'>
+          {schema.label || column}
+          <button className='clear' onClick={() => this.handleClearChange()}></button>
+        </div>
         <input
           value={from.years}
           onChange={(e) => this.handleNumberChange(e, 'from')}
@@ -230,8 +233,6 @@ class SearchDuration extends Component {
           autoComplete="off"
           id={`to_seconds-${column}`}
         />
-
-        <button onClick={() => this.handleClearChange()}>Clear</button>
       </div>
     )
   }

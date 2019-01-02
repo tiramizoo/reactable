@@ -272,3 +272,7 @@ export const queryDataType = (query, schema) => {
 
   return newQuery
 }
+
+export const getPrefix = (container, type, name) => {
+  return `reactable-${container}-${type}-${name}`
+}

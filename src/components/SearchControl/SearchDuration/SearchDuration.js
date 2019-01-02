@@ -4,6 +4,7 @@ import SearchDurationComponent from './SearchDuration.jsx'
 
 const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
+  schema: state.schema,
 })
 
 const mapDispatchToProps = () => ({})

@@ -67,7 +67,6 @@ class SearchDate extends Component {
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 
-        <label htmlFor={column}>from</label>
         <Flatpickr
           value={from}
           onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
@@ -76,7 +75,6 @@ class SearchDate extends Component {
           placeholder="from"
         />
 
-        <label htmlFor={column}>to</label>
         <Flatpickr
           value={to}
           onChange={(e, str) => this.handleNumberChange(e, str, 'to')}

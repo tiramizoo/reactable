@@ -6,12 +6,12 @@ import { updateTableWidth } from '../../actions/settings'
 
 const mapStateToProps = state => ({
   width:     state.table.width,
-  container: state.settings.container
+  container: state.settings.container,
 })
 
 const mapDispatchToProps = dispatch => (
   {
-    updateTableWidth: tableWidth => dispatch(updateTableWidth(tableWidth))
+    updateTableWidth: tableWidth => dispatch(updateTableWidth(tableWidth)),
   }
 )
 

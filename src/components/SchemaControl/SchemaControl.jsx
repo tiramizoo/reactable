@@ -1,7 +1,12 @@
 import React from 'react'
+import { getPrefix } from '../../helpers/utilities'
 
 const SchemaControl = (props) => {
-  const { schemaControlShow, tableWidth, schema } = props
+  const { schemaControlShow, containerId, schema } = props
+
+  const prefix = (column) => {
+    return getPrefix(containerId, 'schema', column)
+  }
 
   const handleChange = (e, key) => {
     const { addToFilteredSchema, removeFromFilteredSchema, filteredSchema } = props
@@ -29,11 +34,11 @@ const SchemaControl = (props) => {
     const value = !!filteredSchema[key]
     return (
       <li key={key}>
-        <label htmlFor={key}>
+        <label htmlFor={prefix(key)}>
           {schema[key].label || key}
         </label>
         <input
-          id={key}
+          id={prefix(key)}
           type="checkbox"
           onChange={e => handleChange(e, key)}
           checked={value}

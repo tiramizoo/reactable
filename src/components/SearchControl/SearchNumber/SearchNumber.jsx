@@ -68,7 +68,6 @@ class SearchNumber extends Component {
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 
-        <label htmlFor={column}>{column}</label>
         <input
           value={from}
           onChange={(e) => this.handleNumberChange(e)}
