@@ -34,18 +34,6 @@ export function updateRowsNumber(rows) {
   }
 }
 
-export function toggleSearchControl() {
-  return {
-    type: TOGGLE_SEARCH_CONTROL,
-  }
-}
-
-export function toggleSchemaControl() {
-  return {
-    type: TOGGLE_SCHEMA_CONTROL,
-  }
-}
-
 export function setProgressMax(progressMax) {
   return {
     type: SET_PROGRESS_MAX,

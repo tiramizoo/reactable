@@ -1,17 +1,4 @@
-.reactable .control.box {
-  width: 400px;
-  top: 0;
-  right: 0;
-  box-shadow: -10px 0 10px #ccc;
-  font-family: sans-serif;
-}
-
-.reactable .control .body {
-  overflow: scroll;
-  height: calc(100% - 30px);
-}
-
-.reactable .control .body .attribute {
+.reactable .SearchControl .attribute {
   height: 30px;
   background: #e2e2e2;
   line-height: 30px;
@@ -20,20 +7,24 @@
   padding-left: 5px;
 }
 
-.reactable .control .body .filter {
+.reactable .SearchControl .filter {
   margin-bottom: 10px;
 }
 
-.reactable .control .body .filter label {
+.reactable .SearchControl .filter label {
   font-size: 14px;
   font-weight: bold;
 }
 
-.reactable .control .attribute {
+.reactable .SearchControl .attribute {
   position: relative;
 }
 
-.reactable .control button.clear {
+.reactable .SearchControl .attribute-filter {
+  padding: 5px;
+}
+
+.reactable .SearchControl button.clear {
   position: absolute;
   right: 5px;
   top: 5px;
@@ -43,9 +34,8 @@
   padding: 0;
   border-style: none;
   background-color: #fff;
-  border-radius: 50%;
 }
 
-.reactable .control button.clear:after {
+.reactable .SearchControl button.clear:after {
   content: '✖'
 }

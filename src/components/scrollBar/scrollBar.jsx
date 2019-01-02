@@ -10,7 +10,6 @@ const ScrollBar = (props) => {
     scrollBarVisible
   } = props
 
-
   if (!scrollBarVisible) { return null } else {
     return (
 

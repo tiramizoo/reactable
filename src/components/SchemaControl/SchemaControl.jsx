@@ -2,7 +2,7 @@ import React from 'react'
 import { getPrefix } from '../../helpers/utilities'
 
 const SchemaControl = (props) => {
-  const { schemaControlShow, containerId, schema } = props
+  const { containerId, schema } = props
 
   const prefix = (column) => {
     return getPrefix(containerId, 'schema', column)
@@ -23,12 +23,6 @@ const SchemaControl = (props) => {
     }
   }
 
-  const handleToggleSchemaControl = (e) => {
-    e.preventDefault()
-    const { toggleSchemaControl } = props
-    toggleSchemaControl()
-  }
-
   const renderElement = (key) => {
     const { filteredSchema } = props
     const value = !!filteredSchema[key]
@@ -47,21 +41,11 @@ const SchemaControl = (props) => {
     )
   }
 
-  if (!schemaControlShow) {
-    return null
-  }
-
   return (
-    <div className='schema box'>
-      <div className='header'>
-        <h2>Schema</h2>
-        <button className='close' onClick={(e) => handleToggleSchemaControl(e)}></button>
-      </div>
-      <div className='body'>
-        <ul>
-          { Object.keys(schema).map(key => renderElement(key)) }
-        </ul>
-      </div>
+    <div className='schemaControl'>
+      <ul>
+        { Object.keys(schema).map(key => renderElement(key)) }
+      </ul>
     </div>
   )
 }

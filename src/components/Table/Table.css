@@ -1,5 +1,6 @@
 .reactable {
   position: relative;
+  border: 1px solid #e2e2e2;
 }
 
 .reactable button:disabled {
@@ -7,6 +8,7 @@
 }
 
 .reactable table {
+  border: none;
   table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;

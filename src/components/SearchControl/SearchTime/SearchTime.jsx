@@ -81,35 +81,36 @@ class SearchTime extends Component {
           {schema.label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
-
-        <Flatpickr
-          value={from}
-          onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
-          onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
-          options={{
-            maxTime: to,
-            enableTime: true,
-            noCalendar: true,
-            time_24hr: true,
-            enableSeconds: true,
-          }}
-          name="from"
-          placeholder="from"
-        />
-        <Flatpickr
-          value={to}
-          onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
-          onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
-          options={{
-            minTime: from,
-            enableTime: true,
-            noCalendar: true,
-            time_24hr: true,
-            enableSeconds: true,
-          }}
-          name="to"
-          placeholder="to"
-        />
+        <div className='attribute-filter'>
+          <Flatpickr
+            value={from}
+            onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+            onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
+            options={{
+              maxTime: to,
+              enableTime: true,
+              noCalendar: true,
+              time_24hr: true,
+              enableSeconds: true,
+            }}
+            name="from"
+            placeholder="from"
+          />
+          <Flatpickr
+            value={to}
+            onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+            onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
+            options={{
+              minTime: from,
+              enableTime: true,
+              noCalendar: true,
+              time_24hr: true,
+              enableSeconds: true,
+            }}
+            name="to"
+            placeholder="to"
+          />
+        </div>
       </div>
     )
   }

@@ -59,14 +59,15 @@ class SearchBoolean extends Component {
           {schema.label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
-
-        <select value={value} onChange={(e) => this.handleValueChange(e)}>
-          <option value="all">All</option>
-          <option value="true">True</option>
-          <option value="false">False</option>
-          <option value="empty">Empty</option>
-          <option value="notEmpty">Not Empty</option>
-        </select>
+        <div className='attribute-filter'>
+          <select value={value} onChange={(e) => this.handleValueChange(e)}>
+            <option value="all">All</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+            <option value="empty">Empty</option>
+            <option value="notEmpty">Not Empty</option>
+          </select>
+        </div>
       </div>
     )
   }

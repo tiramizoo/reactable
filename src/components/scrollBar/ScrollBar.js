@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
 
   scrollBarHandleHeight:    calculateScrollBarHandleHeight(state),
   scrollBarHandleTopOffset: calculateScrollBarHandleTopOffset(state),
-  scrollBarVisible:         state.filteredItems.length > state.limit
+  scrollBarVisible:         state.filteredItems.length > state.limit,
 })
 
 const mapDispatchToProps = dispatch => ({})

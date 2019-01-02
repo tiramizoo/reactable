@@ -69,25 +69,28 @@ class SearchText extends Component {
           {schema.label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
-        <input
-          value={value}
-          onChange={(e) => this.handleTextChange(e)}
-          type="text"
-          placeholder={column}
-          autoComplete="off"
-        />
-        <select
-          value={options}
-          onChange={(e) => this.handleOptionsChange(e)}
-        >
-          <option value="all">All</option>
-          <option value="equal">Equal</option>
-          <option value="notEqual">Not Equal</option>
-          <option value="match">Match</option>
-          <option value="notMatch">Not Match</option>
-          <option value="empty">Empty</option>
-          <option value="notEmpty">Not Empty</option>
-        </select>
+
+        <div className='attribute-filter'>
+          <input
+            value={value}
+            onChange={(e) => this.handleTextChange(e)}
+            type="text"
+            placeholder={column}
+            autoComplete="off"
+          />
+          <select
+            value={options}
+            onChange={(e) => this.handleOptionsChange(e)}
+          >
+            <option value="all">All</option>
+            <option value="equal">Equal</option>
+            <option value="notEqual">Not Equal</option>
+            <option value="match">Match</option>
+            <option value="notMatch">Not Match</option>
+            <option value="empty">Empty</option>
+            <option value="notEmpty">Not Empty</option>
+          </select>
+        </div>
       </div>
     )
   }

@@ -68,24 +68,26 @@ class SearchNumber extends Component {
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 
-        <input
-          value={from}
-          onChange={(e) => this.handleNumberChange(e)}
-          name="from"
-          type="number"
-          placeholder="from"
-          autoComplete="off"
-          id={`from-${column}`}
-        />
-        <input
-          value={to}
-          onChange={(e) => this.handleNumberChange(e)}
-          name="to"
-          type="number"
-          placeholder="to"
-          autoComplete="off"
-          id={`to-${column}`}
-        />
+        <div className='attribute-filter'>
+          <input
+            value={from}
+            onChange={(e) => this.handleNumberChange(e)}
+            name="from"
+            type="number"
+            placeholder="from"
+            autoComplete="off"
+            id={`from-${column}`}
+          />
+          <input
+            value={to}
+            onChange={(e) => this.handleNumberChange(e)}
+            name="to"
+            type="number"
+            placeholder="to"
+            autoComplete="off"
+            id={`to-${column}`}
+          />
+        </div>
       </div>
     )
   }

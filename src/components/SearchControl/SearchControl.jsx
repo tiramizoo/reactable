@@ -57,38 +57,16 @@ class SearchControl extends Component {
     clearAllSearchQuery()
   }
 
-  handleToggleControl(e) {
-    e.preventDefault()
-    const { toggleSearchControl } = this.props
-    toggleSearchControl()
-  }
-
   render() {
-    const { controlShow, tableWidth, schema } = this.props
-
-    if (!controlShow) {
-      return null
-    }
+    const { tableWidth, schema } = this.props
 
     return (
-      <div className="control box">
-        <div className='header'>
-          <h2>
-            Search
-            <button className='clear-all' onClick={() => this.handleClearAllChange()}>clear-all</button>
-
-          </h2>
-
-          <button className='close'
-            onClick={(e) => this.handleToggleControl(e)}
-          ></button>
-        </div>
-        <div className='body'>
-
-          { Object.entries(schema).map(([key, keySchema]) => {
-            return this.columnFilter(key, keySchema)
-          })}
-        </div>
+      <div className="SearchControl">
+        <button className='clear-all' onClick={() => this.handleClearAllChange()}>clear-all</button>
+        
+        { Object.entries(schema).map(([key, keySchema]) => {
+          return this.columnFilter(key, keySchema)
+        })}
       </div>
     )
   }
