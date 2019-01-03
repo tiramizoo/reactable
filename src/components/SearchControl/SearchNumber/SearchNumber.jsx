@@ -64,7 +64,7 @@ class SearchNumber extends Component {
     return (
       <div className='SearchNumber'>
         <div className='attribute'>
-          {schema.label || column}
+          {schema[column].label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 

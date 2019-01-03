@@ -66,7 +66,7 @@ class SearchText extends Component {
     return (
       <div className='SearchText'>
         <div className='attribute'>
-          {schema.label || column}
+          {schema[column].label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
         <input
