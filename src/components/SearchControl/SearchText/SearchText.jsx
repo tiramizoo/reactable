@@ -5,10 +5,12 @@ import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 
 import { searchingAnd } from '../../../actions/search'
+import { getPrefix } from '../../../helpers/utilities'
 
 const initState = {
   value: '',
   options: 'all',
+  dictionary: [],
 }
 
 class SearchText extends Component {
@@ -19,8 +21,9 @@ class SearchText extends Component {
   constructor(props, context) {
     super(props, context)
     const { column, searchQueryAnd } = props
+    console.log('A: ', initState)
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column]
+      this.state = Object.assign({}, initState, searchQueryAnd[column])
     } else {
       this.state = initState
     }
@@ -39,14 +42,14 @@ class SearchText extends Component {
   }
 
   handleTextChange(e) {
-    const params = { value: e.target.value }
+    const params = { value: e.target.value , dictionary: [] }
 
     this.searchByText(this.newSearchQuery(params))
     this.setState(params)
   }
 
   handleOptionsChange(e) {
-    const params = { options: e.target.value }
+    const params = { options: e.target.value, dictionary: [] }
 
     this.searchByText(this.newSearchQuery(params))
     this.setState(params)
@@ -59,8 +62,19 @@ class SearchText extends Component {
     this.searchByText({[column]: {}})
   }
 
+  handleDictionaryChange(e, value) {
+    let { dictionary } = this.state
+    console.log('DD: ', value)
+    if (dictionary.includes(value)) {
+      dictionary = dictionary.filter(v => v !== value)
+    } else {
+      dictionary.push(value)
+    }
+    this.setState(Object.assign({}, initState, { dictionary: dictionary }))
+  }
+
   render() {
-    const { column, schema } = this.props
+    const { column, schema, containerId } = this.props
     const { value, options } = this.state
 
     return (
@@ -88,6 +102,25 @@ class SearchText extends Component {
           <option value="empty">Empty</option>
           <option value="notEmpty">Not Empty</option>
         </select>
+        {schema[column].dictionary && <div>
+          <ul>
+            {schema[column].dictionary.map(value => {
+              const prefix = getPrefix(containerId, `search-dictionary-${column}`, value)
+              const checked = this.state.dictionary.includes(value)
+              return (<li key={prefix}>
+                <label htmlFor={prefix}>
+                  {value}
+                </label>
+                <input
+                  id={prefix}
+                  type="checkbox"
+                  onChange={e => this.handleDictionaryChange(e, value)}
+                  checked={checked}
+                />
+              </li>)
+            })}
+          </ul>
+        </div>}
       </div>
     )
   }

@@ -31,7 +31,10 @@ window.schemaUsers = {
   website: { type: 'text' },
   phone_number: { type: 'text' },
   job: { type: 'text' },
-  gender: { type: 'text' },
+  gender: {
+    type: 'text',
+    dictionary: ['male', 'female'],
+  },
   email: { type: 'text' },
   created_at: { type: 'datetime' },
 }

@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
   filteredSchema: state.filteredSchema,
   tableWidth: state.table.width,
   schemaControlShow: state.settings.schemaControlShow,
+  containerId: state.settings.container.id,
 })
 
 const mapDispatchToProps = {
