@@ -34,8 +34,10 @@ class Sidebar extends Component {
 
 
   render() {
-    const { searchQueryOr, searchQueryAnd } = this.props
+    const { searchQueryOr, searchQueryAnd, schema, filteredSchema } = this.props
     const badge = Object.keys(searchQueryOr).length + Object.keys(searchQueryAnd).length
+    const schemaBadge = Object.keys(schema).length
+    const filteredSchemaBadge = Object.keys(filteredSchema).length
 
     const settingsIconHtml = {
       __html: settingsIcon
@@ -66,6 +68,9 @@ class Sidebar extends Component {
         <div className={this.isCurrentPanel('settings')}>
           <div className='title' onClick={() => this.togglePanelState('settings')}>
             <div dangerouslySetInnerHTML={settingsIconHtml} />
+            { schemaBadge !== filteredSchemaBadge &&
+              <div className='badge'>{filteredSchemaBadge}/{schemaBadge}</div>
+            }
           </div>
           { currentPanel === 'settings' &&
             <div className='body' style={{height: this.state.height}}>
