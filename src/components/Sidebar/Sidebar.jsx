@@ -48,7 +48,7 @@ class Sidebar extends Component {
     const { currentPanel } = this.state
 
     return(
-      <div className='reactable-sidebar'>
+      <div className='reactable-sidebar slide-in'>
         <div className={this.isCurrentPanel('search')}>
           <div className='title' onClick={() => this.togglePanelState('search')}>
             <div dangerouslySetInnerHTML={searchIconHtml} />
