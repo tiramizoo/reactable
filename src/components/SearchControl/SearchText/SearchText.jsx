@@ -5,10 +5,12 @@ import isEmpty from 'lodash/isEmpty'
 import omit from 'lodash/omit'
 
 import { searchingAnd } from '../../../actions/search'
+import { getPrefix } from '../../../helpers/utilities'
 
 const initState = {
   value: '',
   options: 'all',
+  dictionary: [],
 }
 
 class SearchText extends Component {
@@ -20,7 +22,7 @@ class SearchText extends Component {
     super(props, context)
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      this.state = searchQueryAnd[column]
+      this.state = Object.assign({}, initState, searchQueryAnd[column])
     } else {
       this.state = initState
     }
@@ -32,21 +34,21 @@ class SearchText extends Component {
 
   newSearchQuery(param) {
     const { column, searchQueryAnd } = this.props
-    if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options)) {
+    if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options) && param.dictionary === []) {
       return {[column]: {}}
     }
     return {[column]: Object.assign({}, searchQueryAnd[column], { ...param })}
   }
 
   handleTextChange(e) {
-    const params = { value: e.target.value }
+    const params = { value: e.target.value , dictionary: [] }
 
     this.searchByText(this.newSearchQuery(params))
     this.setState(params)
   }
 
   handleOptionsChange(e) {
-    const params = { options: e.target.value }
+    const params = { options: e.target.value, dictionary: [] }
 
     this.searchByText(this.newSearchQuery(params))
     this.setState(params)
@@ -59,14 +61,29 @@ class SearchText extends Component {
     this.searchByText({[column]: {}})
   }
 
+  handleDictionaryChange(e, value) {
+    const { dictionary } = this.state
+    let newDictionary = [...dictionary]
+
+    if (dictionary.includes(value)) {
+      newDictionary = dictionary.filter(v => v !== value)
+    } else {
+      newDictionary.push(value)
+    }
+    const params = Object.assign({}, initState, { dictionary: newDictionary })
+
+    this.searchByText(this.newSearchQuery(params))
+    this.setState(params)
+  }
+
   render() {
-    const { column, schema } = this.props
-    const { value, options } = this.state
+    const { column, schema, containerId } = this.props
+    const { value, options, dictionary } = this.state
 
     return (
       <div className='SearchText'>
         <div className='attribute'>
-          {schema.label || column}
+          {schema[column].label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 
@@ -90,6 +107,25 @@ class SearchText extends Component {
             <option value="empty">Empty</option>
             <option value="notEmpty">Not Empty</option>
           </select>
+          {schema[column].dictionary && <div>
+            <ul>
+              {schema[column].dictionary.map(value => {
+                const prefix = getPrefix(containerId, `search-dictionary-${column}`, value)
+                const checked = dictionary.includes(value)
+                return (<li key={prefix}>
+                  <label htmlFor={prefix}>
+                    {value}
+                  </label>
+                  <input
+                    id={prefix}
+                    type="checkbox"
+                    onChange={e => this.handleDictionaryChange(e, value)}
+                    checked={checked}
+                  />
+                </li>)
+              })}
+            </ul>
+          </div>}
         </div>
       </div>
     )

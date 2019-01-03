@@ -4,7 +4,8 @@ import SearchTextComponent from './SearchText.jsx'
 
 const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
-  schema: state.schema
+  schema: state.schema,
+  containerId: state.settings.container.id,
 })
 
 const mapDispatchToProps = () => ({})

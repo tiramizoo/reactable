@@ -56,7 +56,7 @@ class SearchBoolean extends Component {
     return (
       <div className='SearchBoolean'>
         <div className='attribute'>
-          {schema.label || column}
+          {schema[column].label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
         <div className='attribute-filter'>
