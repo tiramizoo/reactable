@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import uniqueId from 'lodash/uniqueId'
 import pickBy from 'lodash/pickBy'
 import debounce from 'lodash/debounce'
@@ -16,14 +16,22 @@ import { initSettings, updateTableWidth, setProgressMax } from './actions/settin
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport } from './actions/items'
 import { sortBy, queryDataType, filterSchemaByType } from './helpers/utilities'
+import { loadState, saveState } from './localStorage'
 
 
 class InitApp {
   constructor(config) {
     this.config = config
-    this.store = createStore(reducers, applyMiddleware(thunkMiddleware))
+    const persistedState = loadState(config.container.id)
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    this.store = createStore(reducers, persistedState, composeEnhancers(applyMiddleware(thunkMiddleware)))
     this.store.dispatch(initSettings(config))
     this.store.subscribe(() => this.handleStateChange())
+    this.store.subscribe(() => {
+      saveState(config.container.id, {
+        filteredSchema: this.store.getState().filteredSchema,
+      })
+    })
   }
 
   handleStateChange() {
