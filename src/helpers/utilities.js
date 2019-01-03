@@ -78,6 +78,9 @@ export const defaultFormatter = (type, key) => {
 // Search
 
 export function searchByText(items, column, searchQuery) {
+  if (!isEmpty(searchQuery.dictionary)) {
+    return filter(items, item => searchQuery.dictionary.includes(item[column]))
+  }
   const options = searchQuery.options || 'all'
   switch (options) {
     case 'all':
@@ -205,9 +208,9 @@ export const mergeSearchQuery = (newQuery, currentQuery) => {
   let newSearchQuery = currentQuery
 
   Object.entries(newQuery).forEach(([column, _searchQuery]) => {
-    const { value, options } = _searchQuery
-    if (value !== undefined || options !== undefined) {
-      const newSearchValue = Object.assign({}, newSearchQuery[column], { value, options })
+    const { value, options, dictionary } = _searchQuery
+    if (value !== undefined || options !== undefined || dictionary !== undefined) {
+      const newSearchValue = Object.assign({}, newSearchQuery[column], { value, options, dictionary })
       newSearchQuery = Object.assign({}, newSearchQuery, { [column]: newSearchValue })
     } else {
       newSearchQuery = Object.assign({}, {}, omit(newSearchQuery, column))

@@ -21,7 +21,6 @@ class SearchText extends Component {
   constructor(props, context) {
     super(props, context)
     const { column, searchQueryAnd } = props
-    console.log('A: ', initState)
     if (searchQueryAnd[column]) {
       this.state = Object.assign({}, initState, searchQueryAnd[column])
     } else {
@@ -35,7 +34,7 @@ class SearchText extends Component {
 
   newSearchQuery(param) {
     const { column, searchQueryAnd } = this.props
-    if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options)) {
+    if (isEmpty(param.value) && (isEmpty(param.options) || param.options === initState.options) && param.dictionary === []) {
       return {[column]: {}}
     }
     return {[column]: Object.assign({}, searchQueryAnd[column], { ...param })}
@@ -63,19 +62,23 @@ class SearchText extends Component {
   }
 
   handleDictionaryChange(e, value) {
-    let { dictionary } = this.state
-    console.log('DD: ', value)
+    const { dictionary } = this.state
+    let newDictionary = [...dictionary]
+
     if (dictionary.includes(value)) {
-      dictionary = dictionary.filter(v => v !== value)
+      newDictionary = dictionary.filter(v => v !== value)
     } else {
-      dictionary.push(value)
+      newDictionary.push(value)
     }
-    this.setState(Object.assign({}, initState, { dictionary: dictionary }))
+    const params = Object.assign({}, initState, { dictionary: newDictionary })
+
+    this.searchByText(this.newSearchQuery(params))
+    this.setState(params)
   }
 
   render() {
     const { column, schema, containerId } = this.props
-    const { value, options } = this.state
+    const { value, options, dictionary } = this.state
 
     return (
       <div className='SearchText'>
@@ -108,7 +111,7 @@ class SearchText extends Component {
             <ul>
               {schema[column].dictionary.map(value => {
                 const prefix = getPrefix(containerId, `search-dictionary-${column}`, value)
-                const checked = this.state.dictionary.includes(value)
+                const checked = dictionary.includes(value)
                 return (<li key={prefix}>
                   <label htmlFor={prefix}>
                     {value}
