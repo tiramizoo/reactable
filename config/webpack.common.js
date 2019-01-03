@@ -29,6 +29,10 @@ module.exports = {
         ],
       },
       {
+             test: /\.svg$/,
+             loader: 'svg-inline-loader?classPrefix'
+      },
+      {
         test: /\.css$/,
         exclude: /(bower_components)/,
         use: [

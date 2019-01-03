@@ -83,44 +83,47 @@ class SearchText extends Component {
           {schema[column].label || column}
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
-        <input
-          value={value}
-          onChange={(e) => this.handleTextChange(e)}
-          type="text"
-          placeholder={column}
-          autoComplete="off"
-        />
-        <select
-          value={options}
-          onChange={(e) => this.handleOptionsChange(e)}
-        >
-          <option value="all">All</option>
-          <option value="equal">Equal</option>
-          <option value="notEqual">Not Equal</option>
-          <option value="match">Match</option>
-          <option value="notMatch">Not Match</option>
-          <option value="empty">Empty</option>
-          <option value="notEmpty">Not Empty</option>
-        </select>
-        {schema[column].dictionary && <div>
-          <ul>
-            {schema[column].dictionary.map(value => {
-              const prefix = getPrefix(containerId, `search-dictionary-${column}`, value)
-              const checked = this.state.dictionary.includes(value)
-              return (<li key={prefix}>
-                <label htmlFor={prefix}>
-                  {value}
-                </label>
-                <input
-                  id={prefix}
-                  type="checkbox"
-                  onChange={e => this.handleDictionaryChange(e, value)}
-                  checked={checked}
-                />
-              </li>)
-            })}
-          </ul>
-        </div>}
+
+        <div className='attribute-filter'>
+          <input
+            value={value}
+            onChange={(e) => this.handleTextChange(e)}
+            type="text"
+            placeholder={column}
+            autoComplete="off"
+          />
+          <select
+            value={options}
+            onChange={(e) => this.handleOptionsChange(e)}
+          >
+            <option value="all">All</option>
+            <option value="equal">Equal</option>
+            <option value="notEqual">Not Equal</option>
+            <option value="match">Match</option>
+            <option value="notMatch">Not Match</option>
+            <option value="empty">Empty</option>
+            <option value="notEmpty">Not Empty</option>
+          </select>
+          {schema[column].dictionary && <div>
+            <ul>
+              {schema[column].dictionary.map(value => {
+                const prefix = getPrefix(containerId, `search-dictionary-${column}`, value)
+                const checked = this.state.dictionary.includes(value)
+                return (<li key={prefix}>
+                  <label htmlFor={prefix}>
+                    {value}
+                  </label>
+                  <input
+                    id={prefix}
+                    type="checkbox"
+                    onChange={e => this.handleDictionaryChange(e, value)}
+                    checked={checked}
+                  />
+                </li>)
+              })}
+            </ul>
+          </div>}
+        </div>
       </div>
     )
   }

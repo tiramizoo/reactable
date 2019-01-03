@@ -67,21 +67,23 @@ class SearchDate extends Component {
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 
-        <Flatpickr
-          value={from}
-          onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
-          options={{maxDate: to}}
-          name="from"
-          placeholder="from"
-        />
+        <div className='attribute-filter'>
+          <Flatpickr
+            value={from}
+            onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+            options={{maxDate: to}}
+            name="from"
+            placeholder="from"
+          />
 
-        <Flatpickr
-          value={to}
-          onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
-          options={{minDate: from}}
-          name="to"
-          placeholder="to"
-        />
+          <Flatpickr
+            value={to}
+            onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+            options={{minDate: from}}
+            name="to"
+            placeholder="to"
+          />
+        </div>
       </div>
     )
   }

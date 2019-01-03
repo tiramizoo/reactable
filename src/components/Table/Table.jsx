@@ -173,34 +173,8 @@ class Table extends Component {
     )
   }
 
-  handleToggleControl(e) {
-    e.preventDefault()
-    const { toggleSearchControl } = this.props
-    toggleSearchControl()
-  }
-
-  handleToggleSchemaControl(e) {
-    e.preventDefault()
-    const { toggleSchemaControl } = this.props
-    toggleSchemaControl()
-  }
-
   defaultControls() {
     return {
-      schema: {
-        onClick: e => this.handleToggleSchemaControl(e),
-        className: '',
-        key: 'schema',
-        disabled: false,
-        label: 'Schema',
-      },
-      search: {
-        onClick: e => this.handleToggleControl(e),
-        className: '',
-        key: 'search',
-        disabled: false,
-        label: 'Filters',
-      },
     }
   }
 
@@ -249,11 +223,7 @@ class Table extends Component {
       <tr>
         <th colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }}>
           <span>
-            offset: {offset},
-            limit: {limit},
-            filtered: {filteredItems.length},
-            current: {currentItems.length},
-            total: {items.length}
+            {filteredItems.length} / {items.length}
           </span>
           { this.renderFooterControls() }
           <progress id="progress-bar" name="progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
@@ -316,8 +286,9 @@ class Table extends Component {
     const {
       tableWidth, currentItems,
     } = this.props
+
     return (
-        <table style={{ width: tableWidth }}>
+        <table style={{ width: tableWidth - 30}}>
           <thead>
             { this.renderHeader() }
           </thead>

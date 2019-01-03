@@ -77,22 +77,24 @@ class SearchDateTime extends Component {
           <button className='clear' onClick={() => this.handleClearChange()}></button>
         </div>
 
-        <Flatpickr
-          value={from}
-          onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
-          onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
-          options={{maxDate: to, enableTime: true, time_24hr: true, enableSeconds: true}}
-          name="from"
-          placeholder="from"
-        />
-        <Flatpickr
-          value={to}
-          onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
-          onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
-          options={{minDate: from, enableTime: true, time_24hr: true, enableSeconds: true}}
-          name="to"
-          placeholder="to"
-        />
+        <div className='attribute-filter'>
+          <Flatpickr
+            value={from}
+            onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+            onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
+            options={{maxDate: to, enableTime: true, time_24hr: true, enableSeconds: true}}
+            name="from"
+            placeholder="from"
+          />
+          <Flatpickr
+            value={to}
+            onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+            onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
+            options={{minDate: from, enableTime: true, time_24hr: true, enableSeconds: true}}
+            name="to"
+            placeholder="to"
+          />
+        </div>
       </div>
     )
   }

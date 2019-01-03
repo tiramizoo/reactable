@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import SearchControl from '../SearchControl'
-import SchemaControl from '../SchemaControl'
+import Sidebar from '../Sidebar'
 import ScrollBar from '../ScrollBar'
 import Table from '../Table'
 
@@ -27,8 +26,7 @@ class Reactable extends Component {
       <div className="reactable" style={{ width }}>
         <Table />
         <ScrollBar />
-        <SchemaControl />
-        <SearchControl />
+        <Sidebar />
       </div>
     )
   }

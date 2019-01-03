@@ -1,0 +1,94 @@
+.reactable-sidebar {
+  box-sizing: border-box;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  width: 330px;
+  transition: 0.2s;
+  background-color: #555;
+  box-shadow: 0px 0px 10px #333;
+}
+
+.reactable-sidebar.slide-in {
+  transition: 0.2s;
+  right: -300px;
+}
+
+.reactable-sidebar .panel {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.reactable-sidebar .panel.current {
+  background-color: #f2f2f2;
+  pointer-events: auto;
+}
+
+
+.reactable-sidebar .current.panel .body {
+  box-sizing: border-box;
+  width: 302px;
+  display: block;
+  padding: 10px;
+  overflow: auto;
+}
+
+.reactable-sidebar .panel .body {
+  display: none
+}
+
+
+.reactable-sidebar .title {
+  pointer-events: auto;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  right: 298px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  user-select: none;
+  color: #fff;
+  padding: 5px;
+}
+
+.reactable-sidebar .panel.current .title {
+  color: #000;
+  background-color: #f2f2f2;
+}
+
+.reactable-sidebar .search .title {
+  top: 0px;
+}
+
+.reactable-sidebar .settings .title {
+  top: 30px;
+}
+
+.reactable-sidebar button.slide-toggle {
+  bottom: 0;
+  position: absolute;
+}
+
+.reactable-sidebar .panel .badge {
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+  text-align: center;
+  font-size: smaller;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 15px;
+  box-shadow: 0px 0px 5px #000;
+}
+
+.reactable-sidebar .current.panel .badge {
+  background-color: red;
+}
