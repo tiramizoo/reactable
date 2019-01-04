@@ -7,17 +7,15 @@ const ScrollBar = (props) => {
     scrollBarTopOffset,
     scrollBarHandleHeight,
     scrollBarHandleTopOffset,
-    scrollBarVisible
+    scrollBarVisible,
   } = props
 
-  if (!scrollBarVisible) { return null } else {
-    return (
-
-      <div className='scroll-bar' style={{height: scrollBarHeight, top: scrollBarTopOffset}}>
-        <div className='scroll-bar-handle' style={{height: scrollBarHandleHeight, top: scrollBarHandleTopOffset}}></div>
-      </div>
-    )
-  }
+  if (!scrollBarVisible) { return null }
+  return (
+    <div className='scroll-bar' style={{height: scrollBarHeight, top: scrollBarTopOffset}}>
+      <div className='scroll-bar-handle' style={{height: scrollBarHandleHeight, top: scrollBarHandleTopOffset}}></div>
+    </div>
+  )
 }
 
 export default ScrollBar

@@ -10,7 +10,7 @@ class Sidebar extends Component {
 
     this.state = {
       currentPanel: 'search',
-      height: props.height
+      height: props.height,
     }
   }
 
@@ -27,9 +27,8 @@ class Sidebar extends Component {
   isCurrentPanel = (type) => {
     if (this.state.currentPanel === type) {
       return `${type} panel current`
-    } else {
-      return `${type} panel`
     }
+    return `${type} panel`
   }
 
 

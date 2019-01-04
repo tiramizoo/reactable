@@ -27,6 +27,7 @@ class InitApp {
     this.store = createStore(reducers, persistedState, composeEnhancers(applyMiddleware(thunkMiddleware)))
     this.store.dispatch(initSettings(config))
     this.store.subscribe(() => this.handleStateChange())
+    // only if user provide uniq identifier we can save filteredSchema in local storage
     if (config.identifier) {
       this.store.subscribe(() => {
         saveState(config.identifier, {
@@ -63,7 +64,7 @@ class InitApp {
   addData(newItems, progressMax) {
     const { items, schema } = this.store.getState()
 
-    // optimisation needed: dateTimeAttributes, durationAttributes can be calculated once on init
+    // optimisation needed: dateTimeAttributes, durationAttributes, timeAttributes can be calculated once on init
     const dateTimeAttributes = Object.keys(filterSchemaByType(schema, 'datetime'))
     const durationAttributes = Object.keys(filterSchemaByType(schema, 'duration'))
     const timeAttributes = Object.keys(filterSchemaByType(schema, 'time'))

@@ -1,7 +1,9 @@
 import { connect } from 'react-redux'
 
 import TableComponent from './Table.jsx'
-import { setOffset, updateViewport, setFilteredItems, setSortItems } from '../../actions/items'
+import {
+  setOffset, updateViewport, setFilteredItems, setSortItems,
+} from '../../actions/items'
 import { setSortDirection } from '../../actions/schema'
 
 const mapStateToProps = state => ({
@@ -29,7 +31,7 @@ const mapDispatchToProps = dispatch => (
     setFilteredItems: items => dispatch(setFilteredItems(items)),
     setSortItems: items => dispatch(setSortItems(items)),
     updateViewport: (items, limit, offset) => dispatch(updateViewport(items, limit, offset)),
-    setSortDirection: (key, direction) => dispatch(setSortDirection(key, direction))
+    setSortDirection: (key, direction) => dispatch(setSortDirection(key, direction)),
   }
 )
 

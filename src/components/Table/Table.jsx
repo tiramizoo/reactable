@@ -4,25 +4,6 @@ import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helper
 const cache = {}
 
 class Table extends Component {
-  // componentDidUpdate(prevProps, prevState){
-  //   const {
-  //     tableWidth
-  //   } = this.props
-  //
-  //   const table = ReactDOM.findDOMNode(this)
-  //
-  //   table.style = null // required to calculate render table width
-  //
-  //   if (table.clientWidth > tableWidth) {
-  //     // do nothing
-  //     table.classList.add('extendable')
-  //     table.style.width = `${tableWidth}px`
-  //   } else {
-  //     table.classList.remove('extendable')
-  //     table.style.width = `${tableWidth}px`
-  //   }
-  // }
-
   onKeyDown(e) {
     const {
       offset, setOffset, filteredItems, limit, updateViewport,
@@ -173,11 +154,6 @@ class Table extends Component {
     )
   }
 
-  defaultControls() {
-    return {
-    }
-  }
-
   renderHeader() {
     const { filteredSchema, actions } = this.props
     return (
@@ -190,10 +166,9 @@ class Table extends Component {
 
   renderFooterControls() {
     const { controls } = this.props
-    const mergedControls = Object.assign({}, this.defaultControls(), controls)
 
     return (
-      Object.entries(mergedControls).map(([key, value]) => {
+      Object.entries(controls).map(([key, value]) => {
         if (!value) {
           return null
         }
@@ -215,8 +190,7 @@ class Table extends Component {
 
   renderFooter() {
     const {
-      rowHeight, offset, limit, filteredSchema, filteredItems, currentItems, items, actions,
-      progressMax,
+      rowHeight, filteredSchema, filteredItems, items, actions, progressMax,
     } = this.props
 
     return (
