@@ -69,11 +69,12 @@ class Sidebar extends Component {
           <div className='title' onClick={() => this.togglePanelState('settings')}>
             <div dangerouslySetInnerHTML={settingsIconHtml} />
             { schemaBadge !== filteredSchemaBadge &&
-              <div className='badge'>{filteredSchemaBadge}/{schemaBadge}</div>
+              <div className='badge'>&#9888;</div>
             }
           </div>
           { currentPanel === 'settings' &&
             <div className='body' style={{height: this.state.height}}>
+              <div>visible/all columns: {filteredSchemaBadge}/{schemaBadge} </div>
               <SchemaControl />
             </div>
           }
