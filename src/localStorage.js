@@ -1,6 +1,6 @@
-export const loadState = (containerId) => {
+export const loadState = (identifier) => {
   try {
-    const serializedState = localStorage.getItem(containerId)
+    const serializedState = localStorage.getItem(identifier)
     if (serializedState === null) {
       return undefined
     }
@@ -10,9 +10,9 @@ export const loadState = (containerId) => {
   }
 }
 
-export const saveState = (containerId, state) => {
+export const saveState = (identifier, state) => {
   try {
     const serializedState = JSON.stringify(state)
-    localStorage.setItem(containerId, serializedState)
+    localStorage.setItem(identifier, serializedState)
   } catch (error) {}
 }
