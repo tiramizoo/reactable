@@ -42,7 +42,7 @@ const SchemaControl = (props) => {
   }
 
   return (
-    <div className='schemaControl'>
+    <div className="schemaControl">
       <ul>
         { Object.keys(schema).map(key => renderElement(key)) }
       </ul>

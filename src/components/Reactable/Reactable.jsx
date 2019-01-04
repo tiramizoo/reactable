@@ -6,10 +6,9 @@ import Table from '../Table'
 
 
 class Reactable extends Component {
-
   componentDidMount() {
     const {
-      container, updateTableWidth
+      container, updateTableWidth,
     } = this.props
 
     updateTableWidth(container.clientWidth)
@@ -22,7 +21,7 @@ class Reactable extends Component {
   render() {
     const { width } = this.props
 
-    return(
+    return (
       <div className="reactable" style={{ width }}>
         <Table />
         <ScrollBar />

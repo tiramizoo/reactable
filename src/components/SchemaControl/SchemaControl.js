@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   addToFilteredSchema,
-  removeFromFilteredSchema
+  removeFromFilteredSchema,
 }
 
 const SchemaControl = connect(mapStateToProps, mapDispatchToProps)(SchemaControlComponent)

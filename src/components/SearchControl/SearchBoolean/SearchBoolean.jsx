@@ -12,7 +12,7 @@ const initState = {
 
 class SearchBoolean extends Component {
   static contextTypes = {
-    store: PropTypes.object
+    store: PropTypes.object,
   }
 
   constructor(props, context) {

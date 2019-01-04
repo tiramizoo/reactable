@@ -4,7 +4,7 @@ import SearchTimeComponent from './SearchTime.jsx'
 
 const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
-  schema: state.schema
+  schema: state.schema,
 })
 
 const mapDispatchToProps = () => ({})

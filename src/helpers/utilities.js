@@ -27,23 +27,21 @@ export function setSortDirectionToSchema(schema, key, direction) {
   return Object.assign({}, schema, { [key]: options })
 }
 
-export const defaultFormatter = (type, key) => {
+export const defaultFormatter = (type) => {
   switch (type) {
     case 'number':
       return (value) => {
         if (value === null) {
           return null
-        } else {
-          return value.toString()
         }
+        return value.toString()
       }
     case 'time':
       return (value) => {
         if (value === null) {
           return null
-        } else {
-          return value.toFormat('hh:mm:ss')
         }
+        return value.toFormat('hh:mm:ss')
       }
     case 'boolean':
       return (value) => {
@@ -222,7 +220,7 @@ export const mergeSearchQuery = (newQuery, currentQuery) => {
 
 export const filterSchemaByType = (schema, type) => {
   return pickBy(schema, (value, key) => {
-    return value['type'] == type
+    return value.type === type
   })
 }
 

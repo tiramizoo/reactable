@@ -24,6 +24,7 @@ class InitApp {
     this.config = config
     const persistedState = loadState(config.identifier)
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
     this.store = createStore(reducers, persistedState, composeEnhancers(applyMiddleware(thunkMiddleware)))
     this.store.dispatch(initSettings(config))
     this.store.subscribe(() => this.handleStateChange())
