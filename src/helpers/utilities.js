@@ -7,15 +7,11 @@ import omit from 'lodash/omit'
 import pickBy from 'lodash/pickBy'
 import { DateTime, Duration } from 'luxon'
 
-export function sortByType(items, action) {
-  return orderBy(items, [action.column], [action.direction])
-}
-
 export function sortBy(items, filteredSchema) {
   let sortedItems = items
   forEach(filteredSchema, (value, key) => {
     if (value.direction) {
-      sortedItems = sortByType(items, { column: key, direction: value.direction })
+      sortedItems = orderBy(items, [key], [value.direction])
     }
   })
   return sortedItems
