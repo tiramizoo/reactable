@@ -15,7 +15,14 @@
     "svg-inline-loader": "^0.8.0"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>config/setupTests.js"
+    "setupTestFrameworkScriptFile": "<rootDir>tests/setupTests.js",
+    "transform": {
+      "^.+\\.(jsx|js)?$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleNameMapper":{
+      "\\.(css|less|sass|scss)$": "<rootDir>/tests/styleMock.js",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/tests/fileMock.js"
+    }
   },
   "scripts": {
     "build:dev": "webpack --mode=development --watch --config config/webpack.dev.js",
