@@ -27,17 +27,12 @@ class Sidebar extends Component {
         show: !show,
         currentPanel: type,
       })
-      console.log('B: ', e.target.parentElement)
-
-      e.target.parentElement.parentElement.parentElement.classList.toggle('slide-in')
     }
   }
 
   toggleSlide = (e) => {
     const { show } = this.state
     this.setState({ show: !show })
-    console.log('A: ', e.target.parentElement)
-    e.target.parentElement.classList.toggle('slide-in')
   }
 
   isCurrentPanel = (type) => {
