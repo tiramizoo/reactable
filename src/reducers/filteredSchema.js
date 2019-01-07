@@ -1,5 +1,5 @@
 import forEach from 'lodash/forEach'
-import assign from 'lodash/assign'
+import isEmpty from 'lodash/isEmpty'
 
 import { setSortDirectionToSchema } from '../helpers/utilities'
 
@@ -13,15 +13,17 @@ function filteredSchema(state = initState, action) {
     case SET_SORT_DIRECTION:
       return setSortDirectionToSchema(state, action.key, action.direction)
     case INIT_SETTINGS:
-      if (state === initState) {
+      // could be loaded from localStorage if not hide some columns
+      if (isEmpty(state)) {
         forEach(action.settings.schema, (value, key) => {
           if (!value.hide) {
-            newFilteredSchema = assign({}, newFilteredSchema, { [key]: value })
+            newFilteredSchema = Object.assign({}, newFilteredSchema, { [key]: value })
           }
           return { [key]: value }
         })
         return newFilteredSchema
       }
+      // do nothing when state loaded from localStorage
       return state
     case UPDATE_FILTERED_SCHEMA:
       return action.schema

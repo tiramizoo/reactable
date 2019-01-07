@@ -30,7 +30,7 @@ window.schemaUsers = {
   ip: { type: 'text' },
   website: { type: 'text' },
   phone_number: { type: 'text' },
-  job: { type: 'text' },
+  job: { type: 'text', hide: true },
   gender: {
     type: 'text',
     dictionary: ['male', 'female'],
