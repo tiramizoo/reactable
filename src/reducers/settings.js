@@ -1,5 +1,5 @@
 import {
-  INIT_SETTINGS, TOGGLE_SEARCH_CONTROL, TOGGLE_SCHEMA_CONTROL, SET_PROGRESS_MAX,
+  INIT_SETTINGS, SET_PROGRESS_MAX,
 } from '../actions/settings'
 
 const initSettings = {

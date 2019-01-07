@@ -11,16 +11,32 @@ class Sidebar extends Component {
     this.state = {
       currentPanel: 'search',
       height: props.height,
+      show: false,
     }
   }
 
-  togglePanelState = (type) => {
-    this.setState({
-      currentPanel: type
-    })
+  togglePanelState = (e, type) => {
+    const { show } = this.state
+
+    if (show) {
+      this.setState({
+        currentPanel: type
+      })
+    } else {
+      this.setState({
+        show: !show,
+        currentPanel: type,
+      })
+      console.log('B: ', e.target.parentElement)
+
+      e.target.parentElement.parentElement.parentElement.classList.toggle('slide-in')
+    }
   }
 
   toggleSlide = (e) => {
+    const { show } = this.state
+    this.setState({ show: !show })
+    console.log('A: ', e.target.parentElement)
     e.target.parentElement.classList.toggle('slide-in')
   }
 
@@ -29,6 +45,11 @@ class Sidebar extends Component {
       return `${type} panel current`
     }
     return `${type} panel`
+  }
+
+  sidebarClass = () => {
+    const { show } = this.state
+    return show ? '' : 'slide-in'
   }
 
 
@@ -49,9 +70,9 @@ class Sidebar extends Component {
     const { currentPanel } = this.state
 
     return(
-      <div className='reactable-sidebar slide-in'>
+      <div className={`reactable-sidebar ${this.sidebarClass()}`}>
         <div className={this.isCurrentPanel('search')}>
-          <div className='title' onClick={() => this.togglePanelState('search')}>
+          <div className='title' onClick={(e) => this.togglePanelState(e, 'search')}>
             <div dangerouslySetInnerHTML={searchIconHtml} />
             { badge > 0 &&
               <div className='badge'>{badge}</div>
@@ -65,7 +86,7 @@ class Sidebar extends Component {
         </div>
 
         <div className={this.isCurrentPanel('settings')}>
-          <div className='title' onClick={() => this.togglePanelState('settings')}>
+          <div className='title' onClick={(e) => this.togglePanelState(e, 'settings')}>
             <div dangerouslySetInnerHTML={settingsIconHtml} />
             { schemaBadge !== filteredSchemaBadge &&
               <div className='badge'>&#9888;</div>
