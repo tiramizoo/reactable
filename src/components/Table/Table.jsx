@@ -201,7 +201,7 @@ class Table extends Component {
           </span>
           { this.renderFooterControls() }
           <progress id="progress-bar" name="progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
-          {progressMax > 0 && items.length === 0 && <div className="loader" /> }
+          {progressMax === 0 && items.length === 0 && <div className="loader" /> }
         </th>
         { actions && <th /> }
       </tr>
