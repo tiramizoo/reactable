@@ -62,7 +62,7 @@ class Sidebar extends Component {
       __html: searchIcon
     }
 
-    const { currentPanel } = this.state
+    const { currentPanel, show } = this.state
 
     return(
       <div className={`reactable-sidebar ${this.sidebarClass()}`}>
@@ -95,7 +95,9 @@ class Sidebar extends Component {
           }
         </div>
 
-        <button className='slide-toggle' onClick={e => this.toggleSlide(e)}> -></button>
+        { show &&
+          <button className='slide-toggle' onClick={e => this.toggleSlide(e)}> -></button>
+        }
       </div>
     )
   }
