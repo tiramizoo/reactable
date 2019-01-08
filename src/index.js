@@ -69,6 +69,7 @@ class InitApp {
     const dateTimeAttributes = Object.keys(filterSchemaByType(schema, 'datetime'))
     const durationAttributes = Object.keys(filterSchemaByType(schema, 'duration'))
     const timeAttributes = Object.keys(filterSchemaByType(schema, 'time'))
+    const textAttributes = Object.keys(filterSchemaByType(schema, 'text'))
 
     let addedItems = newItems.map((i) => {
       const item = Object.assign({}, pick(i, Object.keys(schema)), { _key: uniqueId() })
@@ -92,6 +93,13 @@ class InitApp {
         if (valueBeforeParse !== null) {
           const [h, m, s] = item[attrName].split(':')
           item[attrName] = Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) })
+        }
+      })
+
+      textAttributes.forEach((attrName) => {
+        const valueBeforeParse = item[attrName]
+        if (valueBeforeParse !== null) {
+          item[attrName] = valueBeforeParse.toString()
         }
       })
 
