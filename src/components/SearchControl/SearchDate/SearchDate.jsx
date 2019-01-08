@@ -52,8 +52,8 @@ class SearchDate extends Component {
   handleClearChange() {
     const { column } = this.props
 
-    this.setState(initState)
     this.searchByNumber({[column]: {}})
+    this.setState(initState)
   }
 
   render() {
