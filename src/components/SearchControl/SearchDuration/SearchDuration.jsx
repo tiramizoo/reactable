@@ -135,53 +135,6 @@ class SearchDuration extends Component {
             id={`from_years-${column}`}
           />
           <input
-            value={from.months}
-            onChange={(e) => this.handleNumberChange(e, 'from')}
-            name="months"
-            type="number"
-            placeholder="from months"
-            autoComplete="off"
-            id={`from_months-${column}`}
-          />
-          <input
-            value={from.days}
-            onChange={(e) => this.handleNumberChange(e, 'from')}
-            name="days"
-            type="number"
-            placeholder="from days"
-            autoComplete="off"
-            id={`from_days-${column}`}
-          />
-          <input
-            value={from.hours}
-            onChange={(e) => this.handleNumberChange(e, 'from')}
-            name="hours"
-            type="number"
-            placeholder="from hours"
-            autoComplete="off"
-            id={`from_hours-${column}`}
-          />
-          <input
-            value={from.minutes}
-            onChange={(e) => this.handleNumberChange(e, 'from')}
-            name="minutes"
-            type="number"
-            placeholder="from minutes"
-            autoComplete="off"
-            id={`from_minutes-${column}`}
-          />
-          <input
-            value={from.seconds}
-            onChange={(e) => this.handleNumberChange(e, 'from')}
-            name="seconds"
-            type="number"
-            placeholder="from seconds"
-            autoComplete="off"
-            id={`from_seconds-${column}`}
-          />
-
-
-          <input
             value={to.years}
             onChange={(e) => this.handleNumberChange(e, 'to')}
             name="years"
@@ -189,6 +142,16 @@ class SearchDuration extends Component {
             placeholder="to years"
             autoComplete="off"
             id={`to_years-${column}`}
+          />
+
+          <input
+            value={from.months}
+            onChange={(e) => this.handleNumberChange(e, 'from')}
+            name="months"
+            type="number"
+            placeholder="from months"
+            autoComplete="off"
+            id={`from_months-${column}`}
           />
           <input
             value={to.months}
@@ -199,6 +162,16 @@ class SearchDuration extends Component {
             autoComplete="off"
             id={`to_months-${column}`}
           />
+
+          <input
+            value={from.days}
+            onChange={(e) => this.handleNumberChange(e, 'from')}
+            name="days"
+            type="number"
+            placeholder="from days"
+            autoComplete="off"
+            id={`from_days-${column}`}
+          />
           <input
             value={to.days}
             onChange={(e) => this.handleNumberChange(e, 'to')}
@@ -207,6 +180,16 @@ class SearchDuration extends Component {
             placeholder="to days"
             autoComplete="off"
             id={`to_days-${column}`}
+          />
+
+          <input
+            value={from.hours}
+            onChange={(e) => this.handleNumberChange(e, 'from')}
+            name="hours"
+            type="number"
+            placeholder="from hours"
+            autoComplete="off"
+            id={`from_hours-${column}`}
           />
           <input
             value={to.hours}
@@ -217,6 +200,16 @@ class SearchDuration extends Component {
             autoComplete="off"
             id={`to_hours-${column}`}
           />
+
+          <input
+            value={from.minutes}
+            onChange={(e) => this.handleNumberChange(e, 'from')}
+            name="minutes"
+            type="number"
+            placeholder="from minutes"
+            autoComplete="off"
+            id={`from_minutes-${column}`}
+          />
           <input
             value={to.minutes}
             onChange={(e) => this.handleNumberChange(e, 'to')}
@@ -225,6 +218,16 @@ class SearchDuration extends Component {
             placeholder="to minutes"
             autoComplete="off"
             id={`to_minutes-${column}`}
+          />
+
+          <input
+            value={from.seconds}
+            onChange={(e) => this.handleNumberChange(e, 'from')}
+            name="seconds"
+            type="number"
+            placeholder="from seconds"
+            autoComplete="off"
+            id={`from_seconds-${column}`}
           />
           <input
             value={to.seconds}
