@@ -39,3 +39,7 @@
 .reactable .SearchControl button.clear:after {
   content: '✖'
 }
+
+input::-ms-clear {
+  display: none;
+}
