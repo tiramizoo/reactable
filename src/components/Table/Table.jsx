@@ -197,7 +197,7 @@ class Table extends Component {
       <tr>
         <th colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }}>
           <span>
-            {filteredItems.length} / {items.length}
+            {filteredItems.length} / {progressMax || items.length}
           </span>
           { this.renderFooterControls() }
           <progress id="progress-bar" name="progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
