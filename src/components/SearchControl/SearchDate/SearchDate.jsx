@@ -52,8 +52,8 @@ class SearchDate extends Component {
   handleClearChange() {
     const { column } = this.props
 
-    this.searchByNumber({[column]: {}})
     this.setState(initState)
+    this.searchByNumber({[column]: {}})
   }
 
   render() {
@@ -70,7 +70,7 @@ class SearchDate extends Component {
         <div className='attribute-filter'>
           <Flatpickr
             value={from}
-            onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
+            onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
             options={{maxDate: to}}
             name="from"
             placeholder="from"
@@ -78,7 +78,7 @@ class SearchDate extends Component {
 
           <Flatpickr
             value={to}
-            onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
+            onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
             options={{minDate: from}}
             name="to"
             placeholder="to"

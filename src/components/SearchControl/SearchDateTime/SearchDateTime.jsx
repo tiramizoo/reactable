@@ -62,8 +62,8 @@ class SearchDateTime extends Component {
   handleClearChange() {
     const { column } = this.props
 
-    this.searchByNumber({[column]: {}})
     this.setState(initState)
+    this.searchByNumber({[column]: {}})
   }
 
   render() {
@@ -80,7 +80,6 @@ class SearchDateTime extends Component {
         <div className='attribute-filter'>
           <Flatpickr
             value={from}
-            onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
             onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
             options={{maxDate: to, enableTime: true, time_24hr: true, enableSeconds: true}}
             name="from"
@@ -88,7 +87,6 @@ class SearchDateTime extends Component {
           />
           <Flatpickr
             value={to}
-            onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
             onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
             options={{minDate: from, enableTime: true, time_24hr: true, enableSeconds: true}}
             name="to"

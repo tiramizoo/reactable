@@ -53,8 +53,8 @@ class SearchNumber extends Component {
   handleClearChange() {
     const { column } = this.props
 
-    this.searchByNumber({[column]: {}})
     this.setState(initState)
+    this.searchByNumber({[column]: {}})
   }
 
   render() {
