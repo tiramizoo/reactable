@@ -23,7 +23,35 @@ export function setSortDirectionToSchema(schema, key, direction) {
   return Object.assign({}, schema, { [key]: options })
 }
 
-export const defaultFormatter = (type) => {
+export const dateForrmater = (value, format, separator) => {
+  if (!value) return null
+  const [y, m, d] = value.split('-')
+
+  switch (format) {
+    case 'eu':
+      return `${d}${separator}${m}${separator}${y}`
+    case 'us':
+      return `${m}${separator}${d}${separator}${y}`
+    default:
+      if (separator === '-') return value
+      return `${y}${separator}${m}${separator}${d}`
+  }
+}
+
+export const datetimeForrmater = (value, format, separator) => {
+  if (!value) return null
+
+  switch (format) {
+    case 'eu':
+      return value.toFormat(`dd${separator}MM${separator}yyyy HH:mm:ss`)
+    case 'us':
+      return value.toFormat(`MM${separator}dd${separator}yyyy HH:mm:ss`)
+    default:
+      return value.toFormat(`yyyy${separator}MM${separator}dd HH:mm:ss`)
+  }
+}
+
+export const defaultFormatter = (type, dateFormat, dateSeparator) => {
   switch (type) {
     case 'number':
       return (value) => {
@@ -51,12 +79,12 @@ export const defaultFormatter = (type) => {
       }
     case 'datetime':
       return (value) => {
-        if (value) {
-          return value.toFormat('yyyy-MM-dd HH:mm:ss')
-        }
-        return null
+        return datetimeForrmater(value, dateFormat, dateSeparator)
       }
-
+    case 'date':
+      return (value) => {
+        return dateForrmater(value, dateFormat, dateSeparator)
+      }
     case 'duration':
       return (value) => {
         if (value) {

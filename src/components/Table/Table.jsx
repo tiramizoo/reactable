@@ -127,7 +127,7 @@ class Table extends Component {
   }
 
   columnBody(row, key, schemaParams) {
-    const { rowHeight } = this.props
+    const { rowHeight, dateFormat, dateSeparator } = this.props
     const value = row[key]
     const classNames = [schemaParams.type]
 
@@ -135,7 +135,7 @@ class Table extends Component {
       classNames.push('null')
     }
 
-    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, key)
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, dateFormat, dateSeparator)
     const cacheKey = `${row._key}/${key}`
 
     if (cache[cacheKey] === undefined) {

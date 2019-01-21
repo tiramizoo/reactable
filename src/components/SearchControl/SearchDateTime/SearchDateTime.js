@@ -4,7 +4,9 @@ import SearchDateTimeComponent from './SearchDateTime.jsx'
 
 const mapStateToProps = state => ({
   searchQueryAnd: state.searchQueryAnd,
-  schema: state.schema
+  schema: state.schema,
+  format: state.settings.dateFormat,
+  separator: state.settings.dateSeparator,
 })
 
 const mapDispatchToProps = () => ({})

@@ -30,6 +30,19 @@ class SearchDate extends Component {
     }
   }
 
+  datePickerFormat() {
+    const { format, separator } = this.props
+
+    switch (format) {
+      case 'eu':
+        return `d${separator}m${separator}Y`
+      case 'us':
+        return `m${separator}d${separator}Y`
+      default:
+        return `Y${separator}m${separator}d`
+    }
+  }
+
   searchByNumber = debounce((query) => {
     searchingAnd({query, store: this.context.store})
   }, 300)
@@ -71,7 +84,7 @@ class SearchDate extends Component {
           <Flatpickr
             value={from}
             onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
-            options={{maxDate: to}}
+            options={{maxDate: to, altInput: true, altFormat: this.datePickerFormat()}}
             name="from"
             placeholder="from"
           />
@@ -79,7 +92,7 @@ class SearchDate extends Component {
           <Flatpickr
             value={to}
             onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
-            options={{minDate: from}}
+            options={{minDate: from, altInput: true, altFormat: this.datePickerFormat()}}
             name="to"
             placeholder="to"
           />

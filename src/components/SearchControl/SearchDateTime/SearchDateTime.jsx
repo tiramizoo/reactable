@@ -39,6 +39,19 @@ class SearchDateTime extends Component {
     }
   }
 
+  datePickerFormat() {
+    const { format, separator } = this.props
+
+    switch (format) {
+      case 'eu':
+        return `d${separator}m${separator}Y H:i:S`
+      case 'us':
+        return `m${separator}d${separator}Y H:i:S`
+      default:
+        return `Y${separator}m${separator}d H:i:S`
+    }
+  }
+
   searchByNumber = debounce((query) => {
     searchingAnd({query, store: this.context.store})
   }, 300)
@@ -81,14 +94,14 @@ class SearchDateTime extends Component {
           <Flatpickr
             value={from}
             onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
-            options={{maxDate: to, enableTime: true, time_24hr: true, enableSeconds: true}}
+            options={{maxDate: to, enableTime: true, time_24hr: true, enableSeconds: true, altInput: true, altFormat: this.datePickerFormat()}}
             name="from"
             placeholder="from"
           />
           <Flatpickr
             value={to}
             onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
-            options={{minDate: from, enableTime: true, time_24hr: true, enableSeconds: true}}
+            options={{minDate: from, enableTime: true, time_24hr: true, enableSeconds: true, altInput: true, altFormat: this.datePickerFormat()}}
             name="to"
             placeholder="to"
           />

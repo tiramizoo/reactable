@@ -7,6 +7,8 @@ const initSettings = {
   strategySearch: 'and',
   controls: {},
   progressMax: 0,
+  dateSeparator: '-',
+  dateFormat: 'iso',
 }
 
 function settings(state = initSettings, action) {
