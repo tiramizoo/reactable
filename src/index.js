@@ -8,6 +8,7 @@ import pickBy from 'lodash/pickBy'
 import debounce from 'lodash/debounce'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
+import forEach from 'lodash/forEach'
 import { DateTime, Duration } from 'luxon'
 
 import Reactable from './components/Reactable'
@@ -24,6 +25,16 @@ class InitApp {
     this.config = config
     const persistedState = loadState(config.identifier)
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+    // localStorage do not save formaters
+    if (persistedState) {
+      persistedState.filteredSchema
+      forEach(persistedState.filteredSchema, (_, k) => {
+        if (config.schema[k] && config.schema[k].formatter) {
+          Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
+        }
+      })
+    }
 
     this.store = createStore(reducers, persistedState, composeEnhancers(applyMiddleware(thunkMiddleware)))
     this.store.dispatch(initSettings(config))
