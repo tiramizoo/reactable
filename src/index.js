@@ -33,6 +33,21 @@ class InitApp {
         if (config.schema[k] && config.schema[k].formatter) {
           Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
         }
+        if (config.schema[k] && config.schema[k].type) {
+          Object.assign(persistedState.filteredSchema[k], { type: config.schema[k].type })
+        }
+        if (config.schema[k] && config.schema[k].label) {
+          Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
+        }
+        if (config.schema[k] && config.schema[k].filter) {
+          Object.assign(persistedState.filteredSchema[k], { filter: config.schema[k].filter })
+        }
+        if (config.schema[k] && config.schema[k].dictionary) {
+          Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
+        }
+        if (!config.schema[k]) {
+          delete persistedState.filteredSchema[k]
+        }
       })
     }
 
