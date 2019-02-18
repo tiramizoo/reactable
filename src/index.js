@@ -101,26 +101,26 @@ class InitApp {
       const item = Object.assign({}, pick(i, Object.keys(schema)), { _key: uniqueId() })
 
       dateTimeAttributes.forEach((attrName) => {
-        if (item[attrName]) {
+        if (item[attrName] !== null) {
           item[attrName] = DateTime.fromISO(item[attrName])
         }
       })
 
       durationAttributes.forEach((attrName) => {
-        if (item[attrName]) {
+        if (item[attrName] !== null) {
           item[attrName] = Duration.fromISO(item[attrName])
         }
       })
 
       timeAttributes.forEach((attrName) => {
-        if (item[attrName]) {
+        if (item[attrName] !== null) {
           const [h, m, s] = item[attrName].split(':')
           item[attrName] = Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) })
         }
       })
 
       textAttributes.forEach((attrName) => {
-        if (item[attrName]) {
+        if (item[attrName] !== null) {
           item[attrName] = item[attrName].toString()
         }
       })
