@@ -9,6 +9,7 @@ const initSettings = {
   progressMax: 0,
   dateSeparator: '-',
   dateFormat: 'iso',
+  defaultSearchPreset: '',
 }
 
 function settings(state = initSettings, action) {

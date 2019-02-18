@@ -12,6 +12,7 @@ import settings from './settings'
 import table from './table'
 import lastAction from './lastAction'
 import searchQueryOr from './searchQueryOr'
+import searchPresets from './searchPresets'
 
 export default combineReducers({
   items,
@@ -26,4 +27,5 @@ export default combineReducers({
   filteredSchema,
   lastAction,
   searchQueryOr,
+  searchPresets,
 })

@@ -71,6 +71,11 @@
             label: 'CSV',
           }
         },
+        searchPresets: {
+          over_10: {id: {value: {from: 10}}},
+          active:  {active: {value: 'true'}},
+        },
+        defaultSearchPreset: 'active',
         afterRender: function () { defaultSearch() },
         itemsChange: function (items) { itemsChange(items) },
       });
@@ -85,6 +90,7 @@
 
       function defaultSearch() {
         // t2.searchAND({gender: {value: 'male', options: 'equal'}, active: { value: 'true'}});
+        t2.searchAND({active: { value: 'true'}});
       }
 
       function multisearch(columns, value) {

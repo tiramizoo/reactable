@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import isEmpty from 'lodash/isEmpty'
+import PropTypes from 'prop-types'
+
 
 import SearchText from './SearchText'
 import SearchBoolean from './SearchBoolean'
@@ -7,12 +10,19 @@ import SearchDate from './SearchDate'
 import SearchDateTime from './SearchDateTime'
 import SearchTime from './SearchTime'
 import SearchDuration from './SearchDuration'
+import { searchingAnd } from '../../actions/search'
+import { queryDataType } from '../../helpers/utilities'
 
 class SearchControl extends Component {
+  static contextTypes = {
+    store: PropTypes.object
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       clearAll: 0,
+      searchPreset: props.defaultSearchPreset || "",
     }
   }
 
@@ -53,8 +63,38 @@ class SearchControl extends Component {
     const { clearAll } = this.state
     const { clearAllSearchQuery } = this.props
 
-    this.setState({ clearAll: clearAll + 1 })
+    this.setState({ clearAll: clearAll + 1, searchPreset: '' })
     clearAllSearchQuery()
+  }
+
+  handleSearchPresetsChange(value) {
+    this.handleClearAllChange()
+    const { searchPresets, schema } = this.props
+    this.setState({ searchPreset: value })
+
+    if (value) {
+      const query = searchPresets[value]
+      const newQuery = queryDataType(query, schema)
+      searchingAnd({ query: newQuery, store: this.context.store })
+    }
+  }
+
+  renderSearchPresets() {
+    const { searchPresets } = this.props
+    const { searchPreset } = this.state
+    if (isEmpty(searchPresets)) {
+      return null
+    }
+
+    return (
+      <select
+        value={searchPreset}
+        onChange={(e) => this.handleSearchPresetsChange(e.target.value)}
+      >
+        <option value="" key="empty">---</option>
+        { Object.keys(searchPresets).map(key => <option value={key} key={key}>{key}</option>) }
+      </select>
+    )
   }
 
   render() {
@@ -63,7 +103,7 @@ class SearchControl extends Component {
     return (
       <div className="SearchControl">
         <button className='clear-all' onClick={() => this.handleClearAllChange()}>clear-all</button>
-        
+        { this.renderSearchPresets() }
         { Object.entries(schema).map(([key, keySchema]) => {
           return this.columnFilter(key, keySchema)
         })}

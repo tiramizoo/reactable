@@ -6,10 +6,12 @@ import { clearAllSearchQuery } from '../../actions/search'
 const mapStateToProps = state => ({
   tableWidth: state.table.width,
   schema: state.schema,
+  searchPresets: state.searchPresets,
+  defaultSearchPreset: state.settings.defaultSearchPreset,
 })
 
 const mapDispatchToProps = {
-  clearAllSearchQuery
+  clearAllSearchQuery,
 }
 
 const SearchControl = connect(mapStateToProps, mapDispatchToProps)(SearchControlComponent)
