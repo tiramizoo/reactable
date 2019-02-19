@@ -1,7 +1,6 @@
 .reactable .SearchControl .attribute {
   height: 30px;
   background: #e2e2e2;
-  line-height: 30px;
   font-size: 14px;
   font-weight: bold;
   padding-left: 5px;
@@ -32,7 +31,6 @@
   width: 20px;
   font-size: 12px;
   padding: 0;
-  border-style: none;
   background-color: #fff;
 }
 

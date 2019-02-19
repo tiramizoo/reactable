@@ -35,16 +35,17 @@ class Sidebar extends Component {
     this.setState({ show: !show })
   }
 
-  isCurrentPanel = (type) => {
-    if (this.state.currentPanel === type) {
-      return `${type} panel current`
-    }
-    return `${type} panel`
-  }
-
   sidebarClass = () => {
     const { show } = this.state
     return show ? '' : 'slide-in'
+  }
+
+  titleClass = (type) => {
+    if (this.state.currentPanel === type) {
+      return `${type} title current`
+    } else {
+      return `${type} title`
+    }
   }
 
 
@@ -66,27 +67,34 @@ class Sidebar extends Component {
 
     return(
       <div className={`reactable-sidebar ${this.sidebarClass()}`}>
-        <div className={this.isCurrentPanel('search')}>
-          <div className='title' onClick={(e) => this.togglePanelState(e, 'search')}>
+        <div className='slide'>
+          <div className={this.titleClass('search')} onClick={(e) => this.togglePanelState(e, 'search')}>
             <div dangerouslySetInnerHTML={searchIconHtml} />
             { badge > 0 &&
               <div className='badge'>{badge}</div>
             }
           </div>
-          { currentPanel === 'search' &&
-            <div className='body' style={{height: this.state.height}}>
-              <SearchControl />
-            </div>
-          }
-        </div>
 
-        <div className={this.isCurrentPanel('settings')}>
-          <div className='title' onClick={(e) => this.togglePanelState(e, 'settings')}>
+          <div className={this.titleClass('settings')} onClick={(e) => this.togglePanelState(e, 'settings')}>
             <div dangerouslySetInnerHTML={settingsIconHtml} />
             { schemaBadge !== filteredSchemaBadge &&
               <div className='badge'>&#9888;</div>
             }
           </div>
+
+          { show &&
+            <button className='slide-toggle' onClick={e => this.toggleSlide(e)}> -></button>
+          }
+        </div>
+
+
+        <div className='reactable-panel'>
+          { currentPanel === 'search' &&
+            <div className='body' style={{height: this.state.height}}>
+              <SearchControl />
+            </div>
+          }
+
           { currentPanel === 'settings' &&
             <div className='body' style={{height: this.state.height}}>
               <div>visible/all columns: {filteredSchemaBadge}/{schemaBadge} </div>
@@ -95,9 +103,6 @@ class Sidebar extends Component {
           }
         </div>
 
-        { show &&
-          <button className='slide-toggle' onClick={e => this.toggleSlide(e)}> -></button>
-        }
       </div>
     )
   }
