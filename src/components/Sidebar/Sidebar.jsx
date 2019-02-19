@@ -87,21 +87,22 @@ class Sidebar extends Component {
           }
         </div>
 
+        { show &&
+          <div className='reactable-panel'>
+            { currentPanel === 'search' &&
+              <div className='body' style={{height: this.state.height}}>
+                <SearchControl />
+              </div>
+            }
 
-        <div className='reactable-panel'>
-          { currentPanel === 'search' &&
-            <div className='body' style={{height: this.state.height}}>
-              <SearchControl />
-            </div>
-          }
-
-          { currentPanel === 'settings' &&
-            <div className='body' style={{height: this.state.height}}>
-              <div>visible/all columns: {filteredSchemaBadge}/{schemaBadge} </div>
-              <SchemaControl />
-            </div>
-          }
-        </div>
+            { currentPanel === 'settings' &&
+              <div className='body' style={{height: this.state.height}}>
+                <div>visible/all columns: {filteredSchemaBadge}/{schemaBadge} </div>
+                <SchemaControl />
+              </div>
+            }
+          </div>
+        }
 
       </div>
     )

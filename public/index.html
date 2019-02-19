@@ -75,14 +75,14 @@
           over_10: {id: {value: {from: 10}}},
           active:  {active: {value: 'true'}},
         },
-        defaultSearchPreset: 'active',
+        defaultSearchPreset: 'over_10',
         afterRender: function () { defaultSearch() },
         itemsChange: function (items) { itemsChange(items) },
       });
 
 
       t2.render()
-      t2.selectSearchPreset('active')
+      t2.applySearchPreset('over_10')
 
       fetchData("./data-100.json", t2)
 

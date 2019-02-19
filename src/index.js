@@ -88,7 +88,7 @@ class InitApp {
     searchingOr({ query: newQuery, store: this.store })
   }
 
-  selectSearchPreset(presetName) {
+  applySearchPreset(presetName) {
     const { searchPresets } = this.store.getState()
     this.searchAND(searchPresets[presetName])
   }
