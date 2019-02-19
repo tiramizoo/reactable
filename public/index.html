@@ -80,9 +80,12 @@
         itemsChange: function (items) { itemsChange(items) },
       });
 
+
+      t2.render()
+      t2.selectSearchPreset('active')
+
       fetchData("./data-100.json", t2)
 
-      t2.render();
 
       function itemsChange(items) {
         // console.log("Filtered Items callback: ", items)
@@ -90,7 +93,7 @@
 
       function defaultSearch() {
         // t2.searchAND({gender: {value: 'male', options: 'equal'}, active: { value: 'true'}});
-        t2.searchAND({active: { value: 'true'}});
+        // t2.searchAND({active: { value: 'true'}});
       }
 
       function multisearch(columns, value) {

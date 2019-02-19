@@ -88,6 +88,11 @@ class InitApp {
     searchingOr({ query: newQuery, store: this.store })
   }
 
+  selectSearchPreset(presetName) {
+    const { searchPresets } = this.store.getState()
+    this.searchAND(searchPresets[presetName])
+  }
+
   addData(newItems, progressMax) {
     const { items, schema } = this.store.getState()
 
