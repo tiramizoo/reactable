@@ -130,8 +130,9 @@ export function searchByText(items, column, searchQuery) {
 }
 
 export function searchByBoolean(items, column, searchQuery) {
-  const options = searchQuery.value || 'all'
-  switch (options) {
+  const options = searchQuery.value
+
+  switch (options.toString()) {
     case 'all':
       return items
     case 'true':
@@ -258,17 +259,13 @@ export const queryDataType = (query, schema) => {
     newQuery[key] = params
     const { value } = params
 
-    if (isEmpty(value)) {
-      newQuery[key] = {}
-    }
-
     if (dateTimeAttributes.includes(key)) {
       if (value.from) {
         newQuery[key]['value']['from'] = DateTime.fromISO(value.from)
       }
 
       if (value.to) {
-        newQuery[key]['value']['to']= DateTime.fromISO(value.to)
+        newQuery[key]['value']['to'] = DateTime.fromISO(value.to)
       }
     }
 

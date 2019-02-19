@@ -67,14 +67,15 @@ class SearchControl extends Component {
     clearAllSearchQuery()
   }
 
-  handleSearchPresetsChange(value) {
+  handleSearchPresetsChange(name) {
     this.handleClearAllChange()
     const { searchPresets, schema } = this.props
-    this.setState({ searchPreset: value })
+    this.setState({ searchPreset: name })
 
-    if (value) {
-      const query = searchPresets[value]
+    if (name) {
+      const query = searchPresets[name]
       const newQuery = queryDataType(query, schema)
+
       searchingAnd({ query: newQuery, store: this.context.store })
     }
   }

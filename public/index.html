@@ -73,7 +73,8 @@
         },
         searchPresets: {
           over_10: {id: {value: {from: 10}}},
-          active:  {active: {value: 'true'}},
+          active:  {active: {value: true}},
+          inactive:  {active: {value: false}},
         },
         defaultSearchPreset: 'over_10',
         afterRender: function () { defaultSearch() },
