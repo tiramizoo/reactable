@@ -1,5 +1,5 @@
 import {
-  INIT_SETTINGS, SET_PROGRESS_MAX,
+  INIT_SETTINGS, SET_PROGRESS_MAX, NO_DATA,
 } from '../actions/settings'
 import { CLEAR_ITEMS } from '../actions/items'
 
@@ -11,6 +11,7 @@ const initSettings = {
   dateSeparator: '-',
   dateFormat: 'iso',
   defaultSearchPreset: '',
+  noData: false,
 }
 
 function settings(state = initSettings, action) {
@@ -21,6 +22,8 @@ function settings(state = initSettings, action) {
       return Object.assign({}, state, { progressMax: action.progressMax })
     case CLEAR_ITEMS:
       return Object.assign({}, state, { progressMax: 0 })
+    case NO_DATA:
+      return Object.assign({}, state, { noData: true })
     default:
       return state
   }

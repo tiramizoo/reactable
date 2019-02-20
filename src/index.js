@@ -9,11 +9,12 @@ import debounce from 'lodash/debounce'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import forEach from 'lodash/forEach'
+import isEmpty from 'lodash/isEmpty'
 import { DateTime, Duration } from 'luxon'
 
 import Reactable from './components/Reactable'
 import reducers from './reducers/index'
-import { initSettings, updateTableWidth, setProgressMax } from './actions/settings'
+import { initSettings, updateTableWidth, setProgressMax, setNoData } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport, clearItems } from './actions/items'
 import { sortBy, queryDataType, filterSchemaByType } from './helpers/utilities'
@@ -99,6 +100,9 @@ class InitApp {
 
   addData(newItems, progressMax) {
     const { items, schema } = this.store.getState()
+    if (isEmpty(newItems)) {
+      this.store.dispatch(setNoData())
+    }
 
     // optimisation needed: dateTimeAttributes, durationAttributes, timeAttributes can be calculated once on init
     const dateTimeAttributes = Object.keys(filterSchemaByType(schema, 'datetime'))

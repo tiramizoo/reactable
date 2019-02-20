@@ -5,6 +5,7 @@ export const UPDATE_ROWS_NUMBER = 'UPDATE_ROWS_NUMBER'
 export const TOGGLE_SEARCH_CONTROL = 'TOGGLE_SEARCH_CONTROL'
 export const TOGGLE_SCHEMA_CONTROL = 'TOGGLE_SCHEMA_CONTROL'
 export const SET_PROGRESS_MAX = 'SET_PROGRESS_MAX'
+export const NO_DATA = 'NO_DATA'
 
 export function initSettings(settings) {
   return {
@@ -38,5 +39,11 @@ export function setProgressMax(progressMax) {
   return {
     type: SET_PROGRESS_MAX,
     progressMax,
+  }
+}
+
+export function setNoData() {
+  return {
+    type: NO_DATA,
   }
 }
