@@ -15,7 +15,7 @@ import Reactable from './components/Reactable'
 import reducers from './reducers/index'
 import { initSettings, updateTableWidth, setProgressMax } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
-import { setItems, updateViewport } from './actions/items'
+import { setItems, updateViewport, clearItems } from './actions/items'
 import { sortBy, queryDataType, filterSchemaByType } from './helpers/utilities'
 import { loadState, saveState } from './localStorage'
 
@@ -91,6 +91,10 @@ class InitApp {
   applySearchPreset(presetName) {
     const { searchPresets } = this.store.getState()
     this.searchAND(searchPresets[presetName])
+  }
+
+  clearData() {
+    this.store.dispatch(clearItems())
   }
 
   addData(newItems, progressMax) {

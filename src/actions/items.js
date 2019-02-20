@@ -7,10 +7,17 @@ export const SET_SEARCH_QUERY_AND = 'SET_SEARCH_QUERY_AND'
 export const SET_SEARCH_QUERY_OR = 'SET_SEARCH_QUERY_OR'
 export const SET_FILTERED_ITEMS = 'SET_FILTERED_ITEMS'
 export const CLEAR_ALL = 'CLEAR_ALL'
+export const CLEAR_ITEMS = 'CLEAR_ITEMS'
 
 export function clearSearchQuery() {
   return {
     type: CLEAR_ALL,
+  }
+}
+
+export function clearItems() {
+  return {
+    type: CLEAR_ITEMS,
   }
 }
 

@@ -1,4 +1,4 @@
-import { SET_ITEMS, SET_FILTERED_ITEMS } from '../actions/items'
+import { SET_ITEMS, SET_FILTERED_ITEMS, CLEAR_ITEMS } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
 function filteredItems(state = [], action) {
@@ -8,6 +8,7 @@ function filteredItems(state = [], action) {
     case SET_FILTERED_ITEMS:
       return action.items
     case INIT_SETTINGS:
+    case CLEAR_ITEMS:
       return []
     default:
       return state

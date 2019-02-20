@@ -19,6 +19,7 @@
     <button onClick="timeSearch({from: '10:00:00', to: '15:30:00'})">Time 10-15:30</button>
     <button onClick="timeSearch({to: '10:00:00'})">to 10</button>
     <button onClick="timeSearch({from: '15:30:00'})">from 15:30</button>
+    <button type="button" name="button" onClick="clearData()">CLEAR DATA</button>
     <div id="table2"></div>
     <hr>
     <script src="../dist/reactable-bundle.js"></script>
@@ -105,6 +106,10 @@
 
       function timeSearch(query) {
         t2.searchAND({time: { value: query}})
+      }
+
+      function clearData() {
+        t2.clearData()
       }
 
     </script>

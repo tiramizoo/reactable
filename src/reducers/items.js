@@ -1,4 +1,4 @@
-import { SET_ITEMS, SET_SORT_ITEMS } from '../actions/items'
+import { SET_ITEMS, SET_SORT_ITEMS, CLEAR_ITEMS } from '../actions/items'
 import { INIT_SETTINGS } from '../actions/settings'
 
 function items(state = [], action) {
@@ -7,6 +7,7 @@ function items(state = [], action) {
     case SET_SORT_ITEMS:
       return action.items
     case INIT_SETTINGS:
+    case CLEAR_ITEMS:
       return []
     default:
       return state
