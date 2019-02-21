@@ -40,8 +40,8 @@ class InitApp {
         if (config.schema[k] && config.schema[k].label) {
           Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
         }
-        if (config.schema[k] && config.schema[k].filter) {
-          Object.assign(persistedState.filteredSchema[k], { filter: config.schema[k].filter })
+        if (config.schema[k] && config.schema[k].filterable) {
+          Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
         }
         if (config.schema[k] && config.schema[k].dictionary) {
           Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })

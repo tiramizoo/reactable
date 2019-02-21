@@ -49,7 +49,7 @@ class SearchControl extends Component {
   }
 
   columnFilter(key, schemaParams) {
-    if (schemaParams.filter !== undefined && schemaParams.filter === false) {
+    if (schemaParams.filterable !== undefined && schemaParams.filterable === false) {
       return null
     }
     return (
