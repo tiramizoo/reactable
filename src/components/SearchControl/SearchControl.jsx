@@ -103,8 +103,14 @@ class SearchControl extends Component {
 
     return (
       <div className="SearchControl">
-        <button className='clear-all' onClick={() => this.handleClearAllChange()}>clear-all</button>
-        { this.renderSearchPresets() }
+        <div className='search-presets'>
+          <div className='search-presets-dropdown'>
+            { this.renderSearchPresets() }
+          </div>
+          <div className='search-presets-reset'>
+            <button className='clear-all' onClick={() => this.handleClearAllChange()}>Reset</button>
+          </div>
+        </div>
         { Object.entries(schema).map(([key, keySchema]) => {
           return this.columnFilter(key, keySchema)
         })}

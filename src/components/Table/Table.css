@@ -1,6 +1,7 @@
 .reactable {
   position: relative;
   border: 1px solid #e2e2e2;
+  font-family: Helvetica, sans-serif;
 }
 
 .reactable button:disabled {
@@ -12,7 +13,6 @@
   table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;
-  font-family: inherit;
   outline-style: solid;
   outline-width: thin;
   outline-color: #e2e2e2;
@@ -42,6 +42,7 @@
   white-space: nowrap;
   box-sizing: border-box;
   vertical-align: middle;
+  font-weight: bold;
 }
 
 .reactable table th.sortable {
@@ -111,12 +112,12 @@
 
 .reactable table td.text:empty::after {
   content: 'EMPTY';
-  color: gray;
+  color: lightgray;
 }
 
 .reactable table td.null::after {
   content: 'NULL' !important;
-  color: gray;
+  color: lightgray;
 }
 
 .reactable table td.boolean {

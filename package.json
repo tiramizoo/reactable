@@ -11,15 +11,14 @@
     "react-flatpickr": "^3.6.4",
     "react-redux": "^5.1.1",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "svg-inline-loader": "^0.8.0"
+    "redux-thunk": "^2.3.0"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>tests/setupTests.js",
     "transform": {
       "^.+\\.(jsx|js)?$": "<rootDir>/node_modules/babel-jest"
     },
-    "moduleNameMapper":{
+    "moduleNameMapper": {
       "\\.(css|less|sass|scss)$": "<rootDir>/tests/styleMock.js",
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/tests/fileMock.js"
     }

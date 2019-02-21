@@ -4,7 +4,7 @@
   height: 100%;
   top: 0;
   right: 0;
-  width: 330px;
+  width: 340px;
   transition: 0.2s;
   box-shadow: 0px 0px 10px #333;
   background-color: #fff;
@@ -15,24 +15,31 @@
   right: -300px;
 }
 
-.reactable-sidebar .slide {
+.reactable-sidebar .reactable-sidebar-slide {
   box-sizing: border-box;
   position: absolute;
   top: 0;
-  width: 30px;
+  width: 40px;
   height: 100%;
   background-color: #32414f;
 }
 
-.reactable-sidebar .slide .title {
+.reactable-sidebar .reactable-sidebar-slide .reactable-sidebar-title {
+  position: relative;
   box-sizing: border-box;
-  width: 32px;
-  height: 30px;
+  width: 42px;
+  height: 40px;
   cursor: pointer;
   padding: 5px;
 }
 
-.reactable-sidebar .slide .title.current {
+.reactable-title-icon {
+  margin: auto;
+  width: 25px;
+  height: 25px
+}
+
+.reactable-sidebar .reactable-sidebar-slide .reactable-sidebar-title.current {
   background-color: #ffff;
 }
 
@@ -42,35 +49,36 @@
   position: absolute;
   width: 300px;
   height: 100%;
-  left: 30px
+  left: 40px
 }
 
 
-.reactable-sidebar .reactable-panel .body {
+.reactable-sidebar .reactable-panel .reactable-panel-body {
   box-sizing: border-box;
   background: #fff;
   padding: 10px;
+  height: 100%;
   overflow: auto;
 }
 
 
 
-.reactable-sidebar button.slide-toggle {
-  bottom: 0;
-  position: absolute;
+button.reactable-sidebar-slide-toggle {
+  margin-top: 100px;
 }
 
-.reactable-sidebar .title .badge {
+.reactable-sidebar .reactable-sidebar-slide .reactable-title-badge {
   pointer-events: none;
-  background-color: black;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  padding: 0 5px;
   color: #fff;
+  min-width: 15px;
   border-radius: 15px;
   text-align: center;
   font-size: smaller;
-  position: absolute;
-  top: 0;
-  left: 10px;
-  width: 15px;
-  box-shadow: 0px 0px 5px #000;
-  background-color: red;
+  font-weight: bold;
+  box-shadow: 1px 1px 1px #000;
+  background-color: #86c105;
 }
