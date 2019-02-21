@@ -16,7 +16,7 @@ function filteredSchema(state = initState, action) {
       // could be loaded from localStorage if not hide some columns
       if (isEmpty(state)) {
         forEach(action.settings.schema, (value, key) => {
-          if (!value.hide) {
+          if (value.visible !== false) {
             newFilteredSchema = Object.assign({}, newFilteredSchema, { [key]: value })
           }
           return { [key]: value }

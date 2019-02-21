@@ -21,16 +21,15 @@ window.schemaUsers = {
   },
   active: {
     type: 'boolean',
-    filter: true,
   },
   date_of_birth: {
     type: 'date',
     label: 'Date of Birth',
   },
-  ip: { type: 'text' },
+  ip: { type: 'text', filterable: false },
   website: { type: 'text' },
-  phone_number: { type: 'text' },
-  job: { type: 'text', hide: true },
+  phone_number: { type: 'text', visible: false },
+  job: { type: 'text', visible: false },
   gender: {
     type: 'text',
     dictionary: {male: 'MALE', female: 'FEMALE'},

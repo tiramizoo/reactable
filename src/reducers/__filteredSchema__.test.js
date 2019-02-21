@@ -11,7 +11,7 @@ test('should handle INIT_SETTINGS and hide some columns when schema is not loade
   expect(reducer(initState,
     {
       type: types.INIT_SETTINGS,
-      settings: { schema: { first_name: { type: 'text' }, id: { type: 'number', hide: true } } },
+      settings: { schema: { first_name: { type: 'text' }, id: { type: 'number', visible: false } } },
     })
   ).toEqual({
     first_name: { type: 'text' }
