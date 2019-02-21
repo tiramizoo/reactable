@@ -8,7 +8,6 @@ import pickBy from 'lodash/pickBy'
 import debounce from 'lodash/debounce'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
-import forEach from 'lodash/forEach'
 import isEmpty from 'lodash/isEmpty'
 import { DateTime, Duration } from 'luxon'
 
@@ -30,23 +29,27 @@ class InitApp {
     // localStorage do not save formaters
     if (persistedState) {
       persistedState.filteredSchema
-      forEach(persistedState.filteredSchema, (_, k) => {
-        if (config.schema[k] && config.schema[k].formatter) {
-          Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
-        }
-        if (config.schema[k] && config.schema[k].type) {
-          Object.assign(persistedState.filteredSchema[k], { type: config.schema[k].type })
-        }
-        if (config.schema[k] && config.schema[k].label) {
-          Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
-        }
-        if (config.schema[k] && config.schema[k].filterable) {
-          Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
-        }
-        if (config.schema[k] && config.schema[k].dictionary) {
-          Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
-        }
-        if (!config.schema[k]) {
+      Object.keys(persistedState.filteredSchema).forEach((k) => {
+        if (config.schema[k]) {
+          if (config.schema[k].formatter) {
+            Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
+          }
+          if (config.schema[k].type) {
+            Object.assign(persistedState.filteredSchema[k], { type: config.schema[k].type })
+          }
+          if (config.schema[k].label) {
+            Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
+          }
+          if (config.schema[k].filterable !== undefined) {
+            Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
+          }
+          if (config.schema[k].dictionary) {
+            Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
+          }
+          if (config.schema[k].visible !== undefined) {
+            Object.assign(persistedState.filteredSchema[k], { visible: config.schema[k].visible })
+          }
+        } else {
           delete persistedState.filteredSchema[k]
         }
       })

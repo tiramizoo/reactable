@@ -28,8 +28,8 @@ window.schemaUsers = {
   },
   ip: { type: 'text', filterable: false },
   website: { type: 'text' },
-  phone_number: { type: 'text' },
-  job: { type: 'text', hide: true },
+  phone_number: { type: 'text', visible: false },
+  job: { type: 'text', visible: false },
   gender: {
     type: 'text',
     dictionary: {male: 'MALE', female: 'FEMALE'},
