@@ -107,19 +107,19 @@ class SearchText extends Component {
             <option value="empty">Empty</option>
             <option value="notEmpty">Not Empty</option>
           </select>
-          {schema[column].dictionary && <div>
+          {!isEmpty(schema[column].dictionary) && <div>
             <ul>
-              {schema[column].dictionary.map(value => {
-                const prefix = getPrefix(containerId, `search-dictionary-${column}`, value)
-                const checked = dictionary.includes(value)
+              {Object.keys(schema[column].dictionary).map(key => {
+                const prefix = getPrefix(containerId, `search-dictionary-${column}`, key)
+                const checked = dictionary.includes(key)
                 return (<li key={prefix}>
                   <label htmlFor={prefix}>
-                    {value}
+                    {schema[column].dictionary[key]}
                   </label>
                   <input
                     id={prefix}
                     type="checkbox"
-                    onChange={e => this.handleDictionaryChange(e, value)}
+                    onChange={e => this.handleDictionaryChange(e, key)}
                     checked={checked}
                   />
                 </li>)

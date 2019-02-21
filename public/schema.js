@@ -33,7 +33,10 @@ window.schemaUsers = {
   job: { type: 'text', hide: true },
   gender: {
     type: 'text',
-    dictionary: ['male', 'female'],
+    dictionary: {male: 'MALE', female: 'FEMALE'},
+    formatter: function (value) {
+      return this.gender.dictionary[value]
+    }
   },
   email: { type: 'text' },
   created_at: { type: 'datetime' },
