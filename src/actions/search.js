@@ -39,10 +39,10 @@ export const searchingOr = ({ query, store }) => {
 
 export const reSearching = items => (dispatch, getState) => {
   const {
-    filteredSchema, limit, searchQueryAnd, searchQueryOr, settings,
+    limit, searchQueryAnd, searchQueryOr, settings, schema,
   } = getState()
   const { strategySearch } = settings
-  const filteredItems = searchBy(items, searchQueryAnd, searchQueryOr, filteredSchema, strategySearch)
+  const filteredItems = searchBy(items, searchQueryAnd, searchQueryOr, schema, strategySearch)
 
   dispatch(setFilteredItems(filteredItems))
   dispatch(setOffset(0))
