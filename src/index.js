@@ -29,36 +29,29 @@ class InitApp {
     // localStorage do not save formaters
     if (persistedState) {
       Object.keys(config.schema).forEach((k) => {
-        if (config.schema[k]) {
-          if (config.schema[k].visible !== undefined) {
-            if (config.schema[k].visible === false && persistedState.filteredSchema[k]) {
-              delete persistedState.filteredSchema[k]
-              return null
-            } else {
-              persistedState.filteredSchema[k] = config.schema[k]
-            }
-          } else {
-            if (!persistedState.filteredSchema[k]) {
-              persistedState.filteredSchema[k] = config.schema[k]
-            }
-          }
+        if (!persistedState.filteredSchema[k]) {
+          persistedState.filteredSchema[k] = config.schema[k]
+        }
 
-          if (config.schema[k].formatter) {
-            Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
-          }
-          if (config.schema[k].type) {
-            Object.assign(persistedState.filteredSchema[k], { type: config.schema[k].type })
-          }
-          if (config.schema[k].label) {
-            Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
-          }
-          if (config.schema[k].filterable !== undefined) {
-            Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
-          }
-          if (config.schema[k].dictionary) {
-            Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
-          }
-        } else {
+        if (config.schema[k].formatter) {
+          Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
+        }
+        if (config.schema[k].type) {
+          Object.assign(persistedState.filteredSchema[k], { type: config.schema[k].type })
+        }
+        if (config.schema[k].label) {
+          Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
+        }
+        if (config.schema[k].filterable !== undefined) {
+          Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
+        }
+        if (config.schema[k].dictionary) {
+          Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
+        }
+      })
+
+      Object.keys(persistedState).forEach((k) => {
+        if (!config.schema[k]) {
           delete persistedState.filteredSchema[k]
         }
       })
