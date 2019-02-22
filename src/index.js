@@ -28,9 +28,21 @@ class InitApp {
 
     // localStorage do not save formaters
     if (persistedState) {
-      persistedState.filteredSchema
-      Object.keys(persistedState.filteredSchema).forEach((k) => {
+      Object.keys(config.schema).forEach((k) => {
         if (config.schema[k]) {
+          if (config.schema[k].visible !== undefined) {
+            if (config.schema[k].visible === false && persistedState.filteredSchema[k]) {
+              delete persistedState.filteredSchema[k]
+              return null
+            } else {
+              persistedState.filteredSchema[k] = config.schema[k]
+            }
+          } else {
+            if (!persistedState.filteredSchema[k]) {
+              persistedState.filteredSchema[k] = config.schema[k]
+            }
+          }
+
           if (config.schema[k].formatter) {
             Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
           }
@@ -45,9 +57,6 @@ class InitApp {
           }
           if (config.schema[k].dictionary) {
             Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
-          }
-          if (config.schema[k].visible !== undefined) {
-            Object.assign(persistedState.filteredSchema[k], { visible: config.schema[k].visible })
           }
         } else {
           delete persistedState.filteredSchema[k]

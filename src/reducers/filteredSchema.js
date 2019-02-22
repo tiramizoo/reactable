@@ -15,11 +15,15 @@ function filteredSchema(state = initState, action) {
     case INIT_SETTINGS:
       // could be loaded from localStorage if not hide some columns
       if (isEmpty(state)) {
-        forEach(action.settings.schema, (value, key) => {
-          if (value.visible !== false) {
-            newFilteredSchema = Object.assign({}, newFilteredSchema, { [key]: value })
+        Object.keys(action.settings.schema).forEach((k) => {
+          if (action.settings.schema[k].visible !== undefined) {
+            if (action.settings.schema[k].visible === false) {
+              return null
+            }
+            newFilteredSchema[k] = action.settings.schema[k]
+          } else {
+            newFilteredSchema[k] = action.settings.schema[k]
           }
-          return { [key]: value }
         })
         return newFilteredSchema
       }
