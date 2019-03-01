@@ -4,7 +4,7 @@
   height: 100%;
   top: 0;
   right: 0;
-  width: 340px;
+  width: 332px;
   transition: 0.2s;
   box-shadow: 0px 0px 10px #333;
   background-color: #fff;
@@ -19,7 +19,7 @@
   box-sizing: border-box;
   position: absolute;
   top: 0;
-  width: 40px;
+  width: 32px;
   height: 100%;
   background-color: #32414f;
 }
@@ -27,7 +27,7 @@
 .reactable-sidebar .reactable-sidebar-slide .reactable-sidebar-title {
   position: relative;
   box-sizing: border-box;
-  width: 42px;
+  width: 32px;
   height: 40px;
   cursor: pointer;
   padding: 5px;
@@ -35,8 +35,8 @@
 
 .reactable-title-icon {
   margin: auto;
-  width: 25px;
-  height: 25px
+  width: 23px;
+  height: 23px
 }
 
 .reactable-sidebar .reactable-sidebar-slide .reactable-sidebar-title.current {
@@ -70,14 +70,14 @@ button.reactable-sidebar-slide-toggle {
 .reactable-sidebar .reactable-sidebar-slide .reactable-title-badge {
   pointer-events: none;
   position: absolute;
-  top: 0;
-  right: 5px;
-  padding: 0 5px;
+  top: 1px;
+  right: 2px;
+  padding: 0 4px;
   color: #fff;
-  min-width: 15px;
+  min-width: 7px;
   border-radius: 15px;
   text-align: center;
-  font-size: smaller;
+  font-size: x-small;
   font-weight: bold;
   box-shadow: 1px 1px 1px #000;
   background-color: #86c105;

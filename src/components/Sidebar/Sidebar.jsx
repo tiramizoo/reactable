@@ -41,7 +41,7 @@ class Sidebar extends Component {
 
   togglePanelState = (e, type) => {
     const { show } = this.state
-
+    e.stopPropagation()
     if (show) {
       this.setState({
         currentPanel: type
@@ -91,7 +91,7 @@ class Sidebar extends Component {
 
     return(
       <div className={`reactable-sidebar ${this.sidebarClass()}`}>
-        <div className='reactable-sidebar-slide'>
+        <div className='reactable-sidebar-slide' onClick={e => this.toggleSlide(e)}>
           <div className={this.titleClass('search')} onClick={(e) => this.togglePanelState(e, 'search')}>
             <SearchIcon fill={this.fillColor('search')} />
             { badge > 0 &&
@@ -105,10 +105,6 @@ class Sidebar extends Component {
               <div className='reactable-title-badge'>{Object.keys(filteredSchema).length}</div>
             }
           </div>
-
-          {
-            <button className='reactable-sidebar-slide-toggle' onClick={e => this.toggleSlide(e)}> -></button>
-          }
         </div>
 
         { show &&

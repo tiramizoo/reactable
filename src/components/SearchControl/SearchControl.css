@@ -75,14 +75,13 @@ input::-ms-clear {
   height: 30px;
 }
 
-.reactable .SearchControl input[type=text] {
-  height: 30px;
+.reactable .SearchControl input {
+  height: 25px;
   padding: 3px;
 }
 
 .search-presets {
   display: flex;
-  background-color: #e3e3e3;
 }
 
 .search-presets-dropdown {
