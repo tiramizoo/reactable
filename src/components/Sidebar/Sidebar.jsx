@@ -40,9 +40,9 @@ class Sidebar extends Component {
   }
 
   togglePanelState = (e, type) => {
-    const { show } = this.state
+    const { show, currentPanel } = this.state
     e.stopPropagation()
-    if (show) {
+    if (currentPanel !== type && show) {
       this.setState({
         currentPanel: type
       })
