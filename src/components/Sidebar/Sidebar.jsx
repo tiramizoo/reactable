@@ -95,14 +95,14 @@ class Sidebar extends Component {
           <div className={this.titleClass('search')} onClick={(e) => this.togglePanelState(e, 'search')}>
             <SearchIcon fill={this.fillColor('search')} />
             { badge > 0 &&
-              <div className='reactable-title-badge'>{badge}</div>
+              <div className='reactable-title-badge reactable-badge__red'>{badge}</div>
             }
           </div>
 
           <div className={this.titleClass('settings')} onClick={(e) => this.togglePanelState(e, 'settings')}>
             <SettingsIcon fill={this.fillColor('settings')} />
             { schemaBadge !== filteredSchemaBadge &&
-              <div className='reactable-title-badge'>{Object.keys(filteredSchema).length}</div>
+              <div className='reactable-title-badge reactable-badge__green'>{Object.keys(filteredSchema).length}</div>
             }
           </div>
         </div>

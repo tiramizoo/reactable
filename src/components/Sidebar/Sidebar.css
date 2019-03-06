@@ -67,7 +67,7 @@ button.reactable-sidebar-slide-toggle {
   margin-top: 100px;
 }
 
-.reactable-sidebar .reactable-sidebar-slide .reactable-title-badge {
+.reactable-title-badge {
   pointer-events: none;
   position: absolute;
   top: 1px;
@@ -80,5 +80,12 @@ button.reactable-sidebar-slide-toggle {
   font-size: x-small;
   font-weight: bold;
   box-shadow: 1px 1px 1px #000;
+}
+
+.reactable-badge__red {
+  background-color: #ff4448;
+}
+
+.reactable-badge__green {
   background-color: #86c105;
 }
