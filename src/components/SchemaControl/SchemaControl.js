@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import SchemaControlComponent from './SchemaControl.jsx'
-import { addToFilteredSchema, removeFromFilteredSchema } from '../../actions/schema'
+import { addToFilteredSchema, removeFromFilteredSchema, updateFilteredSchema } from '../../actions/schema'
 
 const mapStateToProps = state => ({
   schema: state.schema,
@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   addToFilteredSchema,
   removeFromFilteredSchema,
+  updateFilteredSchema,
 }
 
 const SchemaControl = connect(mapStateToProps, mapDispatchToProps)(SchemaControlComponent)

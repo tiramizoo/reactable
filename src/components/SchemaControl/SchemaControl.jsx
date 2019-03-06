@@ -23,6 +23,10 @@ const SchemaControl = (props) => {
     }
   }
 
+  const resetSchema = () => {
+    props.updateFilteredSchema(props.schema)
+  }
+
   const renderElement = (key) => {
     const { filteredSchema } = props
     const value = !!filteredSchema[key]
@@ -43,6 +47,9 @@ const SchemaControl = (props) => {
 
   return (
     <div className="schemaControl">
+      <div>
+        <button type="button" onClick={() => resetSchema()} className="reactable-reset">Reset</button>
+      </div>
       <ul>
         { Object.keys(schema).map(key => renderElement(key)) }
       </ul>

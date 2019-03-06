@@ -33,3 +33,13 @@
 .reactable .schemaControl ul li input[type=checkbox] {
   float: right;
 }
+
+.reactable-reset {
+  padding: 5px;
+  margin: 5px;
+  width: 20%;
+  background-color: #86c105;
+  color: #fff;
+  border-radius: 999em;
+  float: right;
+}
