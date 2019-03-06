@@ -197,7 +197,7 @@ class Table extends Component {
       <tr>
         <th colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }}>
           <span className="reactable-counts">
-            {filteredItems.length}/{progressMax || items.length}
+            {filteredItems.length} / {progressMax || items.length}
           </span>
           { this.renderFooterControls() }
           <progress id="reactable-progress-bar" name="reactable-progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
