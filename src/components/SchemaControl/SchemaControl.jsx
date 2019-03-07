@@ -47,9 +47,6 @@ const SchemaControl = (props) => {
 
   return (
     <div className="schemaControl">
-      <div>
-        <button type="button" onClick={() => resetSchema()} className="reactable-reset">Reset</button>
-      </div>
       <ul>
         { Object.keys(schema).map(key => renderElement(key)) }
       </ul>

@@ -30,17 +30,7 @@ function filteredSchema(state = initState, action) {
       // do nothing when state loaded from localStorage
       return state
     case UPDATE_FILTERED_SCHEMA:
-      Object.keys(action.schema).forEach((k) => {
-        if (action.schema[k].visible !== undefined) {
-          if (action.schema[k].visible === false) {
-            return null
-          }
-          newFilteredSchema[k] = action.schema[k]
-        } else {
-          newFilteredSchema[k] = action.schema[k]
-        }
-      })
-      return newFilteredSchema
+      return action.schema
     default:
       return state
   }
