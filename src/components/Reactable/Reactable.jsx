@@ -19,13 +19,13 @@ class Reactable extends Component {
   }
 
   render() {
-    const { width } = this.props
+    const { width, sidebarVisible } = this.props
 
     return (
       <div className="reactable" style={{ width }}>
         <Table />
         <ScrollBar />
-        <Sidebar />
+        {sidebarVisible && <Sidebar />}
       </div>
     )
   }

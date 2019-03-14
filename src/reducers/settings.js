@@ -12,6 +12,7 @@ const initSettings = {
   dateFormat: 'iso',
   defaultSearchPreset: '',
   noData: false,
+  sidebarVisible: true,
 }
 
 function settings(state = initSettings, action) {
