@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
 
 const cache = {}
 
-class Table extends Component {
+class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.tbodyRef = React.createRef();
+  }
+
   onKeyDown(e) {
     const {
       offset, setOffset, filteredItems, limit, updateViewport,
@@ -39,6 +44,12 @@ class Table extends Component {
       setOffset(newOffset)
       updateViewport(filteredItems, limit, newOffset)
     }
+  }
+
+  componentDidMount() {
+    this.tbodyRef.current.addEventListener('wheel', (e) => {
+      this.onWheel(e)
+    }, {passive: false})
   }
 
   onWheel(e) {
@@ -201,7 +212,7 @@ class Table extends Component {
           </span>
           { this.renderFooterControls() }
           <progress id="reactable-progress-bar" name="reactable-progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
-          {progressMax === 0 && items.length === 0 && !noData && <span className="reactable-loader" /> }
+          {progressMax === 0 && items.length === 0 && !noData && <span className="icon-spin6 animate-spin" /> }
         </th>
         { actions && <th /> }
       </tr>
@@ -268,8 +279,8 @@ class Table extends Component {
             { this.renderHeader() }
           </thead>
           <tbody
+            ref={this.tbodyRef}
             tabIndex="0"
-            onWheel={e => this.onWheel(e)}
             onKeyDown={e => this.onKeyDown(e)}
           >
             { currentItems.map(item => this.renderRow(item)) }
