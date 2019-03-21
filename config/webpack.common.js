@@ -29,17 +29,19 @@ module.exports = {
         ],
       },
       {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader?classPrefix'
-      },
-      {
         test: /\.css$/,
         exclude: /(bower_components)/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader?sourceMap' },
-        ],
+          'style-loader',
+          'css-loader'
+        ]
       },
+      {
+         test: /\.(woff|woff2|ttf|eot)$/,
+         use: [{
+           loader: 'base64-inline-loader'
+        }]
+      }
     ],
   },
   resolve: {

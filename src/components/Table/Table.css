@@ -132,18 +132,6 @@
   background-color: #fff
 }
 
-.reactable-loader {
-  display: inline-block;
-  margin-left: 10px;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  border-top: 4px solid #000;
-  width: 12px;
-  height: 12px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-}
-
 #reactable-progress-bar {
   padding: 5px;
   margin-left: 10px;
@@ -152,15 +140,4 @@
 .reactable-counts {
   padding: 5px;
   display: inline-block;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }

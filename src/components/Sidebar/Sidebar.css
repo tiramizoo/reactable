@@ -28,19 +28,15 @@
   position: relative;
   box-sizing: border-box;
   width: 32px;
-  height: 40px;
+  height: 32px;
   cursor: pointer;
   padding: 5px;
-}
-
-.reactable-title-icon {
-  margin: auto;
-  width: 23px;
-  height: 23px
+  color: #fff;
 }
 
 .reactable-sidebar .reactable-sidebar-slide .reactable-sidebar-title.current {
   background-color: #ffff;
+  color: #000;
 }
 
 

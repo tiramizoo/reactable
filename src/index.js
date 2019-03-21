@@ -19,6 +19,8 @@ import { setItems, updateViewport, clearItems } from './actions/items'
 import { sortBy, queryDataType, filterSchemaByType } from './helpers/utilities'
 import { loadState, saveState } from './localStorage'
 
+import './index.css'
+
 
 class InitApp {
   constructor(config) {

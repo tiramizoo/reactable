@@ -30,12 +30,15 @@
   width: 20px;
   font-size: 12px;
   padding: 0;
+  border: none;
   color: #000;
   background-color: #fff;
+  outline: none;
 }
 
 .reactable .SearchControl button.clear:after {
-  content: '✖'
+  font-family: 'reactable';
+  content: '\e806'
 }
 
 input::-ms-clear {
