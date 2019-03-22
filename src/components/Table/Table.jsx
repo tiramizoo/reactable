@@ -153,7 +153,18 @@ class Table extends React.Component {
       cache[cacheKey] = formatter.apply(schema, [row[key], row]) || ''
     }
 
-    const cellHtml = { __html: cache[cacheKey] }
+    let altTitle
+    if (schemaParams.type !== 'boolean' && value !== null) {
+      altTitle = defaultFormatter(schemaParams.type, dateFormat, dateSeparator).apply(schema, [row[key], row]) || ''
+    }
+
+    let cellHtml
+
+    if (altTitle) {
+      cellHtml = { __html: `<span title='${altTitle}'>${cache[cacheKey]}</span>` }
+    } else {
+      cellHtml = { __html: cache[cacheKey] }
+    }
 
     return (
       <td

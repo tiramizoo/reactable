@@ -38,7 +38,8 @@
 
 .reactable .SearchControl button.clear:after {
   font-family: 'reactable';
-  content: '\e806'
+  content: '\e800';
+  font-size: 16px
 }
 
 input::-ms-clear {
@@ -97,11 +98,6 @@ input::-ms-clear {
   width: 20%;
 }
 
-.search-presets-reset button, button.download-xlsx {
-  background-color: #86c105;
-  color: #fff;
-  border-radius: 999em
-}
 
 .search-presets-dropdown select {
   width: 100%;

@@ -101,6 +101,10 @@
   vertical-align: middle;
 }
 
+.reactable table tr td:last-child {
+  padding-right: 20px;
+}
+
 .reactable table tr.record td {
   border: 1px solid #e2e2e2;
 }
