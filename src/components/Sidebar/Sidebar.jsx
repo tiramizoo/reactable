@@ -67,14 +67,14 @@ class Sidebar extends Component {
       <div className={`reactable-sidebar ${this.sidebarClass()}`}>
         <div className='reactable-sidebar-slide' onClick={e => this.toggleSlide(e)}>
           <div className={this.titleClass('search')} onClick={(e) => this.togglePanelState(e, 'search')}>
-            <span className='icon-search'></span>
+            <span className='r-icon-search'></span>
             { badge > 0 &&
               <div className='reactable-title-badge reactable-badge__red'>{badge}</div>
             }
           </div>
 
           <div className={this.titleClass('settings')} onClick={(e) => this.togglePanelState(e, 'settings')}>
-            <div className='icon-sliders'></div>
+            <div className='r-icon-sliders'></div>
             { schemaBadge !== filteredSchemaBadge &&
               <div className='reactable-title-badge reactable-badge__green'>{Object.keys(filteredSchema).length}</div>
             }

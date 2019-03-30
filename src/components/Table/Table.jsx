@@ -223,7 +223,7 @@ class Table extends React.Component {
           </span>
           { this.renderFooterControls() }
           <progress id="reactable-progress-bar" name="reactable-progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
-          {progressMax === 0 && items.length === 0 && !noData && <span className="icon-spin6 animate-spin" /> }
+          {progressMax === 0 && items.length === 0 && !noData && <span className="r-icon-spin6 animate-spin" /> }
         </th>
         { actions && <th /> }
       </tr>
