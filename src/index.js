@@ -96,7 +96,9 @@ class InitApp {
 
   applySearchPreset(presetName) {
     const { searchPresets } = this.store.getState()
-    this.searchAND(searchPresets[presetName])
+    if (searchPresets[presetName]) {
+      this.searchAND(searchPresets[presetName])
+    }
   }
 
   clearData() {

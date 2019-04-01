@@ -72,7 +72,7 @@ class SearchControl extends Component {
     const { searchPresets, schema } = this.props
     this.setState({ searchPreset: name })
 
-    if (name) {
+    if (name && searchPresets[name]) {
       const query = searchPresets[name]
       const newQuery = queryDataType(query, schema)
 
