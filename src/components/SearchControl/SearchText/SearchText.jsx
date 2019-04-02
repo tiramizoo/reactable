@@ -110,7 +110,6 @@ class SearchText extends Component {
               value={value}
               onChange={(e) => this.handleTextChange(e)}
               type="text"
-              placeholder={column}
               autoComplete="off"
             />
             <select
