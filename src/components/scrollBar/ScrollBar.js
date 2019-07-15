@@ -24,6 +24,8 @@ const calculateScrollBarHandleTopOffset = (state) => {
 const mapStateToProps = state => ({
   tableWidth:              state.table.width,
 
+  sidebarVisible:          state.settings.sidebarVisible,
+
   scrollBarHeight:          calculateScrollBarHeight(state),
   scrollBarTopOffset:       state.table.rowHeight,
 

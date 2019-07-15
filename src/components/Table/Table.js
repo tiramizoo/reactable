@@ -18,11 +18,10 @@ const mapStateToProps = state => ({
   offset:         state.offset,
 
   actions:        state.settings.actions,
-  controls:       state.settings.controls,
-  progressMax:    state.settings.progressMax,
   dateFormat:     state.settings.dateFormat,
   dateSeparator:  state.settings.dateSeparator,
-  noData:         state.settings.noData,
+  sidebarVisible: state.settings.sidebarVisible,
+
 
   tableWidth:     state.table.width,
   rowHeight:      state.table.rowHeight,

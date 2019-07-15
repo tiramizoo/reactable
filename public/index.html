@@ -66,13 +66,49 @@
         dateFormat: 'eu',
         controls: {
           csv: {
-            onClick: function (e) { console.log('Download CSV', e)},
-            className: '',
+            onClick: function (e) {
+              e.stopPropagation();
+              console.log('Download CSV', e)
+            },
+            className: 'r-icon-doc-text',
             key: 'csv',
             disabled: false,
-            label: 'CSV',
-          }
-        },
+            label: 'Download CSV',
+          },
+          xlsx: {
+            onClick: function (e) {
+              e.stopPropagation();
+              console.log('Download XLSX', e)
+            },
+            className: 'r-icon-file-excel',
+            key: 'xlsx',
+            disabled: false,
+            label: 'Download XLSX',
+          },
+        //   fullscreen: {
+        //     onClick: function (e) {
+        //       e.stopPropagation();
+        //       const requestFullScreen = function(element) {
+        //         if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
+        //           if (element.requestFullscreen) {
+        //             return element.requestFullscreen();
+        //           } else if (element.mozRequestFullScreen) {
+        //             return element.mozRequestFullScreen();
+        //           } else if (element.webkitRequestFullScreen) {
+        //             return element.webkitRequestFullScreen();
+        //           }
+        //         }
+        //       };
+        //
+        //       requestFullScreen(document.getElementById('table2'))
+        //     },
+        //     className: 'r-icon-resize-full',
+        //     key: 'fullscreen',
+        //     disabled: false,
+        //     label: 'FullScreen',
+        //   }
+        // },
+      },
         searchPresets: {
           over_10: {id: {value: {from: 10}}},
           active:  {active: {value: true}},

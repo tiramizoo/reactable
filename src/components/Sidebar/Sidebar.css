@@ -85,3 +85,18 @@ button.reactable-sidebar-slide-toggle {
 .reactable-badge__green {
   background-color: #86c105;
 }
+
+.reactable-sidebar-controls {
+  position: absolute;
+  bottom: 0
+}
+
+.reactable-sidebar-controls button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 22px;
+    margin-left: 2px;
+    margin-bottom: 8px;
+    padding: 0;
+  }

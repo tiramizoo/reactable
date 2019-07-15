@@ -2,29 +2,30 @@ window.schemaUsers = {
   id: {
     type: 'number',
     formatter: function (value, row) { return "ID: " + row['id']},
+    width: 100,
   },
   first_name: {
     type: 'text',
     label: 'First Name',
     formatter: function (value, row) {
       return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
-    },
+    }
   },
   last_name: {
     type: 'text'
   },
   duration: {
-    type: 'duration',
+    type: 'duration'
   },
   time: {
     type: 'time',
   },
   active: {
-    type: 'boolean',
+    type: 'boolean'
   },
   date_of_birth: {
     type: 'date',
-    label: 'Date of Birth',
+    label: 'Date of Birth'
   },
   ip: { type: 'text', filterable: false },
   website: { type: 'text', visible: true },

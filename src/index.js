@@ -44,6 +44,8 @@ class InitApp {
           if (config.schema[k].filterable !== undefined) {
             Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
           }
+
+
           if (config.schema[k].dictionary) {
             Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
           }

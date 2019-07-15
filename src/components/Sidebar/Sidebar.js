@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   height: state.limit * 30,
   schema: state.schema,
   filteredSchema: state.filteredSchema,
+  controls:       state.settings.controls
 })
 
 const mapDispatchToProps = () => ({})

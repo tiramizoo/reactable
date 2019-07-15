@@ -54,6 +54,28 @@ class Sidebar extends Component {
     }
   }
 
+  renderFooterControls() {
+    const { controls } = this.props
+
+    return (
+      Object.entries(controls).map(([key, value]) => {
+        if (!value) {
+          return null
+        }
+
+        return (
+          <button
+            onClick={e => value.onClick(e)}
+            className={value.className}
+            key={key}
+            disabled={value.disabled}
+            title={value.label || key}
+          />
+        )
+      })
+    )
+  }
+
 
   render() {
     const { searchQueryOr, searchQueryAnd, schema, filteredSchema } = this.props
@@ -78,6 +100,10 @@ class Sidebar extends Component {
             { schemaBadge !== filteredSchemaBadge &&
               <div className='reactable-title-badge reactable-badge__green'>{Object.keys(filteredSchema).length}</div>
             }
+          </div>
+
+          <div className='reactable-sidebar-controls'>
+            {this.renderFooterControls()}
           </div>
         </div>
 

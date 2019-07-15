@@ -52,6 +52,31 @@ class Table extends React.Component {
     }, {passive: false})
   }
 
+  onMouseDown(e) {
+    e.stopPropagation();
+    const startMouseX = e.screenX;
+    const th = e.currentTarget.parentElement;
+    const startW = th.offsetWidth;
+
+    const minColumnWidth = 5;
+    const maxColumnWidth = 300;
+
+  	function onMouseMove( e ) {
+  		const w = startW + e.screenX - startMouseX;
+      th.style.width = Math.min(maxColumnWidth, Math.max(minColumnWidth, w)) + 'px'
+  	}
+
+    function onMouseUp( e ) {
+  		onMouseMove(e);
+
+  		document.removeEventListener("mouseup", onMouseUp);
+  		document.removeEventListener("mousemove", onMouseMove);
+  	}
+
+    document.addEventListener("mouseup", onMouseUp);
+		document.addEventListener("mousemove", onMouseMove);
+  }
+
   onWheel(e) {
     e.currentTarget.focus()
 
@@ -108,6 +133,22 @@ class Table extends React.Component {
     return filteredSchema[key].label || key
   }
 
+  columnHeaderWidth(schemaKey) {
+    if (schemaKey.width) {
+      return schemaKey.width
+    } else {
+      const defaultWidths = {
+        boolean: 60,
+        date:    90,
+        time:    70,
+        number:  60,
+        duration: 70,
+        datetime: 140
+      }
+      return defaultWidths[schemaKey.type]
+    }
+  }
+
   sort(key) {
     const {
       filteredSchema, setSortDirection, setOffset, updateViewport, filteredItems,
@@ -124,15 +165,19 @@ class Table extends React.Component {
   }
 
   columnHeader(key) {
-    const { rowHeight } = this.props
+    const { rowHeight, filteredSchema } = this.props
+
+    const columnWidth = this.columnHeaderWidth(filteredSchema[key])
+
     return (
       <th
-        style={{ height: rowHeight }}
+        style={{ width: columnWidth, height: rowHeight }}
         className={this.columnClassName(key)}
         key={key}
         onClick={() => this.sort(key)}
       >
-        {this.columnHeaderName(key)}
+        <span title={this.columnHeaderName(key)}>{this.columnHeaderName(key)}</span>
+        <div className='reactable-resize-column' onMouseDown={ this.onMouseDown }></div>
       </th>
     )
   }
@@ -186,49 +231,6 @@ class Table extends React.Component {
     )
   }
 
-  renderFooterControls() {
-    const { controls } = this.props
-
-    return (
-      Object.entries(controls).map(([key, value]) => {
-        if (!value) {
-          return null
-        }
-
-        return (
-          <button
-            onClick={e => value.onClick(e)}
-            className={value.className}
-            key={key}
-            disabled={value.disabled}
-            type="button"
-          >
-            {value.label || key}
-          </button>
-        )
-      })
-    )
-  }
-
-  renderFooter() {
-    const {
-      rowHeight, filteredSchema, filteredItems, items, actions, progressMax, noData,
-    } = this.props
-
-    return (
-      <tr>
-        <th colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }}>
-          <span className="reactable-counts">
-            {filteredItems.length} / {progressMax || items.length}
-          </span>
-          { this.renderFooterControls() }
-          <progress id="reactable-progress-bar" name="reactable-progress-bar" max={progressMax} value={items.length}>{items.length}</progress>
-          {progressMax === 0 && items.length === 0 && !noData && <span className="r-icon-spin6 animate-spin" /> }
-        </th>
-        { actions && <th /> }
-      </tr>
-    )
-  }
 
   renderActions(row) {
     const { actions } = this.props
@@ -281,26 +283,33 @@ class Table extends React.Component {
 
   render() {
     const {
-      tableWidth, currentItems,
+      tableWidth, currentItems, sidebarVisible
     } = this.props
 
+    const sidebarWidth = 30;
+
+    let adjustedTableWidth
+
+    if (sidebarVisible) {
+      adjustedTableWidth = tableWidth - sidebarWidth
+    } else {
+      adjustedTableWidth = tableWidth
+    };
+
     return (
-        <table style={{ width: tableWidth - 30}}>
-          <thead>
-            { this.renderHeader() }
-          </thead>
-          <tbody
-            ref={this.tbodyRef}
-            tabIndex="0"
-            onKeyDown={e => this.onKeyDown(e)}
-          >
-            { currentItems.map(item => this.renderRow(item)) }
-            { this.renderMissingRows() }
-          </tbody>
-          <tfoot>
-            { this.renderFooter() }
-          </tfoot>
-        </table>
+      <table style={{ width: adjustedTableWidth}}>
+        <thead>
+          { this.renderHeader() }
+        </thead>
+        <tbody
+          ref={this.tbodyRef}
+          tabIndex="0"
+          onKeyDown={e => this.onKeyDown(e)}
+        >
+          { currentItems.map(item => this.renderRow(item)) }
+          { this.renderMissingRows() }
+        </tbody>
+      </table>
     )
   }
 }

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 
-import Sidebar from '../Sidebar'
-import ScrollBar from '../ScrollBar'
+
 import Table from '../Table'
+import ScrollBar from '../ScrollBar'
+import Counters from '../Counters'
+import Sidebar from '../Sidebar'
+import ProgressBar from '../ProgressBar'
 
 
 class Reactable extends Component {
@@ -25,6 +28,8 @@ class Reactable extends Component {
       <div className="reactable" style={{ width }}>
         <Table />
         <ScrollBar />
+        <Counters />
+        <ProgressBar />
         {sidebarVisible && <Sidebar />}
       </div>
     )

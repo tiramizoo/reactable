@@ -9,6 +9,7 @@
 }
 
 
+
 [class^="r-icon-"]:before, [class*=" r-icon-"]:before {
  font-family: "reactable";
  font-style: normal;
@@ -47,14 +48,17 @@
 .r-icon-cancel-circled:before { content: '\e800'; } /* '' */
 .r-icon-download:before { content: '\e801'; } /* '' */
 .r-icon-resize-full:before { content: '\e802'; } /* '' */
+.r-icon-arrows-cw:before { content: '\e803'; } /* '' */
 .r-icon-search:before { content: '\e809'; } /* '' */
 .r-icon-spin6:before { content: '\e839'; } /* '' */
+.r-icon-filter:before { content: '\f0b0'; } /* '' */
+.r-icon-doc-text:before { content: '\f0f6'; } /* '' */
 .r-icon-angle-circled-left:before { content: '\f137'; } /* '' */
 .r-icon-angle-circled-right:before { content: '\f138'; } /* '' */
 .r-icon-angle-circled-up:before { content: '\f139'; } /* '' */
 .r-icon-angle-circled-down:before { content: '\f13a'; } /* '' */
+.r-icon-file-excel:before { content: '\f1c3'; } /* '' */
 .r-icon-sliders:before { content: '\f1de'; } /* '' */
-
 
 /*
    Animation example, for spinners

@@ -10,19 +10,15 @@
 
 .reactable table {
   border: none;
-  table-layout: fixed;
   border-collapse: collapse;
   font-size: 12px;
   outline-style: solid;
   outline-width: thin;
   outline-color: #e2e2e2;
   background-color: #fff;
-}
 
-.reactable table.extendable {
   overflow-x: auto;
-  display: block;
-  width: fit-content;
+  table-layout: fixed;
 }
 
 .reactable tbody {
@@ -43,6 +39,15 @@
   box-sizing: border-box;
   vertical-align: middle;
   font-weight: bold;
+}
+
+.reactable table th .reactable-resize-column {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 3px;
+  cursor: col-resize;
 }
 
 .reactable table th.sortable {
@@ -134,14 +139,4 @@
 
 .reactable table tr.record:nth-child(odd) td {
   background-color: #fff
-}
-
-#reactable-progress-bar {
-  padding: 5px;
-  margin-left: 10px;
-}
-
-.reactable-counts {
-  padding: 5px;
-  display: inline-block;
 }
