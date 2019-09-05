@@ -1,5 +1,6 @@
 import React from 'react'
 import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
+import xss from 'xss'
 
 const cache = {}
 
@@ -200,13 +201,13 @@ class Table extends React.Component {
 
     let altTitle
     if (schemaParams.type !== 'boolean' && value !== null) {
-      altTitle = defaultFormatter(schemaParams.type, dateFormat, dateSeparator).apply(schema, [row[key], row]) || ''
+      altTitle = xss(defaultFormatter(schemaParams.type, dateFormat, dateSeparator).apply(schema, [row[key], row]) || '')
     }
 
     let cellHtml
 
     if (altTitle) {
-      cellHtml = { __html: `<span title='${altTitle}'>${cache[cacheKey]}</span>` }
+      cellHtml = { __html: `<span title="${altTitle}">${cache[cacheKey]}</span>` }
     } else {
       cellHtml = { __html: cache[cacheKey] }
     }

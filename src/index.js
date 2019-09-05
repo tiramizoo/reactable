@@ -10,6 +10,7 @@ import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import isEmpty from 'lodash/isEmpty'
 import { DateTime, Duration } from 'luxon'
+import xss from 'xss'
 
 import Reactable from './components/Reactable'
 import reducers from './reducers/index'
@@ -143,7 +144,7 @@ class InitApp {
 
       textAttributes.forEach((attrName) => {
         if (item[attrName] !== null) {
-          item[attrName] = item[attrName].toString()
+          item[attrName] = xss(item[attrName].toString())
         }
       })
 
