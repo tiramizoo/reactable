@@ -6,6 +6,7 @@ export const TOGGLE_SEARCH_CONTROL = 'TOGGLE_SEARCH_CONTROL'
 export const TOGGLE_SCHEMA_CONTROL = 'TOGGLE_SCHEMA_CONTROL'
 export const SET_PROGRESS_MAX = 'SET_PROGRESS_MAX'
 export const NO_DATA = 'NO_DATA'
+export const SET_DISPLAY_TIME_ZONE = 'SET_DISPLAY_TIME_ZONE'
 
 export function initSettings(settings) {
   return {
@@ -45,5 +46,12 @@ export function setProgressMax(progressMax) {
 export function setNoData() {
   return {
     type: NO_DATA,
+  }
+}
+
+export function setDisplayTimeZone(displayTimeZone) {
+  return {
+    type: SET_DISPLAY_TIME_ZONE,
+    displayTimeZone,
   }
 }

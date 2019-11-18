@@ -20,8 +20,9 @@ const mapStateToProps = state => ({
   actions:        state.settings.actions,
   dateFormat:     state.settings.dateFormat,
   dateSeparator:  state.settings.dateSeparator,
-  sidebarVisible: state.settings.sidebarVisible,
+  displayTimeZone: state.settings.displayTimeZone,
 
+  sidebarVisible: state.settings.sidebarVisible,
 
   tableWidth:     state.table.width,
   rowHeight:      state.table.rowHeight,

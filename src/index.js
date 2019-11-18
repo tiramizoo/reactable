@@ -10,11 +10,10 @@ import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import isEmpty from 'lodash/isEmpty'
 import { DateTime, Duration } from 'luxon'
-import xss from 'xss'
 
 import Reactable from './components/Reactable'
 import reducers from './reducers/index'
-import { initSettings, updateTableWidth, setProgressMax, setNoData } from './actions/settings'
+import { initSettings, updateTableWidth, setProgressMax, setNoData, setDisplayTimeZone } from './actions/settings'
 import { searchingAnd, searchingOr, reSearching } from './actions/search'
 import { setItems, updateViewport, clearItems } from './actions/items'
 import { sortBy, queryDataType, filterSchemaByType } from './helpers/utilities'
@@ -61,6 +60,7 @@ class InitApp {
     }
 
     this.store = createStore(reducers, persistedState, composeEnhancers(applyMiddleware(thunkMiddleware)))
+    config.displayTimeZone = config.displayTimeZone || Intl.DateTimeFormat().resolvedOptions().timeZone
     this.store.dispatch(initSettings(config))
     this.store.subscribe(() => this.handleStateChange())
     // only if user provide uniq identifier we can save filteredSchema in local storage
@@ -166,6 +166,10 @@ class InitApp {
 
   updateTableWidth(width) {
     this.store.dispatch(updateTableWidth(width))
+  }
+
+  updateDisplayTimeZone(displayTimeZone) {
+    this.store.dispatch(setDisplayTimeZone(displayTimeZone))
   }
 
   render() {

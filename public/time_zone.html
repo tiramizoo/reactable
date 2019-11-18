@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#000000">
+    <title>Reactable</title>
+    <style type='text/css'>
+      .reactable table td, .reactable table th {font-family: monospace;}
+    </style>
+  </head>
+  <body>
+    <select id='timezone'></select>
+    <div id="table3"></div>
+    <script src="../dist/reactable-bundle.js"></script>
+    <script type="text/javascript">
+      var t3 = Reactable.init({
+        container: document.getElementById('table3'),
+        displayTimeZone: 'Europe/Moscow',
+        schema:  {
+          id: {
+            type: 'number'
+          },
+          created_at: {
+            type: 'datetime'
+          },
+          time: {
+            type: 'time'
+          },
+        }
+      });
+
+      const currentTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const timeZones = [
+        [currentTimeZone, `${currentTimeZone} (browser default)`], // current
+        ['UTC', 'UTC'],
+        ['Europe/Berlin', 'Europe/Berlin'],
+        ['Asia/Singapore', 'Asia/Singapore']
+      ]
+
+      const timeZoneSelector = document.getElementById('timezone')
+
+      timeZones.forEach((tz) => {
+        const el = document.createElement('option')
+        el.value = tz[0]
+        el.label = tz[1]
+        timeZoneSelector.appendChild(el)
+      })
+
+      timeZoneSelector.addEventListener('change', (e) => {
+        t3.updateDisplayTimeZone(e.target.value)
+      })
+
+      t3.addData([
+        {"id": 1, "created_at": "2019-11-07T12:00:00+02:00", "time": "16:45:00"} // 12:00 warsaw time
+      ]);
+
+      t3.render()
+
+    </script>
+  </body>
+</html>

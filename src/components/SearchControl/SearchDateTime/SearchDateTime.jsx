@@ -12,7 +12,8 @@ import { searchingAnd } from '../../../actions/search'
 
 const initState = {
   from: '',
-  to: ''
+  to: '',
+  currentTimezone: ''
 }
 
 class SearchDateTime extends Component {
@@ -25,7 +26,7 @@ class SearchDateTime extends Component {
 
     const { column, searchQueryAnd } = props
     if (searchQueryAnd[column]) {
-      const newInit = {}
+      const newInit = { currentTimezone: this.props.displayTimeZone }
       const searchValue = searchQueryAnd[column].value
       if (searchValue && searchValue.from) {
         newInit.from = searchValue.from.toFormat('yyyy-MM-dd HH:mm:ss')
@@ -35,8 +36,21 @@ class SearchDateTime extends Component {
       }
       this.state = newInit
     } else {
-      this.state = initState
+      this.state = Object.assign({}, initState, { currentTimezone: this.props.displayTimeZone })
     }
+  }
+
+  componentDidUpdate() {
+    const { from, to, currentTimezone } = this.state
+    const { displayTimeZone } = this.props
+
+    if (displayTimeZone !== currentTimezone) {
+      let newFrom = isEmpty(from) ? '' : DateTime.fromFormat(from, 'yyyy-MM-dd HH:mm:ss', {zone: currentTimezone}).setZone(displayTimeZone).toFormat('yyyy-MM-dd HH:mm:ss')
+      let newTo = isEmpty(to) ? '' : DateTime.fromFormat(to, 'yyyy-MM-dd HH:mm:ss', {zone: currentTimezone}).setZone(displayTimeZone).toFormat('yyyy-MM-dd HH:mm:ss')
+
+      this.setState({ from: newFrom, to: newTo, currentTimezone: displayTimeZone })
+    }
+
   }
 
   datePickerFormat() {
@@ -57,9 +71,10 @@ class SearchDateTime extends Component {
   }, 300)
 
   handleNumberChange = (e, value, name) => {
-    const { column, searchQueryAnd } = this.props
+    const { column, searchQueryAnd, displayTimeZone } = this.props
 
-    let newValue = { [name]: isEmpty(value) ? null : DateTime.fromFormat(value, 'yyyy-MM-dd hh:mm:ss') }
+    let newValue = { [name]: isEmpty(value) ? null : DateTime.fromFormat(value, 'yyyy-MM-dd hh:mm:ss', {zone: displayTimeZone}).toUTC() }
+
     this.setState({ [name]: isEmpty(value) ? null : value })
 
     if (searchQueryAnd[column]) {

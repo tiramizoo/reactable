@@ -23,7 +23,7 @@ export function setSortDirectionToSchema(schema, key, direction) {
   return Object.assign({}, schema, { [key]: options })
 }
 
-export const dateForrmater = (value, format, separator) => {
+export const dateFormatter = (value, format, separator) => {
   if (!value) return null
   const [y, m, d] = value.split('-')
 
@@ -38,20 +38,20 @@ export const dateForrmater = (value, format, separator) => {
   }
 }
 
-export const datetimeForrmater = (value, format, separator) => {
+export const datetimeFormatter = (value, format, separator, displayTimeZone) => {
   if (!value) return null
 
   switch (format) {
     case 'eu':
-      return value.toFormat(`dd${separator}MM${separator}yyyy HH:mm:ss`)
+      return value.setZone(displayTimeZone).toFormat(`dd${separator}MM${separator}yyyy HH:mm:ss`)
     case 'us':
-      return value.toFormat(`MM${separator}dd${separator}yyyy HH:mm:ss`)
+      return value.setZone(displayTimeZone).toFormat(`MM${separator}dd${separator}yyyy HH:mm:ss`)
     default:
-      return value.toFormat(`yyyy${separator}MM${separator}dd HH:mm:ss`)
+      return value.setZone(displayTimeZone).toFormat(`yyyy${separator}MM${separator}dd HH:mm:ss`)
   }
 }
 
-export const defaultFormatter = (type, dateFormat, dateSeparator) => {
+export const defaultFormatter = (type, dateFormat, dateSeparator, displayTimeZone) => {
   switch (type) {
     case 'number':
       return (value) => {
@@ -79,11 +79,11 @@ export const defaultFormatter = (type, dateFormat, dateSeparator) => {
       }
     case 'datetime':
       return (value) => {
-        return datetimeForrmater(value, dateFormat, dateSeparator)
+        return datetimeFormatter(value, dateFormat, dateSeparator, displayTimeZone)
       }
     case 'date':
       return (value) => {
-        return dateForrmater(value, dateFormat, dateSeparator)
+        return dateFormatter(value, dateFormat, dateSeparator)
       }
     case 'duration':
       return (value) => {

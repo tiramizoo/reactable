@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   schema: state.schema,
   format: state.settings.dateFormat,
   separator: state.settings.dateSeparator,
+  displayTimeZone: state.settings.displayTimeZone,
 })
 
 const mapDispatchToProps = () => ({})
