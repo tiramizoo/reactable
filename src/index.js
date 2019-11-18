@@ -10,6 +10,7 @@ import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import isEmpty from 'lodash/isEmpty'
 import { DateTime, Duration } from 'luxon'
+import xss from 'xss'
 
 import Reactable from './components/Reactable'
 import reducers from './reducers/index'
