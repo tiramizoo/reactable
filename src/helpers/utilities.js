@@ -11,7 +11,11 @@ export function sortBy(items, filteredSchema) {
   let sortedItems = items
   forEach(filteredSchema, (value, key) => {
     if (value.direction) {
-      sortedItems = orderBy(items, [key], [value.direction])
+      if (value.type === "text") { // natural sort
+        sortedItems = orderBy(items, [item => item[key] === null ? null : item[key].toLowerCase()], [value.direction])
+      } else {
+        sortedItems = orderBy(items, [key], [value.direction])
+      }
     }
   })
   return sortedItems

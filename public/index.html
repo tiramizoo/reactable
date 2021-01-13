@@ -25,6 +25,7 @@
     <script src="../dist/reactable-bundle.js"></script>
     <script src='./schema.js'></script>
     <script src='./actions.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js'></script>
     <script>
       function fetchData(url, table) {
         fetch(url)
@@ -138,7 +139,10 @@
 
       function multisearch(columns, value) {
         var query = {}
-        columns.forEach((c) => query[c] = { value: value} )
+        columns.forEach(function(c) {
+           query[c] = { value: value}
+        })
+
         t2.searchOR(query)
       }
 
