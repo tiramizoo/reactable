@@ -37,9 +37,9 @@
 }
 
 .reactable .SearchControl button.clear:after {
-  font-family: 'reactable';
-  content: '\e800';
-  font-size: 16px
+  font-family: "reactable";
+  content: "\e800";
+  font-size: 16px;
 }
 
 .reactable .SearchControl button.toggle-arrow {
@@ -56,15 +56,15 @@
 }
 
 .reactable .SearchControl button.toggle-arrow__down:after {
-  font-family: 'reactable';
-  content: '\f13a';
-  font-size: 16px
+  font-family: "reactable";
+  content: "\f13a";
+  font-size: 16px;
 }
 
 .reactable .SearchControl button.toggle-arrow__up:after {
-  font-family: 'reactable';
-  content: '\f139';
-  font-size: 16px
+  font-family: "reactable";
+  content: "\f139";
+  font-size: 16px;
 }
 
 input::-ms-clear {
@@ -96,7 +96,8 @@ input::-ms-clear {
   text-overflow: ellipsis;
 }
 
-.reactable .SearchControl ul li input[type=checkbox] {
+.reactable .SearchControl ul li input[type="checkbox"] {
+  margin: 0;
   float: right;
 }
 
@@ -122,7 +123,6 @@ input::-ms-clear {
   padding: 5px;
   width: 20%;
 }
-
 
 .search-presets-dropdown select {
   width: 100%;

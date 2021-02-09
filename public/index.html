@@ -1,11 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="theme-color" content="#000000">
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#000000" />
     <title>Reactable</title>
-    <style type='text/css'>
-      .reactable table td, .reactable table th {font-family: monospace;}
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <style type="text/css">
+      .reactable table td,
+      .reactable table th {
+        font-family: monospace;
+      }
     </style>
   </head>
   <body>
@@ -13,40 +27,219 @@
 
     <div id="table1"></div>
     <br /><br />
-    <hr>
-    <label for='multisearch'>Search by first name or email</label>
-    <input type="search" id='multisearch' onInput="multisearch(['first_name', 'email'], this.value)">
-    <button onClick="timeSearch({from: '10:00:00', to: '15:30:00'})">Time 10-15:30</button>
+    <hr />
+    <label for="multisearch">Search by first name or email</label>
+    <input
+      type="search"
+      id="multisearch"
+      onInput="multisearch(['first_name', 'email'], this.value)"
+    />
+    <button onClick="timeSearch({from: '10:00:00', to: '15:30:00'})">
+      Time 10-15:30
+    </button>
     <button onClick="timeSearch({to: '10:00:00'})">to 10</button>
     <button onClick="timeSearch({from: '15:30:00'})">from 15:30</button>
-    <button type="button" name="button" onClick="clearData()">CLEAR DATA</button>
+    <button type="button" name="button" onClick="clearData()">
+      CLEAR DATA
+    </button>
     <div id="table2"></div>
-    <hr>
+    <hr />
     <script src="../dist/reactable-bundle.js"></script>
-    <script src='./schema.js'></script>
-    <script src='./actions.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js'></script>
+    <script src="./schema.js"></script>
+    <script src="./actions.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
     <script>
       function fetchData(url, table) {
         fetch(url)
-          .then(function(response) {
-            return response.json()
+          .then(function (response) {
+            return response.json();
           })
-          .then(function(json) {
+          .then(function (json) {
             table.addData(json.data, 100);
-          })
+          });
       }
 
       var t1 = Reactable.init({
-        container:     document.getElementById('table1'),
-        schema:   schemaUsers,
-        actions:  actionsUser,
-        offset:   2,
-        limit:    5,
+        container: document.getElementById("table1"),
+        schema: schemaUsers,
+        actions: actionsUser,
+        offset: 2,
+        limit: 5,
         sidebarVisible: false,
       });
 
-      var data = [{"id":1,"first_name":"Cornell","last_name":"Doyle","email":"juanita_marvin@beckerbednar.us","website":"kreigerberge.us","ip":"50.16.100.0","gender":"female","date_of_birth":"1981-10-30","active":null,"phone_number":"06018 1326437","currency":"ALL","job":"Senior Intranet Representative","duration":null,"time":null,"created_at":"2016-07-07T11:26:16+01:00"},{"id":2,"first_name":"Joni","last_name":"Mann","email":"","website":"olson.com","ip":"168.105.98.163","gender":"female","date_of_birth":"1983-06-01","active":true,"phone_number":"0432 9135884","currency":"MRO","job":"Customer Accounts Designer","duration":null,"time":null,"created_at":"2016-11-17T11:26:16+01:00"},{"id":3,"first_name":"Maureen","last_name":"Purdy","email":"barton_quitzon@nicolasjaskolski.us","website":"wilkinsonyundt.ca","ip":"119.75.47.159","gender":"female","date_of_birth":"2005-07-15","active":null,"phone_number":"045 4569094","currency":"TND","job":"Forward Branding Supervisor","duration":"P2DT22H4M50S","time":"01:41:39","created_at":"2017-08-27T11:26:16+01:00"},{"id":4,"first_name":"Ignacia","last_name":"Bayer","email":"winfred_veum@gulgowskidonnelly.name","website":"bernierparker.info","ip":"209.18.220.70","gender":"female","date_of_birth":"1990-08-25","active":null,"phone_number":"08381 6900330","currency":"XPD","job":"Chief Optimization Representative","duration":"PT2H3M56S","time":null,"created_at":"2016-06-26T11:26:16+01:00"},{"id":5,"first_name":"Penelope","last_name":"Robel","email":"virgina@schoen.co.uk","website":"miller.info","ip":"236.108.149.40","gender":"female","date_of_birth":"1987-07-04","active":true,"phone_number":"061 5912842","currency":"DZD","job":"Lead Data Supervisor","duration":"P2DT22H4M50S","time":"13:58:51","created_at":"2018-10-10T11:26:16+01:00"},{"id":6,"first_name":"Lasonya","last_name":"Gerhold","email":"merilyn.marks@willmshills.com","website":"powlowski.ca","ip":"238.170.198.119","gender":"male","date_of_birth":null,"active":false,"phone_number":"063 2798261","currency":"MAD","job":"District Directives Orchestrator","duration":"PT2H3M56S","time":null,"created_at":"2016-12-16T11:26:16+01:00"},{"id":7,"first_name":"Christiane","last_name":"Hansen","email":"rosamaria@rosenbaum.ca","website":"okeefe.us","ip":"254.221.151.59","gender":"male","date_of_birth":"2011-10-07","active":false,"phone_number":"0974 4522847","currency":"HRK","job":"Central Creative Architect","duration":null,"time":null,"created_at":"2017-12-14T11:26:16+01:00"},{"id":8,"first_name":"Elise","last_name":"Kuhic","email":"sparkle_brown@armstrongschamberger.ca","website":"schmidtziemann.co.uk","ip":"124.84.255.159","gender":"male","date_of_birth":null,"active":null,"phone_number":"05594 9104346","currency":"KHR","job":"Legacy Paradigm Technician","duration":"P2DT22H4M50S","time":null,"created_at":"2016-08-18T11:26:16+01:00"},{"id":9,"first_name":"Yael","last_name":"Durgan","email":"emanuel@lockman.us","website":"hackett.biz","ip":"253.141.150.168","gender":"female","date_of_birth":"2008-07-30","active":null,"phone_number":"0747 9249271","currency":"IRR","job":"Internal Security Designer","duration":"PT2H3M56S","time":"19:32:26","created_at":"2017-10-25T11:26:16+01:00"},{"id":10,"first_name":"Gertrud","last_name":"Oga","email":"suzann@leuschke.info","website":"fahey.biz","ip":"173.144.107.191","gender":"male","date_of_birth":"1991-11-26","active":false,"phone_number":"06214 3005902","currency":"MXN","job":"Customer Security Assistant","duration":null,"time":"17:34:20","created_at":"2017-03-21T11:26:16+01:00"}]
+      var data = [
+        {
+          id: 1,
+          first_name: "Cornell",
+          last_name: "Doyle",
+          email: "juanita_marvin@beckerbednar.us",
+          website: "kreigerberge.us",
+          ip: "50.16.100.0",
+          gender: "female",
+          date_of_birth: "1981-10-30",
+          active: null,
+          phone_number: "06018 1326437",
+          currency: "ALL",
+          job: "Senior Intranet Representative",
+          duration: null,
+          time: null,
+          created_at: "2016-07-07T11:26:16+01:00",
+        },
+        {
+          id: 2,
+          first_name: "Joni",
+          last_name: "Mann",
+          email: "",
+          website: "olson.com",
+          ip: "168.105.98.163",
+          gender: "female",
+          date_of_birth: "1983-06-01",
+          active: true,
+          phone_number: "0432 9135884",
+          currency: "MRO",
+          job: "Customer Accounts Designer",
+          duration: null,
+          time: null,
+          created_at: "2016-11-17T11:26:16+01:00",
+        },
+        {
+          id: 3,
+          first_name: "Maureen",
+          last_name: "Purdy",
+          email: "barton_quitzon@nicolasjaskolski.us",
+          website: "wilkinsonyundt.ca",
+          ip: "119.75.47.159",
+          gender: "female",
+          date_of_birth: "2005-07-15",
+          active: null,
+          phone_number: "045 4569094",
+          currency: "TND",
+          job: "Forward Branding Supervisor",
+          duration: "P2DT22H4M50S",
+          time: "01:41:39",
+          created_at: "2017-08-27T11:26:16+01:00",
+        },
+        {
+          id: 4,
+          first_name: "Ignacia",
+          last_name: "Bayer",
+          email: "winfred_veum@gulgowskidonnelly.name",
+          website: "bernierparker.info",
+          ip: "209.18.220.70",
+          gender: "female",
+          date_of_birth: "1990-08-25",
+          active: null,
+          phone_number: "08381 6900330",
+          currency: "XPD",
+          job: "Chief Optimization Representative",
+          duration: "PT2H3M56S",
+          time: null,
+          created_at: "2016-06-26T11:26:16+01:00",
+        },
+        {
+          id: 5,
+          first_name: "Penelope",
+          last_name: "Robel",
+          email: "virgina@schoen.co.uk",
+          website: "miller.info",
+          ip: "236.108.149.40",
+          gender: "female",
+          date_of_birth: "1987-07-04",
+          active: true,
+          phone_number: "061 5912842",
+          currency: "DZD",
+          job: "Lead Data Supervisor",
+          duration: "P2DT22H4M50S",
+          time: "13:58:51",
+          created_at: "2018-10-10T11:26:16+01:00",
+        },
+        {
+          id: 6,
+          first_name: "Lasonya",
+          last_name: "Gerhold",
+          email: "merilyn.marks@willmshills.com",
+          website: "powlowski.ca",
+          ip: "238.170.198.119",
+          gender: "male",
+          date_of_birth: null,
+          active: false,
+          phone_number: "063 2798261",
+          currency: "MAD",
+          job: "District Directives Orchestrator",
+          duration: "PT2H3M56S",
+          time: null,
+          created_at: "2016-12-16T11:26:16+01:00",
+        },
+        {
+          id: 7,
+          first_name: "Christiane",
+          last_name: "Hansen",
+          email: "rosamaria@rosenbaum.ca",
+          website: "okeefe.us",
+          ip: "254.221.151.59",
+          gender: "male",
+          date_of_birth: "2011-10-07",
+          active: false,
+          phone_number: "0974 4522847",
+          currency: "HRK",
+          job: "Central Creative Architect",
+          duration: null,
+          time: null,
+          created_at: "2017-12-14T11:26:16+01:00",
+        },
+        {
+          id: 8,
+          first_name: "Elise",
+          last_name: "Kuhic",
+          email: "sparkle_brown@armstrongschamberger.ca",
+          website: "schmidtziemann.co.uk",
+          ip: "124.84.255.159",
+          gender: "male",
+          date_of_birth: null,
+          active: null,
+          phone_number: "05594 9104346",
+          currency: "KHR",
+          job: "Legacy Paradigm Technician",
+          duration: "P2DT22H4M50S",
+          time: null,
+          created_at: "2016-08-18T11:26:16+01:00",
+        },
+        {
+          id: 9,
+          first_name: "Yael",
+          last_name: "Durgan",
+          email: "emanuel@lockman.us",
+          website: "hackett.biz",
+          ip: "253.141.150.168",
+          gender: "female",
+          date_of_birth: "2008-07-30",
+          active: null,
+          phone_number: "0747 9249271",
+          currency: "IRR",
+          job: "Internal Security Designer",
+          duration: "PT2H3M56S",
+          time: "19:32:26",
+          created_at: "2017-10-25T11:26:16+01:00",
+        },
+        {
+          id: 10,
+          first_name: "Gertrud",
+          last_name: "Oga",
+          email: "suzann@leuschke.info",
+          website: "fahey.biz",
+          ip: "173.144.107.191",
+          gender: "male",
+          date_of_birth: "1991-11-26",
+          active: false,
+          phone_number: "06214 3005902",
+          currency: "MXN",
+          job: "Customer Security Assistant",
+          duration: null,
+          time: "17:34:20",
+          created_at: "2017-03-21T11:26:16+01:00",
+        },
+      ];
 
       t1.render();
 
@@ -58,75 +251,79 @@
       }
 
       var t2 = Reactable.init({
-        container:   document.getElementById('table2'),
+        container: document.getElementById("table2"),
         schema: schemaUsers,
-        strategySearch: 'and',
+        strategySearch: "and",
         limit: 15,
-        identifier: 'asd123',
-        dateSeparator: '.',
-        dateFormat: 'eu',
+        identifier: "asd123",
+        dateSeparator: ".",
+        dateFormat: "eu",
         controls: {
           csv: {
             onClick: function (e) {
               e.stopPropagation();
-              console.log('Download CSV', e)
+              console.log("Download CSV", e);
             },
-            className: 'r-icon-doc-text',
-            key: 'csv',
+            className: "r-icon-doc-text",
+            key: "csv",
             disabled: false,
-            label: 'Download CSV',
+            label: "Download CSV",
           },
           xlsx: {
             onClick: function (e) {
               e.stopPropagation();
-              console.log('Download XLSX', e)
+              console.log("Download XLSX", e);
             },
-            className: 'r-icon-file-excel',
-            key: 'xlsx',
+            className: "r-icon-file-excel",
+            key: "xlsx",
             disabled: false,
-            label: 'Download XLSX',
+            label: "Download XLSX",
           },
-        //   fullscreen: {
-        //     onClick: function (e) {
-        //       e.stopPropagation();
-        //       const requestFullScreen = function(element) {
-        //         if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
-        //           if (element.requestFullscreen) {
-        //             return element.requestFullscreen();
-        //           } else if (element.mozRequestFullScreen) {
-        //             return element.mozRequestFullScreen();
-        //           } else if (element.webkitRequestFullScreen) {
-        //             return element.webkitRequestFullScreen();
-        //           }
-        //         }
-        //       };
-        //
-        //       requestFullScreen(document.getElementById('table2'))
-        //     },
-        //     className: 'r-icon-resize-full',
-        //     key: 'fullscreen',
-        //     disabled: false,
-        //     label: 'FullScreen',
-        //   }
-        // },
-      },
-        searchPresets: {
-          over_10: {id: {value: {from: 10}}},
-          active:  {active: {value: true}},
-          inactive:  {active: {value: false}},
-          year_2018: { created_at: {value: {to: new Date().toISOString()} }}
+          //   fullscreen: {
+          //     onClick: function (e) {
+          //       e.stopPropagation();
+          //       const requestFullScreen = function(element) {
+          //         if (document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen) {
+          //           if (element.requestFullscreen) {
+          //             return element.requestFullscreen();
+          //           } else if (element.mozRequestFullScreen) {
+          //             return element.mozRequestFullScreen();
+          //           } else if (element.webkitRequestFullScreen) {
+          //             return element.webkitRequestFullScreen();
+          //           }
+          //         }
+          //       };
+          //
+          //       requestFullScreen(document.getElementById('table2'))
+          //     },
+          //     className: 'r-icon-resize-full',
+          //     key: 'fullscreen',
+          //     disabled: false,
+          //     label: 'FullScreen',
+          //   }
+          // },
         },
-        defaultSearchPreset: 'over_10',
-        afterRender: function () { defaultSearch() },
-        itemsChange: function (items) { itemsChange(items) },
+        searchPresets: {
+          over_10: { id: { value: { from: 10 } } },
+          active: { active: { value: true } },
+          inactive: { active: { value: false } },
+          year_2018: {
+            created_at: { value: { to: new Date().toISOString() } },
+          },
+        },
+        defaultSearchPreset: "over_10",
+        afterRender: function () {
+          defaultSearch();
+        },
+        itemsChange: function (items) {
+          itemsChange(items);
+        },
       });
 
+      t2.render();
+      t2.applySearchPreset("over_10");
 
-      t2.render()
-      t2.applySearchPreset('over_10')
-
-      fetchData("./data-100.json", t2)
-
+      fetchData("./data-100.json", t2);
 
       function itemsChange(items) {
         // console.log("Filtered Items callback: ", items)
@@ -138,22 +335,21 @@
       }
 
       function multisearch(columns, value) {
-        var query = {}
-        columns.forEach(function(c) {
-           query[c] = { value: value}
-        })
+        var query = {};
+        columns.forEach(function (c) {
+          query[c] = { value: value };
+        });
 
-        t2.searchOR(query)
+        t2.searchOR(query);
       }
 
       function timeSearch(query) {
-        t2.searchAND({time: { value: query}})
+        t2.searchAND({ time: { value: query } });
       }
 
       function clearData() {
-        t2.clearData()
+        t2.clearData();
       }
-
     </script>
   </body>
 </html>
