@@ -17,9 +17,8 @@ const mapStateToProps = state => ({
   limit:          state.limit,
   offset:         state.offset,
 
-  actions:        state.settings.actions,
-  dateFormat:     state.settings.dateFormat,
-  dateSeparator:  state.settings.dateSeparator,
+  actions:         state.settings.actions,
+  enableSeconds:   state.settings.enableSeconds,
   displayTimeZone: state.settings.displayTimeZone,
 
   sidebarVisible: state.settings.sidebarVisible,

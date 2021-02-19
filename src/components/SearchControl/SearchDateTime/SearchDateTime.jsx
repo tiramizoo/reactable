@@ -54,16 +54,21 @@ class SearchDateTime extends Component {
   }
 
   datePickerFormat() {
-    const { format, separator } = this.props
+    const format = new Intl.DateTimeFormat().formatToParts(new Date());
 
-    switch (format) {
-      case 'eu':
-        return `d${separator}m${separator}Y H:i:S`
-      case 'us':
-        return `m${separator}d${separator}Y H:i:S`
-      default:
-        return `Y${separator}m${separator}d H:i:S`
-    }
+    // https://flatpickr.js.org/formatting/
+    return format.map(obj => {
+      switch (obj.type) {
+        case "day":
+          return "d";
+        case "month":
+          return "m";
+        case "year":
+          return "Y";
+        default:
+          return obj.value;
+      }
+    }).join("") + ", H:i:S"
   }
 
   searchByNumber = debounce((query) => {

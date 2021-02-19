@@ -11,11 +11,7 @@ export function sortBy(items, filteredSchema) {
   let sortedItems = items
   forEach(filteredSchema, (value, key) => {
     if (value.direction) {
-      if (value.type === "text") { // natural sort
-        sortedItems = orderBy(items, [item => item[key] === null ? null : item[key].toLowerCase()], [value.direction])
-      } else {
-        sortedItems = orderBy(items, [key], [value.direction])
-      }
+      sortedItems = orderBy(items, [key], [value.direction])
     }
   })
   return sortedItems
@@ -27,49 +23,29 @@ export function setSortDirectionToSchema(schema, key, direction) {
   return Object.assign({}, schema, { [key]: options })
 }
 
-export const dateFormatter = (value, format, separator) => {
-  if (!value) return null
-  const [y, m, d] = value.split('-')
-
-  switch (format) {
-    case 'eu':
-      return `${d}${separator}${m}${separator}${y}`
-    case 'us':
-      return `${m}${separator}${d}${separator}${y}`
-    default:
-      if (separator === '-') return value
-      return `${y}${separator}${m}${separator}${d}`
-  }
+export const dateFormatter = (value) => {
+  return new Date(Date.parse(value)).toLocaleDateString()
 }
 
-export const datetimeFormatter = (value, format, separator, displayTimeZone) => {
-  if (!value) return null
-
-  switch (format) {
-    case 'eu':
-      return value.setZone(displayTimeZone).toFormat(`dd${separator}MM${separator}yyyy HH:mm:ss`)
-    case 'us':
-      return value.setZone(displayTimeZone).toFormat(`MM${separator}dd${separator}yyyy HH:mm:ss`)
-    default:
-      return value.setZone(displayTimeZone).toFormat(`yyyy${separator}MM${separator}dd HH:mm:ss`)
-  }
+export const timeFormatter = (value, enableSeconds) => {
+  return value.toFormat(enableSeconds ? 'hh:mm:ss' : 'hh:mm')
 }
 
-export const defaultFormatter = (type, dateFormat, dateSeparator, displayTimeZone) => {
+export const datetimeFormatter = (value, displayTimeZone, enableSeconds) => {
+
+  const format = enableSeconds ? DateTime.DATETIME_SHORT_WITH_SECONDS : DateTime.DATETIME_SHORT
+  return value.setZone(displayTimeZone).toLocaleString(format)
+}
+
+export const defaultFormatter = (type, displayTimeZone, enableSeconds) => {
   switch (type) {
-    case 'number':
-      return (value) => {
-        if (value === null) {
-          return null
-        }
-        return value.toString()
-      }
     case 'time':
+    case 'duration':
       return (value) => {
-        if (value === null) {
-          return null
+        if (value) {
+          return timeFormatter(value, enableSeconds)
         }
-        return value.toFormat('hh:mm:ss')
+        return null
       }
     case 'boolean':
       return (value) => {
@@ -81,23 +57,30 @@ export const defaultFormatter = (type, dateFormat, dateSeparator, displayTimeZon
         }
         return null
       }
-    case 'datetime':
-      return (value) => {
-        return datetimeFormatter(value, dateFormat, dateSeparator, displayTimeZone)
-      }
     case 'date':
       return (value) => {
-        return dateFormatter(value, dateFormat, dateSeparator)
-      }
-    case 'duration':
-      return (value) => {
         if (value) {
-          return value.toFormat('hh:mm:ss')
+          return dateFormatter(value)
         }
+
         return null
       }
+    case 'datetime':
+    return (value) => {
+      if (value) {
+        return datetimeFormatter(value, displayTimeZone, enableSeconds)
+      }
+
+      return null
+    }
     default:
-      return value => value
+      return (value) => {
+        if (value) {
+          return value.toString()
+        }
+
+        return null
+      }
   }
 }
 

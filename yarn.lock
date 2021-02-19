@@ -3670,10 +3670,10 @@ flat-cache@^1.2.1:
     rimraf "~2.6.2"
     write "^0.2.1"
 
-flatpickr@^4.5.7:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.2.tgz#50e1b4fc84fbf67c5b0919ba3ddc330221f126da"
-  integrity sha512-bRfBPyxohUQWgCTg6jPALUO1t/x+sRJ/S/RVti/NzYvHqGRpCAesKSWKLzOuLmpu+vGHfXBld4SXvOCLFgYb+g==
+flatpickr@^4.6.2:
+  version "4.6.9"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
+  integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -6784,12 +6784,12 @@ react-dom@^16.6.1:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
-react-flatpickr@^3.6.4:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.9.0.tgz#25f3b1ad5f86915bed74f62a71cfe4b57f8b74df"
-  integrity sha512-9dWAg0zxBQa4lDnUx6nANZXRWCWgFjeMXI+Y3Itn907B/Kj0GHdSr7dP/XK9nQELL+Lz4Zk5Qq7rnpTEV+gQ1w==
+react-flatpickr@^3.10.6:
+  version "3.10.6"
+  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.10.6.tgz#d6fe73ee12d13f2a804e5362c82e2688b6fbd409"
+  integrity sha512-Gg2zYFs+EoY7PNSk6lkiRyXV3nYmCp+ps29B4XFgZ1O4txOu6TvfHK2YCKT9zCpXbk5CcIGKMlvbupivWzy1+A==
   dependencies:
-    flatpickr "^4.5.7"
+    flatpickr "^4.6.2"
     prop-types "^15.5.10"
 
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
