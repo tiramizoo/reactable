@@ -15,7 +15,9 @@
     "xss": "^1.0.6"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "<rootDir>tests/setupTests.js",
+    "setupFilesAfterEnv": [
+      "<rootDir>tests/setupTests.js"
+    ],
     "transform": {
       "^.+\\.(jsx|js)?$": "<rootDir>/node_modules/babel-jest"
     },
