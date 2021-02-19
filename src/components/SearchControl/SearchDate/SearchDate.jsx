@@ -31,16 +31,21 @@ class SearchDate extends Component {
   }
 
   datePickerFormat() {
-    const { format, separator } = this.props
+    const format = new Intl.DateTimeFormat().formatToParts(new Date());
 
-    switch (format) {
-      case 'eu':
-        return `d${separator}m${separator}Y`
-      case 'us':
-        return `m${separator}d${separator}Y`
-      default:
-        return `Y${separator}m${separator}d`
-    }
+    // https://flatpickr.js.org/formatting/
+    return format.map(obj => {
+      switch (obj.type) {
+        case "day":
+          return "d";
+        case "month":
+          return "m";
+        case "year":
+          return "Y";
+        default:
+          return obj.value;
+      }
+    }).join("")
   }
 
   searchByNumber = debounce((query) => {
