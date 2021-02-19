@@ -1,91 +1,102 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import debounce from 'lodash/debounce'
-import isEmpty from 'lodash/isEmpty'
-import omit from 'lodash/omit'
-import isNumber from 'lodash/isNumber'
-import Flatpickr from 'react-flatpickr'
-import { Duration } from 'luxon'
-import 'flatpickr/dist/flatpickr.css'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import debounce from "lodash/debounce";
+import isEmpty from "lodash/isEmpty";
+import omit from "lodash/omit";
+import isNumber from "lodash/isNumber";
+import Flatpickr from "react-flatpickr";
+import { Duration } from "luxon";
+import "flatpickr/dist/flatpickr.css";
 
-import { searchingAnd } from '../../../actions/search'
+import { searchingAnd } from "../../../actions/search";
 
 const initState = {
-  from: '',
-  to: '',
-}
+  from: "",
+  to: "",
+};
 
 class SearchTime extends Component {
   static contextTypes = {
-    store: PropTypes.object
-  }
+    store: PropTypes.object,
+  };
 
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
 
-    const { column, searchQueryAnd } = props
+    const { column, searchQueryAnd } = props;
     if (searchQueryAnd[column]) {
-      const newInit = initState
-      const searchValue = searchQueryAnd[column].value
+      const newInit = initState;
+      const searchValue = searchQueryAnd[column].value;
       if (searchValue && searchValue.from) {
-        newInit.from = searchValue.from.toFormat('hh:mm:ss')
+        newInit.from = searchValue.from.toFormat("hh:mm:ss");
       }
       if (searchValue && searchValue.to) {
-        newInit.to = searchValue.to.toFormat('hh:mm:ss')
+        newInit.to = searchValue.to.toFormat("hh:mm:ss");
       }
-      this.state = newInit
+      this.state = newInit;
     } else {
-      this.state = initState
+      this.state = initState;
     }
   }
 
   searchByNumber = debounce((query) => {
-    searchingAnd({query, store: this.context.store})
-  }, 300)
+    searchingAnd({ query, store: this.context.store });
+  }, 300);
 
   handleNumberChange = (e, value, name) => {
-    const { column, searchQueryAnd } = this.props
+    const { column, searchQueryAnd } = this.props;
 
-    let newValue = { [name]: isEmpty(value) ? null : value }
-    this.setState(newValue)
+    let newValue = { [name]: isEmpty(value) ? null : value };
+    this.setState(newValue);
 
     if (!isEmpty(value)) {
-      const [h, m, s] = value.split(':')
-      newValue = { [name]: Duration.fromObject({ hours: Number(h), minutes: Number(m), seconds: Number(s) }) }
+      const [h, m, s] = value.split(":");
+      newValue = {
+        [name]: Duration.fromObject({
+          hours: Number(h),
+          minutes: Number(m),
+          seconds: Number(s),
+        }),
+      };
     }
 
     if (searchQueryAnd[column]) {
-      newValue = Object.assign({}, searchQueryAnd[column].value, newValue)
+      newValue = Object.assign({}, searchQueryAnd[column].value, newValue);
     }
-    let newSearchQuery = {[column]: Object.assign({}, searchQueryAnd[column], { value: newValue })}
+    let newSearchQuery = {
+      [column]: Object.assign({}, searchQueryAnd[column], { value: newValue }),
+    };
     if (!newValue.from && !newValue.to) {
-      newSearchQuery =  {[column]: {}}
+      newSearchQuery = { [column]: {} };
     }
-    this.searchByNumber(newSearchQuery)
-  }
+    this.searchByNumber(newSearchQuery);
+  };
 
   handleClearChange() {
-    const { column } = this.props
+    const { column } = this.props;
 
-    this.setState(initState)
-    this.searchByNumber({[column]: {}})
+    this.setState(initState);
+    this.searchByNumber({ [column]: {} });
   }
 
   render() {
-    const { column, schema } = this.props
-    const { from, to } = this.state
+    const { column, schema } = this.props;
+    const { from, to } = this.state;
 
     return (
-      <div className='SearchTime'>
-        <div className='attribute'>
+      <div className="SearchTime">
+        <div className="attribute">
           {schema.label || column}
-          <button className='clear' onClick={() => this.handleClearChange()}></button>
+          <button
+            className="clear"
+            onClick={() => this.handleClearChange()}
+          ></button>
         </div>
-        <div className='attribute-filter'>
+        <div className="attribute-filter">
           <Flatpickr
             value={from}
-            onChange={(e, str) => this.handleNumberChange(e, str, 'from')}
-            onClose={(e, str) => this.handleNumberChange(e, str, 'from')}
+            onChange={(e, str) => this.handleNumberChange(e, str, "from")}
+            onClose={(e, str) => this.handleNumberChange(e, str, "from")}
             options={{
               maxTime: to,
               enableTime: true,
@@ -98,8 +109,8 @@ class SearchTime extends Component {
           />
           <Flatpickr
             value={to}
-            onChange={(e, str) => this.handleNumberChange(e, str, 'to')}
-            onClose={(e, str) => this.handleNumberChange(e, str, 'to')}
+            onChange={(e, str) => this.handleNumberChange(e, str, "to")}
+            onClose={(e, str) => this.handleNumberChange(e, str, "to")}
             options={{
               minTime: from,
               enableTime: true,
@@ -112,8 +123,8 @@ class SearchTime extends Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SearchTime
+export default SearchTime;

@@ -184,7 +184,7 @@ class Table extends React.Component {
   }
 
   columnBody(row, key, schemaParams) {
-    const { rowHeight, schema, displayTimeZone, enableSeconds } = this.props
+    const { rowHeight, schema, displayTimeZone, disableSeconds } = this.props
     const value = row[key]
     const classNames = [schemaParams.type]
 
@@ -192,7 +192,7 @@ class Table extends React.Component {
       classNames.push('null')
     }
 
-    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, displayTimeZone, enableSeconds)
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds)
     const cacheKey = `${row._key}/${key}`
 
     if (cache[cacheKey] === undefined || schemaParams.type === 'datetime')  {
@@ -201,7 +201,7 @@ class Table extends React.Component {
 
     let altTitle
     if (schemaParams.type !== 'boolean' && value !== null) {
-      altTitle = xss(defaultFormatter(schemaParams.type, displayTimeZone, enableSeconds).apply(schema, [row[key], row]) || '')
+      altTitle = xss(defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds).apply(schema, [row[key], row]) || '')
     }
 
     let cellHtml
