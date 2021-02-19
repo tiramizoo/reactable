@@ -127,3 +127,8 @@ input::-ms-clear {
 .search-presets-dropdown select {
   width: 100%;
 }
+
+.SearchDuration .attribute-filter label {
+  width: 100px;
+  display: inline-block;
+}
