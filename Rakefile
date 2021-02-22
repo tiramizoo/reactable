@@ -28,7 +28,7 @@ task :generate_dataset, [:size] do |t, args|
         "job":           FFaker::Job.title,
         "duration":      ['PT2H3M56S', 'P2DT22H4M50S', nil].sample,
         "time":          [fake_time, fake_time, nil].sample,
-        "created_at":    (DateTime.now - rand(1..1_000)).iso8601
+        "created_at":    (DateTime.now - (rand(1..86_400) / 86_400.0)).iso8601
       }
     end
   }

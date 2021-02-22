@@ -1,43 +1,51 @@
 window.schemaUsers = {
   id: {
-    type: 'number',
-    formatter: function (value, row) { return "ID: " + row['id']},
+    type: "number",
+    formatter: function (value, row) {
+      return "ID: " + row["id"];
+    },
     width: 100,
   },
+  created_at: { type: "datetime" },
   first_name: {
-    type: 'text',
-    label: 'First Name',
+    type: "text",
+    label: "First Name",
     formatter: function (value, row) {
-      return "<a href='/users/" + row['id'] + " 'target='_top'>" + row['first_name'] + "</a>"
-    }
+      return (
+        "<a href='/users/" +
+        row["id"] +
+        " 'target='_top'>" +
+        row["first_name"] +
+        "</a>"
+      );
+    },
   },
   last_name: {
-    type: 'text'
+    type: "text",
   },
   duration: {
-    type: 'duration'
+    type: "duration",
   },
   time: {
-    type: 'time',
+    type: "time",
   },
   active: {
-    type: 'boolean'
+    type: "boolean",
   },
   date_of_birth: {
-    type: 'date',
-    label: 'Date of Birth'
+    type: "date",
+    label: "Date of Birth",
   },
-  ip: { type: 'text', filterable: false },
-  website: { type: 'text', visible: true },
-  phone_number: { type: 'text', visible: true },
-  job: { type: 'text', visible: false },
+  ip: { type: "text", filterable: false },
+  website: { type: "text", visible: true },
+  phone_number: { type: "text", visible: true },
+  job: { type: "text", visible: false },
   gender: {
-    type: 'text',
-    dictionary: {male: 'MALE', female: 'FEMALE'},
+    type: "text",
+    dictionary: { male: "MALE", female: "FEMALE" },
     formatter: function (value) {
-      return this.gender.dictionary[value]
-    }
+      return this.gender.dictionary[value];
+    },
   },
-  email: { type: 'text' },
-  created_at: { type: 'datetime' },
-}
+  email: { type: "text" },
+};

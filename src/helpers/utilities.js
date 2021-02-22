@@ -37,6 +37,11 @@ export const datetimeFormatter = (value, displayTimeZone, disableSeconds) => {
   const format = disableSeconds
     ? DateTime.DATETIME_SHORT
     : DateTime.DATETIME_SHORT_WITH_SECONDS;
+
+  // force 24h format
+  format.hour12 = false;
+  format.hour = "2-digit";
+
   return value.setZone(displayTimeZone).toLocaleString(format);
 };
 
