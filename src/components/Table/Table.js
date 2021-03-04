@@ -1,13 +1,13 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
 
-import TableComponent from "./Table.jsx";
+import TableComponent from './Table.jsx'
 import {
   setOffset,
   updateViewport,
   setFilteredItems,
   setSortItems,
-} from "../../actions/items";
-import { setSortDirection } from "../../actions/schema";
+} from '../../actions/items'
+import { setSortDirection } from '../../actions/schema'
 
 const mapStateToProps = (state) => ({
   schema: state.schema,
@@ -28,17 +28,18 @@ const mapStateToProps = (state) => ({
 
   tableWidth: state.table.width,
   rowHeight: state.table.rowHeight,
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
   setOffset: (offset) => dispatch(setOffset(offset)),
   setFilteredItems: (items) => dispatch(setFilteredItems(items)),
+  setSelectedItems: (items) => dispatch(setSelectedItems(items)),
   setSortItems: (items) => dispatch(setSortItems(items)),
   updateViewport: (items, limit, offset) =>
     dispatch(updateViewport(items, limit, offset)),
   setSortDirection: (key, direction) =>
     dispatch(setSortDirection(key, direction)),
-});
+})
 
-const Table = connect(mapStateToProps, mapDispatchToProps)(TableComponent);
-export default Table;
+const Table = connect(mapStateToProps, mapDispatchToProps)(TableComponent)
+export default Table
