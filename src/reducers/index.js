@@ -8,6 +8,7 @@ import schema from './schema'
 import filteredSchema from './filteredSchema'
 import searchQueryAnd from './searchQueryAnd'
 import filteredItems from './filteredItems'
+import selectedItems from './selectedItems'
 import settings from './settings'
 import table from './table'
 import lastAction from './lastAction'
@@ -28,4 +29,5 @@ export default combineReducers({
   lastAction,
   searchQueryOr,
   searchPresets,
+  selectedItems,
 })
