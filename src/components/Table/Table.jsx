@@ -1,10 +1,7 @@
 import React from 'react'
-import {
-  sortBy,
-  setSortDirectionToSchema,
-  defaultFormatter,
-} from '../../helpers/utilities'
+import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
 import xss from 'xss'
+import find from 'lodash/find'
 
 const cache = {}
 
@@ -12,17 +9,10 @@ class Table extends React.Component {
   constructor(props) {
     super(props)
     this.tbodyRef = React.createRef()
-    this.state = { selectedAll: false }
   }
 
   onKeyDown(e) {
-    const {
-      offset,
-      setOffset,
-      filteredItems,
-      limit,
-      updateViewport,
-    } = this.props
+    const { offset, setOffset, filteredItems, limit, updateViewport } = this.props
 
     let newOffset
     const moveBy = 1
@@ -77,8 +67,7 @@ class Table extends React.Component {
 
     function onMouseMove(e) {
       const w = startW + e.screenX - startMouseX
-      th.style.width =
-        Math.min(maxColumnWidth, Math.max(minColumnWidth, w)) + 'px'
+      th.style.width = Math.min(maxColumnWidth, Math.max(minColumnWidth, w)) + 'px'
     }
 
     function onMouseUp(e) {
@@ -95,13 +84,7 @@ class Table extends React.Component {
   onWheel(e) {
     e.currentTarget.focus()
 
-    const {
-      offset,
-      setOffset,
-      filteredItems,
-      limit,
-      updateViewport,
-    } = this.props
+    const { offset, setOffset, filteredItems, limit, updateViewport } = this.props
 
     const { deltaY } = e
 
@@ -131,9 +114,25 @@ class Table extends React.Component {
   }
 
   toggleSelectedAll() {
-    const { filteredItems, setSelectedItems } = this.props
-    const { selectedAll } = this.state
-    this.setState({ selectedAll: !selectedAll })
+    const { filteredItems, setSelectedItems, setSelectedAll, selectedAll } = this.props
+    setSelectedAll(!selectedAll)
+
+    if (!selectedAll) {
+      setSelectedItems(filteredItems)
+    } else {
+      setSelectedItems([])
+    }
+  }
+
+  toggleSelectedItem(item) {
+    const { selectedItems, setSelectedItems } = this.props
+    const checked = !!selectedItems.find((i) => i._key === item._key)
+
+    if (checked) {
+      setSelectedItems(selectedItems.filter((i) => i._key !== item._key))
+    } else {
+      setSelectedItems([...selectedItems, item])
+    }
   }
 
   toggleDirection(key) {
@@ -208,13 +207,8 @@ class Table extends React.Component {
         key={key}
         onClick={() => this.sort(key)}
       >
-        <span title={this.columnHeaderName(key)}>
-          {this.columnHeaderName(key)}
-        </span>
-        <div
-          className="reactable-resize-column"
-          onMouseDown={this.onMouseDown}
-        ></div>
+        <span title={this.columnHeaderName(key)}>{this.columnHeaderName(key)}</span>
+        <div className="reactable-resize-column" onMouseDown={this.onMouseDown}></div>
       </th>
     )
   }
@@ -228,9 +222,7 @@ class Table extends React.Component {
       classNames.push('null')
     }
 
-    const formatter =
-      schemaParams.formatter ||
-      defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds)
+    const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds)
     const cacheKey = `${row._key}/${key}`
 
     if (cache[cacheKey] === undefined || schemaParams.type === 'datetime') {
@@ -240,11 +232,7 @@ class Table extends React.Component {
     let altTitle
     if (schemaParams.type !== 'boolean' && value !== null) {
       altTitle = xss(
-        defaultFormatter(
-          schemaParams.type,
-          displayTimeZone,
-          disableSeconds,
-        ).apply(schema, [row[key], row]) || '',
+        defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds).apply(schema, [row[key], row]) || '',
       )
     }
 
@@ -259,30 +247,20 @@ class Table extends React.Component {
     }
 
     return (
-      <td
-        className={classNames.join(' ')}
-        key={key}
-        dangerouslySetInnerHTML={cellHtml}
-        style={{ height: rowHeight }}
-      />
+      <td className={classNames.join(' ')} key={key} dangerouslySetInnerHTML={cellHtml} style={{ height: rowHeight }} />
     )
   }
 
   renderHeader() {
-    const { filteredSchema, actions } = this.props
-    const { selectedAll } = this.state
+    const { filteredSchema, actions, selectedAll, selectable } = this.props
     return (
       <tr>
-        <th>
-          <input
-            type="checkbox"
-            checked={selectedAll}
-            onClick={() => this.toggleSelectedAll()}
-          />
-        </th>
-        {Object.entries(filteredSchema).map(([key, _]) =>
-          this.columnHeader(key),
+        {selectable && (
+          <th>
+            <input type="checkbox" checked={selectedAll} onClick={() => this.toggleSelectedAll()} />
+          </th>
         )}
+        {Object.entries(filteredSchema).map(([key, _]) => this.columnHeader(key))}
         {actions && <th />}
       </tr>
     )
@@ -310,15 +288,16 @@ class Table extends React.Component {
   }
 
   renderRow(item) {
-    const { filteredSchema } = this.props
+    const { filteredSchema, selectedItems, selectable } = this.props
+    const checked = !!selectedItems.find((i) => i._key === item._key)
     return (
       <tr key={item._key} className="record">
-        <td>
-          <input type="checkbox" />
-        </td>
-        {Object.entries(filteredSchema).map(([key, keySchema]) =>
-          this.columnBody(item, key, keySchema),
+        {selectable && (
+          <td>
+            <input type="checkbox" checked={checked} onChange={() => this.toggleSelectedItem(item)} />
+          </td>
         )}
+        {Object.entries(filteredSchema).map(([key, keySchema]) => this.columnBody(item, key, keySchema))}
         {this.renderActions(item)}
       </tr>
     )
@@ -333,10 +312,7 @@ class Table extends React.Component {
         .fill()
         .map((a, ix) => (
           <tr key={ix}>
-            <td
-              colSpan={Object.keys(filteredSchema).length}
-              style={{ height: rowHeight }}
-            />
+            <td colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }} />
           </tr>
         ))
     }
@@ -359,11 +335,7 @@ class Table extends React.Component {
     return (
       <table style={{ width: adjustedTableWidth }}>
         <thead>{this.renderHeader()}</thead>
-        <tbody
-          ref={this.tbodyRef}
-          tabIndex="0"
-          onKeyDown={(e) => this.onKeyDown(e)}
-        >
+        <tbody ref={this.tbodyRef} tabIndex="0" onKeyDown={(e) => this.onKeyDown(e)}>
           {currentItems.map((item) => this.renderRow(item))}
           {this.renderMissingRows()}
         </tbody>

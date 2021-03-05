@@ -1,4 +1,4 @@
-import { INIT_SETTINGS, SET_PROGRESS_MAX, NO_DATA, SET_DISPLAY_TIME_ZONE } from '../actions/settings'
+import { INIT_SETTINGS, SET_PROGRESS_MAX, NO_DATA, SET_DISPLAY_TIME_ZONE, SET_SELECTED_ALL } from '../actions/settings'
 import { CLEAR_ITEMS } from '../actions/items'
 
 const initSettings = {
@@ -11,6 +11,8 @@ const initSettings = {
   defaultSearchPreset: '',
   noData: false,
   sidebarVisible: true,
+  selectedAll: false,
+  selectable: false,
 }
 
 function settings(state = initSettings, action) {
@@ -25,6 +27,8 @@ function settings(state = initSettings, action) {
       return Object.assign({}, state, { noData: true })
     case SET_DISPLAY_TIME_ZONE:
       return Object.assign({}, state, { displayTimeZone: action.displayTimeZone })
+    case SET_SELECTED_ALL:
+      return Object.assign({}, state, { selectedAll: action.selectedAll })
     default:
       return state
   }

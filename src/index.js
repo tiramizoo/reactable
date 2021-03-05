@@ -22,7 +22,6 @@ import { loadState, saveState } from './localStorage'
 
 import './index.css'
 
-
 class InitApp {
   constructor(config) {
     this.config = config
@@ -45,7 +44,6 @@ class InitApp {
           if (config.schema[k].filterable !== undefined) {
             Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
           }
-
 
           if (config.schema[k].dictionary) {
             Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
@@ -165,6 +163,12 @@ class InitApp {
     })
   }
 
+  getSelectedData() {
+    return this.store.getState().selectedItems.map((item) => {
+      return omit(item, '_key')
+    })
+  }
+
   updateTableWidth(width) {
     this.store.dispatch(updateTableWidth(width))
   }
@@ -178,8 +182,13 @@ class InitApp {
     return ReactDOM.render(
       <Provider store={this.store}>
         <Reactable />
-      </Provider>, state.settings.container, this.afterRender())
+      </Provider>,
+      state.settings.container,
+      this.afterRender(),
+    )
   }
 }
 
-export const init = config => { return new InitApp(config) }
+export const init = (config) => {
+  return new InitApp(config)
+}
