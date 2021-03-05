@@ -252,12 +252,13 @@ class Table extends React.Component {
   }
 
   renderHeader() {
-    const { filteredSchema, actions, selectedAll, selectable } = this.props
+    const { filteredSchema, actions, selectedAll, selectable, rowHeight } = this.props
+
     return (
       <tr>
         {selectable && (
-          <th>
-            <input type="checkbox" checked={selectedAll} onClick={() => this.toggleSelectedAll()} />
+          <th style={{ width: 30, height: rowHeight }}>
+            <input type="checkbox" checked={selectedAll} onChange={() => this.toggleSelectedAll()} />
           </th>
         )}
         {Object.entries(filteredSchema).map(([key, _]) => this.columnHeader(key))}
@@ -288,12 +289,12 @@ class Table extends React.Component {
   }
 
   renderRow(item) {
-    const { filteredSchema, selectedItems, selectable } = this.props
+    const { filteredSchema, selectedItems, selectable, rowHeight } = this.props
     const checked = !!selectedItems.find((i) => i._key === item._key)
     return (
       <tr key={item._key} className="record">
         {selectable && (
-          <td>
+          <td style={{ height: rowHeight }}>
             <input type="checkbox" checked={checked} onChange={() => this.toggleSelectedItem(item)} />
           </td>
         )}
