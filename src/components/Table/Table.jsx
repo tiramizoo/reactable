@@ -114,11 +114,12 @@ class Table extends React.Component {
   }
 
   toggleSelectedAll() {
-    const { filteredItems, setSelectedItems, setSelectedAll, selectedAll } = this.props
+    const { filteredItems, setSelectedItems, setSelectedAll, selectedAll, selectedItems } = this.props
     setSelectedAll(!selectedAll)
 
     if (!selectedAll) {
-      setSelectedItems(filteredItems)
+      const uniqFilteredItems = filteredItems.filter((fi) => !selectedItems.find((si) => si._key === fi._key))
+      setSelectedItems(selectedItems.concat(uniqFilteredItems))
     } else {
       setSelectedItems([])
     }
