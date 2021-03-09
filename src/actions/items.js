@@ -6,6 +6,7 @@ export const UPDATE_VIEWPORT = 'UPDATE_VIEWPORT'
 export const SET_SEARCH_QUERY_AND = 'SET_SEARCH_QUERY_AND'
 export const SET_SEARCH_QUERY_OR = 'SET_SEARCH_QUERY_OR'
 export const SET_FILTERED_ITEMS = 'SET_FILTERED_ITEMS'
+export const SET_SELECTED_ITEMS = 'SET_SELECTED_ITEMS'
 export const CLEAR_ALL = 'CLEAR_ALL'
 export const CLEAR_ITEMS = 'CLEAR_ITEMS'
 
@@ -76,5 +77,12 @@ export function updateViewport(items, limit, offset) {
     items,
     limit,
     offset,
+  }
+}
+
+export function setSelectedItems(items) {
+  return {
+    type: SET_SELECTED_ITEMS,
+    items,
   }
 }

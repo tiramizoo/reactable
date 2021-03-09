@@ -42,6 +42,7 @@
     <button type="button" name="button" onClick="clearData()">
       CLEAR DATA
     </button>
+    <button onClick="getSelectedDataLength()">Get selected count</button>
     <div id="table2"></div>
     <hr />
     <script src="../dist/reactable-bundle.js"></script>
@@ -257,6 +258,7 @@
         limit: 15,
         identifier: "asd123",
         disableSeconds: true,
+        selectable: true,
         controls: {
           csv: {
             onClick: function (e) {
@@ -348,6 +350,10 @@
 
       function clearData() {
         t2.clearData();
+      }
+
+      function getSelectedDataLength() {
+        alert(`Selected data: ${t2.getSelectedData().length}`)
       }
     </script>
   </body>

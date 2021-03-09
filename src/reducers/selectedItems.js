@@ -1,0 +1,16 @@
+import { SET_SELECTED_ITEMS, CLEAR_ITEMS } from '../actions/items'
+import { INIT_SETTINGS } from '../actions/settings'
+
+function selectedItems(state = [], action) {
+  switch (action.type) {
+    case SET_SELECTED_ITEMS:
+      return action.items
+    case INIT_SETTINGS:
+    case CLEAR_ITEMS:
+      return []
+    default:
+      return state
+  }
+}
+
+export default selectedItems

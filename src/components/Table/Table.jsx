@@ -1,19 +1,18 @@
 import React from 'react'
 import { sortBy, setSortDirectionToSchema, defaultFormatter } from '../../helpers/utilities'
 import xss from 'xss'
+import find from 'lodash/find'
 
 const cache = {}
 
 class Table extends React.Component {
   constructor(props) {
-    super(props);
-    this.tbodyRef = React.createRef();
+    super(props)
+    this.tbodyRef = React.createRef()
   }
 
   onKeyDown(e) {
-    const {
-      offset, setOffset, filteredItems, limit, updateViewport,
-    } = this.props
+    const { offset, setOffset, filteredItems, limit, updateViewport } = this.props
 
     let newOffset
     const moveBy = 1
@@ -48,48 +47,50 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    this.tbodyRef.current.addEventListener('wheel', (e) => {
-      this.onWheel(e)
-    }, {passive: false})
+    this.tbodyRef.current.addEventListener(
+      'wheel',
+      (e) => {
+        this.onWheel(e)
+      },
+      { passive: false },
+    )
   }
 
   onMouseDown(e) {
-    e.stopPropagation();
-    const startMouseX = e.screenX;
-    const th = e.currentTarget.parentElement;
-    const startW = th.offsetWidth;
+    e.stopPropagation()
+    const startMouseX = e.screenX
+    const th = e.currentTarget.parentElement
+    const startW = th.offsetWidth
 
-    const minColumnWidth = 5;
-    const maxColumnWidth = 300;
+    const minColumnWidth = 5
+    const maxColumnWidth = 300
 
-  	function onMouseMove( e ) {
-  		const w = startW + e.screenX - startMouseX;
+    function onMouseMove(e) {
+      const w = startW + e.screenX - startMouseX
       th.style.width = Math.min(maxColumnWidth, Math.max(minColumnWidth, w)) + 'px'
-  	}
+    }
 
-    function onMouseUp( e ) {
-  		onMouseMove(e);
+    function onMouseUp(e) {
+      onMouseMove(e)
 
-  		document.removeEventListener("mouseup", onMouseUp);
-  		document.removeEventListener("mousemove", onMouseMove);
-  	}
+      document.removeEventListener('mouseup', onMouseUp)
+      document.removeEventListener('mousemove', onMouseMove)
+    }
 
-    document.addEventListener("mouseup", onMouseUp);
-		document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener('mouseup', onMouseUp)
+    document.addEventListener('mousemove', onMouseMove)
   }
 
   onWheel(e) {
     e.currentTarget.focus()
 
-    const {
-      offset, setOffset, filteredItems, limit, updateViewport,
-    } = this.props
+    const { offset, setOffset, filteredItems, limit, updateViewport } = this.props
 
     const { deltaY } = e
 
     if (deltaY > 0) {
       // scroll down
-      const moveBy = (deltaY <= 5) ? 1 : 2
+      const moveBy = deltaY <= 5 ? 1 : 2
       const maxOffset = Math.max(filteredItems.length - limit, 0)
       const newOffset = Math.min(offset + moveBy, maxOffset)
       if (newOffset !== maxOffset) {
@@ -99,7 +100,7 @@ class Table extends React.Component {
       updateViewport(filteredItems, limit, newOffset)
     } else if (deltaY < 0) {
       // scroll up
-      const moveBy = (deltaY >= -5) ? 1 : 2
+      const moveBy = deltaY >= -5 ? 1 : 2
       const minOffset = 0
 
       const newOffset = Math.max(offset - moveBy, minOffset)
@@ -109,6 +110,29 @@ class Table extends React.Component {
         e.preventDefault()
       }
       updateViewport(filteredItems, limit, newOffset)
+    }
+  }
+
+  toggleSelectedAll() {
+    const { filteredItems, setSelectedItems, setSelectedAll, selectedAll, selectedItems } = this.props
+    setSelectedAll(!selectedAll)
+
+    if (!selectedAll) {
+      const uniqFilteredItems = filteredItems.filter((fi) => !selectedItems.find((si) => si._key === fi._key))
+      setSelectedItems(selectedItems.concat(uniqFilteredItems))
+    } else {
+      setSelectedItems([])
+    }
+  }
+
+  toggleSelectedItem(item) {
+    const { selectedItems, setSelectedItems } = this.props
+    const checked = !!selectedItems.find((i) => i._key === item._key)
+
+    if (checked) {
+      setSelectedItems(selectedItems.filter((i) => i._key !== item._key))
+    } else {
+      setSelectedItems([...selectedItems, item])
     }
   }
 
@@ -140,11 +164,11 @@ class Table extends React.Component {
     } else {
       const defaultWidths = {
         boolean: 60,
-        date:    90,
-        time:    70,
-        number:  60,
+        date: 90,
+        time: 70,
+        number: 60,
         duration: 70,
-        datetime: 140
+        datetime: 140,
       }
       return defaultWidths[schemaKey.type]
     }
@@ -152,8 +176,15 @@ class Table extends React.Component {
 
   sort(key) {
     const {
-      filteredSchema, setSortDirection, setOffset, updateViewport, filteredItems,
-      limit, setFilteredItems, items, setSortItems,
+      filteredSchema,
+      setSortDirection,
+      setOffset,
+      updateViewport,
+      filteredItems,
+      limit,
+      setFilteredItems,
+      items,
+      setSortItems,
     } = this.props
     const direction = this.toggleDirection(key)
     setSortDirection(key, direction)
@@ -178,7 +209,7 @@ class Table extends React.Component {
         onClick={() => this.sort(key)}
       >
         <span title={this.columnHeaderName(key)}>{this.columnHeaderName(key)}</span>
-        <div className='reactable-resize-column' onMouseDown={ this.onMouseDown }></div>
+        <div className="reactable-resize-column" onMouseDown={this.onMouseDown}></div>
       </th>
     )
   }
@@ -195,43 +226,47 @@ class Table extends React.Component {
     const formatter = schemaParams.formatter || defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds)
     const cacheKey = `${row._key}/${key}`
 
-    if (cache[cacheKey] === undefined || schemaParams.type === 'datetime')  {
+    if (cache[cacheKey] === undefined || schemaParams.type === 'datetime') {
       cache[cacheKey] = formatter.apply(schema, [row[key], row]) || ''
     }
 
     let altTitle
     if (schemaParams.type !== 'boolean' && value !== null) {
-      altTitle = xss(defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds).apply(schema, [row[key], row]) || '')
+      altTitle = xss(
+        defaultFormatter(schemaParams.type, displayTimeZone, disableSeconds).apply(schema, [row[key], row]) || '',
+      )
     }
 
     let cellHtml
 
     if (altTitle) {
-      cellHtml = { __html: `<span title="${altTitle}">${cache[cacheKey]}</span>` }
+      cellHtml = {
+        __html: `<span title="${altTitle}">${cache[cacheKey]}</span>`,
+      }
     } else {
       cellHtml = { __html: cache[cacheKey] }
     }
 
     return (
-      <td
-        className={classNames.join(' ')}
-        key={key}
-        dangerouslySetInnerHTML={cellHtml}
-        style={{ height: rowHeight }}
-      />
+      <td className={classNames.join(' ')} key={key} dangerouslySetInnerHTML={cellHtml} style={{ height: rowHeight }} />
     )
   }
 
   renderHeader() {
-    const { filteredSchema, actions } = this.props
+    const { filteredSchema, actions, selectedAll, selectable, rowHeight } = this.props
+
     return (
       <tr>
-        { Object.entries(filteredSchema).map(([key, _]) => this.columnHeader(key))}
-        { actions && <th /> }
+        {selectable && (
+          <th style={{ width: 30, height: rowHeight }}>
+            <input type="checkbox" checked={selectedAll} onChange={() => this.toggleSelectedAll()} />
+          </th>
+        )}
+        {Object.entries(filteredSchema).map(([key, _]) => this.columnHeader(key))}
+        {actions && <th />}
       </tr>
     )
   }
-
 
   renderActions(row) {
     const { actions } = this.props
@@ -239,9 +274,9 @@ class Table extends React.Component {
 
     return (
       <td>
-        { Object.entries(actions).map(([key, value]) => (
+        {Object.entries(actions).map(([key, value]) => (
           <button
-            onClick={e => value.onClick(row, e)}
+            onClick={(e) => value.onClick(row, e)}
             className={value.className}
             key={key}
             disabled={value.disabled && value.disabled(row)}
@@ -255,39 +290,41 @@ class Table extends React.Component {
   }
 
   renderRow(item) {
-    const { filteredSchema } = this.props
+    const { filteredSchema, selectedItems, selectable, rowHeight } = this.props
+    const checked = !!selectedItems.find((i) => i._key === item._key)
     return (
       <tr key={item._key} className="record">
-        { Object.entries(filteredSchema).map(([key, keySchema]) => (
-          this.columnBody(item, key, keySchema)))}
-        { this.renderActions(item) }
+        {selectable && (
+          <td style={{ height: rowHeight }}>
+            <input type="checkbox" checked={checked} onChange={() => this.toggleSelectedItem(item)} />
+          </td>
+        )}
+        {Object.entries(filteredSchema).map(([key, keySchema]) => this.columnBody(item, key, keySchema))}
+        {this.renderActions(item)}
       </tr>
     )
   }
 
   // keeps table height stable by adding fake rows
   renderMissingRows() {
-    const {
-      rowHeight, limit, currentItems, filteredSchema,
-    } = this.props
-
+    const { rowHeight, limit, currentItems, filteredSchema } = this.props
 
     if (currentItems.length < limit) {
-      return Array(limit - currentItems.length).fill().map((a, ix) => (
-        <tr key={ix}>
-          <td colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }} />
-        </tr>
-      ))
+      return Array(limit - currentItems.length)
+        .fill()
+        .map((a, ix) => (
+          <tr key={ix}>
+            <td colSpan={Object.keys(filteredSchema).length} style={{ height: rowHeight }} />
+          </tr>
+        ))
     }
     return null
   }
 
   render() {
-    const {
-      tableWidth, currentItems, sidebarVisible
-    } = this.props
+    const { tableWidth, currentItems, sidebarVisible, filteredSchema } = this.props
 
-    const sidebarWidth = 30;
+    const sidebarWidth = 30
 
     let adjustedTableWidth
 
@@ -295,20 +332,14 @@ class Table extends React.Component {
       adjustedTableWidth = tableWidth - sidebarWidth
     } else {
       adjustedTableWidth = tableWidth
-    };
+    }
 
     return (
-      <table style={{ width: adjustedTableWidth}}>
-        <thead>
-          { this.renderHeader() }
-        </thead>
-        <tbody
-          ref={this.tbodyRef}
-          tabIndex="0"
-          onKeyDown={e => this.onKeyDown(e)}
-        >
-          { currentItems.map(item => this.renderRow(item)) }
-          { this.renderMissingRows() }
+      <table style={{ width: adjustedTableWidth }}>
+        <thead>{this.renderHeader()}</thead>
+        <tbody ref={this.tbodyRef} tabIndex="0" onKeyDown={(e) => this.onKeyDown(e)}>
+          {currentItems.map((item) => this.renderRow(item))}
+          {this.renderMissingRows()}
         </tbody>
       </table>
     )

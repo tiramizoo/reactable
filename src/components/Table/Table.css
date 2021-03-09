@@ -5,7 +5,7 @@
 }
 
 .reactable button:disabled {
-  opacity: 0.5
+  opacity: 0.5;
 }
 
 .reactable table {
@@ -54,7 +54,6 @@
   position: relative;
 }
 
-
 .reactable table th.sortable::after {
   content: '';
   height: 30px;
@@ -69,19 +68,21 @@
 }
 
 .reactable table th.sortable.asc::after {
-	background:url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right !important;
+  background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==)
+    no-repeat center right !important;
 }
 
 .reactable table th.sortable.desc::after {
-	background:url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right !important;
+  background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=)
+    no-repeat center right !important;
 }
-
 
 .reactable table th.sorted {
   background-color: #e6e6e6;
 }
 
-.reactable td button, .reactable th button  {
+.reactable td button,
+.reactable th button {
   background-color: buttonface;
   cursor: default;
   color: buttontext;
@@ -93,7 +94,6 @@
   align-items: flex-start;
   text-align: center;
 }
-
 
 .reactable table td {
   padding: 0 5px;
@@ -114,7 +114,11 @@
   border: 1px solid #e2e2e2;
 }
 
-.reactable table td.number, .reactable table td.date, .reactable table td.datetime, .reactable table td.time,  .reactable table td.duration {
+.reactable table td.number,
+.reactable table td.date,
+.reactable table td.datetime,
+.reactable table td.time,
+.reactable table td.duration {
   text-align: right;
   color: darkblue;
 }
@@ -134,9 +138,13 @@
 }
 
 .reactable table tr.record:nth-child(even) td {
-  background-color: #f2f2f2
+  background-color: #f2f2f2;
 }
 
 .reactable table tr.record:nth-child(odd) td {
-  background-color: #fff
+  background-color: #fff;
+}
+
+.reactable tfoot td {
+  height: 20px;
 }

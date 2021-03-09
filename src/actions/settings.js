@@ -7,6 +7,7 @@ export const TOGGLE_SCHEMA_CONTROL = 'TOGGLE_SCHEMA_CONTROL'
 export const SET_PROGRESS_MAX = 'SET_PROGRESS_MAX'
 export const NO_DATA = 'NO_DATA'
 export const SET_DISPLAY_TIME_ZONE = 'SET_DISPLAY_TIME_ZONE'
+export const SET_SELECTED_ALL = 'SET_SELECTED_ALL'
 
 export function initSettings(settings) {
   return {
@@ -53,5 +54,12 @@ export function setDisplayTimeZone(displayTimeZone) {
   return {
     type: SET_DISPLAY_TIME_ZONE,
     displayTimeZone,
+  }
+}
+
+export function setSelectedAll(selectedAll) {
+  return {
+    type: SET_SELECTED_ALL,
+    selectedAll,
   }
 }
