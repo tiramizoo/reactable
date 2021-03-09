@@ -322,7 +322,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { tableWidth, currentItems, sidebarVisible } = this.props
+    const { tableWidth, currentItems, sidebarVisible, filteredSchema } = this.props
 
     const sidebarWidth = 30
 

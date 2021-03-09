@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 
-
 import Table from '../Table'
 import ScrollBar from '../ScrollBar'
 import Counters from '../Counters'
 import Sidebar from '../Sidebar'
-import ProgressBar from '../ProgressBar'
 
+const classNames = require('classnames')
 
 class Reactable extends Component {
   componentDidMount() {
-    const {
-      container, updateTableWidth,
-    } = this.props
+    const { container, updateTableWidth } = this.props
 
     updateTableWidth(container.clientWidth)
 
@@ -25,11 +22,10 @@ class Reactable extends Component {
     const { width, sidebarVisible } = this.props
 
     return (
-      <div className="reactable" style={{ width }}>
+      <div className={classNames('reactable', { sidebarVisible: sidebarVisible })} style={{ width }}>
         <Table />
         <ScrollBar />
         <Counters />
-        <ProgressBar />
         {sidebarVisible && <Sidebar />}
       </div>
     )
