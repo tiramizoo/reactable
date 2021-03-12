@@ -36,6 +36,9 @@ window.schemaUsers = {
     type: "date",
     label: "Date of Birth",
   },
+  age: {
+    type: "number"
+  },
   ip: { type: "text", filterable: false },
   website: { type: "text", visible: true },
   phone_number: { type: "text", visible: true },

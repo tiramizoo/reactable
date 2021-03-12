@@ -22,6 +22,7 @@ task :generate_dataset, [:size] do |t, args|
         "ip":            FFaker::Internet.ip_v4_address,
         "gender":        fake_gender,
         "date_of_birth": fake_date,
+        "age":           rand(0..100),
         "active":        [false, true, nil].sample,
         "phone_number":  FFaker::PhoneNumberDE.phone_number,
         "currency":      FFaker::Currency.code,

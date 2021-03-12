@@ -49,7 +49,7 @@ export const defaultFormatter = (type, displayTimeZone, disableSeconds) => {
     case 'time':
     case 'duration':
       return (value) => {
-        if (value) {
+        if (value !== null) {
           return timeFormatter(value, disableSeconds)
         }
         return null
@@ -66,7 +66,7 @@ export const defaultFormatter = (type, displayTimeZone, disableSeconds) => {
       }
     case 'date':
       return (value) => {
-        if (value) {
+        if (value !== null) {
           return dateFormatter(value)
         }
 
@@ -74,7 +74,7 @@ export const defaultFormatter = (type, displayTimeZone, disableSeconds) => {
       }
     case 'datetime':
       return (value) => {
-        if (value) {
+        if (value !== null) {
           return datetimeFormatter(value, displayTimeZone, disableSeconds)
         }
 
@@ -82,7 +82,7 @@ export const defaultFormatter = (type, displayTimeZone, disableSeconds) => {
       }
     default:
       return (value) => {
-        if (value) {
+        if (value !== null) {
           return value.toString()
         }
 
