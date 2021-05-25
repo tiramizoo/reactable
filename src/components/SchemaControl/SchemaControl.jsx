@@ -18,7 +18,7 @@ const SchemaControl = (props) => {
       if (Object.keys(filteredSchema).length > 1) {
         removeFromFilteredSchema(key)
       } else {
-        alert("At least 1 column must be visible")
+        alert('At least 1 column must be visible')
       }
     }
   }
@@ -30,26 +30,22 @@ const SchemaControl = (props) => {
   const renderElement = (key) => {
     const { filteredSchema } = props
     const value = !!filteredSchema[key]
-    return (
-      <li key={key}>
-        <label htmlFor={prefix(key)}>
-          {schema[key].label || key}
-        </label>
-        <input
-          id={prefix(key)}
-          type="checkbox"
-          onChange={e => handleChange(e, key)}
-          checked={value}
-        />
-      </li>
-    )
+
+    if (props.schema[key].secret) {
+      return null
+    } else {
+      return (
+        <li key={key}>
+          <label htmlFor={prefix(key)}>{schema[key].label || key}</label>
+          <input id={prefix(key)} type="checkbox" onChange={(e) => handleChange(e, key)} checked={value} />
+        </li>
+      )
+    }
   }
 
   return (
     <div className="schemaControl">
-      <ul>
-        { Object.keys(schema).map(key => renderElement(key)) }
-      </ul>
+      <ul>{Object.keys(schema).map((key) => renderElement(key))}</ul>
     </div>
   )
 }

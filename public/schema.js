@@ -50,5 +50,5 @@ window.schemaUsers = {
       return this.gender.dictionary[value];
     },
   },
-  email: { type: "text" },
+  email: { type: "text", secret: true },
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SearchControl from '../SearchControl'
 import SchemaControl from '../SchemaControl'
+import filter from 'lodash/filter'
 
 class Sidebar extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Sidebar extends Component {
     e.stopPropagation()
     if (currentPanel !== type && show) {
       this.setState({
-        currentPanel: type
+        currentPanel: type,
       })
     } else {
       this.setState({
@@ -57,72 +58,66 @@ class Sidebar extends Component {
   renderFooterControls() {
     const { controls } = this.props
 
-    return (
-      Object.entries(controls).map(([key, value]) => {
-        if (!value) {
-          return null
-        }
+    return Object.entries(controls).map(([key, value]) => {
+      if (!value) {
+        return null
+      }
 
-        return (
-          <button
-            onClick={e => value.onClick(e)}
-            className={value.className}
-            key={key}
-            disabled={value.disabled}
-            title={value.label || key}
-          />
-        )
-      })
-    )
+      return (
+        <button
+          onClick={(e) => value.onClick(e)}
+          className={value.className}
+          key={key}
+          disabled={value.disabled}
+          title={value.label || key}
+        />
+      )
+    })
   }
-
 
   render() {
     const { searchQueryOr, searchQueryAnd, schema, filteredSchema } = this.props
     const badge = Object.keys(searchQueryOr).length + Object.keys(searchQueryAnd).length
-    const schemaBadge = Object.keys(schema).length
+    const schemaBadge = Object.values(schema).filter((entry) => {
+      return entry.secret !== true
+    }).length
     const filteredSchemaBadge = Object.keys(filteredSchema).length
 
     const { currentPanel, show } = this.state
 
-    return(
+    return (
       <div className={`reactable-sidebar ${this.sidebarClass()}`}>
-        <div className='reactable-sidebar-slide' onClick={e => this.toggleSlide(e)}>
+        <div className="reactable-sidebar-slide" onClick={(e) => this.toggleSlide(e)}>
           <div className={this.titleClass('search')} onClick={(e) => this.togglePanelState(e, 'search')}>
-            <span className='r-icon-search'></span>
-            { badge > 0 &&
-              <div className='reactable-title-badge reactable-badge__red'>{badge}</div>
-            }
+            <span className="r-icon-search"></span>
+            {badge > 0 && <div className="reactable-title-badge reactable-badge__red">{badge}</div>}
           </div>
 
           <div className={this.titleClass('settings')} onClick={(e) => this.togglePanelState(e, 'settings')}>
-            <div className='r-icon-sliders'></div>
-            { schemaBadge !== filteredSchemaBadge &&
-              <div className='reactable-title-badge reactable-badge__green'>{Object.keys(filteredSchema).length}</div>
-            }
+            <div className="r-icon-sliders"></div>
+            {schemaBadge !== filteredSchemaBadge && (
+              <div className="reactable-title-badge reactable-badge__green">{Object.keys(filteredSchema).length}</div>
+            )}
           </div>
 
-          <div className='reactable-sidebar-controls'>
-            {this.renderFooterControls()}
-          </div>
+          <div className="reactable-sidebar-controls">{this.renderFooterControls()}</div>
         </div>
 
-        { show &&
-          <div className='reactable-panel'>
-            { currentPanel === 'search' &&
-              <div className='reactable-panel-body'>
+        {show && (
+          <div className="reactable-panel">
+            {currentPanel === 'search' && (
+              <div className="reactable-panel-body">
                 <SearchControl />
               </div>
-            }
+            )}
 
-            { currentPanel === 'settings' &&
-              <div className='reactable-panel-body'>
+            {currentPanel === 'settings' && (
+              <div className="reactable-panel-body">
                 <SchemaControl />
               </div>
-            }
+            )}
           </div>
-        }
-
+        )}
       </div>
     )
   }

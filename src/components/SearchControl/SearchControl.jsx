@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 
-
 import SearchText from './SearchText'
 import SearchBoolean from './SearchBoolean'
 import SearchNumber from './SearchNumber'
@@ -15,14 +14,14 @@ import { queryDataType } from '../../helpers/utilities'
 
 class SearchControl extends Component {
   static contextTypes = {
-    store: PropTypes.object
+    store: PropTypes.object,
   }
 
   constructor(props) {
     super(props)
     this.state = {
       clearAll: 0,
-      searchPreset: props.defaultSearchPreset || "",
+      searchPreset: props.defaultSearchPreset || '',
     }
   }
 
@@ -49,11 +48,11 @@ class SearchControl extends Component {
   }
 
   columnFilter(key, schemaParams) {
-    if (schemaParams.filterable !== undefined && schemaParams.filterable === false) {
+    if (schemaParams.filterable === false) {
       return null
     }
     return (
-      <div className='filter' key={key}>
+      <div className="filter" key={key}>
         {this.getSearchInput(schemaParams.type, key)}
       </div>
     )
@@ -88,12 +87,15 @@ class SearchControl extends Component {
     }
 
     return (
-      <select
-        value={searchPreset}
-        onChange={(e) => this.handleSearchPresetsChange(e.target.value)}
-      >
-        <option value="" key="empty">---</option>
-        { Object.keys(searchPresets).map(key => <option value={key} key={key}>{key}</option>) }
+      <select value={searchPreset} onChange={(e) => this.handleSearchPresetsChange(e.target.value)}>
+        <option value="" key="empty">
+          ---
+        </option>
+        {Object.keys(searchPresets).map((key) => (
+          <option value={key} key={key}>
+            {key}
+          </option>
+        ))}
       </select>
     )
   }
@@ -103,15 +105,15 @@ class SearchControl extends Component {
 
     return (
       <div className="SearchControl">
-        <div className='search-presets'>
-          <div className='search-presets-dropdown'>
-            { this.renderSearchPresets() }
-          </div>
-          <div className='search-presets-reset'>
-            <button className='clear-all' onClick={() => this.handleClearAllChange()}>Reset</button>
+        <div className="search-presets">
+          <div className="search-presets-dropdown">{this.renderSearchPresets()}</div>
+          <div className="search-presets-reset">
+            <button className="clear-all" onClick={() => this.handleClearAllChange()}>
+              Reset
+            </button>
           </div>
         </div>
-        { Object.entries(schema).map(([key, keySchema]) => {
+        {Object.entries(schema).map(([key, keySchema]) => {
           return this.columnFilter(key, keySchema)
         })}
       </div>

@@ -24,7 +24,23 @@ import './index.css'
 
 class InitApp {
   constructor(config) {
+    Object.keys(config.schema).forEach((k) => {
+      if (config.schema[k].secret) {
+        config.schema[k].visible = false
+        config.schema[k].filterable = false
+      } else {
+        if (config.schema[k].visible !== false) {
+          config.schema[k].visible = true
+        }
+
+        if (config.schema[k].filterable !== false) {
+          config.schema[k].filterable = true
+        }
+      }
+    })
+
     this.config = config
+
     const persistedState = loadState(config.identifier)
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -35,15 +51,16 @@ class InitApp {
           if (config.schema[k].formatter) {
             Object.assign(persistedState.filteredSchema[k], { formatter: config.schema[k].formatter })
           }
+
           if (config.schema[k].type) {
             Object.assign(persistedState.filteredSchema[k], { type: config.schema[k].type })
           }
+
           if (config.schema[k].label) {
             Object.assign(persistedState.filteredSchema[k], { label: config.schema[k].label })
           }
-          if (config.schema[k].filterable !== undefined) {
-            Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
-          }
+
+          Object.assign(persistedState.filteredSchema[k], { filterable: config.schema[k].filterable })
 
           if (config.schema[k].dictionary) {
             Object.assign(persistedState.filteredSchema[k], { dictionary: config.schema[k].dictionary })
@@ -168,7 +185,6 @@ class InitApp {
   }
 
   getSelectedData() {
-    debugger
     return this.store.getState().selectedItems.map((item) => {
       return omit(item, '_key')
     })
