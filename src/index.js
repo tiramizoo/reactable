@@ -163,7 +163,12 @@ class InitApp {
     })
   }
 
+  getFilteredSchema() {
+    return this.store.getState().filteredSchema
+  }
+
   getSelectedData() {
+    debugger
     return this.store.getState().selectedItems.map((item) => {
       return omit(item, '_key')
     })

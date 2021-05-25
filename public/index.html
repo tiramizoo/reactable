@@ -43,6 +43,7 @@
       CLEAR DATA
     </button>
     <button onClick="getSelectedDataLength()">Get selected count</button>
+    <button onClick="getVisibleColumns()">getVisibleColumns</button>
     <div id="table2"></div>
     <hr />
     <script src="../dist/reactable-bundle.js"></script>
@@ -364,6 +365,10 @@
 
       function getSelectedDataLength() {
         alert(`Selected data: ${t2.getSelectedData().length}`)
+      }
+
+      function getVisibleColumns() {
+        alert(Object.keys(t2.getFilteredSchema()))
       }
     </script>
   </body>
